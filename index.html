@@ -37,8 +37,8 @@ header{position:sticky;top:0;z-index:50;background:rgba(11,4,24,.82);backdrop-fi
 .logo .l1{font-family:Monoton,cursive;font-size:24px;letter-spacing:2px;color:#fff;text-shadow:0 0 6px var(--pink),0 0 18px var(--pink),0 0 36px var(--hot)}
 .logo .l2{font-family:Pacifico,cursive;font-size:17px;color:var(--cyan);text-shadow:0 0 8px var(--cyan);white-space:nowrap}
 .hsp{flex:1}
-.flovo{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--sun);opacity:.75;align-self:flex-end;margin-bottom:9px;white-space:nowrap}
-@media(max-width:430px){.flovo{display:none}}
+.lsub{display:flex;flex-direction:column;line-height:1.05}.flovo{font-family:"JetBrains Mono",monospace;font-size:8.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--sun);opacity:.8;white-space:nowrap;margin-top:2px}
+
 .heroSig{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--sun);opacity:.85;margin-top:8px;text-shadow:0 1px 6px #000}
 .sig{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:12px;color:var(--mut)}
 .sig b{font-family:Pacifico,cursive;font-weight:400;font-size:17px;color:var(--pink);text-shadow:0 0 8px var(--pink)}
@@ -155,7 +155,7 @@ input.search:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,43,214
 .mapbox svg{display:block;width:100%;height:auto}
 .region{cursor:pointer;transition:filter .2s,opacity .2s}
 .region:hover,.region.on{filter:drop-shadow(0 0 10px var(--pink)) brightness(1.25)}
-.pin{cursor:pointer}
+
 .pin circle.p{animation:pulse 2.2s infinite}
 @keyframes pulse{0%{r:5;opacity:1}100%{r:16;opacity:0}}
 .maptools{position:absolute;top:10px;right:10px;display:flex;gap:6px}
@@ -417,6 +417,56 @@ body.noanim .rv{opacity:1;transform:none}
 .coach img{max-width:100%;border-radius:12px;margin-top:8px}
 .coach .out{white-space:pre-wrap;font-size:14px;line-height:1.55;margin-top:10px}
 @media(max-width:999px){.toast{bottom:calc(100px + env(safe-area-inset-bottom))}}
+
+/* ===== 3D map ===== */
+.mapbox{background:radial-gradient(ellipse at 50% 20%,#1b2f6e 0%,#0a1236 55%,#05071a 100%);min-height:300px;overflow:hidden}
+.mapbox .stage{perspective:1100px;perspective-origin:50% 0%;padding:7% 7% 2%}
+.mapbox .plane{position:relative;transform-style:preserve-3d;transform:rotateX(46deg) rotateZ(-9deg) scale(.96) translateY(-4%);transition:transform 1s cubic-bezier(.2,.8,.2,1);animation:mfloat 9s ease-in-out infinite}
+.mapbox .stage.flat .plane{transform:none;animation:none}
+@keyframes mfloat{0%,100%{transform:rotateX(46deg) rotateZ(-9deg) scale(.96) translateY(-4%)}50%{transform:rotateX(44deg) rotateZ(-7deg) scale(.96) translateY(-5%)}}
+.mapbox .plane svg{display:block;width:100%;height:auto;border-radius:18px;box-shadow:0 40px 60px rgba(0,0,0,.55),0 0 0 1px rgba(34,231,255,.25),0 0 60px rgba(34,231,255,.15)}
+.mapbox .region{cursor:pointer;transition:transform .35s cubic-bezier(.2,.8,.2,1),filter .3s}
+.mapbox .region:hover{filter:brightness(1.25) drop-shadow(0 0 8px rgba(255,255,255,.35))}
+.mapbox .region.on{filter:brightness(1.3) drop-shadow(0 0 12px rgba(255,43,214,.7))}
+.tower{position:absolute;width:5px;height:0;transform-style:preserve-3d;pointer-events:none}
+.tower i{position:absolute;left:0;bottom:0;width:6px;height:var(--h);transform-origin:bottom center;transform:rotateX(-90deg);background:linear-gradient(0deg,rgba(255,43,214,.95),rgba(34,231,255,.85) 70%,#fff);box-shadow:0 0 10px rgba(255,43,214,.8);border-radius:1px;animation:twr 3.2s ease-in-out infinite;animation-delay:var(--d)}
+.tower i:nth-child(2){transform:rotateX(-90deg) rotateY(90deg)}
+@keyframes twr{50%{filter:brightness(1.5)}}
+.stage.flat .tower{display:none}
+.mlabels{position:absolute;inset:0;pointer-events:none}
+.mlbl{position:absolute;transform:translate(-50%,-115%);pointer-events:auto;display:flex;align-items:center;gap:6px;white-space:nowrap;font-family:"Bebas Neue";font-size:15px;letter-spacing:1px;color:#fff;background:rgba(11,4,24,.72);border:1px solid var(--c);border-radius:999px;padding:3px 10px 2px 6px;backdrop-filter:blur(6px);box-shadow:0 4px 14px rgba(0,0,0,.45),0 0 12px color-mix(in srgb,var(--c) 45%,transparent);transition:transform .2s}
+.mlbl .dot{width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 8px var(--c)}
+.mlbl::after{content:"";position:absolute;left:50%;bottom:-7px;width:1px;height:7px;background:var(--c);opacity:.8}
+.mlbl:hover,.mlbl.on{transform:translate(-50%,-125%) scale(1.06);background:color-mix(in srgb,var(--c) 35%,#0b0418)}
+.mpin{position:absolute;transform:translate(-50%,-100%);pointer-events:auto;width:26px;height:26px;border-radius:50% 50% 50% 0;rotate:-45deg;background:var(--sun);border:2px solid #0b0418;display:grid;place-items:center;font-size:12px;box-shadow:0 4px 10px rgba(0,0,0,.5)}
+.mpin.done{background:var(--teal)}
+.mpin{line-height:1}
+.compass{position:absolute;left:12px;top:10px;width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.3);display:grid;place-items:center;font-family:"Bebas Neue";color:#fff;font-size:15px;background:rgba(11,4,24,.6)}
+@media(max-width:600px){.mlbl{font-size:12.5px;padding:2px 7px 1px 5px}.mlbl .dot{width:6px;height:6px}}
+
+/* ===== v4 home declutter ===== */
+.hero{min-height:0}
+.hero .inner{padding:22px 16px 30px}
+.htitle{font-size:clamp(38px,10vw,84px)}
+.cd{margin:16px 0 8px}
+.cdnote{font-size:12px;opacity:.85}
+.ctas{margin-top:14px;gap:8px}
+.cta{padding:10px 14px;font-size:13px}
+.facts{display:flex;overflow-x:auto;gap:8px;margin-top:-18px;padding:0 0 4px;scroll-snap-type:x mandatory;scrollbar-width:none}
+.facts::-webkit-scrollbar{display:none}
+.fact{flex:0 0 auto;min-width:128px;padding:9px 12px;scroll-snap-align:start}
+.fact .v{font-size:21px}
+.fact .s{font-size:11px}
+.ticker{margin-top:12px}
+.dashbar{margin:18px 0 10px}
+.dashbar b{font-size:24px}
+.rowscroll{display:flex!important;overflow-x:auto;gap:12px;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:thin;grid-template-columns:none!important}
+.rowscroll>*{flex:0 0 min(78%,300px);scroll-snap-align:start}
+.media.rowscroll>*{flex-basis:min(62%,240px)}
+.wb{padding:12px}
+.wh{padding:10px 12px}
+@media(max-width:760px){.bento .b{min-height:96px}.bento .h2{min-height:150px}.bento .b .big{font-size:27px}.bento .b .sm{font-size:11.5px}}
+@media(max-width:600px){.wh h3{font-size:11.5px;letter-spacing:1.2px}.dashbar .dim{font-size:11.5px}}
 </style>
 </head>
 <body>
@@ -432,11 +482,11 @@ body.noanim .rv{opacity:1;transform:none}
 <header style="padding-top:env(safe-area-inset-top)">
   <div class="wrap">
     <div class="hbar">
-      <a class="logo" href="#home" aria-label="Start"><span class="l1">LEONIDA</span><span class="l2">Pro Guide</span><span class="flovo">by Flovo</span></a>
+      <a class="logo" href="#home" aria-label="Start"><span class="l1">LEONIDA</span><span class="lsub"><span class="l2">Pro Guide</span><span class="flovo">by Flovo</span></span></a>
       <span class="hsp"></span>
       <button class="ib" id="btnSearch" aria-label="Suche">🔍</button>
       <button class="ib" id="btnSet" aria-label="Einstellungen">⚙️</button>
-      <button class="ib lang" id="btnLang"><span id="langLbl"><b>DE</b>/EN</span></button>
+      <button class="ib lang" id="btnLang" style="display:none"><span id="langLbl"><b>DE</b>/EN</span></button>
     </div>
     <nav class="tabs" id="tabs"></nav>
   </div>
@@ -504,7 +554,7 @@ body.noanim .rv{opacity:1;transform:none}
         <div class="hsub" data-i="hsub"></div>
         <div id="cdBox"></div>
         <div class="cdnote" data-i="cdnote"></div>
-        <div class="pills" id="pills"></div>
+        <div class="pills" id="pills" style="display:none"></div>
         <div class="ctas"><a class="cta" href="#map" data-i="ctaMap"></a><a class="cta ghost" href="#tips" data-i="ctaSim"></a></div>
         <div class="heroSig">✦ a Flovo production ✦</div>
       </div>
@@ -628,7 +678,7 @@ body.noanim .rv{opacity:1;transform:none}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 12.11. 19:49</div>
+    <div class="dim" style="margin-top:8px">App-Version 12.11. 19:57</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -713,7 +763,7 @@ const UI={
  mediaNote:L('Antippen öffnet das Original bei Rockstar bzw. YouTube. Rockstars Bilder darf und kann ich nicht in die App kopieren – deshalb die Neon-Vorschauen.','Tap to open the original at Rockstar or YouTube. Rockstar’s images can’t be copied into the app – hence the neon previews.'),
  h_news:L('Neu aus der Community · Discord r/GTA6','Fresh from the community · Discord r/GTA6'),
  searchLbl:L('Suche','Search'),moreTitle:L('Alle Bereiche','All sections'),
- dashTitle:L('Deine Kommandozentrale','Your command center'),dashHint:L('Widgets am ⠿ greifen und verschieben · ⌄ klappt ein. Wird gespeichert.','Grab widgets by ⠿ to reorder · ⌄ collapses. Saved automatically.'),dashReset:L('↺ Layout','↺ Layout'),
+ dashTitle:L('Kommandozentrale','Command center'),dashHint:L('⠿ ziehen = sortieren · ⌄ = einklappen','⠿ drag = reorder · ⌄ = collapse'),dashReset:L('↺ Layout','↺ Layout'),
  dreamTitle:L('🏆 Deine Traumgarage','🏆 Your dream garage'),dreamHint:L('Zieh bis zu 6 Autos hier rein (am Symbol greifen) oder tippe auf +. Plätze lassen sich untereinander tauschen.','Drag up to 6 cars in here (grab the icon) or tap +. Slots can be reordered.'),
  h_vsys:L('Fahrzeug-Systeme','Vehicle systems'),h_allcars:L('Alle Fahrzeuge','All vehicles'),
  planHint:L('Zieh Aktivitäten zwischen die Spalten oder tipp sie an, um sie eine Spalte weiterzuschieben – dein Plan für Launch-Tag und erste Woche.','Drag activities between columns or tap to move them one column on – your plan for launch day and week one.'),
@@ -807,7 +857,8 @@ const HEAT=[
 ];
 const HEATIND=[L('📹 Von Kamera erfasst','📹 Caught on CCTV'),L('💑 Fahndung nach einem Paar','💑 Looking for a couple'),L('👕 Kleidung bekannt','👕 Clothing known'),L('🙂 Identität bekannt','🙂 Identity known'),L('🔫 Tatwaffe bekannt','🔫 Weapon known')];
 const PLANCOLS=[['idea',L('Ideen','Ideas'),'#9b5cff'],['d1',L('Launch-Tag','Launch day'),'#ff2bd6'],['w1',L('Erste Woche','First week'),'#22e7ff'],['done',L('Erledigt ✓','Done ✓'),'#19f5c1']];
-const WIDGETS=['fav','bento','news','media','dream','plan','heat','prep','tl','prog','legend'];
+const WIDGETS=['media','news','fav','bento','dream','plan','prog','heat','prep','tl','legend'];
+const WCOL0={heat:1,prep:1,tl:1,legend:1};
 const WHALF={fav:1,dream:1,plan:1,heat:1,prep:1,tl:1,prog:1,legend:1};
 const FIRST=[
  L('⚙️ Einstellungen: Minimap dauerhaft an, Gehtempo & Zielhilfe wählen','⚙️ Settings: minimap always on, pick walk speed & aim assist'),
@@ -1295,7 +1346,7 @@ function route(){
  document.querySelectorAll('#sideNav [data-v],#moreGrid [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
  document.querySelectorAll('#bottom [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
  const mb=$('#bottom [data-more]');if(mb)mb.classList.toggle('on',!B.includes(v));
- setTimeout(reveal,30);
+ setTimeout(reveal,30);if(v==='map')trackLabels(900);
  $('#tabs').querySelectorAll('button').forEach(b=>{b.classList.toggle('on',b.dataset.v===v);if(b.dataset.v===v)b.scrollIntoView({block:'nearest',inline:'center'})});
  window.scrollTo({top:0});
 }
@@ -1318,8 +1369,8 @@ function renderCD(){
 }
 const W={
  bento:()=>[UI.h_bento,`<div class="bento">${BENTO.map(b=>`<div class="b ${b[0]}" style="background:${b[1]}"><span class="em">${b[2]}</span><div class="big">${T(b[3])}</div><div class="sm">${T(b[4])}</div></div>`).join('')}</div>`],
- news:()=>[UI.h_news,`<div class="news">${NEWS.map(n=>`<div class="card n"><div class="row"><span class="d">${n[0]}</span><span class="sp"></span>${badge(n[1])}</div><b style="display:block;margin:4px 0">${T(n[2])}</b><div class="tx muted" style="font-size:13.5px">${T(n[3])}</div></div>`).join('')}</div>`],
- media:()=>[UI.h_media,`<div class="media">${MEDIA.map(m=>`<a class="vid" href="${m[3]}" target="_blank" rel="noopener"><div class="th" style="background:${m[4]}"><span class="lb">${m[0]}</span><span class="pl"></span>${m[2]?`<span class="du">${m[2]}</span>`:''}</div><div class="mt"><b>${T(m[5])}</b><span class="dim">${m[1]}</span></div></a>`).join('')}</div><p class="dim" style="margin:10px 0 0">${T(UI.mediaNote)} <a href="https://www.rockstargames.com/VI" target="_blank" rel="noopener">${T(UI.toRockstar)}</a></p>`],
+ news:()=>[UI.h_news,`<div class="news rowscroll">${NEWS.map(n=>`<div class="card n"><div class="row"><span class="d">${n[0]}</span><span class="sp"></span>${badge(n[1])}</div><b style="display:block;margin:4px 0">${T(n[2])}</b><div class="tx muted" style="font-size:13.5px">${T(n[3])}</div></div>`).join('')}</div>`],
+ media:()=>[UI.h_media,`<div class="media rowscroll">${MEDIA.map(m=>`<a class="vid" href="${m[3]}" target="_blank" rel="noopener"><div class="th" style="background:${m[4]}"><span class="lb">${m[0]}</span><span class="pl"></span>${m[2]?`<span class="du">${m[2]}</span>`:''}</div><div class="mt"><b>${T(m[5])}</b><span class="dim">${m[1]}</span></div></a>`).join('')}</div><p class="dim" style="margin:10px 0 0">${T(UI.mediaNote)} <a href="https://www.rockstargames.com/VI" target="_blank" rel="noopener">${T(UI.toRockstar)}</a></p>`],
  dream:()=>{const d=store.get('dream',[]);return [UI.w_dream,(d.length?`<div class="minichips">${d.map(n=>{const c=CARS.find(x=>x[0]===n);return `<span>${c?CATI[c[2]]:'🚗'} ${esc(n)}</span>`}).join('')}</div>`:`<div class="dim">${T(UI.emptyDream)}</div>`)+`<a class="lnk" href="#garage">${T(UI.toGarage)}</a>`]},
  plan:()=>{const p=getPlan();const c=k=>ACTS.filter(a=>p[a[1].de]===k);return [UI.w_plan,`<div class="minichips" style="margin-bottom:8px">${PLANCOLS.map(([k,l,col])=>`<span style="border-color:${col};background:transparent">${T(l)} · ${c(k).length}</span>`).join('')}</div><div class="dim">${T(L('Am Launch-Tag:','Launch day:'))} ${c('d1').map(a=>a[0]+' '+T(a[1])).join(' · ')||'—'}</div><a class="lnk" href="#missions">${T(UI.toPlan)}</a>`]},
  heat:()=>[UI.w_heat,HEAT.map(h=>`<div class="hrow"><span class="s">${h[0]}</span><div><b>${T(h[1])}</b><div class="dim">${T(h[2])}</div></div></div>`).join('')],
@@ -1333,11 +1384,11 @@ function renderHome(){
  $('#pills').innerHTML=PILLS.map(p=>`<span class="pill">${T(p)}</span>`).join('');
  const tk=TICKER.map(t=>`<span><b>${t[0]}</b>${T(t[1])}</span>`).join('');$('#ticker').innerHTML=tk+tk;
  $('#facts').innerHTML=FACTS.map(f=>`<div class="fact"><div class="k">${T(f[0])}</div><div class="v">${T(f[1])}</div><div class="s">${T(f[2])}</div></div>`).join('');
- let order=store.get('dash',WIDGETS).filter(w=>W[w]);WIDGETS.forEach(w=>{if(!order.includes(w))order.push(w)});
- const col=store.get('dcol',{});
- $('#dash').innerHTML=order.map(w=>{const [t,b]=W[w]();return `<section class="widget ${WHALF[w]?'half':''} ${col[w]?'col':''}" data-w="${w}"><div class="wh"><span class="grip" title="drag">⠿</span><h3>${T(t)}</h3><button class="wc" aria-label="toggle">⌄</button></div><div class="wb">${b}</div></section>`}).join('');
- $('#dash').querySelectorAll('.wc').forEach(b=>b.onclick=()=>{const w=b.closest('.widget');w.classList.toggle('col');const c=store.get('dcol',{});c[w.dataset.w]=w.classList.contains('col');store.set('dcol',c)});
- if(window.Sortable){if(window._ds)window._ds.destroy();window._ds=Sortable.create($('#dash'),{handle:'.grip',animation:220,easing:'cubic-bezier(.2,.8,.2,1)',ghostClass:'sortable-ghost',chosenClass:'sortable-chosen',dragClass:'sortable-drag',onEnd:()=>{store.set('dash',[...$('#dash').children].map(e=>e.dataset.w));toast(T(UI.saved))}})}
+ let order=store.get('dash2',WIDGETS).filter(w=>W[w]);WIDGETS.forEach(w=>{if(!order.includes(w))order.push(w)});
+ const col=store.get('dcol2',WCOL0);const favN=Object.keys(store.get('favs',{})).length;
+ $('#dash').innerHTML=order.filter(w=>w!=='fav'||favN).map(w=>{const [t,b]=W[w]();return `<section class="widget ${WHALF[w]?'half':''} ${col[w]?'col':''}" data-w="${w}"><div class="wh"><span class="grip" title="drag">⠿</span><h3>${T(t)}</h3><button class="wc" aria-label="toggle">⌄</button></div><div class="wb">${b}</div></section>`}).join('');
+ $('#dash').querySelectorAll('.wc').forEach(b=>b.onclick=()=>{const w=b.closest('.widget');w.classList.toggle('col');const c=store.get('dcol2',WCOL0);c[w.dataset.w]=w.classList.contains('col');store.set('dcol2',c)});
+ if(window.Sortable){if(window._ds)window._ds.destroy();window._ds=Sortable.create($('#dash'),{handle:'.grip',animation:220,easing:'cubic-bezier(.2,.8,.2,1)',ghostClass:'sortable-ghost',chosenClass:'sortable-chosen',dragClass:'sortable-drag',onEnd:()=>{const cur=[...$('#dash').children].map(e=>e.dataset.w);if(!cur.includes('fav'))cur.unshift('fav');store.set('dash2',cur);toast(T(UI.saved))}})}
   $('#dash').querySelectorAll('[data-go]').forEach(c=>c.onclick=()=>{location.hash=c.dataset.go});
  renderProg();
 }
@@ -1351,36 +1402,50 @@ function getPlan(){const p=store.get('plan',{});ACTS.forEach(a=>{if(!p[a[1].de])
 
 /* map */
 let mapCounties=false,curRegion=null;
+let map3d=store.get('map3d',true);
+const RPATH={kalaga:'M110 66 L250 62 L298 80 L292 122 L236 116 L170 124 L120 112 Z',gell:'M30 72 L112 67 L122 112 L170 124 L176 170 L120 176 L60 140 Z',ambro:'M170 124 L236 116 L292 122 L304 190 L310 268 L250 290 L196 270 L176 170 Z',vice:'M304 190 L340 230 L356 300 L352 370 L330 410 L300 404 L292 340 L250 290 L310 268 Z',grass:'M196 270 L250 290 L292 340 L300 404 L262 412 L222 380 L200 330 Z',keys:'M282 432 C262 448 236 458 206 466 C180 472 156 470 136 464 L140 456 C162 462 186 462 208 456 C234 448 258 438 276 424 Z'};
+const RLBL={vice:[330,318,'VICE CITY'],keys:[214,456,'LEONIDA KEYS'],grass:[236,372,'GRASSRIVERS'],gell:[72,108,'PORT GELLHORN'],ambro:[214,272,'AMBROSIA'],kalaga:[210,84,'MOUNT KALAGA']};
+const TOWERS=[[318,330,70],[326,342,96],[334,326,58],[322,356,46],[340,346,80],[312,344,38],[330,360,62],[344,330,44],[336,372,34],[308,320,30],[346,360,52]];
+function shade(hex,f){const n=parseInt(hex.slice(1),16);let r=n>>16,g=(n>>8)&255,b=n&255;r=Math.round(r*f);g=Math.round(g*f);b=Math.round(b*f);return `rgb(${r},${g},${b})`}
 function renderMap(){
- const R=REGIONS;
+ const R=REGIONS,flat=!map3d||pinMode;
+ const grads=Object.keys(RPATH).map(k=>`<linearGradient id="g-${k}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${R[k].c}" stop-opacity="${curRegion===k?.95:.7}"/><stop offset="1" stop-color="${shade(R[k].c,.45)}" stop-opacity="${curRegion===k?.95:.75}"/></linearGradient>`).join('');
+ const region=k=>{const d=RPATH[k],sel=curRegion===k;let side='';for(let z=9;z>=1;z--)side+=`<path d="${d}" transform="translate(0 ${z})" fill="${shade(R[k].c,.18+z*.012)}"/>`;
+  return `<g class="region ${sel?'on':''}" data-r="${k}" ${sel?'transform="translate(0 -4)"':''}>${side}<path d="${d}" fill="url(#g-${k})" stroke="${R[k].c}" stroke-width="${sel?2.4:1.4}" filter="url(#edge)"/><path d="${d}" fill="url(#tex)" opacity=".35" pointer-events="none"/></g>`};
+ const anchors=[...Object.entries(RLBL).map(([k,[x,y]])=>`<circle class="anc" data-a="r:${k}" cx="${x}" cy="${y}" r=".1" fill="none"/>`),...store.get('pins',[]).map((p,i)=>`<circle class="anc" data-a="p:${i}" cx="${p.x}" cy="${p.y}" r=".1" fill="none"/>`)].join('');
  const svg=`<svg viewBox="0 0 420 520" xmlns="http://www.w3.org/2000/svg">
- <defs><pattern id="wv" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M0 7 Q3.5 4 7 7 T14 7" stroke="rgba(34,231,255,.08)" fill="none"/></pattern>
- <filter id="gl"><feGaussianBlur stdDeviation="3"/></filter></defs>
- <rect width="420" height="520" fill="url(#wv)"/>
- <text x="20" y="30" fill="rgba(255,255,255,.35)" font-family="Bebas Neue" font-size="20" letter-spacing="3">STATE OF LEONIDA</text>
- <text x="300" y="500" fill="rgba(34,231,255,.35)" font-size="10" font-family="Inter">${LANG==='de'?'schematisch · nicht maßstäblich':'schematic · not to scale'}</text>
- <path d="M30 70 L250 62 L300 80 L292 120 L240 112 L160 118 L60 124 Z" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.15)"/>
- ${regionPath('kalaga','M110 66 L250 62 L298 80 L292 122 L236 116 L170 124 L120 112 Z')}
- ${regionPath('gell','M30 72 L112 67 L122 112 L170 124 L176 170 L120 176 L60 140 Z')}
- ${regionPath('ambro','M170 124 L236 116 L292 122 L304 190 L310 268 L250 290 L196 270 L176 170 Z')}
- ${regionPath('vice','M304 190 L340 230 L356 300 L352 370 L330 410 L300 404 L292 340 L250 290 L310 268 Z')}
- ${regionPath('grass','M196 270 L250 290 L292 340 L300 404 L262 412 L222 380 L200 330 Z')}
- ${regionPath('keys','M282 432 C262 448 236 458 206 466 C180 472 156 470 136 464 L140 456 C162 462 186 462 208 456 C234 448 258 438 276 424 Z')}
- <ellipse cx="255" cy="215" rx="26" ry="20" fill="#0f2a5c" stroke="rgba(34,231,255,.6)"/>
- <text x="255" y="219" text-anchor="middle" fill="#9ce9ff" font-size="9" font-family="Inter" font-weight="700">LAKE LEONIDA</text>
- <g opacity="${mapCounties?1:0}" style="transition:opacity .3s" font-family="Inter" font-size="9" fill="rgba(255,255,255,.75)" font-style="italic">
+ <defs>
+  <radialGradient id="sea" cx="62%" cy="45%" r="75%"><stop offset="0" stop-color="#14306e"/><stop offset=".6" stop-color="#0a1740"/><stop offset="1" stop-color="#060a24"/></radialGradient>
+  <pattern id="wv" width="22" height="12" patternUnits="userSpaceOnUse"><path d="M0 6 Q5.5 2 11 6 T22 6" stroke="rgba(34,231,255,.14)" fill="none" stroke-width="1"/><animateTransform attributeName="patternTransform" type="translate" from="0 0" to="22 0" dur="6s" repeatCount="indefinite"/></pattern>
+  <pattern id="tex" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".6" fill="rgba(255,255,255,.35)"/></pattern>
+  <filter id="edge" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="0" stdDeviation="2.2" flood-color="#ffffff" flood-opacity=".25"/></filter>
+  <radialGradient id="lake" cx="40%" cy="35%"><stop offset="0" stop-color="#3fb6ff"/><stop offset="1" stop-color="#0b2a6b"/></radialGradient>
+  ${grads}
+ </defs>
+ <rect width="420" height="520" fill="url(#sea)"/><rect width="420" height="520" fill="url(#wv)"/>
+ <g opacity=".25" stroke="#22e7ff" stroke-width=".4">${Array.from({length:9},(_,i)=>`<line x1="0" y1="${i*65}" x2="420" y2="${i*65}"/><line x1="${i*52}" y1="0" x2="${i*52}" y2="520"/>`).join('')}</g>
+ <path d="M30 70 L250 62 L300 80 L292 120 L240 112 L160 118 L60 124 Z" fill="none" stroke="rgba(255,255,255,.12)" stroke-dasharray="3 4"/>
+ ${['kalaga','gell','ambro','grass','vice','keys'].map(region).join('')}
+ <ellipse cx="255" cy="217" rx="27" ry="21" fill="#061537"/><ellipse cx="255" cy="215" rx="26" ry="20" fill="url(#lake)" stroke="rgba(156,233,255,.8)" stroke-width="1"/>
+ <text x="255" y="218" text-anchor="middle" fill="#e6f8ff" font-size="7.5" font-family="Inter" font-weight="800" letter-spacing="1">LAKE LEONIDA</text>
+ <g opacity="${mapCounties?1:0}" style="transition:opacity .3s" font-family="Inter" font-size="9" fill="rgba(255,255,255,.85)" font-style="italic" font-weight="600">
   <text x="200" y="98">Lummox Co.*</text><text x="50" y="110">Kelly Co.</text><text x="198" y="160">Ambrosia Co.</text><text x="300" y="210">Leonard Co.</text><text x="318" y="330">Vice-Dale Co.</text><text x="160" y="440">Mariana Co.</text>
  </g>
- <g id="upins">${pinSvg()}</g>
- ${pin('vice',330,318,'VICE CITY')}${pin('keys',214,456,'LEONIDA KEYS')}${pin('grass',236,372,'GRASSRIVERS')}${pin('gell',72,108,'PORT GELLHORN')}${pin('ambro',220,250,'AMBROSIA')}${pin('kalaga',210,84,'MOUNT KALAGA')}
- </svg><div class="maptools"><button id="mcBtn" class="${mapCounties?'on':''}">${T(UI.counties)}</button></div>`;
- function regionPath(id,d){return `<path class="region ${curRegion===id?'on':''}" data-r="${id}" d="${d}" fill="${R[id].c}" fill-opacity="${curRegion===id?.55:.28}" stroke="${R[id].c}" stroke-width="1.5"/>`}
- function pin(id,x,y,lbl){return `<g class="pin" data-r="${id}"><circle class="p" cx="${x}" cy="${y}" r="5" fill="none" stroke="${R[id].c}" stroke-width="2"/><circle cx="${x}" cy="${y}" r="4.5" fill="${R[id].c}" stroke="#fff" stroke-width="1.5"/><text x="${x}" y="${y-10}" text-anchor="middle" fill="#fff" font-family="Bebas Neue" font-size="15" letter-spacing="1" style="paint-order:stroke" stroke="#0b0418" stroke-width="3">${lbl}</text></g>`}
- $('#mapbox').innerHTML=svg;
- $('#mapbox').querySelectorAll('[data-r]').forEach(el=>el.addEventListener('click',()=>{curRegion=el.dataset.r;renderMap();renderRegion();if(innerWidth<800)$('#rpanel').scrollIntoView({behavior:'smooth',block:'start'})}));
+ <text x="16" y="508" fill="rgba(34,231,255,.45)" font-size="9" font-family="Inter">${LANG==='de'?'schematisch · nicht maßstäblich':'schematic · not to scale'}</text>
+ ${anchors}
+ </svg>`;
+ const towers=TOWERS.map(([x,y,h],i)=>`<div class="tower" style="left:${x/420*100}%;top:${y/520*100}%;--h:${h*1.15}px;--d:${i*0.37}s"><i></i><i></i></div>`).join('');
+ const labels=Object.entries(RLBL).map(([k,[,,t]])=>`<button class="mlbl ${curRegion===k?'on':''}" data-a="r:${k}" data-r="${k}" style="--c:${R[k].c}"><span class="dot"></span>${t}</button>`).join('')+store.get('pins',[]).map((p,i)=>{const c=PINCATS.find(x=>x[0]===p.c)||PINCATS[6];return `<button class="mpin ${p.done?'done':''}" data-a="p:${i}" data-pi="${i}" title="${esc(p.t||'')}"><span style="rotate:45deg">${c[1]}</span></button>`}).join('');
+ $('#mapbox').innerHTML=`<div class="stage ${flat?'flat':''}"><div class="plane">${svg}${towers}</div></div><div class="mlabels">${labels}</div>
+ <div class="maptools"><button id="m3d" class="${map3d?'on':''}">${map3d?'3D':'2D'}</button><button id="mcBtn" class="${mapCounties?'on':''}">${T(UI.counties)}</button></div><div class="compass">N</div>`;
+ $('#mapbox').querySelectorAll('.region,.mlbl').forEach(el=>el.addEventListener('click',()=>{if(pinMode)return;curRegion=el.dataset.r;renderMap();renderRegion();if(innerWidth<800)$('#rpanel').scrollIntoView({behavior:'smooth',block:'start'})}));
  $('#mcBtn').onclick=()=>{mapCounties=!mapCounties;renderMap()};
- bindPins();
+ $('#m3d').onclick=()=>{map3d=!map3d;store.set('map3d',map3d);$('#mapbox .stage').classList.toggle('flat',!map3d);$('#m3d').textContent=map3d?'3D':'2D';$('#m3d').classList.toggle('on',map3d);trackLabels(1100)};
+ bindPins();trackLabels(60);
 }
+function placeLabels(){const box=$('#mapbox');if(!box||!box.offsetParent)return;const br=box.getBoundingClientRect();box.querySelectorAll('.anc').forEach(a=>{const r=a.getBoundingClientRect();const l=box.querySelector(`.mlabels [data-a="${a.dataset.a}"]`);if(l){l.style.left=(r.left+r.width/2-br.left)+'px';l.style.top=(r.top+r.height/2-br.top)+'px'}})}
+function trackLabels(ms){const t0=performance.now();const f=()=>{placeLabels();if(performance.now()-t0<ms)requestAnimationFrame(f)};requestAnimationFrame(f)}
+addEventListener('resize',()=>placeLabels());
 function renderRegion(){
  const r=REGIONS[curRegion];
  if(!r){$('#rpanel').innerHTML=`<div class="muted">👆 ${T(UI.tapRegion)}</div><ul class="list" style="margin-top:10px">${Object.entries(REGIONS).map(([k,v])=>`<li style="cursor:pointer" data-go="${k}"><span style="color:${v.c}">●</span><b>${v.n}</b><span class="sp"></span><span class="dim">${v.county}</span></li>`).join('')}</ul>`;
@@ -1580,6 +1645,7 @@ function renderSettings(){
  const seg=(key,opts)=>`<div class="seg">${opts.map(([v,l])=>`<button data-k="${key}" data-v="${v}" class="${SET[key]===v?'on':''}">${T(l)}</button>`).join('')}</div>`;
  const sw=(key,l,d)=>`<label class="sw"><input type="checkbox" data-sw="${key}" ${SET[key]?'checked':''}><div><b>${T(l)}</b><div class="dim">${T(d)}</div></div></label>`;
  $('#setBody').innerHTML=`
+ <div class="sgrp"><h4>${T(L('Sprache','Language'))}</h4><div class="seg"><button data-lang="de" class="${LANG==='de'?'on':''}">🇩🇪 Deutsch</button><button data-lang="en" class="${LANG==='en'?'on':''}">🇬🇧 English</button></div></div>
  <div class="sgrp"><h4>${T(L('Spoiler-Schutz','Spoiler shield'))}</h4><div class="dim">${T(L('Wie viel von Story und Leaks willst du sehen?','How much story and leak info do you want to see?'))}</div>${seg('spoil',[[0,L('🔒 Streng','🔒 Strict')],[1,L('👀 Normal','👀 Normal')],[2,L('🔓 Alles','🔓 Everything')]])}
   <div class="dim" style="margin-top:8px">${T([L('Story-Missionen, Figuren-Hintergründe und Leaks bleiben komplett verborgen.','Story missions, character backstories and leaks stay fully hidden.'),L('Story & Leaks sind unscharf und lassen sich antippen.','Story & leaks are blurred and can be tapped open.'),L('Alles offen.','Everything open.')][SET.spoil])}</div>
   <div style="margin-top:12px"><b>${T(L('Mein Kapitel','My chapter'))}: <span id="chv">${SET.chapter||T(L('aus','off'))}</span></b><input type="range" min="0" max="12" value="${SET.chapter}" id="chR"><div class="dim">${T(L('Inhalte aus späteren Kapiteln werden ausgeblendet. Die Kapitel-Zuordnung trage ich nach Release nach – bisher ist nur der Prolog zugeordnet.','Content from later chapters is hidden. I’ll add chapter tags after launch – only the prologue is tagged so far.'))}</div></div></div>
@@ -1590,25 +1656,25 @@ function renderSettings(){
   <input class="fld" id="aiM" placeholder="${T(L('Modell (leer = Standard)','Model (empty = default)'))}" value="${esc(SET.aiModel)}"></div>
  <div class="sgrp"><h4>${T(L('Daten','Data'))}</h4><div class="dim">${T(L('Traumgarage, Pins, Plan, Gemerktes und Einstellungen liegen nur auf diesem Gerät.','Dream garage, pins, plan, saved items and settings live on this device only.'))}</div><div class="seg"><button id="expD">⬇️ ${T(L('Sicherung kopieren','Copy backup'))}</button><button id="impD">⬆️ ${T(L('Sicherung einfügen','Paste backup'))}</button></div><textarea class="fld" id="bkT" rows="3" style="display:none"></textarea></div>`;
  $('#aiP').value=SET.ai;
+ $('#setBody').querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>{LANG=b.dataset.lang;store.set('lang',LANG);renderAll();renderSettings()});
  $('#setBody').querySelectorAll('.seg [data-k]').forEach(b=>b.onclick=()=>{SET[b.dataset.k]=+b.dataset.v;saveSet();renderAll();renderSettings()});
  $('#setBody').querySelectorAll('[data-sw]').forEach(i=>i.onchange=()=>{SET[i.dataset.sw]=i.checked;saveSet();renderAll()});
  $('#chR').oninput=e=>{$('#chv').textContent=e.target.value>0?e.target.value:T(L('aus','off'))};$('#chR').onchange=e=>{SET.chapter=+e.target.value;saveSet();renderMissions()};
  $('#aiP').onchange=e=>{SET.ai=e.target.value;saveSet()};$('#aiK').onchange=e=>{SET.aiKey=e.target.value.trim();saveSet();toast(T(UI.saved))};$('#aiM').onchange=e=>{SET.aiModel=e.target.value.trim();saveSet()};
- const keys=['lang','done','dream','plan','favs','pins','coll','dash','dcol','set','heist','station'];
+ const keys=['lang','done','dream','plan','favs','pins','coll','dash2','dcol2','set','heist','station','map3d'];
  $('#expD').onclick=async()=>{const o={};keys.forEach(k=>o[k]=store.get(k,null));const o2=JSON.parse(JSON.stringify(o));if(o2.set)o2.set.aiKey='';const t=JSON.stringify(o2);const ta=$('#bkT');ta.style.display='block';ta.value=t;try{await navigator.clipboard.writeText(t);toast('📋 '+T(L('Kopiert','Copied')))}catch(e){ta.select()}};
  $('#impD').onclick=()=>{const ta=$('#bkT');if(ta.style.display!=='block'||!ta.value.trim()){ta.style.display='block';ta.value='';ta.placeholder=T(L('Sicherung hier einfügen und nochmal tippen','Paste backup here and tap again'));ta.focus();return}try{const o=JSON.parse(ta.value);keys.forEach(k=>{if(o[k]!=null&&k!=='set')store.set(k,o[k])});if(o.set){const ak=SET.aiKey;Object.assign(SET,o.set);SET.aiKey=ak;saveSet()}done=store.get('done',{});renderAll();toast('✅')}catch(e){toast('⚠️ JSON')}};
 }
 /* ---------- map pins ---------- */
 let pinMode=false,pinDraft=null;
 function svgPt(svg,e){const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(svg.getScreenCTM().inverse())}
-function regionAt(svg,x,y){let r=null;svg.querySelectorAll('path.region').forEach(p=>{try{const pt=svg.createSVGPoint();pt.x=x;pt.y=y;if(p.isPointInFill(pt))r=p.dataset.r}catch(e){}});return r}
-function pinSvg(){return store.get('pins',[]).map((p,i)=>{const c=PINCATS.find(x=>x[0]===p.c)||PINCATS[6];return `<g class="upin" data-pi="${i}" transform="translate(${p.x},${p.y})"><circle r="9" fill="${p.done?'#19f5c1':'#ffd23f'}" stroke="#0b0418" stroke-width="2"/><text y="4" text-anchor="middle" font-size="10">${c[1]}</text></g>`}).join('')}
+function regionAt(svg,x,y){let r=null;svg.querySelectorAll('g.region > path:nth-last-child(2)').forEach(p=>{try{const pt=svg.createSVGPoint();pt.x=x;pt.y=y;if(p.isPointInFill(pt))r=p.parentNode.dataset.r}catch(e){}});return r}
 function bindPins(){
  const svg=$('#mapbox svg');if(!svg)return;
  $('#mapbox').classList.toggle('pinning',pinMode);
  $('#pinMode').textContent=T(pinMode?UI.pinOn:UI.pinOff);$('#pinMode').classList.toggle('on',pinMode);$('#pinHint').textContent=T(pinMode?UI.pinHintOn:UI.pinHintOff);
- svg.addEventListener('click',e=>{if(!pinMode||e.target.closest('.upin'))return;e.stopPropagation();e.preventDefault();const p=svgPt(svg,e);pinDraft={x:Math.round(p.x),y:Math.round(p.y),r:regionAt(svg,p.x,p.y)};pinForm()},true);
- svg.querySelectorAll('.upin').forEach(g=>g.addEventListener('click',e=>{e.stopPropagation();const p=store.get('pins',[])[+g.dataset.pi];if(p){toast((PINCATS.find(x=>x[0]===p.c)||PINCATS[6])[1]+' '+esc(p.t||''))}}));
+ svg.addEventListener('click',e=>{if(!pinMode)return;e.stopPropagation();e.preventDefault();const p=svgPt(svg,e);pinDraft={x:Math.round(p.x),y:Math.round(p.y),r:regionAt(svg,p.x,p.y)};pinForm()},true);
+ $('#mapbox').querySelectorAll('.mpin').forEach(g=>g.addEventListener('click',e=>{e.stopPropagation();const p=store.get('pins',[])[+g.dataset.pi];if(p){toast((PINCATS.find(x=>x[0]===p.c)||PINCATS[6])[1]+' '+esc(p.t||''))}}));
 }
 function pinForm(){
  const r=pinDraft&&pinDraft.r?REGIONS[pinDraft.r].n:'Leonida';
@@ -1678,7 +1744,7 @@ Maximal 160 Wörter, mit kurzen Zwischenüberschriften.`;
 function renderAll(){applySet();applyUI();renderTabs();renderHome();renderDream();renderVsys();renderHeat();renderPins();renderColl();renderCoach();renderMap();renderRegion();renderDistricts();renderCrew();renderCarCats();renderCars();renderGuns();renderMissions();renderSim();renderTips();renderSecrets();renderRadio();renderEditions();$('#cdBox').dataset.mode='';renderCD();route();decorateFavs()}
 $('#btnLang').onclick=()=>{LANG=LANG==='de'?'en':'de';store.set('lang',LANG);renderAll()};
 $('#btnSearch').onclick=openSearch;$('#btnSet').onclick=openSet;$('#btnSet2').onclick=openSet;$('#setClose').onclick=()=>$('#setp').classList.remove('on');$('#pinMode').onclick=()=>{pinMode=!pinMode;renderMap()};$('#btnSearch2').onclick=openSearch;$('#btnLang2').onclick=()=>$('#btnLang').click();$('#moreClose').onclick=()=>$('#more').classList.remove('on');
-$('#dashReset').onclick=()=>{store.set('dash',WIDGETS);store.set('dcol',{});renderHome();reveal();toast('↺')};$('#sclose').onclick=closeSearch;
+$('#dashReset').onclick=()=>{store.set('dash2',WIDGETS);store.set('dcol2',WCOL0);renderHome();reveal();toast('↺')};$('#sclose').onclick=closeSearch;
 $('#gq').addEventListener('input',doSearch);
 $('#carQ').addEventListener('input',renderCars);
 $('#spoilAll').onclick=()=>document.querySelectorAll('#missions .spoil').forEach(s=>s.classList.add('show'));
