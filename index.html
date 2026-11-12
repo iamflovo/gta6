@@ -467,6 +467,26 @@ body.noanim .rv{opacity:1;transform:none}
 .wh{padding:10px 12px}
 @media(max-width:760px){.bento .b{min-height:96px}.bento .h2{min-height:150px}.bento .b .big{font-size:27px}.bento .b .sm{font-size:11.5px}}
 @media(max-width:600px){.wh h3{font-size:11.5px;letter-spacing:1.2px}.dashbar .dim{font-size:11.5px}}
+
+/* ===== satellite + controls ===== */
+.mapbox{background:radial-gradient(ellipse at 50% 30%,#163a5e 0%,#0a1c36 60%,#050c1c 100%);touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.mapbox.zoomed{touch-action:none;cursor:grab}
+.mapbox .plane{animation:none!important;transform-origin:50% 50%;will-change:transform}
+.mapbox .plane.anim{transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.mapbox .plane svg{box-shadow:0 40px 60px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.18)}
+.mapbox .region:hover{filter:brightness(1.12)}
+.mapbox .region.on{filter:brightness(1.15) drop-shadow(0 0 10px rgba(255,255,255,.45))}
+.tower i{background:linear-gradient(0deg,#5b6472,#c9d2de 60%,#f4f7fb);box-shadow:0 0 6px rgba(255,255,255,.35);width:5px}
+.mlbl{background:rgba(8,12,24,.72);font-size:14px}
+.mdist{position:absolute;transform:translate(-50%,-50%);font-size:10.5px;font-weight:700;color:#fff;text-shadow:0 1px 3px #000,0 0 6px #000;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .3s;letter-spacing:.3px}
+.mapbox.detail .mdist{opacity:.95}
+.compass{position:absolute;left:10px;top:10px;width:40px;height:40px;padding:0;border:0;background:transparent;border-radius:50%;cursor:pointer;z-index:5}
+.mzoom{position:absolute;right:10px;bottom:12px;display:flex;flex-direction:column;gap:6px;z-index:5}
+.mzoom button{width:36px;height:36px;border-radius:11px;border:1px solid rgba(255,255,255,.2);background:rgba(8,12,24,.75);font-size:18px;font-weight:800;color:#fff;backdrop-filter:blur(6px)}
+.maptools{z-index:5}
+.mhint{position:absolute;left:12px;bottom:10px;font-size:10.5px;color:rgba(255,255,255,.6);pointer-events:none;max-width:60%}
+.mapbox.zoomed .mhint{display:none}
+.mapbox.detail .mlbl[data-r=vice]{opacity:0;pointer-events:none}
 </style>
 </head>
 <body>
@@ -678,7 +698,7 @@ body.noanim .rv{opacity:1;transform:none}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 12.11. 19:57</div>
+    <div class="dim" style="margin-top:8px">App-Version 12.11. 20:06</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -1405,45 +1425,96 @@ let mapCounties=false,curRegion=null;
 let map3d=store.get('map3d',true);
 const RPATH={kalaga:'M110 66 L250 62 L298 80 L292 122 L236 116 L170 124 L120 112 Z',gell:'M30 72 L112 67 L122 112 L170 124 L176 170 L120 176 L60 140 Z',ambro:'M170 124 L236 116 L292 122 L304 190 L310 268 L250 290 L196 270 L176 170 Z',vice:'M304 190 L340 230 L356 300 L352 370 L330 410 L300 404 L292 340 L250 290 L310 268 Z',grass:'M196 270 L250 290 L292 340 L300 404 L262 412 L222 380 L200 330 Z',keys:'M282 432 C262 448 236 458 206 466 C180 472 156 470 136 464 L140 456 C162 462 186 462 208 456 C234 448 258 438 276 424 Z'};
 const RLBL={vice:[330,318,'VICE CITY'],keys:[214,456,'LEONIDA KEYS'],grass:[236,372,'GRASSRIVERS'],gell:[72,108,'PORT GELLHORN'],ambro:[214,272,'AMBROSIA'],kalaga:[210,84,'MOUNT KALAGA']};
+const RSAT={kalaga:['#2c4426','#1d2f19','forest'],gell:['#6d6a58','#4a4838','ind'],ambro:['#7d8b4c','#5a6a34','farm'],grass:['#4c6a44','#30472c','swamp'],vice:['#8d8f8c','#5f625f','city'],keys:['#c8b98b','#9c8c62','sand']};
+const DIST=[[330,328,'Downtown'],[346,316,'Ocean Beach'],[312,352,'Little Cuba'],[318,300,'Stockyard'],[330,388,'VC Port'],[348,290,'Washington Beach'],[300,322,'Tisha-Wocka'],[168,474,'Key Lento'],[118,128,'Delights'],[262,226,'Lake Leonida'],[180,96,'Kalaga NP']];
 const TOWERS=[[318,330,70],[326,342,96],[334,326,58],[322,356,46],[340,346,80],[312,344,38],[330,360,62],[344,330,44],[336,372,34],[308,320,30],[346,360,52]];
 function shade(hex,f){const n=parseInt(hex.slice(1),16);let r=n>>16,g=(n>>8)&255,b=n&255;r=Math.round(r*f);g=Math.round(g*f);b=Math.round(b*f);return `rgb(${r},${g},${b})`}
+let VIEW=Object.assign({z:1,r:-9,t:46,x:0,y:0},store.get('mapview',{}));if(!map3d)VIEW.t=0;let VIEWSAVE=null;
 function renderMap(){
- const R=REGIONS,flat=!map3d||pinMode;
- const grads=Object.keys(RPATH).map(k=>`<linearGradient id="g-${k}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${R[k].c}" stop-opacity="${curRegion===k?.95:.7}"/><stop offset="1" stop-color="${shade(R[k].c,.45)}" stop-opacity="${curRegion===k?.95:.75}"/></linearGradient>`).join('');
- const region=k=>{const d=RPATH[k],sel=curRegion===k;let side='';for(let z=9;z>=1;z--)side+=`<path d="${d}" transform="translate(0 ${z})" fill="${shade(R[k].c,.18+z*.012)}"/>`;
-  return `<g class="region ${sel?'on':''}" data-r="${k}" ${sel?'transform="translate(0 -4)"':''}>${side}<path d="${d}" fill="url(#g-${k})" stroke="${R[k].c}" stroke-width="${sel?2.4:1.4}" filter="url(#edge)"/><path d="${d}" fill="url(#tex)" opacity=".35" pointer-events="none"/></g>`};
- const anchors=[...Object.entries(RLBL).map(([k,[x,y]])=>`<circle class="anc" data-a="r:${k}" cx="${x}" cy="${y}" r=".1" fill="none"/>`),...store.get('pins',[]).map((p,i)=>`<circle class="anc" data-a="p:${i}" cx="${p.x}" cy="${p.y}" r=".1" fill="none"/>`)].join('');
+ const R=REGIONS;
+ const terrain=`
+  <filter id="noise" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="3" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0" result="na"/><feComposite in="na" in2="SourceGraphic" operator="in" result="nm"/><feBlend in="SourceGraphic" in2="nm" mode="multiply"/></filter>
+  <filter id="soft"><feGaussianBlur stdDeviation="5"/></filter>
+  <filter id="cloud"><feTurbulence type="fractalNoise" baseFrequency=".018" numOctaves="4" seed="3"/><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.6 -.75"/></filter>
+  <pattern id="p-forest" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.8" fill="#1a2c16"/><circle cx="6" cy="5" r="2.1" fill="#36552d"/><circle cx="3" cy="7" r="1.3" fill="#24391f"/></pattern>
+  <pattern id="p-farm" width="26" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(8)"><rect width="13" height="9" fill="#8f9d55"/><rect x="13" width="13" height="9" fill="#6c7d3c"/><rect y="9" width="13" height="9" fill="#a5a061"/><rect x="13" y="9" width="13" height="9" fill="#7a8a47"/><path d="M0 9H26M13 0V18" stroke="#c7b98a" stroke-width=".5"/></pattern>
+  <pattern id="p-swamp" width="18" height="14" patternUnits="userSpaceOnUse"><rect width="18" height="14" fill="#4c6a44"/><ellipse cx="5" cy="4" rx="4" ry="2.2" fill="#2f5450"/><ellipse cx="13" cy="10" rx="3.2" ry="1.8" fill="#335b55"/><circle cx="12" cy="3" r="1.4" fill="#5f7d4c"/></pattern>
+  <pattern id="p-city" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#8d8f8c"/><rect x="1" y="1" width="3.4" height="3.4" fill="#a4a6a2"/><rect x="5" y="1" width="3" height="3.4" fill="#76797a"/><rect x="1" y="5" width="3.4" height="3" fill="#7c7f7d"/><rect x="5" y="5" width="3" height="3" fill="#b3b4ae"/></pattern>
+  <pattern id="p-ind" width="12" height="10" patternUnits="userSpaceOnUse"><rect width="12" height="10" fill="#6d6a58"/><rect x="1" y="1" width="6" height="4" fill="#8a8670"/><rect x="8" y="2" width="3" height="6" fill="#56543f"/><rect x="1" y="6" width="5" height="3" fill="#61705a"/></pattern>
+  <pattern id="p-sand" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="#c8b98b"/><circle cx="3" cy="3" r="1.6" fill="#7c8f52"/><circle cx="7" cy="7" r="1.2" fill="#6a7f46"/></pattern>`;
+ const region=k=>{const d=RPATH[k],sel=curRegion===k,[c1,c2,p]=RSAT[k];let side='';for(let z=7;z>=1;z--)side+=`<path d="${d}" transform="translate(0 ${z})" fill="${shade(c2,.55+z*.03)}"/>`;
+  return `<g class="region ${sel?'on':''}" data-r="${k}" ${sel?'transform="translate(0 -4)"':''}>${side}<path d="${d}" fill="url(#p-${p})" filter="url(#noise)"/><path d="${d}" fill="none" stroke="#e8dcae" stroke-opacity=".55" stroke-width="1.6"/>${sel?`<path d="${d}" fill="${R[k].c}" fill-opacity=".18" stroke="${R[k].c}" stroke-width="2.5"/>`:''}</g>`};
+ const shallow=Object.values(RPATH).map(d=>`<path d="${d}" fill="none" stroke="#3fd0d4" stroke-width="16" stroke-linejoin="round" opacity=".55"/>`).join('');
+ const anchors=[...Object.entries(RLBL).map(([k,[x,y]])=>`<circle class="anc" data-a="r:${k}" cx="${x}" cy="${y}" r=".1" fill="none"/>`),...DIST.map(([x,y],i)=>`<circle class="anc" data-a="d:${i}" cx="${x}" cy="${y}" r=".1" fill="none"/>`),...store.get('pins',[]).map((p,i)=>`<circle class="anc" data-a="p:${i}" cx="${p.x}" cy="${p.y}" r=".1" fill="none"/>`)].join('');
  const svg=`<svg viewBox="0 0 420 520" xmlns="http://www.w3.org/2000/svg">
- <defs>
-  <radialGradient id="sea" cx="62%" cy="45%" r="75%"><stop offset="0" stop-color="#14306e"/><stop offset=".6" stop-color="#0a1740"/><stop offset="1" stop-color="#060a24"/></radialGradient>
-  <pattern id="wv" width="22" height="12" patternUnits="userSpaceOnUse"><path d="M0 6 Q5.5 2 11 6 T22 6" stroke="rgba(34,231,255,.14)" fill="none" stroke-width="1"/><animateTransform attributeName="patternTransform" type="translate" from="0 0" to="22 0" dur="6s" repeatCount="indefinite"/></pattern>
-  <pattern id="tex" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".6" fill="rgba(255,255,255,.35)"/></pattern>
-  <filter id="edge" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="0" stdDeviation="2.2" flood-color="#ffffff" flood-opacity=".25"/></filter>
-  <radialGradient id="lake" cx="40%" cy="35%"><stop offset="0" stop-color="#3fb6ff"/><stop offset="1" stop-color="#0b2a6b"/></radialGradient>
-  ${grads}
+ <defs>${terrain}
+  <radialGradient id="sea" cx="62%" cy="45%" r="80%"><stop offset="0" stop-color="#1d5e86"/><stop offset=".55" stop-color="#0e3a63"/><stop offset="1" stop-color="#07203f"/></radialGradient>
+  <radialGradient id="lake" cx="40%" cy="35%"><stop offset="0" stop-color="#2f7fa8"/><stop offset="1" stop-color="#123f63"/></radialGradient>
  </defs>
- <rect width="420" height="520" fill="url(#sea)"/><rect width="420" height="520" fill="url(#wv)"/>
- <g opacity=".25" stroke="#22e7ff" stroke-width=".4">${Array.from({length:9},(_,i)=>`<line x1="0" y1="${i*65}" x2="420" y2="${i*65}"/><line x1="${i*52}" y1="0" x2="${i*52}" y2="520"/>`).join('')}</g>
- <path d="M30 70 L250 62 L300 80 L292 120 L240 112 L160 118 L60 124 Z" fill="none" stroke="rgba(255,255,255,.12)" stroke-dasharray="3 4"/>
+ <rect width="420" height="520" fill="url(#sea)"/>
+ <rect width="420" height="520" fill="url(#sea)" filter="url(#noise)" opacity=".5"/>
+ <g filter="url(#soft)">${shallow}</g>
+ <path d="M30 70 L250 62 L300 80 L292 120 L240 112 L160 118 L60 124 Z" fill="none" stroke="rgba(255,255,255,.18)" stroke-dasharray="3 4"/>
  ${['kalaga','gell','ambro','grass','vice','keys'].map(region).join('')}
- <ellipse cx="255" cy="217" rx="27" ry="21" fill="#061537"/><ellipse cx="255" cy="215" rx="26" ry="20" fill="url(#lake)" stroke="rgba(156,233,255,.8)" stroke-width="1"/>
- <text x="255" y="218" text-anchor="middle" fill="#e6f8ff" font-size="7.5" font-family="Inter" font-weight="800" letter-spacing="1">LAKE LEONIDA</text>
- <g opacity="${mapCounties?1:0}" style="transition:opacity .3s" font-family="Inter" font-size="9" fill="rgba(255,255,255,.85)" font-style="italic" font-weight="600">
+ <path d="M340 230 L356 300 L352 370 L330 410" fill="none" stroke="#efe2b0" stroke-width="3" stroke-linecap="round" opacity=".9"/>
+ <g stroke="#d9d4c4" stroke-opacity=".55" fill="none" stroke-width="1.2"><path d="M60 128 L170 140 L250 160 L300 200 L325 300 L330 380"/><path d="M200 300 L260 330 L310 330"/><path d="M276 426 L300 404"/></g>
+ <ellipse cx="255" cy="215" rx="26" ry="20" fill="url(#lake)" stroke="#5aa9c9" stroke-width="1.2"/>
+ <g opacity="${mapCounties?1:0}" style="transition:opacity .3s" font-family="Inter" font-size="9" fill="rgba(255,255,255,.9)" font-style="italic" font-weight="700" paint-order="stroke" stroke="rgba(0,0,0,.6)" stroke-width="2">
   <text x="200" y="98">Lummox Co.*</text><text x="50" y="110">Kelly Co.</text><text x="198" y="160">Ambrosia Co.</text><text x="300" y="210">Leonard Co.</text><text x="318" y="330">Vice-Dale Co.</text><text x="160" y="440">Mariana Co.</text>
  </g>
- <text x="16" y="508" fill="rgba(34,231,255,.45)" font-size="9" font-family="Inter">${LANG==='de'?'schematisch · nicht maßstäblich':'schematic · not to scale'}</text>
+ <g class="clouds" opacity=".55" pointer-events="none"><rect x="-200" y="0" width="820" height="520" filter="url(#cloud)"><animateTransform attributeName="transform" type="translate" from="-60 0" to="60 10" dur="90s" repeatCount="indefinite" additive="sum" calcMode="linear" values="-60 0;60 10;-60 0" keyTimes="0;.5;1"/></rect></g>
+
  ${anchors}
  </svg>`;
- const towers=TOWERS.map(([x,y,h],i)=>`<div class="tower" style="left:${x/420*100}%;top:${y/520*100}%;--h:${h*1.15}px;--d:${i*0.37}s"><i></i><i></i></div>`).join('');
- const labels=Object.entries(RLBL).map(([k,[,,t]])=>`<button class="mlbl ${curRegion===k?'on':''}" data-a="r:${k}" data-r="${k}" style="--c:${R[k].c}"><span class="dot"></span>${t}</button>`).join('')+store.get('pins',[]).map((p,i)=>{const c=PINCATS.find(x=>x[0]===p.c)||PINCATS[6];return `<button class="mpin ${p.done?'done':''}" data-a="p:${i}" data-pi="${i}" title="${esc(p.t||'')}"><span style="rotate:45deg">${c[1]}</span></button>`}).join('');
- $('#mapbox').innerHTML=`<div class="stage ${flat?'flat':''}"><div class="plane">${svg}${towers}</div></div><div class="mlabels">${labels}</div>
- <div class="maptools"><button id="m3d" class="${map3d?'on':''}">${map3d?'3D':'2D'}</button><button id="mcBtn" class="${mapCounties?'on':''}">${T(UI.counties)}</button></div><div class="compass">N</div>`;
- $('#mapbox').querySelectorAll('.region,.mlbl').forEach(el=>el.addEventListener('click',()=>{if(pinMode)return;curRegion=el.dataset.r;renderMap();renderRegion();if(innerWidth<800)$('#rpanel').scrollIntoView({behavior:'smooth',block:'start'})}));
+ const towers=TOWERS.map(([x,y,h],i)=>`<div class="tower" style="left:${x/420*100}%;top:${y/520*100}%;--h:${h}px;--d:${i*0.37}s"><i></i><i></i></div>`).join('');
+ const labels=Object.entries(RLBL).map(([k,[,,t]])=>`<button class="mlbl ${curRegion===k?'on':''}" data-a="r:${k}" data-r="${k}" style="--c:${R[k].c}"><span class="dot"></span>${t}</button>`).join('')+DIST.map(([,,t],i)=>`<span class="mdist" data-a="d:${i}">${t}</span>`).join('')+store.get('pins',[]).map((p,i)=>{const c=PINCATS.find(x=>x[0]===p.c)||PINCATS[6];return `<button class="mpin ${p.done?'done':''}" data-a="p:${i}" data-pi="${i}" title="${esc(p.t||'')}"><span style="rotate:45deg">${c[1]}</span></button>`}).join('');
+ $('#mapbox').innerHTML=`<div class="stage"><div class="plane">${svg}${towers}</div></div><div class="mlabels">${labels}</div>
+ <div class="maptools"><button id="m3d" class="${VIEW.t>5?'on':''}">${VIEW.t>5?'3D':'2D'}</button><button id="mcBtn" class="${mapCounties?'on':''}">${T(UI.counties)}</button></div>
+ <button class="compass" id="cmp" title="Nord"><svg viewBox="0 0 40 40" width="40" height="40"><circle cx="20" cy="20" r="18" fill="rgba(11,4,24,.7)" stroke="rgba(255,255,255,.35)"/><g id="needle"><path d="M20 5 L25 20 L20 18 L15 20Z" fill="#ff4f6d"/><path d="M20 35 L25 20 L20 22 L15 20Z" fill="#dfe6ee"/><text x="20" y="13.5" text-anchor="middle" font-size="7" font-weight="800" fill="#fff" font-family="Inter">N</text></g></svg></button>
+ <div class="mzoom"><button data-mz="1.35">+</button><button data-mz="0.74">−</button><button data-mr="-30" title="⟲">⟲</button><button data-mr="30" title="⟳">⟳</button></div>
+ <div class="mhint">${T(L('Ziehen · 2 Finger: zoomen & drehen · Doppeltipp: Zoom','Drag · 2 fingers: zoom & rotate · double-tap: zoom'))}</div>`;
+ $('#mapbox').querySelectorAll('.region,.mlbl').forEach(el=>el.addEventListener('click',()=>{if(pinMode||window._mapMoved)return;curRegion=el.dataset.r;renderMap();renderRegion();if(innerWidth<800)$('#rpanel').scrollIntoView({behavior:'smooth',block:'start'})}));
  $('#mcBtn').onclick=()=>{mapCounties=!mapCounties;renderMap()};
- $('#m3d').onclick=()=>{map3d=!map3d;store.set('map3d',map3d);$('#mapbox .stage').classList.toggle('flat',!map3d);$('#m3d').textContent=map3d?'3D':'2D';$('#m3d').classList.toggle('on',map3d);trackLabels(1100)};
- bindPins();trackLabels(60);
+ $('#m3d').onclick=()=>{map3d=!(VIEW.t>5);store.set('map3d',map3d);setView({t:map3d?46:0},true)};
+ $('#cmp').onclick=()=>setView({r:0,t:map3d?46:0},true);
+ $('#mapbox').querySelectorAll('[data-mz]').forEach(b=>b.onclick=()=>setView({z:VIEW.z*+b.dataset.mz},true));
+ $('#mapbox').querySelectorAll('[data-mr]').forEach(b=>b.onclick=()=>setView({r:VIEW.r+ +b.dataset.mr},true));
+ if(pinMode){VIEWSAVE=VIEWSAVE||Object.assign({},VIEW);Object.assign(VIEW,{z:1,r:0,t:0,x:0,y:0})}else if(VIEWSAVE){Object.assign(VIEW,VIEWSAVE);VIEWSAVE=null}
+ applyView(false);bindGestures();bindPins();trackLabels(80);
 }
-function placeLabels(){const box=$('#mapbox');if(!box||!box.offsetParent)return;const br=box.getBoundingClientRect();box.querySelectorAll('.anc').forEach(a=>{const r=a.getBoundingClientRect();const l=box.querySelector(`.mlabels [data-a="${a.dataset.a}"]`);if(l){l.style.left=(r.left+r.width/2-br.left)+'px';l.style.top=(r.top+r.height/2-br.top)+'px'}})}
+function setView(p,anim){Object.assign(VIEW,p);applyView(anim)}
+function applyView(anim){
+ VIEW.z=Math.max(1,Math.min(4.5,VIEW.z));VIEW.t=Math.max(0,Math.min(60,VIEW.t));
+ const lim=(VIEW.z-1)*200+30;VIEW.x=Math.max(-lim,Math.min(lim,VIEW.x));VIEW.y=Math.max(-lim,Math.min(lim,VIEW.y));
+ const pl=$('#mapbox .plane');if(!pl)return;pl.classList.toggle('anim',!!anim);
+ pl.style.transform=`translate(${VIEW.x}px,${VIEW.y}px) rotateX(${VIEW.t}deg) rotateZ(${VIEW.r}deg) scale(${VIEW.z*(VIEW.t>5?.96:1)})`;
+ const nd=$('#needle');if(nd)nd.setAttribute('transform',`rotate(${VIEW.r} 20 20)`);
+ const box=$('#mapbox');box.classList.toggle('zoomed',VIEW.z>1.05);box.classList.toggle('detail',VIEW.z>=1.7);
+ const b3=$('#m3d');if(b3){b3.textContent=VIEW.t>5?'3D':'2D';b3.classList.toggle('on',VIEW.t>5)}
+ if(!pinMode&&!VIEWSAVE)store.set('mapview',VIEW);
+ trackLabels(anim?750:30);
+}
+function bindGestures(){
+ const box=$('#mapbox');if(box._g)return;box._g=1;
+ const P=new Map();let st=null,moved=0;
+ box.addEventListener('pointerdown',e=>{if(e.target.closest('.maptools,.mzoom,.compass'))return;P.set(e.pointerId,{x:e.clientX,y:e.clientY});moved=0;window._mapMoved=false;
+  if(P.size===2){const [a,b]=[...P.values()];st={d:Math.hypot(a.x-b.x,a.y-b.y),ang:Math.atan2(b.y-a.y,b.x-a.x),z:VIEW.z,r:VIEW.r,t:VIEW.t,my:(a.y+b.y)/2}}
+  else st={x:e.clientX,y:e.clientY,vx:VIEW.x,vy:VIEW.y,r:VIEW.r,t:VIEW.t,btn:e.button,sh:e.shiftKey};
+ });
+ box.addEventListener('pointermove',e=>{if(!P.has(e.pointerId)||!st||pinMode)return;P.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(P.size>=2&&st.d){const [a,b]=[...P.values()];const d=Math.hypot(a.x-b.x,a.y-b.y),ang=Math.atan2(b.y-a.y,b.x-a.x),my=(a.y+b.y)/2;
+   VIEW.z=st.z*d/st.d;VIEW.r=st.r+(ang-st.ang)*180/Math.PI;VIEW.t=st.t+(my-st.my)*.25;moved=99;window._mapMoved=true;applyView(false);e.preventDefault();return}
+  if(P.size===1&&st.x!=null){const dx=e.clientX-st.x,dy=e.clientY-st.y;moved=Math.max(moved,Math.hypot(dx,dy));
+   if(st.btn===2||st.sh){VIEW.r=st.r+dx*.4;VIEW.t=st.t+dy*.25;window._mapMoved=moved>5;applyView(false);return}
+   if(VIEW.z>1.05||e.pointerType==='mouse'){if(moved>5){window._mapMoved=true;VIEW.x=st.vx+dx;VIEW.y=st.vy+dy;applyView(false)}}}
+ });
+ const up=e=>{P.delete(e.pointerId);if(P.size===0){st=null;setTimeout(()=>window._mapMoved=false,50)}else if(P.size===1){const [a]=[...P.values()];st={x:a.x,y:a.y,vx:VIEW.x,vy:VIEW.y,r:VIEW.r,t:VIEW.t}}};
+ box.addEventListener('pointerup',up);box.addEventListener('pointercancel',up);box.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')up(e)});
+ box.addEventListener('contextmenu',e=>{if(e.target.closest('.stage'))e.preventDefault()});
+ box.addEventListener('wheel',e=>{if(pinMode)return;e.preventDefault();setView({z:VIEW.z*(e.deltaY<0?1.12:.89)},false)},{passive:false});
+ box.addEventListener('dblclick',e=>{if(pinMode||e.target.closest('.maptools,.mzoom,.compass'))return;setView({z:VIEW.z<3?VIEW.z*1.6:1,x:VIEW.z<3?VIEW.x:0,y:VIEW.z<3?VIEW.y:0},true)});
+}
+function placeLabels(){const box=$('#mapbox');if(!box||!box.offsetParent)return;const br=box.getBoundingClientRect();box.querySelectorAll('.anc').forEach(a=>{const r=a.getBoundingClientRect();const l=box.querySelector(`.mlabels [data-a="${a.dataset.a}"]`);if(l){const x=r.left+r.width/2-br.left,y=r.top+r.height/2-br.top;l.style.left=x+'px';l.style.top=y+'px';l.style.visibility=(x<-20||y<-20||x>br.width+20||y>br.height+20)?'hidden':''}})}
 function trackLabels(ms){const t0=performance.now();const f=()=>{placeLabels();if(performance.now()-t0<ms)requestAnimationFrame(f)};requestAnimationFrame(f)}
 addEventListener('resize',()=>placeLabels());
 function renderRegion(){
