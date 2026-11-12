@@ -413,7 +413,7 @@ body.noanim .rv{opacity:1;transform:none}
 .hchk .bx{width:22px;height:22px;border-radius:7px;border:1.5px solid var(--line);flex:0 0 22px;display:grid;place-items:center;font-size:13px}
 .hchk.on .bx{background:var(--teal);border-color:var(--teal);color:#0b0418}
 .hchk.on span.t{text-decoration:line-through;color:var(--dim)}
-.coach .drop{border:2px dashed rgba(34,231,255,.45);border-radius:16px;padding:22px;text-align:center;cursor:pointer;margin:10px 0;background:rgba(34,231,255,.05)}
+.coach .drop{display:block;border:2px dashed rgba(34,231,255,.45);border-radius:16px;padding:22px;text-align:center;cursor:pointer;margin:10px 0;background:rgba(34,231,255,.05)}
 .coach img{max-width:100%;border-radius:12px;margin-top:8px}
 .coach .out{white-space:pre-wrap;font-size:14px;line-height:1.55;margin-top:10px}
 @media(max-width:999px){.toast{bottom:calc(100px + env(safe-area-inset-bottom))}}
@@ -487,6 +487,38 @@ body.noanim .rv{opacity:1;transform:none}
 .mhint{position:absolute;left:12px;bottom:10px;font-size:10.5px;color:rgba(255,255,255,.6);pointer-events:none;max-width:60%}
 .mapbox.zoomed .mhint{display:none}
 .mapbox.detail .mlbl[data-r=vice]{opacity:0;pointer-events:none}
+
+/* ===== QA fixes ===== */
+details.acc{margin:0}
+details.acc>summary{list-style:none;cursor:pointer;display:block}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary h3{display:flex;align-items:center;gap:8px}
+details.acc>summary h3::after{content:"⌄";margin-left:auto;font-size:16px;color:var(--mut);transition:transform .25s;letter-spacing:0}
+details.acc:not([open])>summary h3::after{transform:rotate(-90deg)}
+details.acc:not([open])>summary h3{opacity:.85}
+details.acc>summary h3 .cnt{font-family:"JetBrains Mono";font-size:11px;color:var(--dim);letter-spacing:0;border:1px solid var(--line);border-radius:999px;padding:1px 7px}
+details.acc>summary:hover h3{color:#fff}
+.item .bot{gap:6px;margin-top:auto;padding-top:2px}
+@media(max-width:600px){
+ #cars,#guns{grid-template-columns:1fr 1fr;gap:8px}
+ #cars .tile,#guns .tile{padding:10px;cursor:pointer;min-width:0}
+ #cars .tile .ttl,#guns .tile .ttl{overflow-wrap:anywhere}
+ #cars .tile .top,#guns .tile .top{flex-direction:column;align-items:flex-start;gap:6px}
+ #cars .tile .ttl,#guns .tile .ttl{font-size:13.5px}
+ #cars .tile .mk,#guns .tile .mk{font-size:11px}
+ #cars .tile .tx,#guns .tile .tx{display:none;font-size:12.5px}
+ #cars .tile.open,#guns .tile.open{grid-column:span 2}
+ #cars .tile.open .tx,#guns .tile.open .tx{display:block}
+ #cars .tile .badge,#guns .tile .badge{font-size:9.5px;padding:2px 5px}
+ #cars .tile .addbtn,#cars .tile .tick{width:28px;height:28px}
+ .flip{height:230px}
+ .mono{width:86px;height:86px;font-size:32px;top:16px}
+ .flip .nm{font-size:26px}
+ table.cmp,table.cmp tbody,table.cmp tr,table.cmp td{display:block;width:100%}
+ table.cmp tr:first-child{display:none}
+ table.cmp tr{padding:8px 0;border-bottom:1px solid var(--line)}
+ table.cmp td{border:0;padding:2px 0}
+}
 </style>
 </head>
 <body>
@@ -698,7 +730,7 @@ body.noanim .rv{opacity:1;transform:none}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 12.11. 20:06</div>
+    <div class="dim" style="margin-top:8px">App-Version 12.11. 20:09</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -757,7 +789,7 @@ const UI={
  t_missions:L('Missionen & Aktivitäten','Missions & activities'),
  l_missions:L('Alles, was aus Trailern, Extended Look und Edition-Infos über Aufträge bekannt ist. Rockstar spricht von über 80 Stunden für Story plus Nebenziele.','Everything known about jobs from trailers, the Extended Look and edition info. Rockstar talks about 80+ hours for story plus side objectives.'),
  spoilHint:L('Story-Details sind unscharf – antippen zum Aufdecken.','Story details are blurred – tap to reveal.'),
- showAll:L('Alle aufdecken','Reveal all'),
+ showAll:L('Aufdecken','Reveal'),
  h_acts:L('Freizeit in Leonida – zum Abhaken','Free time in Leonida – tick them off'),
  t_tips:L('Tipps & Tricks','Tips & tricks'),
  l_tips:L('Abgeleitet aus dem, was Rockstar und Previews bestätigt haben. Ab Release wird hier um echte Spielerfahrungen ergänzt.','Derived from what Rockstar and previews confirmed. Real player findings get added after launch.'),
@@ -1554,8 +1586,8 @@ function renderCars(){
  const dn=CARS.filter(c=>done['car:'+c[0]]).length;
  $('#carCount').textContent=`${list.length} ${T(UI.vehicles)} · ${dn} ${T(UI.driven)}`;
  const dr=store.get('dream',[]);
- $('#cars').innerHTML=list.map(c=>{const k='car:'+c[0];return `<div class="card item" data-n="${esc(c[0])}"><div class="top"><div class="ico drag" title="drag">${CATI[c[2]]}</div><div><div class="ttl">${esc(c[0])}</div><div class="mk">${esc(c[1])} · ${T(CATS[c[2]])}</div></div><span class="sp"></span><button class="addbtn ${dr.includes(c[0])?'on':''}" data-add="${esc(c[0])}" title="Dream">${dr.includes(c[0])?'★':'+'}</button><button class="tick ${done[k]?'on':''}" data-k="${esc(k)}" title="${T(UI.driven)}">✓</button></div><div class="tx">${T(c[4])}</div><div>${badge(c[3])}</div></div>`}).join('');
- bindTicks('#cars',renderCars);
+ $('#cars').innerHTML=list.map(c=>{const k='car:'+c[0];return `<div class="card item tile" data-n="${esc(c[0])}"><div class="top"><div class="ico drag" title="drag">${CATI[c[2]]}</div><div><div class="ttl">${esc(c[0])}</div><div class="mk">${esc(c[1])} · ${T(CATS[c[2]])}</div></div></div><div class="tx">${T(c[4])}</div><div class="row bot">${badge(c[3])}<span class="sp"></span><button class="addbtn ${dr.includes(c[0])?'on':''}" data-add="${esc(c[0])}" title="Dream">${dr.includes(c[0])?'★':'+'}</button><button class="tick ${done[k]?'on':''}" data-k="${esc(k)}" title="${T(UI.driven)}">✓</button></div></div>`}).join('');
+ bindTicks('#cars',renderCars);bindTiles('#cars');
  $('#cars').querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>toggleDream(b.dataset.add));
  if(window.Sortable){if(window._cs)window._cs.destroy();window._cs=Sortable.create($('#cars'),{group:{name:'dg',pull:'clone',put:false},sort:false,handle:'.drag',animation:150,delay:120,delayOnTouchOnly:true,ghostClass:'sortable-ghost'})}
  setTimeout(reveal,20);
@@ -1580,7 +1612,8 @@ function renderGuns(){
  const keys=['all',...Object.keys(GUNCATS)];
  $('#gunCats').innerHTML=keys.map(k=>`<button class="chip ${gunCat===k?'on':''}" data-c="${k}">${k==='all'?T(UI.all):GUNI[k]+' '+T(GUNCATS[k])}</button>`).join('');
  $('#gunCats').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{gunCat=b.dataset.c;renderGuns()});
- $('#guns').innerHTML=GUNS.filter(g=>gunCat==='all'||g[1]===gunCat).map(g=>`<div class="card item"><div class="top"><div class="ico">${GUNI[g[1]]}</div><div><div class="ttl">${esc(g[0])}</div><div class="mk">${T(GUNCATS[g[1]])}</div></div><span class="sp"></span>${badge(g[2])}</div>${T(g[3])?`<div class="tx">${T(g[3])}</div>`:''}</div>`).join('');
+ $('#guns').innerHTML=GUNS.filter(g=>gunCat==='all'||g[1]===gunCat).map(g=>`<div class="card item tile"><div class="top"><div class="ico">${GUNI[g[1]]}</div><div><div class="ttl">${esc(g[0])}</div><div class="mk">${T(GUNCATS[g[1]])}</div></div></div>${T(g[3])?`<div class="tx">${T(g[3])}</div>`:''}<div class="row bot">${badge(g[2])}</div></div>`).join('');
+ bindTiles('#guns');
  $('#gunfeat').innerHTML=GUNFEAT.map(f=>`<div class="card item"><div class="top"><div class="ico">${f[0]}</div><div class="ttl">${T(f[1])}</div><span class="sp"></span>${badge(f[3])}</div><div class="tx">${T(f[2])}</div></div>`).join('');
 }
 
@@ -1624,7 +1657,7 @@ function renderSim(){
   renderSim()});
 }
 function renderTips(){
- $('#tipsBox').innerHTML=TIPS.map((c,ci)=>`<h3>${T(c.h)}</h3><div class="grid">${c.items.map((t,i)=>`<div class="card tipcat"><div class="n">${String(ci*10+i+1).padStart(2,'0')}</div><div><div class="row" style="flex-wrap:wrap;gap:6px"><b class="${t[2]==='off'&&i<2?'hl':''}">${T(t[0])}</b>${badge(t[2])}</div><div class="tx muted" style="font-size:13.5px;margin-top:4px">${T(t[1])}</div></div></div>`).join('')}</div>`).join('');
+ $('#tipsBox').innerHTML=TIPS.map((c,ci)=>`<details class="acc" ${ci===0?'open':''}><summary><h3>${T(c.h)} <span class="cnt">${c.items.length}</span></h3></summary><div class="grid">${c.items.map((t,i)=>`<div class="card tipcat"><div class="n">${String(ci*10+i+1).padStart(2,'0')}</div><div><div class="row" style="flex-wrap:wrap;gap:6px"><b class="${t[2]==='off'&&i<2?'hl':''}">${T(t[0])}</b>${badge(t[2])}</div><div class="tx muted" style="font-size:13.5px;margin-top:4px">${T(t[1])}</div></div></div>`).join('')}</div></details>`).join('');
 }
 
 /* secrets */
@@ -1698,6 +1731,8 @@ function reveal(){decorateFavs();
 function tilt(){if(!matchMedia('(hover:hover) and (pointer:fine)').matches)return;document.addEventListener('pointermove',e=>{const c=e.target.closest('.bento .b,.vid,.fact');document.querySelectorAll('.tilted').forEach(x=>{if(x!==c){x.style.transform='';x.classList.remove('tilted')}});if(!c)return;const r=c.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.classList.add('tilted');c.style.transform=`perspective(700px) rotateY(${x*6}deg) rotateX(${-y*6}deg) translateY(-2px)`})}
 function splash(){const sp=$('#splash');if(SET.noanim){sp.classList.add('off');return}let seen=false;try{seen=sessionStorage.getItem('leo_sp')}catch(e){}if(seen||matchMedia('(prefers-reduced-motion:reduce)').matches){sp.classList.add('off');return}try{sessionStorage.setItem('leo_sp','1')}catch(e){}setTimeout(()=>sp.classList.add('off'),1750);sp.onclick=()=>sp.classList.add('off')}
 function parallax(){const sc=document.querySelector('.hero svg.scene');if(!sc)return;addEventListener('scroll',()=>{const y=Math.min(scrollY,600);sc.style.transform=`translateY(${y*.25}px)`},{passive:true})}
+function bindTiles(sel){document.querySelectorAll(sel+' .tile').forEach(c=>{if(c._t)return;c._t=1;c.addEventListener('click',e=>{if(e.target.closest('button'))return;c.classList.toggle('open')})})}
+function makeAcc(){[['h_vsys',0],['h_allcars',1],['h_gunfeat',0],['h_districts',0],['h_pois',0],['h_mypins',1],['h_coll',1],['h_eggs',1],['h_leaks',0],['h_theories',0],['h_more',1],['h_album',1],['h_trailersongs',0],['h_tech',1],['h_sources',0],['h_story',1],['h_acts',1]].forEach(([k,open])=>{const h=document.querySelector(`h3[data-i="${k}"]`);if(!h||h.closest('details'))return;const d=document.createElement('details');d.className='acc';if(open)d.open=true;const sm=document.createElement('summary');h.parentNode.insertBefore(d,h);sm.appendChild(h);d.appendChild(sm);let n=d.nextSibling;const stop=x=>x&&x.nodeType===1&&(x.tagName==='H3'||x.tagName==='DETAILS'||x.tagName==='H2');while(n&&!stop(n)){const nx=n.nextSibling;d.appendChild(n);n=nx}})}
 /* ---------- favorites ---------- */
 function decorateFavs(){
  const f=store.get('favs',{});
@@ -1821,7 +1856,7 @@ $('#carQ').addEventListener('input',renderCars);
 $('#spoilAll').onclick=()=>document.querySelectorAll('#missions .spoil').forEach(s=>s.classList.add('show'));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSearch();$('#setp').classList.remove('on')}if((e.key==='k'&&(e.metaKey||e.ctrlKey))||(e.key==='/'&&document.activeElement.tagName!=='INPUT')){e.preventDefault();openSearch()}});
 window.addEventListener('hashchange',route);
-splash();renderAll();tilt();parallax();
+splash();makeAcc();renderAll();tilt();parallax();
 setInterval(renderCD,1000);
 </script>
 <script>
