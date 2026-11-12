@@ -356,6 +356,67 @@ body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
 .hrow{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--line);font-size:13.5px}
 .hrow:last-child{border:0}
 .hrow .s{font-size:18px;min-width:26px;text-align:center}
+
+/* ===== v3 ===== */
+#setp{position:fixed;inset:0;z-index:150;background:rgba(7,2,16,.94);backdrop-filter:blur(10px);display:none;overflow:auto;padding:calc(16px + env(safe-area-inset-top)) 0 120px}
+#setp.on{display:block}
+.setT{font-family:"Bebas Neue";font-size:32px;letter-spacing:1px}
+.sgrp{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.sgrp h4{margin:0 0 4px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan)}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.seg button{flex:1;min-width:90px;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:9px 8px;font-weight:700;font-size:13px}
+.seg button.on{background:linear-gradient(90deg,var(--pink),var(--violet));border-color:transparent}
+.sw{display:flex;align-items:center;gap:10px;padding:8px 0}
+.sw input{width:44px;height:26px;appearance:none;-webkit-appearance:none;background:#3a2a5a;border-radius:20px;position:relative;cursor:pointer;transition:.2s;flex:0 0 auto}
+.sw input::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s}
+.sw input:checked{background:var(--teal)}.sw input:checked::after{left:21px}
+input.fld,select.fld{width:100%;background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:9px 11px;color:#fff;font-size:14px;margin-top:6px}
+input[type=range]{width:100%;accent-color:var(--pink)}
+.fav{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:9px;border:1px solid var(--line);background:rgba(11,4,24,.55);font-size:14px;color:var(--dim);z-index:3;display:grid;place-items:center;transition:transform .2s}
+.fav.on{color:var(--sun);border-color:rgba(255,210,63,.6);background:rgba(255,210,63,.12);text-shadow:0 0 8px var(--sun)}
+.fav:active{transform:scale(1.25)}
+.card.item,.card.tipcat{position:relative}
+.card.item .top,.card.tipcat>div:last-child{padding-right:30px}
+.card.item .top .tick,.card.item .top .addbtn{position:relative;z-index:4}
+.lock{display:flex;align-items:center;gap:8px;color:var(--dim);font-size:13px;font-style:italic}
+/* compact */
+body.compact .card{padding:10px}
+body.compact .grid{gap:8px}
+body.compact h2.sec{font-size:30px;margin-top:16px}
+body.compact p.lead{font-size:13px}
+body.compact .item .tx{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:12.5px;cursor:pointer}
+body.compact .item.open .tx{-webkit-line-clamp:unset;display:block}
+body.compact .ico{width:32px;height:32px;flex-basis:32px;font-size:16px}
+body.compact .hero{min-height:420px}
+body.noanim *,body.noanim *::before,body.noanim *::after{animation:none!important;transition:none!important}
+body.noanim .rv{opacity:1;transform:none}
+/* launch */
+.launch{max-width:560px;margin:22px auto 6px;text-align:left;background:rgba(11,4,24,.72);border:1px solid rgba(25,245,193,.5);border-radius:20px;padding:16px;backdrop-filter:blur(8px);box-shadow:0 0 30px rgba(25,245,193,.2)}
+.launch h4{margin:0 0 8px;font-family:"Bebas Neue";font-size:30px;letter-spacing:1px;color:var(--teal);text-shadow:0 0 12px var(--teal)}
+.launch li{margin:6px 0;font-size:14px}
+/* pins */
+.pinbar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+#pinMode.on{background:var(--pink);border-color:var(--pink);color:#fff;box-shadow:0 0 16px rgba(255,43,214,.5)}
+.mapbox.pinning{cursor:crosshair;outline:2px dashed var(--pink);outline-offset:3px}
+.upin{cursor:pointer}
+.pinrow{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:var(--card);margin-bottom:6px;font-size:13.5px}
+.pinrow.done{opacity:.6}
+.pinrow .x{margin-left:auto}
+.coll .ring{width:64px;height:64px;position:relative;margin:2px auto 6px}
+.coll .ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:"JetBrains Mono";font-size:16px}
+.coll .ctl{display:flex;justify-content:center;gap:8px}
+.coll .ctl button{width:34px;height:30px;border-radius:9px;border:1px solid var(--line);background:var(--card2);font-weight:800}
+/* heist */
+.heist .opts{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.hchk{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer;font-size:14px}
+.hchk:last-child{border:0}
+.hchk .bx{width:22px;height:22px;border-radius:7px;border:1.5px solid var(--line);flex:0 0 22px;display:grid;place-items:center;font-size:13px}
+.hchk.on .bx{background:var(--teal);border-color:var(--teal);color:#0b0418}
+.hchk.on span.t{text-decoration:line-through;color:var(--dim)}
+.coach .drop{border:2px dashed rgba(34,231,255,.45);border-radius:16px;padding:22px;text-align:center;cursor:pointer;margin:10px 0;background:rgba(34,231,255,.05)}
+.coach img{max-width:100%;border-radius:12px;margin-top:8px}
+.coach .out{white-space:pre-wrap;font-size:14px;line-height:1.55;margin-top:10px}
+@media(max-width:999px){.toast{bottom:calc(100px + env(safe-area-inset-bottom))}}
 </style>
 </head>
 <body>
@@ -365,7 +426,7 @@ body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
   <a class="logo" href="#home"><span class="l1">LEONIDA</span><span class="l2">Pro Guide</span></a>
   <div class="sideCd" id="sideCd"></div>
   <nav id="sideNav"></nav>
-  <div class="sideTools"><button class="ib" id="btnSearch2">🔍 <span data-i="searchLbl"></span></button><button class="ib lang" id="btnLang2"></button></div>
+  <div class="sideTools"><button class="ib" id="btnSearch2">🔍 <span data-i="searchLbl"></span></button><button class="ib" id="btnSet2">⚙️</button><button class="ib lang" id="btnLang2"></button></div>
   <div class="sideSig">✦ by <b>Flovo</b></div>
 </aside>
 <header style="padding-top:env(safe-area-inset-top)">
@@ -374,6 +435,7 @@ body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
       <a class="logo" href="#home" aria-label="Start"><span class="l1">LEONIDA</span><span class="l2">Pro Guide</span><span class="flovo">by Flovo</span></a>
       <span class="hsp"></span>
       <button class="ib" id="btnSearch" aria-label="Suche">🔍</button>
+      <button class="ib" id="btnSet" aria-label="Einstellungen">⚙️</button>
       <button class="ib lang" id="btnLang"><span id="langLbl"><b>DE</b>/EN</span></button>
     </div>
     <nav class="tabs" id="tabs"></nav>
@@ -458,10 +520,16 @@ body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
   <section class="view" id="v-map">
     <h2 class="sec" data-i="t_map"></h2>
     <p class="lead" data-i="l_map"></p>
+    <div class="pinbar"><button class="ib" id="pinMode"></button><span class="dim" id="pinHint"></span></div>
     <div class="mapwrap">
       <div class="mapbox" id="mapbox"></div>
       <div class="card rpanel" id="rpanel"></div>
     </div>
+    <h3 data-i="h_mypins"></h3>
+    <div id="mypins"></div>
+    <h3 data-i="h_coll"></h3>
+    <p class="dim" data-i="collHint" style="margin-top:-4px"></p>
+    <div class="grid sm" id="coll"></div>
     <h3 data-i="h_districts"></h3>
     <div class="grid" id="districts"></div>
     <h3 data-i="h_pois"></h3>
@@ -505,6 +573,8 @@ body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
   <section class="view" id="v-missions">
     <h2 class="sec" data-i="t_missions"></h2>
     <p class="lead" data-i="l_missions"></p>
+    <div class="card heist" id="heist"></div>
+    <h3 data-i="h_story"></h3>
     <div class="row" style="margin-bottom:10px"><span class="dim" data-i="spoilHint"></span><span class="sp"></span><button class="ib" id="spoilAll" data-i="showAll"></button></div>
     <div class="grid" id="missions"></div>
     <h3 data-i="h_acts"></h3>
@@ -517,6 +587,7 @@ body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
     <h2 class="sec" data-i="t_tips"></h2>
     <p class="lead" data-i="l_tips"></p>
     <div class="tipsTop"><div class="card" id="sim"></div><div class="card" id="heat"></div></div>
+    <div class="card coach" id="coach" style="margin-top:14px"></div>
     <div id="tipsBox"></div>
   </section>
 
@@ -557,7 +628,7 @@ body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 12.11. 19:28</div>
+    <div class="dim" style="margin-top:8px">App-Version 12.11. 19:49</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -568,6 +639,7 @@ body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
     <div class="sres" id="sres"></div>
   </div>
 </div>
+<div id="setp"><div class="wrap"><div class="row" style="margin-bottom:10px"><b class="setT" data-i="setTitle"></b><span class="sp"></span><button class="ib" id="setClose">✕</button></div><div id="setBody"></div></div></div>
 <div class="toast" id="toast"></div>
 
 <script>/*! Sortable 1.15.6 - MIT | git://github.com/SortableJS/Sortable.git */
@@ -580,6 +652,10 @@ const T=(o)=>typeof o==='string'?o:(o?o[LANG]||o.de:'');
 const L=(de,en)=>({de,en});
 const RELEASE=new Date('2026-11-19T00:00:00+01:00');
 let done=store.get('done',{});
+let SET=Object.assign({spoil:1,chapter:0,compact:false,noanim:false,launchPreview:false,ai:'anthropic',aiKey:'',aiModel:''},store.get('set',{}));
+const saveSet=()=>{store.set('set',SET);applySet()};
+function applySet(){document.body.classList.toggle('compact',!!SET.compact);document.body.classList.toggle('noanim',!!SET.noanim)}
+const isLaunch=()=>Date.now()>=RELEASE||SET.launchPreview;
 
 /* ================= UI STRINGS ================= */
 const UI={
@@ -644,6 +720,15 @@ const UI={
  w_dream:L('Traumgarage','Dream garage'),w_plan:L('Mein Launch-Plan','My launch plan'),w_heat:L('Fahndung lesen','Reading the wanted level'),
  emptyDream:L('Noch leer – in der Garage Autos reinziehen.','Empty – drag cars in from the Garage.'),toGarage:L('Zur Garage →','To the garage →'),toPlan:L('Plan bearbeiten →','Edit plan →'),
  full:L('Garage voll (6/6)','Garage full (6/6)'),
+ setTitle:L('Einstellungen','Settings'),
+ h_mypins:L('📍 Meine Pins','📍 My pins'),h_coll:L('🏅 Sammel-Tracker','🏅 Collection tracker'),
+ collHint:L('Zähl mit, was du gefunden hast. Die Gesamtzahlen trage ich ein, sobald die Community sie kennt.','Count what you’ve found. I’ll add the totals once the community knows them.'),
+ h_story:L('Story-Missionen','Story missions'),
+ pinOn:L('✓ Fertig','✓ Done'),pinOff:L('📍 Pin setzen','📍 Add pin'),
+ pinHintOn:L('Tippe auf die Karte, wo der Pin hin soll.','Tap the map where the pin should go.'),pinHintOff:L('Markiere Verstecke, Compounds, Tiere & Funde direkt auf der Karte.','Mark hideouts, compounds, animals & finds right on the map.'),
+ noPins:L('Noch keine Pins – tippe auf „📍 Pin setzen“.','No pins yet – tap “📍 Add pin”.'),
+ w_fav:L('⭐ Gemerkt','⭐ Saved'),noFav:L('Tippe auf ☆ an einer Info, um sie hier zu sammeln.','Tap ☆ on any item to collect it here.'),
+ spoilLock:L('🔒 Spoiler-Schutz – in den Einstellungen änderbar','🔒 Spoiler shield – change in settings'),
  madeBy:L('Gebaut mit Liebe zu Vice City von','Built with love for Vice City by'),
  gq:L('Alles durchsuchen: Auto, Waffe, Ort, Person, Tipp…','Search everything: car, gun, place, person, tip…'),
  noRes:L('Nichts gefunden.','Nothing found.'),
@@ -722,8 +807,28 @@ const HEAT=[
 ];
 const HEATIND=[L('📹 Von Kamera erfasst','📹 Caught on CCTV'),L('💑 Fahndung nach einem Paar','💑 Looking for a couple'),L('👕 Kleidung bekannt','👕 Clothing known'),L('🙂 Identität bekannt','🙂 Identity known'),L('🔫 Tatwaffe bekannt','🔫 Weapon known')];
 const PLANCOLS=[['idea',L('Ideen','Ideas'),'#9b5cff'],['d1',L('Launch-Tag','Launch day'),'#ff2bd6'],['w1',L('Erste Woche','First week'),'#22e7ff'],['done',L('Erledigt ✓','Done ✓'),'#19f5c1']];
-const WIDGETS=['bento','news','media','dream','plan','heat','prep','tl','prog','legend'];
-const WHALF={dream:1,plan:1,heat:1,prep:1,tl:1,prog:1,legend:1};
+const WIDGETS=['fav','bento','news','media','dream','plan','heat','prep','tl','prog','legend'];
+const WHALF={fav:1,dream:1,plan:1,heat:1,prep:1,tl:1,prog:1,legend:1};
+const FIRST=[
+ L('⚙️ Einstellungen: Minimap dauerhaft an, Gehtempo & Zielhilfe wählen','⚙️ Settings: minimap always on, pick walk speed & aim assist'),
+ L('🏧 Bargeld regelmäßig am Geldautomaten einzahlen – beim Tod ist alles weg','🏧 Deposit cash at ATMs often – you lose it all when you die'),
+ L('🎭 Maske & Ersatzoutfit in den Kofferraum legen','🎭 Put a mask & spare outfit in the trunk'),
+ L('📱 Vor jedem Autodiebstahl mit WAINK scannen','📱 Scan with WAINK before every car theft'),
+ L('💪 Gym drei Tage am Stück = +1 Werte-Punkt','💪 Gym three days straight = +1 stat point'),
+ L('🔒 Im Leonida Pro Guide dein Kapitel einstellen (Spoiler-Schutz)','🔒 Set your chapter in Leonida Pro Guide (spoiler shield)'),
+];
+const PINCATS=[['hide','🗝️',L('Versteck','Hideout')],['gang','🏚️',L('Gang-Compound','Gang compound')],['animal','🦌',L('Tier','Animal')],['car','🚗',L('Classic Car','Classic car')],['coll','📰',L('Sammelobjekt','Collectible')],['shop','🛒',L('Laden/Hehler','Shop/fence')],['note','📌',L('Notiz','Note')]];
+const COLL=[['legend','🦌',L('Legendäre Tiere','Legendary animals'),null,L('Selten · entdeckbar · legendär','Rare · discoverable · legendary')],['species','🐊',L('Arten im Kompendium','Compendium species'),null,L('Jede gesichtete Art zählt','Every spotted species counts')],['classic','🚙',L('Classic Cars für Wyman','Classic cars for Wyman'),null,L('4 davon nur in der Ultimate','4 are Ultimate-only')],['paper','📰',L('Sammel-Zeitungen','Collectible newspapers'),null,L('Beim Ladenraub entdeckt','Spotted during a store robbery')],['gang','🏚️',L('Gang-Compounds','Gang compounds'),null,L('„lots and lots“ laut Rockstar','“lots and lots” per Rockstar')],['fish','🎣',L('Angel-Sammelobjekte','Fishing collectibles'),null,L('Fische bringen Geld & Sammelobjekte','Fish give cash & collectibles')]];
+const HEISTT=[['store','🏪',L('Laden','Store')],['jewel','💎',L('Juwelier','Jeweler')],['bank','🏦',L('Bank','Bank')]];
+const HEISTSTEPS={
+ base:[L('Fluchtwagen ohne GPS-Tracker besorgen (vorher mit WAINK scannen)','Get a getaway car without a GPS tracker (scan with WAINK first)'),L('Tank voll? Rockstar will, dass du an Sprit denkst','Full tank? Rockstar wants you thinking about fuel'),L('Ersatzoutfit in den Kofferraum','Spare outfit in the trunk'),L('Maske VOR der Tat aufsetzen','Mask on BEFORE the crime'),L('Hinterausgang & Kameras checken','Check the back exit & cameras'),L('Niemanden töten → Criminal Profile steigt','Kill no one → Criminal Profile goes up')],
+ store:[L('Kassierer bedrohen – versteckte Safes & Geldverstecke','Lean on the clerk – hidden safes & stashes'),L('Kurz halten: wenig Geld, Polizei kommt schnell','Keep it short: little cash, police arrive fast')],
+ jewel:[L('Auto mit genug Platz für mehrere Beutetaschen','Car with room for several loot bags'),L('Safe: Kombination suchen statt sprengen – mehr Beute','Safe: find the combo instead of blowing it – more loot')],
+ bank:[L('Mit Partner planen – Bank ist die höchste Stufe','Plan with your partner – banks are the top tier'),L('Mehrere Taschen → Fahrzeug mit großem Stauraum','Several bags → vehicle with big storage'),L('Fluchtweg zu Fuß über Dächer einplanen (ab 3 Sternen)','Plan an on-foot rooftop route (3+ stars)')],
+ duo:[L('Rollen klären: einer fährt, einer schießt (Reifen!)','Split roles: one drives, one shoots (tires!)'),L('Bei Bedarf trennen – Polizei muss sich aufteilen','Split up if needed – police must divide'),L('Partner nicht zurücklassen – sonst Beziehungs-Minus','Don’t leave your partner – relationship penalty')],
+ solo:[L('Fluchtwagen direkt am Hinterausgang parken','Park the getaway car right at the back exit')],
+ after:[L('Maske ab, Outfit wechseln, erkanntes Auto loswerden','Mask off, swap outfit, ditch the known car'),L('Beute zum Hehler, Geld waschen','Loot to the fence, launder the money'),L('Bargeld sofort am Geldautomaten einzahlen','Deposit the cash at an ATM right away')],
+};
 const PREP=[
  [L('Speicher freimachen','Free up storage'),L('Laut PlayStation-Store-Daten ca. 210 GB Download auf PS5 (nicht offiziell bestätigt). Plane ~250 GB frei ein.','PlayStation Store data points to ~210 GB on PS5 (not officially confirmed). Plan ~250 GB free.'),'rum'],
  [L('Preload starten','Start the pre-load'),L('Für Vorbesteller seit 10.11. um Mitternacht Ortszeit im PS Store. Box-Version enthält nur einen Download-Code, keine Disc.','Available to pre-orders since 10 Nov at local midnight on PS Store. The boxed version only contains a download code, no disc.'),'off'],
@@ -986,7 +1091,7 @@ const GUNFEAT=[
 ];
 
 const MISSIONS=[
- ['🔒',L('Anruf aus dem Knast','Call from jail'),L('Lucia sitzt im Leonida Penitentiary und ruft Jason an – so finden die beiden (wieder) zusammen. Ihre Fußfessel spielt eine zentrale Rolle.','Lucia is in Leonida Penitentiary and calls Jason – that’s how they (re)connect. Her ankle monitor plays a central role.'),'off'],
+ ['🔒',L('Anruf aus dem Knast','Call from jail'),L('Lucia sitzt im Leonida Penitentiary und ruft Jason an – so finden die beiden (wieder) zusammen. Ihre Fußfessel spielt eine zentrale Rolle.','Lucia is in Leonida Penitentiary and calls Jason – that’s how they (re)connect. Her ankle monitor plays a central role.'),'off',1],
  ['📦',L('Boobies Besorgung','Boobie’s errand'),L('Mit diesem Auftrag startet das Gameplay im Extended Look.','The Extended Look gameplay opens with this errand.'),'seen'],
  ['💊',L('Deal geht schief','Deal gone bad'),L('Drogendeal mit Raymond, plötzlich stürmt Méndez’ Taskforce – erste große Schießerei, mehrere Fluchtwege.','Drug deal with Raymond, then Méndez’s task force storms in – first big shootout, several escape routes.'),'seen'],
  ['🏪',L('Ladenüberfall zu zweit','Two-person store robbery'),L('Einer raubt aus, der andere fährt den Fluchtwagen. Kunden können sich wehren.','One robs, the other drives the getaway car. Shoppers can fight back.'),'off'],
@@ -1198,6 +1303,11 @@ function route(){
 /* countdown */
 let lastCD={};
 function renderCD(){
+ if(isLaunch()){ if($('#cdBox').dataset.mode!=='launch'+LANG){$('#cdBox').dataset.mode='launch'+LANG;const p=getPlan();const d1=ACTS.filter(a=>p[a[1].de]==='d1');
+  $('#cdBox').innerHTML=`<div class="launch"><h4>🌴 ${T(L('Willkommen in Leonida','Welcome to Leonida'))}</h4><div class="dim" style="margin-bottom:6px">${T(L('Deine ersten Stunden:','Your first hours:'))}</div><ol style="margin:0;padding-left:18px">${FIRST.map(f=>`<li>${T(f)}</li>`).join('')}</ol>${d1.length?`<div class="dim" style="margin:10px 0 4px">${T(L('Aus deinem Launch-Plan:','From your launch plan:'))}</div><div class="minichips">${d1.map(a=>`<span>${a[0]} ${T(a[1])}</span>`).join('')}</div>`:''}</div>`;
+  document.querySelectorAll('[data-i=cdnote]').forEach(e=>e.style.display='none');}
+  $('#sideCd').innerHTML=`<div class="k">GTA VI</div><div class="v">LIVE 🌴</div>`;return}
+ if($('#cdBox').dataset.mode&&$('#cdBox').dataset.mode.startsWith('launch')){$('#cdBox').dataset.mode='';$('#cdBox').innerHTML='';document.querySelectorAll('[data-i=cdnote]').forEach(e=>e.style.display='')}
  const diff=RELEASE-Date.now();
  if(diff<=0){$('#cdBox').innerHTML=`<div class="live">${T(UI.liveTxt)} 🌴</div>`;$('#sideCd').innerHTML=`<div class="v">LIVE 🌴</div>`;return}
  const v={days:Math.floor(diff/864e5),hours:Math.floor(diff/36e5)%24,mins:Math.floor(diff/6e4)%60,secs:Math.floor(diff/1e3)%60};
@@ -1216,6 +1326,7 @@ const W={
  prep:()=>[UI.h_preparo,`<ul class="list">${PREP.map(p=>`<li><span>✅</span><div><b>${T(p[0])}</b> ${badge(p[2])}<div class="tx muted" style="font-size:13.5px">${T(p[1])}</div></div></li>`).join('')}</ul>`],
  tl:()=>{const now=Date.now();let nx=false;return [UI.h_timeline,`<div class="tl">${TL.map(t=>{const [dd,mm,yy]=t[0].split('–').pop().split('.');const dt=new Date(`${yy}-${mm}-${dd}T00:00:00+01:00`);let c='';if(!nx&&dt>now){c='next';nx=true}return `<div class="it ${c}"><div class="d">${t[0]}</div><div class="t">${T(t[1])}</div><div class="muted" style="font-size:13.5px">${T(t[2])}</div></div>`}).join('')}</div>`]},
  prog:()=>[UI.h_progress,`<div id="progBox"></div>`],
+ fav:()=>{const f=store.get('favs',{});const ks=Object.keys(f);return [UI.w_fav,ks.length?`<div class="minichips">${ks.map(k=>{const t=TABS.find(x=>x[0]===f[k].v);return `<span class="lnkchip" data-go="${f[k].v}" style="cursor:pointer">${t?t[1]:'⭐'} ${esc(f[k].t)}</span>`}).join('')}</div>`:`<div class="dim">${T(UI.noFav)}</div>`]},
  legend:()=>[UI.h_legend,`<div class="legend">${['off','seen','leak','rum','ue'].map(badge).join('')}</div><div class="dim">${T(UI.legendTxt)}</div>`],
 };
 function renderHome(){
@@ -1227,13 +1338,14 @@ function renderHome(){
  $('#dash').innerHTML=order.map(w=>{const [t,b]=W[w]();return `<section class="widget ${WHALF[w]?'half':''} ${col[w]?'col':''}" data-w="${w}"><div class="wh"><span class="grip" title="drag">⠿</span><h3>${T(t)}</h3><button class="wc" aria-label="toggle">⌄</button></div><div class="wb">${b}</div></section>`}).join('');
  $('#dash').querySelectorAll('.wc').forEach(b=>b.onclick=()=>{const w=b.closest('.widget');w.classList.toggle('col');const c=store.get('dcol',{});c[w.dataset.w]=w.classList.contains('col');store.set('dcol',c)});
  if(window.Sortable){if(window._ds)window._ds.destroy();window._ds=Sortable.create($('#dash'),{handle:'.grip',animation:220,easing:'cubic-bezier(.2,.8,.2,1)',ghostClass:'sortable-ghost',chosenClass:'sortable-chosen',dragClass:'sortable-drag',onEnd:()=>{store.set('dash',[...$('#dash').children].map(e=>e.dataset.w));toast(T(UI.saved))}})}
+  $('#dash').querySelectorAll('[data-go]').forEach(c=>c.onclick=()=>{location.hash=c.dataset.go});
  renderProg();
 }
 function renderProg(){
  const box=$('#progBox');if(!box)return;
  const p=getPlan();const cDone=CARS.filter(c=>done['car:'+c[0]]).length,aDone=ACTS.filter(a=>p[a[1].de]==='done').length;
  const bar=(n,t,l)=>`<div style="margin:8px 0"><div class="row"><b>${l}</b><span class="sp"></span><span class="dim">${n}/${t}</span></div><div class="prog"><i style="width:${t?n/t*100:0}%"></i></div></div>`;
- box.innerHTML=`<div class="dim">${T(UI.progTxt)}</div>${bar(cDone,CARS.length,'🏎️ '+T(TABS[3][2]))}${bar(aDone,ACTS.length,'🎯 '+T(L('Aktivitäten','Activities')))}${bar(store.get('dream',[]).length,6,'🏆 '+T(UI.w_dream))}`;
+ box.innerHTML=`<div class="dim">${T(UI.progTxt)}</div>${bar(cDone,CARS.length,'🏎️ '+T(TABS[3][2]))}${bar(aDone,ACTS.length,'🎯 '+T(L('Aktivitäten','Activities')))}${bar(store.get('dream',[]).length,6,'🏆 '+T(UI.w_dream))}<div class="dim" style="margin-top:6px">📍 ${store.get('pins',[]).length} Pins · 🏅 ${Object.values(store.get('coll',{})).reduce((a,b)=>a+b,0)} ${T(L('gesammelt','collected'))}</div>`;
 }
 function getPlan(){const p=store.get('plan',{});ACTS.forEach(a=>{if(!p[a[1].de])p[a[1].de]='idea'});return p}
 
@@ -1259,6 +1371,7 @@ function renderMap(){
  <g opacity="${mapCounties?1:0}" style="transition:opacity .3s" font-family="Inter" font-size="9" fill="rgba(255,255,255,.75)" font-style="italic">
   <text x="200" y="98">Lummox Co.*</text><text x="50" y="110">Kelly Co.</text><text x="198" y="160">Ambrosia Co.</text><text x="300" y="210">Leonard Co.</text><text x="318" y="330">Vice-Dale Co.</text><text x="160" y="440">Mariana Co.</text>
  </g>
+ <g id="upins">${pinSvg()}</g>
  ${pin('vice',330,318,'VICE CITY')}${pin('keys',214,456,'LEONIDA KEYS')}${pin('grass',236,372,'GRASSRIVERS')}${pin('gell',72,108,'PORT GELLHORN')}${pin('ambro',220,250,'AMBROSIA')}${pin('kalaga',210,84,'MOUNT KALAGA')}
  </svg><div class="maptools"><button id="mcBtn" class="${mapCounties?'on':''}">${T(UI.counties)}</button></div>`;
  function regionPath(id,d){return `<path class="region ${curRegion===id?'on':''}" data-r="${id}" d="${d}" fill="${R[id].c}" fill-opacity="${curRegion===id?.55:.28}" stroke="${R[id].c}" stroke-width="1.5"/>`}
@@ -1266,6 +1379,7 @@ function renderMap(){
  $('#mapbox').innerHTML=svg;
  $('#mapbox').querySelectorAll('[data-r]').forEach(el=>el.addEventListener('click',()=>{curRegion=el.dataset.r;renderMap();renderRegion();if(innerWidth<800)$('#rpanel').scrollIntoView({behavior:'smooth',block:'start'})}));
  $('#mcBtn').onclick=()=>{mapCounties=!mapCounties;renderMap()};
+ bindPins();
 }
 function renderRegion(){
  const r=REGIONS[curRegion];
@@ -1275,7 +1389,7 @@ function renderRegion(){
   <div class="tag">${T(r.tag)}</div>
   <div class="dim" style="margin:6px 0">${T(UI.county)}: ${r.county} · ${T(UI.inspired)}: ${T(r.insp)}</div>
   <p style="margin:8px 0">${T(r.d)}</p>
-  <ul class="list">${r.pts.map(p=>`<li><span>📍</span><span>${T(p)}</span></li>`).join('')}</ul>`;
+  <ul class="list">${r.pts.map(p=>`<li><span>📍</span><span>${T(p)}</span></li>`).join('')}</ul><div class="dim" style="margin-top:8px">${T(L('Deine Pins hier','Your pins here'))}: ${store.get('pins',[]).filter(p=>p.r===curRegion).length}</div>`;
 }
 function renderDistricts(){
  $('#districts').innerHTML=DISTRICTS.map(d=>`<div class="card item"><div class="top"><div class="ttl">${d[0]}</div><span class="sp"></span>${badge(d[1])}</div><div class="tx">${T(d[2])}</div><div class="dim">${T(UI.inspired)}: ${d[3]}</div></div>`).join('');
@@ -1286,7 +1400,7 @@ function renderDistricts(){
 function renderCrew(){
  $('#crew').innerHTML=CREW.map((c,i)=>`<div class="flip" data-f="${i}"><div class="in">
   <div class="fa" style="background:${c.g}"><span class="hint">${T(UI.flipHint)}</span><div class="mono">${c.i}</div><div class="nm">${c.n}</div><div class="rl">${T(c.r)}</div><div style="margin-top:6px">${badge(c.st)}</div></div>
-  <div class="ba"><div class="nm" style="font-size:24px">${c.n}</div><p class="q">${T(c.q)}</p><p>${T(c.d)}</p></div></div></div>`).join('');
+  <div class="ba"><div class="nm" style="font-size:24px">${c.n}</div><p class="q">${T(c.q)}</p>${SET.spoil===0?`<p class="lock">${T(UI.spoilLock)}</p>`:`<p>${T(c.d)}</p>`}</div></div></div>`).join('');
  $('#crew').querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
  $('#crew2').innerHTML=CREW2.map(c=>`<div class="card item"><div class="top"><div class="ico" style="font-family:Monoton;font-size:14px">${c[0].split(' ').map(w=>w[0]).join('').slice(0,2)}</div><div class="ttl">${c[0]}</div><span class="sp"></span>${badge(c[1])}</div><div class="tx">${T(c[2])}</div></div>`).join('');
 }
@@ -1336,9 +1450,9 @@ function renderGuns(){
 
 /* missions */
 function renderMissions(){
- $('#missions').innerHTML=MISSIONS.map(m=>`<div class="card item"><div class="top"><div class="ico">${m[0]}</div><div class="ttl">${T(m[1])}</div><span class="sp"></span>${badge(m[3])}</div><div class="tx spoil">${T(m[2])}</div></div>`).join('');
+ $('#missions').innerHTML=MISSIONS.map(m=>{const ch=m[4]||0;const locked=SET.spoil===0||(SET.chapter>0&&ch>SET.chapter);const body=locked?`<div class="lock">${ch&&SET.chapter>0&&ch>SET.chapter?T(L('🔒 Ab Kapitel ','🔒 From chapter '))+ch:T(UI.spoilLock)}</div>`:`<div class="tx ${SET.spoil===1?'spoil':''}">${T(m[2])}</div>`;return `<div class="card item"><div class="top"><div class="ico">${m[0]}</div><div class="ttl">${T(m[1])}</div><span class="sp"></span>${badge(m[3])}</div>${body}</div>`}).join('');
  $('#missions').querySelectorAll('.spoil').forEach(s=>s.onclick=()=>s.classList.add('show'));
- renderKanban();
+ renderKanban();renderHeist();
 }
 
 function renderKanban(){
@@ -1380,7 +1494,8 @@ function renderTips(){
 /* secrets */
 function renderSecrets(){
  $('#eggs').innerHTML=EGGS.map(e=>`<div class="card item"><div class="top"><div class="ico">${e[0]}</div><div class="ttl">${T(e[1])}</div><span class="sp"></span>${badge(e[3])}</div><div class="tx">${T(e[2])}</div></div>`).join('');
- $('#leaks').innerHTML=LEAKS.map(e=>`<div class="card item"><div class="top"><div class="ico">${e[0]}</div><div class="ttl">${T(e[1])}</div><span class="sp"></span>${badge('leak')}</div><div class="tx">${T(e[2])}</div></div>`).join('');
+ $('#leaks').innerHTML=LEAKS.map(e=>`<div class="card item"><div class="top"><div class="ico">${e[0]}</div><div class="ttl">${T(e[1])}</div><span class="sp"></span>${badge('leak')}</div>${SET.spoil===0?`<div class="lock">${T(UI.spoilLock)}</div>`:`<div class="tx ${SET.spoil===1?'spoil':''}">${T(e[2])}</div>`}</div>`).join('');
+ $('#leaks').querySelectorAll('.spoil').forEach(x=>x.onclick=()=>x.classList.add('show'));
  $('#theories').innerHTML=THEORIES.map(e=>`<div class="card item"><div class="top"><div class="ico">🧠</div><div class="ttl">${T(e[0])}</div><span class="sp"></span>${badge('rum')}</div><div class="tx">${T(e[1])}</div></div>`).join('');
 }
 
@@ -1438,24 +1553,136 @@ function doSearch(){
 function openSearch(){$('#sov').classList.add('on');setTimeout(()=>$('#gq').focus(),50)}
 function closeSearch(){$('#sov').classList.remove('on')}
 
-function reveal(){
+function reveal(){decorateFavs();
  const els=document.querySelectorAll('.view.on .card,.view.on .widget,.view.on .vid,.view.on #crew .flip,.view.on .fact,.view.on .kcol,.view.on .dreamWrap,.view.on .radio,.view.on .mapbox');
  if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return}
  if(!window._io)window._io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');window._io.unobserve(e.target)}}),{rootMargin:'0px 0px -6% 0px'});
  let i=0;els.forEach(e=>{if(e.classList.contains('in'))return;if(!e.classList.contains('rv')){e.classList.add('rv');e.style.transitionDelay=Math.min(i++*35,280)+'ms'}window._io.observe(e)});
 }
 function tilt(){if(!matchMedia('(hover:hover) and (pointer:fine)').matches)return;document.addEventListener('pointermove',e=>{const c=e.target.closest('.bento .b,.vid,.fact');document.querySelectorAll('.tilted').forEach(x=>{if(x!==c){x.style.transform='';x.classList.remove('tilted')}});if(!c)return;const r=c.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.classList.add('tilted');c.style.transform=`perspective(700px) rotateY(${x*6}deg) rotateX(${-y*6}deg) translateY(-2px)`})}
-function splash(){const sp=$('#splash');let seen=false;try{seen=sessionStorage.getItem('leo_sp')}catch(e){}if(seen||matchMedia('(prefers-reduced-motion:reduce)').matches){sp.classList.add('off');return}try{sessionStorage.setItem('leo_sp','1')}catch(e){}setTimeout(()=>sp.classList.add('off'),1750);sp.onclick=()=>sp.classList.add('off')}
+function splash(){const sp=$('#splash');if(SET.noanim){sp.classList.add('off');return}let seen=false;try{seen=sessionStorage.getItem('leo_sp')}catch(e){}if(seen||matchMedia('(prefers-reduced-motion:reduce)').matches){sp.classList.add('off');return}try{sessionStorage.setItem('leo_sp','1')}catch(e){}setTimeout(()=>sp.classList.add('off'),1750);sp.onclick=()=>sp.classList.add('off')}
 function parallax(){const sc=document.querySelector('.hero svg.scene');if(!sc)return;addEventListener('scroll',()=>{const y=Math.min(scrollY,600);sc.style.transform=`translateY(${y*.25}px)`},{passive:true})}
+/* ---------- favorites ---------- */
+function decorateFavs(){
+ const f=store.get('favs',{});
+ document.querySelectorAll('.view .card.item, .view .card.tipcat').forEach(c=>{
+  if(c.querySelector(':scope > .fav'))return;const view=(c.closest('.view')||{}).id;if(!view)return;const v=view.slice(2);
+  const tEl=c.querySelector('.ttl')||c.querySelector('b');if(!tEl)return;const t=tEl.textContent.trim();if(!t)return;const k=v+'|'+t;
+  const b=document.createElement('button');b.className='fav'+(f[k]?' on':'');b.textContent=f[k]?'★':'☆';b.title='★';
+  b.onclick=e=>{e.stopPropagation();const F=store.get('favs',{});if(F[k])delete F[k];else F[k]={t,v};store.set('favs',F);b.classList.toggle('on',!!F[k]);b.textContent=F[k]?'★':'☆';toast(F[k]?'⭐ '+t:T(UI.removed));if(v!=='home')renderHome()};
+  c.appendChild(b);
+ });
+ document.querySelectorAll('body.compact .item .tx').forEach(x=>{if(!x._c){x._c=1;x.onclick=()=>x.closest('.item').classList.toggle('open')}});
+}
+/* ---------- settings ---------- */
+function openSet(){renderSettings();$('#setp').classList.add('on')}
+function renderSettings(){
+ const seg=(key,opts)=>`<div class="seg">${opts.map(([v,l])=>`<button data-k="${key}" data-v="${v}" class="${SET[key]===v?'on':''}">${T(l)}</button>`).join('')}</div>`;
+ const sw=(key,l,d)=>`<label class="sw"><input type="checkbox" data-sw="${key}" ${SET[key]?'checked':''}><div><b>${T(l)}</b><div class="dim">${T(d)}</div></div></label>`;
+ $('#setBody').innerHTML=`
+ <div class="sgrp"><h4>${T(L('Spoiler-Schutz','Spoiler shield'))}</h4><div class="dim">${T(L('Wie viel von Story und Leaks willst du sehen?','How much story and leak info do you want to see?'))}</div>${seg('spoil',[[0,L('🔒 Streng','🔒 Strict')],[1,L('👀 Normal','👀 Normal')],[2,L('🔓 Alles','🔓 Everything')]])}
+  <div class="dim" style="margin-top:8px">${T([L('Story-Missionen, Figuren-Hintergründe und Leaks bleiben komplett verborgen.','Story missions, character backstories and leaks stay fully hidden.'),L('Story & Leaks sind unscharf und lassen sich antippen.','Story & leaks are blurred and can be tapped open.'),L('Alles offen.','Everything open.')][SET.spoil])}</div>
+  <div style="margin-top:12px"><b>${T(L('Mein Kapitel','My chapter'))}: <span id="chv">${SET.chapter||T(L('aus','off'))}</span></b><input type="range" min="0" max="12" value="${SET.chapter}" id="chR"><div class="dim">${T(L('Inhalte aus späteren Kapiteln werden ausgeblendet. Die Kapitel-Zuordnung trage ich nach Release nach – bisher ist nur der Prolog zugeordnet.','Content from later chapters is hidden. I’ll add chapter tags after launch – only the prologue is tagged so far.'))}</div></div></div>
+ <div class="sgrp"><h4>${T(L('Ansicht','Display'))}</h4>${sw('compact',L('Kompakt-Modus','Compact mode'),L('Kleinere Karten, Texte auf 2 Zeilen gekürzt (antippen zum Aufklappen)','Smaller cards, text clipped to 2 lines (tap to expand)'))}${sw('noanim',L('Animationen aus','Animations off'),L('Kein Intro, keine Effekte – maximal schnell','No intro, no effects – max speed'))}${sw('launchPreview',L('Launch-Modus vorschauen','Preview launch mode'),L('Startseite so zeigen wie ab dem 19.11.','Show the home screen as it will look from 19 Nov'))}</div>
+ <div class="sgrp"><h4>${T(L('Screenshot-Coach (KI)','Screenshot coach (AI)'))}</h4><div class="dim">${T(L('Dein eigener API-Schlüssel – bleibt nur auf diesem Gerät. Funktioniert in der Homescreen-App (GitHub), nicht in der Claude-Vorschau.','Your own API key – stays on this device only. Works in the home-screen app (GitHub), not in the Claude preview.'))}</div>
+  <select class="fld" id="aiP"><option value="anthropic">Claude (Anthropic)</option><option value="openai">OpenAI</option><option value="gemini">Google Gemini</option></select>
+  <input class="fld" id="aiK" type="password" placeholder="API-Key" value="${esc(SET.aiKey)}" autocomplete="off">
+  <input class="fld" id="aiM" placeholder="${T(L('Modell (leer = Standard)','Model (empty = default)'))}" value="${esc(SET.aiModel)}"></div>
+ <div class="sgrp"><h4>${T(L('Daten','Data'))}</h4><div class="dim">${T(L('Traumgarage, Pins, Plan, Gemerktes und Einstellungen liegen nur auf diesem Gerät.','Dream garage, pins, plan, saved items and settings live on this device only.'))}</div><div class="seg"><button id="expD">⬇️ ${T(L('Sicherung kopieren','Copy backup'))}</button><button id="impD">⬆️ ${T(L('Sicherung einfügen','Paste backup'))}</button></div><textarea class="fld" id="bkT" rows="3" style="display:none"></textarea></div>`;
+ $('#aiP').value=SET.ai;
+ $('#setBody').querySelectorAll('.seg [data-k]').forEach(b=>b.onclick=()=>{SET[b.dataset.k]=+b.dataset.v;saveSet();renderAll();renderSettings()});
+ $('#setBody').querySelectorAll('[data-sw]').forEach(i=>i.onchange=()=>{SET[i.dataset.sw]=i.checked;saveSet();renderAll()});
+ $('#chR').oninput=e=>{$('#chv').textContent=e.target.value>0?e.target.value:T(L('aus','off'))};$('#chR').onchange=e=>{SET.chapter=+e.target.value;saveSet();renderMissions()};
+ $('#aiP').onchange=e=>{SET.ai=e.target.value;saveSet()};$('#aiK').onchange=e=>{SET.aiKey=e.target.value.trim();saveSet();toast(T(UI.saved))};$('#aiM').onchange=e=>{SET.aiModel=e.target.value.trim();saveSet()};
+ const keys=['lang','done','dream','plan','favs','pins','coll','dash','dcol','set','heist','station'];
+ $('#expD').onclick=async()=>{const o={};keys.forEach(k=>o[k]=store.get(k,null));const o2=JSON.parse(JSON.stringify(o));if(o2.set)o2.set.aiKey='';const t=JSON.stringify(o2);const ta=$('#bkT');ta.style.display='block';ta.value=t;try{await navigator.clipboard.writeText(t);toast('📋 '+T(L('Kopiert','Copied')))}catch(e){ta.select()}};
+ $('#impD').onclick=()=>{const ta=$('#bkT');if(ta.style.display!=='block'||!ta.value.trim()){ta.style.display='block';ta.value='';ta.placeholder=T(L('Sicherung hier einfügen und nochmal tippen','Paste backup here and tap again'));ta.focus();return}try{const o=JSON.parse(ta.value);keys.forEach(k=>{if(o[k]!=null&&k!=='set')store.set(k,o[k])});if(o.set){const ak=SET.aiKey;Object.assign(SET,o.set);SET.aiKey=ak;saveSet()}done=store.get('done',{});renderAll();toast('✅')}catch(e){toast('⚠️ JSON')}};
+}
+/* ---------- map pins ---------- */
+let pinMode=false,pinDraft=null;
+function svgPt(svg,e){const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(svg.getScreenCTM().inverse())}
+function regionAt(svg,x,y){let r=null;svg.querySelectorAll('path.region').forEach(p=>{try{const pt=svg.createSVGPoint();pt.x=x;pt.y=y;if(p.isPointInFill(pt))r=p.dataset.r}catch(e){}});return r}
+function pinSvg(){return store.get('pins',[]).map((p,i)=>{const c=PINCATS.find(x=>x[0]===p.c)||PINCATS[6];return `<g class="upin" data-pi="${i}" transform="translate(${p.x},${p.y})"><circle r="9" fill="${p.done?'#19f5c1':'#ffd23f'}" stroke="#0b0418" stroke-width="2"/><text y="4" text-anchor="middle" font-size="10">${c[1]}</text></g>`}).join('')}
+function bindPins(){
+ const svg=$('#mapbox svg');if(!svg)return;
+ $('#mapbox').classList.toggle('pinning',pinMode);
+ $('#pinMode').textContent=T(pinMode?UI.pinOn:UI.pinOff);$('#pinMode').classList.toggle('on',pinMode);$('#pinHint').textContent=T(pinMode?UI.pinHintOn:UI.pinHintOff);
+ svg.addEventListener('click',e=>{if(!pinMode||e.target.closest('.upin'))return;e.stopPropagation();e.preventDefault();const p=svgPt(svg,e);pinDraft={x:Math.round(p.x),y:Math.round(p.y),r:regionAt(svg,p.x,p.y)};pinForm()},true);
+ svg.querySelectorAll('.upin').forEach(g=>g.addEventListener('click',e=>{e.stopPropagation();const p=store.get('pins',[])[+g.dataset.pi];if(p){toast((PINCATS.find(x=>x[0]===p.c)||PINCATS[6])[1]+' '+esc(p.t||''))}}));
+}
+function pinForm(){
+ const r=pinDraft&&pinDraft.r?REGIONS[pinDraft.r].n:'Leonida';
+ $('#rpanel').innerHTML=`<h4 style="font-size:28px">📍 ${T(L('Neuer Pin','New pin'))}</h4><div class="dim">${r}</div>
+ <div class="seg" id="pcat">${PINCATS.map(([k,e,l],i)=>`<button data-c="${k}" class="${i===0?'on':''}">${e} ${T(l)}</button>`).join('')}</div>
+ <input class="fld" id="pTxt" placeholder="${T(L('Beschreibung (z. B. „Schlüssel hinterm Motel“)','Description (e.g. “key behind the motel”)'))}" maxlength="80">
+ <div class="seg"><button id="pSave" class="on">💾 ${T(L('Speichern','Save'))}</button><button id="pCancel">${T(L('Abbrechen','Cancel'))}</button></div>`;
+ let cat='hide';$('#pcat').querySelectorAll('button').forEach(b=>b.onclick=()=>{cat=b.dataset.c;$('#pcat').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))});
+ setTimeout(()=>$('#pTxt').focus(),50);
+ $('#pSave').onclick=()=>{const P=store.get('pins',[]);P.push({x:pinDraft.x,y:pinDraft.y,r:pinDraft.r,c:cat,t:$('#pTxt').value.trim(),done:false});store.set('pins',P);pinDraft=null;renderMap();renderRegion();renderPins();toast('📍 '+T(UI.saved))};
+ $('#pCancel').onclick=()=>{pinDraft=null;renderRegion()};
+ if(innerWidth<800)$('#rpanel').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function renderPins(){
+ const P=store.get('pins',[]);
+ $('#mypins').innerHTML=P.length?P.map((p,i)=>{const c=PINCATS.find(x=>x[0]===p.c)||PINCATS[6];return `<div class="pinrow ${p.done?'done':''}"><span>${c[1]}</span><div><b>${esc(p.t||T(c[2]))}</b><div class="dim">${T(c[2])} · ${p.r?REGIONS[p.r].n:'Leonida'}</div></div><button class="tick x ${p.done?'on':''}" data-pd="${i}">✓</button><button class="tick" data-px="${i}">🗑</button></div>`}).join(''):`<div class="dim">${T(UI.noPins)}</div>`;
+ $('#mypins').querySelectorAll('[data-pd]').forEach(b=>b.onclick=()=>{const P=store.get('pins',[]);P[+b.dataset.pd].done=!P[+b.dataset.pd].done;store.set('pins',P);renderPins();renderMap()});
+ $('#mypins').querySelectorAll('[data-px]').forEach(b=>b.onclick=()=>{const P=store.get('pins',[]);P.splice(+b.dataset.px,1);store.set('pins',P);renderPins();renderMap();toast(T(UI.removed))});
+}
+function renderColl(){
+ const C=store.get('coll',{});
+ $('#coll').innerHTML=COLL.map(([k,e,l,tot,d])=>{const n=C[k]||0;const pct=tot?Math.min(1,n/tot):Math.min(1,n/10);const R=26,cf=2*Math.PI*R;return `<div class="card item coll"><div class="ring"><svg viewBox="0 0 64 64" width="64" height="64"><circle cx="32" cy="32" r="${R}" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="6"/><circle cx="32" cy="32" r="${R}" fill="none" style="stroke:var(--teal);filter:drop-shadow(0 0 4px var(--teal))" stroke-width="6" stroke-linecap="round" stroke-dasharray="${cf}" stroke-dashoffset="${cf*(1-pct)}" transform="rotate(-90 32 32)"/></svg><b>${n}${tot?'/'+tot:''}</b></div><div class="ttl" style="text-align:center;font-size:13.5px">${e} ${T(l)}</div><div class="dim" style="text-align:center">${T(d)}${tot?'':' · '+T(L('Ziel folgt','total TBA'))}</div><div class="ctl"><button data-cm="${k}">−</button><button data-cp="${k}">+</button></div></div>`}).join('');
+ const upd=(k,d)=>{const C=store.get('coll',{});C[k]=Math.max(0,(C[k]||0)+d);store.set('coll',C);renderColl();renderProg()};
+ $('#coll').querySelectorAll('[data-cp]').forEach(b=>b.onclick=()=>upd(b.dataset.cp,1));$('#coll').querySelectorAll('[data-cm]').forEach(b=>b.onclick=()=>upd(b.dataset.cm,-1));
+}
+/* ---------- heist planner ---------- */
+function renderHeist(){
+ const H=Object.assign({t:'store',m:'duo',ok:{}},store.get('heist',{}));
+ const steps=[...HEISTSTEPS.base,...HEISTSTEPS[H.t],...HEISTSTEPS[H.m],...HEISTSTEPS.after];
+ const nd=steps.filter(x=>H.ok[x.de]).length;
+ $('#heist').innerHTML=`<div class="row"><b style="font-family:'Bebas Neue';font-size:28px;letter-spacing:1px">🎯 ${T(L('Coup-Planer','Heist planner'))}</b><span class="sp"></span><span class="dim">${nd}/${steps.length}</span></div>
+ <div class="dim">${T(L('Ziel und Team wählen – du bekommst die passende Checkliste. Abhaken durch Antippen.','Pick target and team – you get the matching checklist. Tap to tick.'))}</div>
+ <div class="opts">${HEISTT.map(([k,e,l])=>`<button class="chip ${H.t===k?'on':''}" data-ht="${k}">${e} ${T(l)}</button>`).join('')}<span style="width:8px"></span>${[['solo',L('🧍 Solo','🧍 Solo')],['duo',L('💑 Jason & Lucia','💑 Jason & Lucia')]].map(([k,l])=>`<button class="chip ${H.m===k?'on':''}" data-hm="${k}">${T(l)}</button>`).join('')}</div>
+ <div class="prog" style="margin:6px 0 8px"><i style="width:${nd/steps.length*100}%"></i></div>
+ ${steps.map(x=>`<div class="hchk ${H.ok[x.de]?'on':''}" data-hk="${esc(x.de)}"><span class="bx">${H.ok[x.de]?'✓':''}</span><span class="t">${T(x)}</span></div>`).join('')}
+ <div class="row" style="margin-top:8px"><span class="sp"></span><button class="ib" id="hReset">↺ ${T(L('Neuer Coup','New heist'))}</button></div>`;
+ const save=()=>{store.set('heist',H);renderHeist()};
+ $('#heist').querySelectorAll('[data-ht]').forEach(b=>b.onclick=()=>{H.t=b.dataset.ht;save()});
+ $('#heist').querySelectorAll('[data-hm]').forEach(b=>b.onclick=()=>{H.m=b.dataset.hm;save()});
+ $('#heist').querySelectorAll('[data-hk]').forEach(b=>b.onclick=()=>{const k=b.dataset.hk;H.ok[k]=!H.ok[k];if(steps.every(x=>H.ok[x.de]))toast('💰 '+T(L('Bereit für den Coup!','Ready for the heist!')));save()});
+ $('#hReset').onclick=()=>{H.ok={};save()};
+}
+/* ---------- screenshot coach ---------- */
+function renderCoach(){
+ $('#coach').innerHTML=`<div class="row"><b style="font-family:'Bebas Neue';font-size:28px;letter-spacing:1px">📸 ${T(L('Screenshot-Coach','Screenshot coach'))}</b><span class="sp"></span><span class="badge b-seen">KI</span></div>
+ <div class="dim">${T(L('Lade einen Screenshot aus dem Spiel hoch: Die KI erkennt Ort, Auto oder Fahndungsstufe und gibt dir passende Tipps.','Upload an in-game screenshot: the AI spots location, car or wanted level and gives matching tips.'))}</div>
+ <label class="drop" for="shot">📤 ${T(L('Screenshot wählen','Choose screenshot'))}</label><input type="file" id="shot" accept="image/*" style="display:none">
+ <div id="shotPrev"></div><div class="out" id="shotOut"></div>
+ ${SET.aiKey?'':`<div class="dim">⚙️ ${T(L('Zuerst in den Einstellungen einen API-Schlüssel eintragen.','Add an API key in settings first.'))} <a class="lnk" id="toSet">${T(L('Einstellungen öffnen →','Open settings →'))}</a></div>`}`;
+ const ts=$('#toSet');if(ts)ts.onclick=openSet;
+ $('#shot').onchange=async e=>{const f=e.target.files[0];if(!f)return;const b64=await shrink(f);$('#shotPrev').innerHTML=`<img src="data:image/jpeg;base64,${b64}">`;if(!SET.aiKey){$('#shotOut').textContent=T(L('Kein API-Schlüssel hinterlegt.','No API key set.'));return}$('#shotOut').textContent='⏳ '+T(L('Analysiere…','Analyzing…'));try{$('#shotOut').textContent=await askAI(b64)}catch(err){$('#shotOut').textContent='⚠️ '+(String(err.message||err).includes('Failed to fetch')?T(L('Verbindung blockiert – der Coach läuft nur in der Homescreen-App (iamflovo.github.io/gta6).','Connection blocked – the coach only runs in the home-screen app (iamflovo.github.io/gta6).')):err.message)}};
+}
+function shrink(f){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const m=1280,sc=Math.min(1,m/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=im.width*sc;c.height=im.height*sc;c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.82).split(',')[1])};im.onerror=rej;im.src=r.result};r.onerror=rej;r.readAsDataURL(f)})}
+async function askAI(b64){
+ const kb=TIPS.flatMap(c=>c.items.map(t=>'- '+t[0].de+' '+t[1].de)).slice(0,40).join('\n');
+ const prompt=(LANG==='de'?'Antworte auf Deutsch. ':'Answer in English. ')+`Du bist der Screenshot-Coach im Fan-Guide "Leonida Pro Guide" zu GTA VI (Rockstar, Release 19.11.2026, Bundesstaat Leonida mit Vice City, Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia, Mount Kalaga). Analysiere den Screenshot kurz:
+1) Was ist zu sehen (Ort/Region, Fahrzeug, Waffe, HUD: Fahndungssterne, Hitze-Indikatoren, Geld, Fokus)?
+2) Drei konkrete Tipps für genau diese Situation.
+Nutze dieses Wissen, wenn passend, und erfinde nichts – sag ehrlich, wenn du etwas nicht sicher erkennst:
+${kb}
+Maximal 160 Wörter, mit kurzen Zwischenüberschriften.`;
+ const P=SET.ai,K=SET.aiKey;
+ if(P==='anthropic'){const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'content-type':'application/json','x-api-key':K,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:SET.aiModel||'claude-sonnet-5-5',max_tokens:700,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:'image/jpeg',data:b64}},{type:'text',text:prompt}]}]})});const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||r.status);return j.content.map(c=>c.text||'').join('')}
+ if(P==='openai'){const r=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'content-type':'application/json','authorization':'Bearer '+K},body:JSON.stringify({model:SET.aiModel||'gpt-4o',max_tokens:700,messages:[{role:'user',content:[{type:'text',text:prompt},{type:'image_url',image_url:{url:'data:image/jpeg;base64,'+b64}}]}]})});const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||r.status);return j.choices[0].message.content}
+ const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${SET.aiModel||'gemini-2.5-flash'}:generateContent?key=${encodeURIComponent(K)}`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt},{inline_data:{mime_type:'image/jpeg',data:b64}}]}]})});const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||r.status);return j.candidates[0].content.parts.map(p=>p.text||'').join('')}
 /* ================= INIT ================= */
-function renderAll(){applyUI();renderTabs();renderHome();renderDream();renderVsys();renderHeat();renderMap();renderRegion();renderDistricts();renderCrew();renderCarCats();renderCars();renderGuns();renderMissions();renderSim();renderTips();renderSecrets();renderRadio();renderEditions();renderCD();route()}
+function renderAll(){applySet();applyUI();renderTabs();renderHome();renderDream();renderVsys();renderHeat();renderPins();renderColl();renderCoach();renderMap();renderRegion();renderDistricts();renderCrew();renderCarCats();renderCars();renderGuns();renderMissions();renderSim();renderTips();renderSecrets();renderRadio();renderEditions();$('#cdBox').dataset.mode='';renderCD();route();decorateFavs()}
 $('#btnLang').onclick=()=>{LANG=LANG==='de'?'en':'de';store.set('lang',LANG);renderAll()};
-$('#btnSearch').onclick=openSearch;$('#btnSearch2').onclick=openSearch;$('#btnLang2').onclick=()=>$('#btnLang').click();$('#moreClose').onclick=()=>$('#more').classList.remove('on');
+$('#btnSearch').onclick=openSearch;$('#btnSet').onclick=openSet;$('#btnSet2').onclick=openSet;$('#setClose').onclick=()=>$('#setp').classList.remove('on');$('#pinMode').onclick=()=>{pinMode=!pinMode;renderMap()};$('#btnSearch2').onclick=openSearch;$('#btnLang2').onclick=()=>$('#btnLang').click();$('#moreClose').onclick=()=>$('#more').classList.remove('on');
 $('#dashReset').onclick=()=>{store.set('dash',WIDGETS);store.set('dcol',{});renderHome();reveal();toast('↺')};$('#sclose').onclick=closeSearch;
 $('#gq').addEventListener('input',doSearch);
 $('#carQ').addEventListener('input',renderCars);
 $('#spoilAll').onclick=()=>document.querySelectorAll('#missions .spoil').forEach(s=>s.classList.add('show'));
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();if((e.key==='k'&&(e.metaKey||e.ctrlKey))||(e.key==='/'&&document.activeElement.tagName!=='INPUT')){e.preventDefault();openSearch()}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSearch();$('#setp').classList.remove('on')}if((e.key==='k'&&(e.metaKey||e.ctrlKey))||(e.key==='/'&&document.activeElement.tagName!=='INPUT')){e.preventDefault();openSearch()}});
 window.addEventListener('hashchange',route);
 splash();renderAll();tilt();parallax();
 setInterval(renderCD,1000);
