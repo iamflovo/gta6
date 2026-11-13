@@ -887,8 +887,19 @@ body.tod-day .hero .heroShade{background:linear-gradient(90deg,rgba(15,33,80,.94
 .galSrc{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0 4px;font-size:12px;color:var(--mut)}
 .galSrc a{color:#2be0ff;text-decoration:none;border:1px solid rgba(34,231,255,.3);border-radius:999px;padding:4px 10px;background:rgba(34,231,255,.06)}
 .galChips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:12px -16px 14px;padding:0 16px}.galChips::-webkit-scrollbar{display:none}.galChips .chip{cursor:pointer;white-space:nowrap;flex:none}.galChips .chip b{opacity:.6;font-weight:600;margin-left:4px}
-.galGrid{columns:2 150px;column-gap:10px}
-@media(min-width:1000px){.galGrid{columns:4 220px;column-gap:14px}}
+.galGrid{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:104px;grid-auto-flow:dense;gap:8px}
+@media(min-width:700px){.galGrid{grid-template-columns:repeat(3,1fr);grid-auto-rows:130px;gap:10px}}
+@media(min-width:1000px){.galGrid{grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:12px}}
+.galGrid .gi{aspect-ratio:auto!important;margin:0!important;height:100%}.galGrid .gi img{width:100%;height:100%;object-fit:cover}
+.galGrid .gi:nth-child(7n+1){grid-column:span 2;grid-row:span 2}
+.gi.gerr{display:none}
+.galSeg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}.galSeg button{background:transparent;border:0;color:var(--mut);font:inherit;font-weight:700;padding:5px 11px;cursor:pointer}.galSeg button.on{background:var(--cyan);color:#0b0418}
+.galSrc .dim a{border:0;background:none;padding:0}
+.rImg{position:relative;height:150px;margin:-4px -4px 12px;border-radius:14px;background-size:cover;background-position:center;overflow:hidden;border:1px solid rgba(255,255,255,.1)}
+.rImg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(7,2,15,.85))}
+.rImg span{position:absolute;left:10px;bottom:8px;z-index:1;font-size:10.5px;color:#d9cfff;opacity:.85}
+.rStrip{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0 4px}.rStrip img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,.08)}
+
 .gi{break-inside:avoid;margin:0 0 10px;position:relative;border-radius:14px;overflow:hidden;cursor:zoom-in;background:#140827;border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 30px rgba(0,0,0,.35);transform:translateZ(0);transition:transform .25s,box-shadow .25s}
 @media(min-width:1000px){.gi{margin-bottom:14px}}
 .gi:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(255,43,214,.25)}
@@ -1123,7 +1134,7 @@ body.noanim .heroPhoto .hp{animation:none}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 13.11. 18:05</div>
+    <div class="dim" style="margin-top:8px">App-Version 13.11. 18:11</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -2127,11 +2138,14 @@ function renderRegion(){
  const r=REGIONS[curRegion];
  if(!r){$('#rpanel').innerHTML=`<div class="muted">👆 ${T(UI.tapRegion)}</div><ul class="list" style="margin-top:10px">${Object.entries(REGIONS).map(([k,v])=>`<li style="cursor:pointer" data-go="${k}"><span style="color:${v.c}">●</span><b>${v.n}</b><span class="sp"></span><span class="dim">${v.county}</span></li>`).join('')}</ul>`;
   $('#rpanel').querySelectorAll('[data-go]').forEach(li=>li.onclick=()=>{curRegion=li.dataset.go;renderMap();renderRegion()});return}
- $('#rpanel').innerHTML=`<div class="row"><h4 style="color:${r.c};text-shadow:0 0 14px ${r.c}">${r.n}</h4><span class="sp"></span>${badge(r.st)}</div>
+ const rsn=RSREG[curRegion]&&rsFind(RSREG[curRegion]);const rc=REG2CAT[curRegion];const strip=RSI.filter(o=>o.cat===rc&&o.name!==rsn).slice(0,4);
+ $('#rpanel').innerHTML=(rsn?`<div class="rImg" style="background-image:url('${rsu(rsn,960)}')"><span>© Rockstar Games</span></div>`:'')+`<div class="row"><h4 style="color:${r.c};text-shadow:0 0 14px ${r.c}">${r.n}</h4><span class="sp"></span>${badge(r.st)}</div>
   <div class="tag">${T(r.tag)}</div>
   <div class="dim" style="margin:6px 0">${T(UI.county)}: ${r.county} · ${T(UI.inspired)}: ${T(r.insp)}</div>
   <p style="margin:8px 0">${T(r.d)}</p>
-  <ul class="list">${r.pts.map(p=>`<li><span>📍</span><span>${T(p)}</span></li>`).join('')}</ul><div class="dim" style="margin-top:8px">${T(L('Deine Pins hier','Your pins here'))}: ${store.get('pins',[]).filter(p=>p.r===curRegion).length}</div>`;
+  <ul class="list">${r.pts.map(p=>`<li><span>📍</span><span>${T(p)}</span></li>`).join('')}</ul><div class="dim" style="margin-top:8px">${T(L('Deine Pins hier','Your pins here'))}: ${store.get('pins',[]).filter(p=>p.r===curRegion).length}</div>`+(strip.length?`<div class="rStrip">${strip.map(o=>`<img src="${rsu(o.name,400)}" alt="" loading="lazy" data-rs="${esc(o.name)}">`).join('')}</div><a href="#gallery" class="dim" data-rg="${rc}" style="font-size:12px">${T(L('Alle Bilder dieser Gegend →','All images of this region →'))}</a>`:'');
+ $('#rpanel').querySelectorAll('[data-rs]').forEach(im=>im.onclick=()=>{gFilter=rc;location.hash='gallery';renderGallery();const k=gList().findIndex(o=>o.name===im.dataset.rs);setTimeout(()=>gOpen(k),350)});
+ $('#rpanel').querySelectorAll('[data-rg]').forEach(a=>a.onclick=e=>{e.preventDefault();gShow(rc)});
 }
 function renderDistricts(){
  $('#districts').innerHTML=DISTRICTS.map(d=>`<div class="card item"><div class="top"><div class="ttl">${d[0]}</div><span class="sp"></span>${badge(d[1])}</div><div class="tx">${T(d[2])}</div><div class="dim">${T(UI.inspired)}: ${d[3]}</div></div>`).join('');
@@ -2145,10 +2159,10 @@ const IMGS={get:()=>{try{return JSON.parse(localStorage.getItem('leo_imgs')||'{}
 function pickImg(key,done){const inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.onchange=()=>{const f=inp.files[0];if(!f)return;const im=new Image();const u=URL.createObjectURL(f);im.onload=()=>{const max=720,sc=Math.min(1,max/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);const o=IMGS.get();o[key]=c.toDataURL('image/jpeg',.8);if(IMGS.set(o)){toast('📷 '+T(UI.saved));done&&done()}};im.src=u};inp.click()}
 function delImg(key,done){const o=IMGS.get();delete o[key];IMGS.set(o);done&&done()}
 function renderCrew(){
- const IM=IMGS.get();
- $('#crew').innerHTML=CREW.map((c,i)=>`<div class="flip" data-f="${i}"><div class="in">
-  <div class="fa ${IM['crew:'+c.n]?'hasImg':''}" style="background:${IM['crew:'+c.n]?`url(${IM['crew:'+c.n]})`:c.g}"><div class="imgBtns"><button data-img="${esc(c.n)}" title="${T(L('Eigenes Bild','Own image'))}">📷</button>${IM['crew:'+c.n]?`<button data-imgdel="${esc(c.n)}" title="${T(L('Bild entfernen','Remove image'))}">✕</button>`:''}</div><span class="hint">${T(UI.flipHint)}</span><div class="mono">${c.i}</div><div class="nm">${c.n}</div><div class="rl">${T(c.r)}</div><div style="margin-top:6px">${badge(c.st)}</div></div>
-  <div class="ba"><div class="nm" style="font-size:24px">${c.n}</div><p class="q">${T(c.q)}</p>${SET.spoil===0?`<p class="lock">${T(UI.spoilLock)}</p>`:`<p>${T(c.d)}</p>`}</div></div></div>`).join('');
+ const IM=IMGS.get();const rsc=n=>{const f=typeof RSN!=='undefined'&&rsFind(n.replace(/ /g,'_')+'_01');return f?rsu(f,720):''};
+ $('#crew').innerHTML=CREW.map((c,i)=>{const own=IM['crew:'+c.n],off=own?'':rsc(c.n),img=own||off;return `<div class="flip" data-f="${i}"><div class="in">
+  <div class="fa ${img?'hasImg':''}" style="background:${img?`url('${img}')`:c.g}"><div class="imgBtns"><button data-img="${esc(c.n)}" title="${T(L('Eigenes Bild','Own image'))}">📷</button>${IM['crew:'+c.n]?`<button data-imgdel="${esc(c.n)}" title="${T(L('Bild entfernen','Remove image'))}">✕</button>`:''}</div><span class="hint">${T(UI.flipHint)}</span><div class="mono">${c.i}</div><div class="nm">${c.n}</div><div class="rl">${T(c.r)}</div><div style="margin-top:6px">${badge(c.st)}</div></div>
+  <div class="ba"><div class="nm" style="font-size:24px">${c.n}</div><p class="q">${T(c.q)}</p>${SET.spoil===0?`<p class="lock">${T(UI.spoilLock)}</p>`:`<p>${T(c.d)}</p>`}</div></div></div>`}).join('');
  $('#crew').querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('f'));
  $('#crew').querySelectorAll('[data-img]').forEach(b=>b.onclick=e=>{e.stopPropagation();pickImg('crew:'+b.dataset.img,()=>{renderCrew();reveal()})});
  $('#crew').querySelectorAll('[data-imgdel]').forEach(b=>b.onclick=e=>{e.stopPropagation();delImg('crew:'+b.dataset.imgdel,()=>{renderCrew();reveal()})});
@@ -2436,7 +2450,7 @@ Maximal 160 Wörter, mit kurzen Zwischenüberschriften.`;
 
 /* ===== time of day / weather / radio bar ===== */
 function todNow(){if(SET.tod)return ['','day','dusk','night'][SET.tod];const h=+new Date().toLocaleString('en-GB',{timeZone:'Europe/Berlin',hour:'2-digit',hour12:false});return (h>=8&&h<16)?'day':((h>=16&&h<20)||(h>=6&&h<8))?'dusk':'night'}
-function applyTod(){const t=todNow();['day','dusk','night'].forEach(x=>document.body.classList.toggle('tod-'+x,x===t))}
+function applyTod(){const t=todNow();['day','dusk','night'].forEach(x=>document.body.classList.toggle('tod-'+x,x===t));if(typeof RSI!=='undefined'&&RSI.length)renderHeroPhoto()}
 setInterval(applyTod,5*60e3);
 const STORMRX=/hurri|sturm|storm|roxy|tropensturm/i;
 function stormNews(){const lim=Date.now()-7*864e5;return NEWSC.find(n=>Date.parse(n[1])>=lim&&STORMRX.test(n[4].de+' '+n[4].en+' '+n[5].de+' '+n[5].en))}
@@ -2462,11 +2476,21 @@ addEventListener('scroll',()=>{const h=document.querySelector('.hero');if(!h)ret
 /* ===== v12 gallery (images stay on this device, IndexedDB) ===== */
 const GCATS=[['vc','🌆','Vice City'],['keys','🏝️','Leonida Keys'],['grass','🐊','Grassrivers'],['port','⚓','Port Gellhorn'],['amb','🏭','Ambrosia'],['kal','⛰️','Mount Kalaga'],['crew','👥','Jason & Lucia'],['cars','🏎️',L('Fahrzeuge','Vehicles')],['misc','✨',L('Sonstiges','Other')]];
 const GRX=[[/keys|key_west|island/i,'keys'],[/grass|swamp|gator/i,'grass'],[/gellhorn|port/i,'port'],[/ambrosia/i,'amb'],[/kalaga|mount|national.?park/i,'kal'],[/jason|lucia|boobie|brian|cal_?hampton|drequan|raul|dimez|character/i,'crew'],[/vehicle|car_|cars|auto|bike|boat/i,'cars'],[/vice|downtown|ocean|beach|miami|skyline|city/i,'vc']];
+const RSB='https://www.rockstargames.com/VI/_next/static/media/';
+const rsu=(n,w)=>RSB+n+'?akim=1&imdensity=1&imwidth='+w;
+const RSN='Jason_and_Lucia_14.10e7v.06pcm_t.jpg|Jason_and_Lucia_15.0m-_zb~mcy2zr.jpg|Jason_and_Lucia_16.05-d133mx68ku.jpg|Jason_and_Lucia_17.117_b11r13mg5.jpg|Jason_and_Lucia_18.0kjv.et7330m_.jpg|Jason_and_Lucia_19.0n_.5s-v~v5je.jpg|Jason_and_Lucia_20.0cd~.c7jr~5g9.jpg|Jason_Duval_11.019l5gj6~0~0v.jpg|Jason_Duval_12.0zcl2old.t6gf.jpg|Jason_Duval_13.0xtzlmp0y6mt-.jpg|Jason_Duval_14.0eczq557_iuqo.jpg|Jason_Duval_15.0oze53sounjp2.jpg|Jason_Duval_16.090yj-lyddyrr.jpg|Jason_Duval_17.0tp7hiuz.e385.jpg|Jason_Duval_18.000.jk1plncsr.jpg|Jason_Duval_19.0r7a1q04n5.7m.jpg|Lucia_Caminos_11.0j617-ylicowx.jpg|Lucia_Caminos_12.0saq9ns-~xj03.jpg|Lucia_Caminos_13.08dd3_zn0g59u.jpg|Lucia_Caminos_14.0.6_io7qeozm6.jpg|Vice_City_13.0iq8ff474tsdx.jpg|Vice_City_14.0fu8u9jh5hkg7.jpg|Vice_City_15.11tb0mz68edqo.jpg|Vice_City_16.16hjjmnxqg9mv.jpg|Vice_City_17.0er79m2u3nygs.jpg|Vice_City_18.001ebutl6h-9w.jpg|Vice_City_19.01ow62.xq.64i.jpg|Vice_City_20.18c75478u52nf.jpg|Vice_City_21.0m5vh15h178-e.jpg|Vice_City_22.0--9jlb822n~g.jpg|Vice_City_23.183sae.altxv3.jpg|Vice_City_24.0r9tor5-x.p75.jpg|Vice_City_25.0f72z-5qgyd~v.jpg|Vice_City_26.0.bvvu2216_mj.jpg|Vice_City_27.0d2e~w_r93hmh.jpg|Leonida_Keys_07.0z9tb69ssp4rq.jpg|Port_Gellhorn_07.053ldlg0m.2r..jpg|Grassrivers_07.0txitddjiq5o1.jpg|Grassrivers_08.0x-z0h-he35zo.jpg|Jason_and_Lucia_01.0naeahss9-1x6.jpg|Jason_and_Lucia_02.0uig00eojlokf.jpg|Jason_and_Lucia_03.15z-.c0tptrzs.jpg|Jason_and_Lucia_04.0m7i~huzhskdw.jpg|Jason_and_Lucia_05.0ypw_.fz.~4k0.jpg|Jason_and_Lucia_06.1035xf1yo78.b.jpg|Jason_and_Lucia_07.1699ivog8~w1n.jpg|Jason_and_Lucia_08.0.bq0bdrl6g5y.jpg|Jason_and_Lucia_09.11_dlvb_8svuu.jpg|Jason_and_Lucia_10.0cauoz34524-..jpg|Jason_and_Lucia_11.13lmeyci.i-yw.jpg|Jason_and_Lucia_12.04brpvymc~09q.jpg|Jason_and_Lucia_13.0q.hw42xbhptg.jpg|Jason_Duval_07.0ca326xbl~oyh.jpg|Jason_Duval_08.0841zdqaobvhd.jpg|Jason_Duval_09.0to5nepm39efn.jpg|Jason_Duval_10.14zid5kee4hy..jpg|Lucia_Caminos_07.0.c7un8ro7_p2.jpg|Lucia_Caminos_08.08wo73uyjkhlk.jpg|Lucia_Caminos_09.0pd.ppokmi8-n.jpg|Lucia_Caminos_10.0s770xrip~yb..jpg|Ambrosia_06.0j9c7-8nfb_xf.jpg|Vice_City_10.0f1q-xa_4q8r2.jpg|Vice_City_11.09paum3g942sc.jpg|Vice_City_12.0qdgemgi_uypg.jpg|Leonida_Keys_06.0eapr3hbeyewx.jpg|Port_Gellhorn_06.13ghhmb440r6e.jpg|Grassrivers_05.0.dx9~67tljry.jpg|Grassrivers_06.0bdeicllwisnc.jpg|Jason_Duval_01.07m377xeb6jhq.jpg|Jason_Duval_02.1486~7_v40cn..jpg|Jason_Duval_03.0-1vum7x-3vtp.jpg|Jason_Duval_04.16d-z2wa2s~bk.jpg|Jason_Duval_05.0kxp6enhvzqka.jpg|Jason_Duval_06.086o72llg6~1p.jpg|Lucia_Caminos_01.0a7yqvewctkfp.jpg|Lucia_Caminos_02.16n.5umvlu_48.jpg|Lucia_Caminos_03.14xgd2y_ymmeg.jpg|Lucia_Caminos_04.04kb_~4ubn3wn.jpg|Lucia_Caminos_05.0i5b7k6a7_w6p.jpg|Lucia_Caminos_06.0fxbjfk0jakb3.jpg|Cal_Hampton_01.0xlil231_osh4.jpg|Cal_Hampton_02.05r2t_mck65fe.jpg|Cal_Hampton_03.0.q68~pt1to9z.jpg|Cal_Hampton_04.0-78dep86yx2q.jpg|Boobie_Ike_01.0-wji2pg5anfs.jpg|Boobie_Ike_02.0sp9mtc.1cdzs.jpg|Boobie_Ike_03.0neka36~z25b5.jpg|Boobie_Ike_04.0~1fr6ijgvnzx.jpg|DreQuan_Priest_01.0_0~wi-ipdj35.jpg|DreQuan_Priest_02.02u69e~nkk3eo.jpg|DreQuan_Priest_03.0zbl4i_x_1biu.jpg|DreQuan_Priest_04.0n~kj~px_fn8t.jpg|Real_Dimez_01.0djwwboo8-glx.jpg|Real_Dimez_02.1366u9.x.yp0_.jpg|Real_Dimez_03.02o2si7.op.ye.jpg|Real_Dimez_04.0wa3vo07lz4e2.jpg|Raul_Bautista_01.0md1ii-yrn96r.jpg|Raul_Bautista_02.10ddy6ogywu-t.jpg|Raul_Bautista_03.0-x4xbav_6c40.jpg|Raul_Bautista_04.0qx77gyvykvv5.jpg|Brian_Heder_01.0r.ute88os9k-.jpg|Brian_Heder_02.0kmg6iw38f-9o.jpg|Brian_Heder_03.10ntuqh2h6upf.jpg|Brian_Heder_04.0z3o0t88jw54l.jpg|Vice_City_01.135x56yoeu.6t.jpg|Vice_City_02.0c5.7qx17u9kl.jpg|Vice_City_03.0nqz~lrqdmlze.jpg|Vice_City_04.06evqutgh7624.jpg|Vice_City_05.0~r~o0jzpp4a-.jpg|Vice_City_06.0_tdmr3u9w84x.jpg|Vice_City_07.0b3mhak4k78oh.jpg|Vice_City_08.0bbg_xp4hqdvz.jpg|Vice_City_09.0~ng.c8ack3fp.jpg|Leonida_Keys_01.0zgz7tveur6y8.jpg|Leonida_Keys_02.0~ptk-53gl0lq.jpg|Leonida_Keys_03.0v_3~-9ceyixc.jpg|Leonida_Keys_04.0hce1rw1s8pd9.jpg|Leonida_Keys_05.0yerhvjhto-h..jpg|Port_Gellhorn_01.0fmisvza-5-cq.jpg|Port_Gellhorn_02.00e7cz6lwrup-.jpg|Port_Gellhorn_03.00c2b0eh7sm~q.jpg|Port_Gellhorn_04.0hd-7kzfi51q..jpg|Port_Gellhorn_05.0nsv0ou54n-t3.jpg|Ambrosia_01.0rqphs0gazkm..jpg|Ambrosia_02.0wtqs05ozl.ym.jpg|Ambrosia_03.0vt46a.1s.7-y.jpg|Ambrosia_04.0.2cefoguu-tt.jpg|Ambrosia_05.0olhvjqff0o4b.jpg|Grassrivers_01.1096rw4lbjur_.jpg|Grassrivers_02.0teqs5xe2pem1.jpg|Grassrivers_03.14cuv-vg9orw4.jpg|Grassrivers_04.01ckpqbhxyz76.jpg|Mount_Kalaga_National_Park_01.0v5fl0f83hjv_.jpg|Mount_Kalaga_National_Park_02.0f24dhopdprvx.jpg|Mount_Kalaga_National_Park_03.037k2s87rwuxc.jpg|Mount_Kalaga_National_Park_04.0e1sxnp1mln2u.jpg|Mount_Kalaga_National_Park_05.0_~vto-o2zxok.jpg|Mount_Kalaga_National_Park_06.166ouq5pjd7h0.jpg'.split('|');
+const rsFind=p=>RSN.find(n=>n.startsWith(p+'.'));
+const RSHERO={night:['Vice_City_27','Vice_City_08','Vice_City_17','Vice_City_11'],dusk:['Vice_City_11','Port_Gellhorn_06','Vice_City_01','Vice_City_15'],day:['Vice_City_10','Vice_City_15','Leonida_Keys_01','Vice_City_03']};
+const RSREG={vice:'Vice_City_10',keys:'Leonida_Keys_01',grass:'Grassrivers_04',gell:'Port_Gellhorn_06',ambro:'Ambrosia_02',kalaga:'Mount_Kalaga_National_Park_04'};
+const REG2CAT={vice:'vc',keys:'keys',grass:'grass',gell:'port',ambro:'amb',kalaga:'kal'};
+const RSSEL=()=>{try{return JSON.parse(localStorage.getItem('leo_rshero')||'[]')}catch(e){return []}};
+let RSI=[];
 const GDB={p:null,open(){return this.p||(this.p=new Promise((res,rej)=>{const r=indexedDB.open('leo-gal',1);r.onupgradeneeded=()=>r.result.createObjectStore('img',{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}))},
  async run(mode,fn){const db=await this.open();return new Promise((res,rej)=>{const t=db.transaction('img',mode);const q=fn(t.objectStore('img'));t.oncomplete=()=>res(q&&q.result);t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error)})},
  all(){return this.run('readonly',s=>s.getAll())},put(o){return this.run('readwrite',s=>s.put(o))},del(id){return this.run('readwrite',s=>s.delete(id))}};
 let GAL=[],gFilter='all',gIdx=-1;const GURL={};
-const gUrl=(o,k)=>{const key=o.id+k;if(!GURL[key])GURL[key]=URL.createObjectURL(o[k]);return GURL[key]};
+const gUrl=(o,k)=>{if(o.off)return rsu(o.name,k==='thumb'?640:1920);const key=o.id+k;if(!GURL[key])GURL[key]=URL.createObjectURL(o[k]);return GURL[key]};
+const gImgAt=(cat,i)=>{const l=RSI.filter(o=>o.cat===cat);return l[i]};
 const gCat=id=>GCATS.find(c=>c[0]===id)||GCATS[GCATS.length-1];
 function gShrink(file,max,q){return new Promise((res,rej)=>{const u=URL.createObjectURL(file);const im=new Image();im.onload=()=>{const sc=Math.min(1,max/Math.max(im.naturalWidth,im.naturalHeight));const c=document.createElement('canvas');c.width=Math.round(im.naturalWidth*sc);c.height=Math.round(im.naturalHeight*sc);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>b?res({b,w:c.width,h:c.height}):rej(),'image/jpeg',q)};im.onerror=()=>{URL.revokeObjectURL(u);rej()};im.src=u})}
 async function gAdd(files){files=[...files].filter(f=>/^image\//.test(f.type));if(!files.length)return;
@@ -2477,43 +2501,55 @@ async function gAdd(files){files=[...files].filter(f=>/^image\//.test(f.type));i
   await GDB.put(o);GAL.unshift(o);ok++}catch(e){}}
  toast(ok?T(L('📸 '+ok+' Bilder hinzugefügt','📸 '+ok+' images added')):T(L('⚠️ Konnte nicht speichern','⚠️ Could not save')));renderGallery();renderHeroPhoto()}
 function gPick(){const i=document.createElement('input');i.type='file';i.accept='image/*';i.multiple=true;i.onchange=()=>gAdd(i.files);i.click()}
-function gList(){return gFilter==='all'?GAL:gFilter==='hero'?GAL.filter(o=>o.hero):GAL.filter(o=>o.cat===gFilter)}
+function gAllI(){return GAL.concat(RSI)}
+function gList(){const A=gAllI();return gFilter==='all'?A:gFilter==='hero'?A.filter(o=>o.hero):gFilter==='mine'?GAL:A.filter(o=>o.cat===gFilter)}
 function renderGallery(){const top=$('#galTop');if(!top)return;
- top.innerHTML=`<div class="galHead"><div><h2 class="sec" style="margin-bottom:4px">${T(L('Galerie','Gallery'))}</h2><p class="lead" style="margin:0">${T(L('Deine GTA-6-Screenshots im Vice-City-Look. Sie bleiben nur auf diesem Gerät.','Your GTA 6 screenshots in Vice City style. They stay on this device only.'))}</p></div><span class="sp"></span><div class="galActs"><button class="cta" id="galAdd" style="padding:10px 16px">➕ ${T(L('Screenshots hinzufügen','Add screenshots'))}</button></div></div>
- <div class="galSrc">${T(L('Quellen:','Sources:'))} <a href="https://www.rockstargames.com/VI" target="_blank" rel="noopener">Rockstar ↗</a><a href="https://www.gtabase.com/gta-6/screenshots/" target="_blank" rel="noopener">GTA Base ↗</a><a href="https://www.gtaboom.com/all-the-official-gta-6-screenshots-and-artwork-3nd7" target="_blank" rel="noopener">GTA Boom ↗</a></div>`;
+ const hm=SET.heroPano?1:0;
+ top.innerHTML=`<div class="galHead"><div><h2 class="sec" style="margin-bottom:4px">${T(L('Galerie','Gallery'))}</h2><p class="lead" style="margin:0">${T(L(RSI.length+' offizielle Screenshots von Rockstar + deine eigenen. Nach Gegend filtern, antippen für Vollbild.',RSI.length+' official Rockstar screenshots + your own. Filter by region, tap for full screen.'))}</p></div><span class="sp"></span><div class="galActs"><button class="cta" id="galAdd" style="padding:10px 16px">➕ ${T(L('Eigene hinzufügen','Add your own'))}</button></div></div>
+ <div class="galSrc"><span>${T(L('Startseite:','Home:'))}</span><span class="seg galSeg"><button data-hm="0" class="${hm?'':'on'}">📸 ${T(L('Fotos','Photos'))}</button><button data-hm="1" class="${hm?'on':''}">🌆 ${T(L('Panorama','Panorama'))}</button></span><span class="sp" style="flex:1"></span><span class="dim">${T(L('Bilder © Rockstar Games','Images © Rockstar Games'))} · <a href="https://www.rockstargames.com/VI/media/screenshots" target="_blank" rel="noopener">Original ↗</a></span></div>`;
  $('#galAdd').onclick=gPick;
- const cnt=k=>k==='all'?GAL.length:k==='hero'?GAL.filter(o=>o.hero).length:GAL.filter(o=>o.cat===k).length;
- const ch=[['all','🗂️',L('Alle','All')],['hero','⭐',L('Startbild','Home')],...GCATS].filter(c=>c[0]==='all'||cnt(c[0]));
- $('#galChips').innerHTML=GAL.length?ch.map(c=>`<span class="chip${gFilter===c[0]?' on':''}" data-gf="${c[0]}">${c[1]} ${T(c[2])}<b>${cnt(c[0])}</b></span>`).join(''):'';
+ top.querySelectorAll('[data-hm]').forEach(b=>b.onclick=()=>{SET.heroPano=+b.dataset.hm;saveSet();renderGallery();renderHeroPhoto()});
+ const A=gAllI();const cnt=k=>k==='all'?A.length:k==='hero'?A.filter(o=>o.hero).length:k==='mine'?GAL.length:A.filter(o=>o.cat===k).length;
+ const ch=[['all','🗂️',L('Alle','All')],...GCATS,['mine','📷',L('Meine','Mine')],['hero','⭐',L('Startbild','Home')]].filter(c=>c[0]==='all'||cnt(c[0]));
+ $('#galChips').innerHTML=ch.map(c=>`<span class="chip${gFilter===c[0]?' on':''}" data-gf="${c[0]}">${c[1]} ${T(c[2])}<b>${cnt(c[0])}</b></span>`).join('');
  $('#galChips').querySelectorAll('[data-gf]').forEach(b=>b.onclick=()=>{gFilter=b.dataset.gf;renderGallery()});
  const g=$('#galGrid'),list=gList();
- if(!GAL.length){g.style.columns='auto';g.innerHTML=`<div class="card galEmpty"><div class="ttl" style="font-size:17px">📸 ${T(L('Noch keine Screenshots','No screenshots yet'))}</div><ol><li>${T(L('Oben eine Quelle öffnen und die Bilder speichern','Open a source above and save the images'))}</li><li>${T(L('„Screenshots hinzufügen“ tippen – mehrere auf einmal gehen','Tap “Add screenshots” – multiple at once works'))}</li><li>${T(L('Die Gegend erkennt die App am Dateinamen, sonst im Bild ändern','The region is detected from the file name, or set it in the viewer'))}</li><li>${T(L('⭐ macht ein Bild zum Startbild – mehrere = Slideshow','⭐ sets a picture as home background – several = slideshow'))}</li></ol></div>`;return}
- g.style.columns='';
- g.innerHTML=list.map((o,i)=>{const c=gCat(o.cat);return `<figure class="gi" data-gi="${i}" style="aspect-ratio:${o.w}/${o.h}"><img src="${gUrl(o,'thumb')}" alt="" loading="lazy" decoding="async"><span class="gc">${c[1]} ${esc(T(c[2]))}</span>${o.hero?'<span class="gh">★ START</span>':''}</figure>`}).join('')||`<div class="dim" style="padding:20px">${T(L('Keine Bilder in dieser Kategorie','No images in this category'))}</div>`;
+ g.innerHTML=list.map((o,i)=>{const c=gCat(o.cat);return `<figure class="gi" data-gi="${i}" style="aspect-ratio:${o.w}/${o.h}"><img src="${gUrl(o,'thumb')}" alt="${esc(o.off?o.name.split('.')[0].replace(/_/g,' '):'')}" loading="lazy" decoding="async" onerror="this.closest('.gi').classList.add('gerr')"><span class="gc">${c[1]} ${esc(T(c[2]))}${o.off?'':' · 📷'}</span>${o.hero?'<span class="gh">★ START</span>':''}</figure>`}).join('')||`<div class="dim" style="padding:20px">${T(L('Keine Bilder in dieser Kategorie','No images in this category'))}</div>`;
  g.querySelectorAll('[data-gi]').forEach(f=>f.onclick=()=>gOpen(+f.dataset.gi))}
+function gToggleHero(o){if(o.off){let a=RSSEL();a=o.hero?a.filter(x=>x!==o.name):[...a,o.name];localStorage.setItem('leo_rshero',JSON.stringify(a));o.hero=!o.hero;return Promise.resolve()}o.hero=!o.hero;return GDB.put(o)}
 function gOpen(i){const list=gList();if(!list.length)return;gIdx=(i+list.length)%list.length;const o=list[gIdx];const lb=$('#lb');
- lb.innerHTML=`<span class="lbN">${gIdx+1} / ${list.length}</span><button class="ib lbX" data-lb="x">✕</button><div class="lbImg"><img src="${gUrl(o,'full')}" alt=""></div><button class="ib lbP" data-lb="p">‹</button><button class="ib lbF" data-lb="n">›</button>
- <div class="lbBar"><div class="chips">${GCATS.map(c=>`<span class="chip${o.cat===c[0]?' on':''}" data-lc="${c[0]}">${c[1]} ${esc(T(c[2]))}</span>`).join('')}</div>
- <div class="lbActs"><button class="ib${o.hero?' hot':''}" data-lb="h">${o.hero?'★':'☆'} ${T(L('Startbild','Home background'))}</button><button class="ib" data-lb="d">🗑 ${T(L('Löschen','Delete'))}</button></div></div>`;
+ lb.innerHTML=`<span class="lbN">${gIdx+1} / ${list.length}${o.off?' · '+esc(o.name.split('.')[0].replace(/_/g,' '))+' · © Rockstar Games':''}</span><button class="ib lbX" data-lb="x">✕</button><div class="lbImg"><img src="${gUrl(o,'full')}" alt=""></div><button class="ib lbP" data-lb="p">‹</button><button class="ib lbF" data-lb="n">›</button>
+ <div class="lbBar">${o.off?'':`<div class="chips">${GCATS.map(c=>`<span class="chip${o.cat===c[0]?' on':''}" data-lc="${c[0]}">${c[1]} ${esc(T(c[2]))}</span>`).join('')}</div>`}
+ <div class="lbActs"><button class="ib${o.hero?' hot':''}" data-lb="h">${o.hero?'★':'☆'} ${T(L('Startbild','Home background'))}</button>${o.off?`<a class="ib" href="${rsu(o.name,3840)}" target="_blank" rel="noopener">⤓ 4K</a>`:`<button class="ib" data-lb="d">🗑 ${T(L('Löschen','Delete'))}</button>`}</div></div>`;
  lb.hidden=false;document.body.style.overflow='hidden';
- lb.querySelector('.lbImg .on, .lbBar .chip.on')&&lb.querySelector('.lbBar .chip.on').scrollIntoView({inline:'center',block:'nearest'});
- lb.querySelectorAll('[data-lc]').forEach(b=>b.onclick=async()=>{o.cat=b.dataset.lc;await GDB.put(o);renderGallery();gOpen(gList().indexOf(o)>=0?gList().indexOf(o):gIdx)});
+ const on=lb.querySelector('.lbBar .chip.on');on&&on.scrollIntoView({inline:'center',block:'nearest'});
+ lb.querySelectorAll('[data-lc]').forEach(b=>b.onclick=async()=>{o.cat=b.dataset.lc;await GDB.put(o);renderGallery();const k=gList().indexOf(o);gOpen(k>=0?k:gIdx)});
  lb.querySelectorAll('[data-lb]').forEach(b=>b.onclick=async e=>{e.stopPropagation();const a=b.dataset.lb;
   if(a==='x')gClose();if(a==='p')gOpen(gIdx-1);if(a==='n')gOpen(gIdx+1);
-  if(a==='h'){o.hero=!o.hero;await GDB.put(o);renderGallery();renderHeroPhoto();toast(o.hero?T(L('⭐ Als Startbild gesetzt','⭐ Set as home background')):T(L('Startbild entfernt','Removed from home')));gOpen(gIdx)}
+  if(a==='h'){await gToggleHero(o);if(o.hero&&SET.heroPano){SET.heroPano=0;saveSet()}renderGallery();renderHeroPhoto();toast(o.hero?T(L('⭐ Als Startbild gesetzt','⭐ Set as home background')):T(L('Startbild entfernt','Removed from home')));const k=gList().indexOf(o);gOpen(k>=0?k:gIdx)}
   if(a==='d'){if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent=T(L('🗑 Wirklich löschen?','🗑 Really delete?'));return}
    await GDB.del(o.id);GAL=GAL.filter(x=>x!==o);['thumb','full'].forEach(k=>{if(GURL[o.id+k]){URL.revokeObjectURL(GURL[o.id+k]);delete GURL[o.id+k]}});renderGallery();renderHeroPhoto();gList().length?gOpen(gIdx):gClose()}})}
 function gClose(){$('#lb').hidden=true;$('#lb').innerHTML='';document.body.style.overflow=''}
+function gShow(cat){gFilter=cat||'all';location.hash='gallery';renderGallery()}
 (()=>{let x0=null;document.addEventListener('keydown',e=>{if($('#lb').hidden)return;if(e.key==='Escape')gClose();if(e.key==='ArrowLeft')gOpen(gIdx-1);if(e.key==='ArrowRight')gOpen(gIdx+1)});
  $('#lb').addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});$('#lb').addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>50)gOpen(gIdx+(dx<0?1:-1))});
  $('#lb').addEventListener('click',e=>{if(e.target.classList.contains('lbImg'))gClose()});
  const v=$('#v-gallery');['dragover','dragenter'].forEach(t=>v.addEventListener(t,e=>{e.preventDefault();v.classList.add('galDrop')}));['dragleave','drop'].forEach(t=>v.addEventListener(t,e=>{e.preventDefault();v.classList.remove('galDrop');if(t==='drop'&&e.dataTransfer)gAdd(e.dataTransfer.files)}))})();
-let hpT=null;
-function renderHeroPhoto(){const box=$('#heroPhoto');if(!box)return;const hs=GAL.filter(o=>o.hero);const hero=box.closest('.hero');clearInterval(hpT);
- if(!hs.length){hero.classList.remove('hasPhoto');box.innerHTML='';return}
- box.innerHTML=hs.map((o,i)=>`<div class="hp${i?'':' on'}" style="background-image:url('${gUrl(o,'full')}')"></div>`).join('');hero.classList.add('hasPhoto');
- if(hs.length>1){let k=0;hpT=setInterval(()=>{const el=box.querySelectorAll('.hp');if(!el.length)return;el[k%el.length].classList.remove('on');k++;el[k%el.length].classList.add('on')},7000)}}
-async function gInit(){try{GAL=(await GDB.all()||[]).sort((a,b)=>b.ts-a.ts)}catch(e){GAL=[]}renderGallery();renderHeroPhoto()}
+let hpT=null,hpKey='';
+function renderHeroPhoto(){const box=$('#heroPhoto');if(!box)return;const hero=box.closest('.hero');
+ let urls=[];
+ if(!SET.heroPano){const mine=gAllI().filter(o=>o.hero);
+  if(mine.length)urls=mine.map(o=>gUrl(o,'full'));
+  else{const td=document.body.classList.contains('tod-day')?'day':document.body.classList.contains('tod-dusk')?'dusk':'night';urls=RSHERO[td].map(rsFind).filter(Boolean).map(n=>rsu(n,1920))}}
+ const key=urls.join('|');if(key===hpKey)return;hpKey=key;clearInterval(hpT);
+ if(!urls.length){hero.classList.remove('hasPhoto');box.innerHTML='';return}
+ box.innerHTML=urls.map(u=>`<div class="hp" data-u="${u}"></div>`).join('');
+ const el=[...box.querySelectorAll('.hp')];let k=0;
+ const load=(d,cb)=>{if(d.dataset.ok){cb&&cb(true);return}const im=new Image();im.onload=()=>{d.style.backgroundImage=`url("${d.dataset.u}")`;d.dataset.ok=1;cb&&cb(true)};im.onerror=()=>cb&&cb(false);im.src=d.dataset.u};
+ load(el[0],ok=>{if(!ok||hpKey!==key)return;el[0].classList.add('on');hero.classList.add('hasPhoto');if(el[1])load(el[1])});
+ if(el.length>1)hpT=setInterval(()=>{const nx=el[(k+1)%el.length];if(!nx.dataset.ok){load(nx);return}el[k%el.length].classList.remove('on');k=(k+1)%el.length;el[k].classList.add('on');load(el[(k+1)%el.length])},7000)}
+async function gInit(){const sel=RSSEL();RSI=RSN.map(n=>{const m=GRX.find(r=>r[0].test(n));return{id:'rs:'+n,off:true,name:n,cat:m?m[1]:'misc',w:16,h:9,hero:sel.includes(n)}}).sort((a,b)=>{const o=c=>GCATS.findIndex(x=>x[0]===c);return o(a.cat)-o(b.cat)||a.name.localeCompare(b.name,'en',{numeric:true})});
+ try{GAL=(await GDB.all()||[]).sort((a,b)=>b.ts-a.ts)}catch(e){GAL=[]}renderGallery();renderHeroPhoto();renderRegion();renderCrew()}
 
 function renderAll(){applySet();applyUI();renderTabs();renderHome();renderDream();renderVsys();renderHeat();renderPins();renderColl();renderCoach();renderMap();renderRegion();renderDistricts();renderCrew();renderCarCats();renderCars();renderGuns();renderMissions();renderSim();renderTips();renderSecrets();renderRadio();renderEditions();renderNews();renderEdBento();renderReal();renderGallery();applyTod();applyWeather();renderRbar();$('#cdBox').dataset.mode='';renderCD();route();decorateFavs()}
 $('#btnLang').onclick=()=>{LANG=LANG==='de'?'en':'de';store.set('lang',LANG);renderAll()};
