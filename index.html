@@ -140,6 +140,51 @@ input.search:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,43,214
 .news{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
 .news .n{border-left:3px solid var(--pink)}
 .news .d{font-family:"JetBrains Mono";font-size:11.5px;color:var(--orange)}
+
+/* ===== news center ===== */
+.nwHead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.nwHead .upd{font-family:"JetBrains Mono";font-size:11.5px;color:var(--dim)}
+.nwLive{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#0b0418;background:var(--sun);border-radius:999px;padding:3px 10px}
+.nwLive i{width:7px;height:7px;border-radius:50%;background:#e0115f;animation:nwp 1.4s infinite}
+@keyframes nwp{50%{opacity:.25}}
+.nwTop{display:grid;gap:12px;grid-template-columns:1.5fr 1fr;margin-bottom:14px}
+@media(max-width:760px){.nwTop{grid-template-columns:1fr}}
+.nwFeat{position:relative;display:block;text-decoration:none;color:inherit;border-radius:var(--r);padding:20px;min-height:210px;overflow:hidden;background:linear-gradient(150deg,#ff2bd6 0%,#6b21d8 55%,#1b0d35 100%);border:1px solid rgba(255,255,255,.14);box-shadow:0 18px 50px -20px rgba(255,43,214,.6)}
+.nwFeat::after{content:"";position:absolute;inset:auto -30% -60% auto;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(255,210,63,.45),transparent 65%)}
+.nwFeat .k{font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;opacity:.9}
+.nwFeat h4{font-family:"Bebas Neue";font-size:34px;line-height:1.02;letter-spacing:.5px;margin:10px 0 8px;position:relative;z-index:1}
+.nwFeat p{margin:0;font-size:14px;max-width:560px;position:relative;z-index:1;color:#f6e6ff}
+.nwFeat .go{position:absolute;right:16px;bottom:14px;font-weight:800;font-size:13px;z-index:1}
+.nwSide{display:grid;gap:10px}
+.nwMini{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;transition:transform .2s,border-color .2s}
+.nwMini:hover{transform:translateY(-2px);border-color:rgba(34,231,255,.4)}
+.nwMini b{display:block;font-size:14px;line-height:1.3;margin-top:4px}
+.nwMeta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:11.5px}
+.nwMeta .d{font-family:"JetBrains Mono";color:var(--orange)}
+.src{display:inline-flex;align-items:center;gap:5px;font-weight:800;font-size:11px;letter-spacing:.3px;padding:2px 8px;border-radius:6px;color:#0b0418;white-space:nowrap}
+.nwNew{font-size:10px;font-weight:900;letter-spacing:.8px;color:#0b0418;background:var(--teal);border-radius:5px;padding:1px 6px}
+.nwBar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0 12px}
+.nwBar .chips{margin:0}
+.nwBar input{flex:1;min-width:160px;background:var(--card);border:1px solid var(--line);border-radius:999px;color:var(--txt);padding:8px 14px;font:inherit;font-size:13.5px}
+.nwList{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.nwCard{display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;position:relative;transition:transform .2s,border-color .2s,opacity .3s}
+.nwCard:hover{transform:translateY(-2px);border-color:rgba(255,43,214,.35)}
+.nwCard b{font-size:15px;line-height:1.3}
+.nwCard .tx{font-size:13.5px;color:var(--mut)}
+.nwCard .ft{margin-top:auto;display:flex;align-items:center;gap:8px;padding-top:4px}
+.nwCard .ft a{font-weight:800;font-size:12.5px;text-decoration:none}
+.nwCard.read{opacity:.62}
+.nwCard .rd{margin-left:auto;background:none;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:11.5px;color:var(--mut)}
+.nwHub{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}
+.nwHub a{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-weight:700;font-size:13.5px}
+.nwHub a small{display:block;font-weight:500;color:var(--dim);font-size:11.5px}
+.nwHome{display:grid;gap:8px}
+.nwHome .nwMini{padding:10px 12px}
+.nwCount{font-size:11px;font-weight:900;color:#0b0418;background:var(--teal);border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+#bottom button,#sideNav button{position:relative}
+.ndot::after{content:"";position:absolute;top:6px;right:calc(50% - 16px);width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal)}
+#sideNav .ndot::after{right:12px;top:50%;margin-top:-4px}
+.ticker a{color:inherit;text-decoration:none}
 /* timeline */
 .tl{position:relative;margin-left:8px;padding-left:20px;border-left:2px dashed rgba(255,43,214,.35)}
 .tl .it{position:relative;margin-bottom:14px}
@@ -607,7 +652,7 @@ details.acc>summary:hover h3{color:#fff}
         <div id="cdBox"></div>
         <div class="cdnote" data-i="cdnote"></div>
         <div class="pills" id="pills" style="display:none"></div>
-        <div class="ctas"><a class="cta" href="#map" data-i="ctaMap"></a><a class="cta ghost" href="#tips" data-i="ctaSim"></a></div>
+        <div class="ctas"><a class="cta" href="#map" data-i="ctaMap"></a><a class="cta ghost" href="#news" data-i="ctaNews"></a></div>
         <div class="heroSig">✦ a Flovo production ✦</div>
       </div>
     </div>
@@ -616,6 +661,22 @@ details.acc>summary:hover h3{color:#fff}
 
     <div class="dashbar"><div><b data-i="dashTitle"></b><div class="dim" data-i="dashHint"></div></div><span class="sp"></span><button class="ib" id="dashReset" data-i="dashReset"></button></div>
     <div id="dash"></div>
+  </section>
+
+  <!-- NEWS -->
+  <section class="view" id="v-news">
+    <h2 class="sec" data-i="t_news"></h2>
+    <p class="lead" data-i="l_news"></p>
+    <div class="nwHead"><span class="nwLive"><i></i>Newsroom</span><span class="upd" id="nwUpd"></span><span class="sp"></span><button class="ib" id="nwAllRead"></button></div>
+    <div class="nwTop" id="nwTop"></div>
+    <div class="nwBar"><div class="chips" id="nwCats"></div><input id="nwQ" type="search"></div>
+    <div class="nwList" id="nwList"></div>
+    <h3 data-i="h_road"></h3>
+    <div class="tipsTop"><div class="card" id="nwTl"></div><div class="card" id="nwPrep"></div></div>
+    <h3 data-i="h_hub"></h3>
+    <div class="nwHub" id="nwHub"></div>
+    <p class="dim" style="margin-top:12px" id="nwNote"></p>
+    <div class="card" style="margin-top:12px" id="nwLegend"></div>
   </section>
 
   <!-- MAP -->
@@ -721,6 +782,7 @@ details.acc>summary:hover h3{color:#fff}
   <section class="view" id="v-editions">
     <h2 class="sec" data-i="t_ed"></h2>
     <p class="lead" data-i="l_ed"></p>
+    <div class="bento" id="edBento" style="margin-bottom:18px"></div>
     <div class="ed" id="eds"></div>
     <h3 data-i="h_tech"></h3>
     <div class="card"><table class="cmp" id="tech"></table></div>
@@ -730,7 +792,7 @@ details.acc>summary:hover h3{color:#fff}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 12.11. 20:16</div>
+    <div class="dim" style="margin-top:8px">App-Version 13.11. 12:12</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -761,6 +823,12 @@ const isLaunch=()=>Date.now()>=RELEASE||SET.launchPreview;
 
 /* ================= UI STRINGS ================= */
 const UI={
+ t_news:L('Newszentrale','News center'),l_news:L('Offizielles von Rockstar, PlayStation & Xbox, dazu die besten Berichte von GameStar, GamePro, MeinMMO und internationalen Seiten. Kurz zusammengefasst, mit Link zum Original.','Official word from Rockstar, PlayStation & Xbox, plus the best reports from GameStar, GamePro, MeinMMO and international outlets. Short summaries, linked to the original.'),
+ h_road:L('Fahrplan bis zum Release','Road to launch'),h_hub:L('Quellen direkt öffnen','Open sources directly'),
+ w_news:L('Newszentrale','News center'),toNews:L('Alle News →','All news →'),readArt:L('Artikel lesen ↗','Read article ↗'),
+ markRead:L('gelesen','read'),allRead:L('Alle gelesen','Mark all read'),nwQ:L('News durchsuchen …','Search news …'),
+ nwNote:L('Kuratiert von Flovo. Zusammenfassungen in eigenen Worten – die Rechte an den Artikeln liegen bei den jeweiligen Seiten. Live-Abruf ist in der App technisch gesperrt (CORS), daher wird die Liste mit jedem Update ergänzt.','Curated by Flovo. Summaries in our own words – the articles belong to their publishers. Live fetching is technically blocked in the app (CORS), so the list grows with each update.'),
+ h_bentoEd:L('Das Spiel in Zahlen','The game in numbers'),
  kicker:L('Inoffizieller Fan-Guide · Leonida','Unofficial fan guide · Leonida'),
  hsub:L('Grand Theft Auto VI','Grand Theft Auto VI'),
  cdnote:L('Countdown bis Freischaltung: <b>Do, 19.11.2026 · 00:00 Uhr</b> deutscher Zeit (MEZ) – Rockstar schaltet um Mitternacht Ortszeit frei.','Countdown to unlock: <b>Thu 19 Nov 2026 · 00:00</b> German time (CET) – Rockstar unlocks at local midnight.'),
@@ -808,6 +876,7 @@ const UI={
  srcNote:L('Community-Funde stammen aus dem r/GTA6-Discord (Kanäle #credible-info, #debunked-info, #official-news), GTAForums und dem Mapping-Projekt. Reddit selbst blockiert den automatischen Abruf.','Community finds come from the r/GTA6 Discord (#credible-info, #debunked-info, #official-news), GTAForums and the mapping project. Reddit itself blocks automated access.'),
  footer:L('Leonida Pro Guide – inoffizielles Fan-Projekt, nicht verbunden mit Rockstar Games oder Take-Two. Alle Marken gehören ihren Inhabern. Stand der Infos: 12.11.2026.','Leonida Pro Guide – unofficial fan project, not affiliated with Rockstar Games or Take-Two. All trademarks belong to their owners. Info as of 12 Nov 2026.'),
  ctaMap:L('🗺️ Leonida erkunden','🗺️ Explore Leonida'),
+ctaNews:L('📰 Newszentrale','📰 News center'),
  ctaSim:L('⭐ Fahndungs-Simulator','⭐ Wanted simulator'),
  h_bento:L('Das Wichtigste in 10 Sekunden','The essentials in 10 seconds'),
  h_media:L('Offizielle Trailer & Galerie','Official trailers & gallery'),
@@ -841,7 +910,7 @@ const UI={
  counties:L('Countys','Counties'),pins:L('Pins','Pins'),
  saved:L('Gespeichert ✓','Saved ✓'),removed:L('Entfernt','Removed'),
 };
-const TABS=[['home','🌴',L('Start','Home')],['map','🗺️',L('Karte','Map')],['crew','🃏',L('Crew','Crew')],['garage','🏎️',L('Garage','Garage')],['arsenal','🔫',L('Waffen','Arsenal')],['missions','🎯',L('Missionen','Missions')],['tips','⭐',L('Tipps','Tips')],['secrets','🕵️',L('Geheimnisse','Secrets')],['radio','📻',L('Radio','Radio')],['editions','💿',L('Editionen','Editions')]];
+const TABS=[['home','🌴',L('Start','Home')],['news','📰',L('News','News')],['map','🗺️',L('Karte','Map')],['crew','🃏',L('Crew','Crew')],['garage','🏎️',L('Garage','Garage')],['arsenal','🔫',L('Waffen','Arsenal')],['missions','🎯',L('Missionen','Missions')],['tips','⭐',L('Tipps','Tips')],['secrets','🕵️',L('Geheimnisse','Secrets')],['radio','📻',L('Radio','Radio')],['editions','💿',L('Editionen','Editions')]];
 const ST={off:['b-off',L('Offiziell','Official')],seen:['b-seen',L('Gesichtet','Spotted')],leak:['b-leak',L('Leak','Leak')],rum:['b-rum',L('Gerücht','Rumor')],ue:['b-ue',L('Ultimate','Ultimate')],vvc:['b-ue',L('Vorbesteller','Pre-order')]};
 const badge=(s)=>{const b=ST[s];return b?`<span class="badge ${b[0]}">${T(b[1])}</span>`:''};
 
@@ -880,6 +949,51 @@ const MEDIA=[
  ['Features Trailer','11/2026','','https://www.youtube.com/watch?v=8L0CzL2V72c','linear-gradient(160deg,#ffd23f,#ff9a3c 50%,#5b2ea8)',L('PS5-Features (PlayStation)','PS5 features (PlayStation)')],
  ['Launch-Galerie','11/2026','📸','https://www.rockstargames.com/VI','linear-gradient(160deg,#9b5cff,#22e7ff 70%)',L('Neue offizielle Screenshots','New official screenshots')],
 ];
+
+const NWCAT=[['all',L('Alle','All')],['off',L('Offiziell','Official')],['de',L('Deutsch','German')],['int',L('International','International')],['com',L('Community','Community')]];
+const NWSRC={
+ rockstar:['Rockstar','#ffd23f','off'],ps:['PlayStation','#5aa9ff','off'],xbox:['Xbox','#3ddc84','off'],
+ gamestar:['GameStar','#ff7a3c','de'],gamepro:['GamePro','#ff4f8b','de'],meinmmo:['MeinMMO','#ff9aff','de'],
+ variety:['Variety','#c9d1ff','int'],gamespot:['GameSpot','#ffe08a','int'],vgc:['VGC','#9ef0ff','int'],gi:['Game Informer','#ff8a8a','int'],
+ rsi:['RockstarINTEL','#b388ff','com'],discord:['Discord r/GTA6','#8c9eff','com'],
+};
+const NWUPD='2026-11-13T12:15:00+01:00';
+// id, date, source, badge, title, text, url
+const NEWSC=[
+ ['gp-deals','2026-11-13','gamepro','off',L('Verkaufsstart-Deals im Ticker','Launch deals live ticker'),L('GamePro sammelt die besten Angebote zum Launch. Ein Beispiel: Kaufland verkauft GTA 6 ab Montag früh für 69,99 € – 10 € unter UVP.','GamePro is tracking the best launch deals. Example: Kaufland sells GTA 6 from Monday morning for €69.99 – €10 below RRP.'),'https://www.gamepro.de/artikel/gta-6-verkaufsstart-angebote-ticker,3462673.html'],
+ ['mm-bar','2026-11-13','meinmmo','seen',L('Strandbar zeigt 10 neue Screenshots','Beach bar shows 10 new screenshots'),L('Eine echte Bar in Key Largo wurde zum „Rusty Anchor“ umgebaut. An den Wänden: bisher unbekannte Screenshots und ein Zeitungsartikel, der auf einen Hurrikan namens „Roxy“ in der Story hindeutet.','A real bar in Key Largo was turned into “The Rusty Anchor”. On its walls: unseen screenshots and a newspaper clipping that hints at a hurricane called “Roxy” in the story.'),'https://mein-mmo.de/neue-screenshots-und-storyhinweis-zu-gta-6-in-strandbar-aufgetaucht/'],
+ ['gp-pc','2026-11-13','gamepro','rum',L('GTA 6 für PC: Stand der Dinge','GTA 6 on PC: where things stand'),L('Weiterhin kein PC-Termin. Take-Two will laut Zelnick zuerst die Konsolen-Kernspieler bedienen – bei GTA V lagen rund 19 Monate dazwischen.','Still no PC date. Per Zelnick, Take-Two is serving core console players first – GTA V took about 19 months to reach PC.'),'https://www.gamepro.de/artikel/gta-6-pc,3423717.html'],
+ ['mm-box','2026-11-12','meinmmo','off',L('Box-Versionen sind da – ohne Disc','Boxed copies arrive – no disc'),L('Händler liefern die physischen Editionen aus: Download-Code, Anleitung und ein doppelseitiges Poster, aber keine Disc. Bei Lieferung wird teils das Alter geprüft (USK 18).','Retailers are shipping the physical editions: download code, guide and a double-sided poster, but no disc. Deliveries may require age verification (USK 18).'),'https://mein-mmo.de/en/gta-6-physical-boxes-are-being-sent-out-all-about-deliveries-and-community-reactions-in-the-live-ticker,1595974/'],
+ ['gp-preload','2026-11-10','gamepro','off',L('Preload pünktlich gestartet','Pre-load started on time'),L('Um Mitternacht ging der Download in Deutschland los. Auf der PS5 sind es knapp 210 GB.','The download began at midnight in Germany. It’s just under 210 GB on PS5.'),'https://www.gamepro.de/artikel/gta-6-preload-start-ticker,3462497.html'],
+ ['r-preload','2026-11-10','rockstar','off',L('Newswire: 30 fps, PS5-Pro-Extras, Xbox Cloud','Newswire: 30 fps, PS5 Pro extras, Xbox Cloud'),L('Rockstar bestätigt 30 fps auf allen Konsolen – auch auf der PS5 Pro. Die Pro bekommt PSSR und raytracing-Schatten exklusiv. Über Xbox Cloud Gaming läuft das Spiel sogar auf der Xbox One (mit Series-S-Einstellungen), Remote Play gibt es auf beiden Plattformen.','Rockstar confirms 30 fps on every console – PS5 Pro included. The Pro gets PSSR and ray-traced shadows exclusively. Via Xbox Cloud Gaming it even runs on Xbox One (with Series S settings); Remote Play works on both platforms.'),'https://www.rockstargames.com/newswire/article/89834o94713o21/pre-load-grand-theft-auto-vi-now'],
+ ['ps-feat','2026-11-10','ps','off',L('PlayStation: Features-Trailer','PlayStation: features trailer'),L('Sony zeigt die PS5-Features: anpassbare DualSense-Haptik, adaptive Trigger, Controller-Lautsprecher, Tempest-3D-Audio und kurze Ladezeiten.','Sony shows off the PS5 features: adjustable DualSense haptics, adaptive triggers, controller speaker, Tempest 3D audio and short load times.'),'https://www.youtube.com/watch?v=8L0CzL2V72c'],
+ ['xb-cloud','2026-11-10','xbox','off',L('Xbox: Cloud Gaming ab Tag 1','Xbox: Cloud Gaming from day one'),L('Microsoft nennt GTA VI den meistvorbestellten Titel aller Zeiten im Microsoft Store. GTA V und Red Dead Redemption 2 folgen in den kommenden Monaten ebenfalls in der Cloud.','Microsoft calls GTA VI the most pre-ordered title ever on the Microsoft Store. GTA V and Red Dead Redemption 2 are also coming to the cloud in the coming months.'),'https://www.gamerfuzion.com/gta-6-30-fps-ps5-pro-pssr-ray-traced-shadows-xbox-one-cloud-gaming/'],
+ ['r-trailer','2026-11-10','rockstar','off',L('Neuer „Pre-Load Now“-Trailer','New “Pre-Load Now” trailer'),L('Knapp 30 Sekunden mit neuen Szenen, unter anderem Jason und Lucia beim Tanzen im Club und ein Einsatz eines Spezialkommandos.','Around 30 seconds of new footage, including Jason and Lucia dancing in a club and a SWAT team in action.'),'https://www.rockstargames.com/VI'],
+ ['mm-nz','2026-11-09','meinmmo','rum',L('Der Neuseeland-Trick','The New Zealand trick'),L('Wer die Konsole auf Neuseeland stellt, kommt 12 Stunden früher an Preload und Release. Auf der PS5 braucht es dafür ein eigenes NZ-Konto – das verstößt gegen die PSN-Regeln, Risiko auf eigene Kappe.','Setting your console to New Zealand gets you pre-load and launch 12 hours early. On PS5 that needs a separate NZ account – which breaks PSN rules, so it’s at your own risk.'),'https://mein-mmo.de/gta-6-preload-neuseeland-trick/'],
+ ['var-pre','2026-11-09','variety','off',L('Zelnick: Vorbestellungen weit über Plan','Zelnick: presales far above plan'),L('Take-Two-Chef Strauss Zelnick sagt, die Vorbestellungen lägen deutlich über den eigenen Erwartungen.','Take-Two CEO Strauss Zelnick says presales are running well above the company’s own expectations.'),'https://variety.com/2026/gaming/news/gta-6-preorders-expectations-launch-1236943278/'],
+ ['gp-594','2026-11-08','gamepro','rum',L('Analyse: ~594 Mio. $ durch Vorbestellungen','Analysis: ~$594M from pre-orders'),L('Eine Analysten-Schätzung beziffert den Umsatz allein aus Vorbestellungen auf rund 594 Millionen US-Dollar. Keine offizielle Zahl.','An analyst estimate puts revenue from pre-orders alone at about $594 million. Not an official figure.'),'https://www.gamepro.de/artikel/gta-6-analyse-vorbestellungen,3461561.html'],
+ ['gs-secret','2026-11-07','gamestar','rum',L('Geheimnisse, von denen nicht mal die Chefs wissen','Secrets even the bosses don’t know about'),L('Laut Branchenjournalist Jason Schreier haben einzelne Entwickler Details versteckt, die der Studioleitung gar nicht bekannt sind.','According to industry reporter Jason Schreier, individual developers hid details the studio heads don’t even know about.'),'https://www.gamestar.de/artikel/geheimnisse-in-gta-6,3461482.html'],
+ ['vgc-region','2026-11-06','vgc','leak',L('Regionale Versionen: Japan wohl geschnitten','Regional builds: Japan likely edited'),L('Es gibt drei Builds: weltweit, Japan und Australien/Neuseeland. Der ANZ-Version fehlt nur ein winziges Datenpaket (unter 1 MB). Die japanische Fassung ist kleiner – wie schon bei GTA V dürften dort Szenen entschärft sein. Nicht offiziell bestätigt.','There are three builds: worldwide, Japan and Australia/New Zealand. The ANZ version is only missing a tiny data chunk (under 1 MB). The Japanese build is smaller – as with GTA V, some scenes are probably toned down. Not officially confirmed.'),'https://www.videogameschronicle.com/news/gta-6-may-be-censored-in-australia-and-other-regions-dataminer-suggests/'],
+ ['gspot-gal','2026-11-05','gamespot','off',L('Launch-Galerie mit neuen Bildern','Launch gallery with new images'),L('Rockstar hat viele neue Screenshots veröffentlicht: Jason und Lucia im Nachtclub, in der Bar The Rusty Anchor und im Fitnessstudio.','Rockstar released a batch of new screenshots: Jason and Lucia in a nightclub, at The Rusty Anchor bar and at the gym.'),'https://www.gamespot.com/articles/gta-6-lots-of-new-images-have-been-released/'],
+ ['gp-ticker','2026-11-04','gamepro','off',L('Release-Ticker: USK 18 & Technik','Launch ticker: USK 18 & tech'),L('GTA 6 hat in Deutschland die USK-18-Freigabe. Dazu alle Technik-Fakten zu PS5, PS5 Pro und Xbox im Überblick.','GTA 6 is rated USK 18 in Germany. Plus all the tech facts for PS5, PS5 Pro and Xbox at a glance.'),'https://www.gamepro.de/artikel/gta-6-release-live-ticker,3461296.html'],
+ ['gs-all','2026-11-03','gamestar','off',L('Release in Deutschland: Mitternacht 18./19.11.','German launch: midnight 18/19 Nov'),L('GameStars Sammelartikel: In Deutschland geht es in der Nacht von Mittwoch auf Donnerstag um 0:00 Uhr los. Dazu Spielwelt, Gameplay und alles Bekannte.','GameStar’s round-up: in Germany it unlocks at 00:00 in the night from Wednesday to Thursday. Plus world, gameplay and everything known.'),'https://www.gamestar.de/artikel/gta-6-release-spielwelt-gameplay-alle-infos,3432543.html'],
+ ['gs-preload','2026-11-03','gamestar','off',L('Preload: bis zu 212 GB','Pre-load: up to 212 GB'),L('Rockstar nennt bis zu 212 GB Downloadgröße auf Konsole. GameStar erklärt Zeiten und Ablauf für PS5 und Xbox.','Rockstar lists up to 212 GB on console. GameStar explains timings and steps for PS5 and Xbox.'),'https://www.gamestar.de/artikel/gta-6-preload-alle-infos,3455203.html'],
+ ['r-preann','2026-11-03','rockstar','off',L('Preload-Termine angekündigt','Pre-load dates announced'),L('PS5: ab 10.11. um Mitternacht Ortszeit. Xbox: weltweit gleichzeitig um 1:00 Uhr deutscher Zeit. Box-Versionen mit Code ab 12.11. im Handel.','PS5: from 10 Nov at local midnight. Xbox: worldwide at 00:00 GMT (01:00 in Germany). Code-in-box editions in stores from 12 Nov.'),'https://www.rockstargames.com/newswire'],
+ ['gs-pc','2026-11-02','gamestar','rum',L('PC-Prognose: Termin, Preis, Hardware','PC forecast: date, price, hardware'),L('GameStar schätzt ein, wann die PC-Version kommen könnte und welche Hardware nötig sein dürfte – noch alles ohne offizielle Bestätigung.','GameStar estimates when the PC version might arrive and what hardware it may need – none of it officially confirmed yet.'),'https://www.gamestar.de/artikel/gta-6-release-preis-systemanforderungen,3461110.html'],
+ ['rsi-poster','2026-11-06','rsi','seen',L('Poster der Box-Edition aufgetaucht','Boxed edition poster surfaced'),L('Ein Händler zeigte vorab das Poster, das jeder physischen Version beiliegt.','A retailer showed the poster that ships with every physical copy ahead of time.'),'https://rockstarintel.com/updated-gta6-download-size-reveal-potential-censorship-differences/'],
+ ['mia','2026-10-27','discord','off',L('Miami im Vice-City-Fieber','Miami in Vice City fever'),L('„Welcome to Vice City“ auf dem Kaseya Center, Goodyear-Blimp, Murals, Strandschirme und Spielmarken wie Weazel News auf Miamis Straßen.','“Welcome to Vice City” atop the Kaseya Center, the Goodyear blimp, murals, beach umbrellas and in-game brands like Weazel News on Miami streets.'),''],
+ ['gi-north','2026-09-29','gi','seen',L('Game Informer: Nord-Leonida, Wetter, Tiere','Game Informer: north Leonida, weather, animals'),L('ATV-Trails, Demolition-Derby, Golfplatz und Barsch-Angeln im Norden. Neues lokales Wetter mit Tropenstürmen und Hurrikans. Aufspürbare Tiere in den Stufen selten, entdeckbar und legendär.','ATV trails, demolition derbies, a golf course and bass fishing up north. New local weather with tropical storms and hurricanes. Trackable animals in rare, discoverable and legendary tiers.'),'https://www.gameinformer.com/'],
+ ['leak192','2026-09-19','discord','leak',L('Altes 192-GB-Archiv','Old 192 GB archive'),L('Entwicklerdateien aus dem Leak von 2022 mit Material von 2014/15, darunter gestrichene Orte wie Key West. Nicht der heutige Stand.','Dev files from the 2022 breach with 2014/15 material, incl. scrapped areas like Key West. Not the current game.'),''],
+ ['ds','2026-09-03','ps','off',L('Limitierte DualSense-Controller','Limited DualSense controllers'),L('Zwei GTA-VI-Editionen in Schwarz und Weiß.','Two GTA VI editions in black and white.'),'https://www.playstation.com/en-us/GTAVIfeatures/'],
+].sort((a,b)=>b[1].localeCompare(a[1]));
+const NWHUB=[
+ ['rockstar','https://www.rockstargames.com/newswire',L('Newswire','Newswire')],
+ ['ps','https://www.playstation.com/en-us/GTAVIfeatures/',L('PS5-Features','PS5 features')],
+ ['gamestar','https://www.gamestar.de/spiele/gta-6-grand-theft-auto-6,news,14149.html',L('Alle GTA-6-News','All GTA 6 news')],
+ ['gamepro','https://www.gamepro.de/artikel/gta-6-release-live-ticker,3461296.html',L('Release-Ticker','Launch ticker')],
+ ['meinmmo','https://mein-mmo.de/gta-6-release-trailer-und-map-und-mehr-hub/',L('GTA-6-Hub','GTA 6 hub')],
+ ['rsi','https://rockstarintel.com/',L('Fan-News & Leaks','Fan news & leaks')],
+];
 const NEWS=[
  ['29.09.2026','seen',L('Game Informer: Nord-Leonida','Game Informer: northern Leonida'),L('Zwischen den Nordstädten: ATV-Trails, eine Schlamm-Party, Demolition-Derby auf Flutlicht-Ovalen, Mountainbike-Strecken, Farmen, ein privater Golfplatz, Sanddünen für MX-Bikes und Barsch-Angeln im Zypressensee.','Between the northern towns: ATV trails, a mud-park party, demolition derbies on floodlit ovals, MTB trails, farms, a private golf course, dunes for MX bikes and bass fishing in a cypress lake.')],
  ['29.09.2026','seen',L('Wetter & Hurrikans','Weather & hurricanes'),L('Komplett neues, lokales Wettersystem mit ziehenden Wolken, Wind über Wasser und Gras – Tropenstürme und Hurrikans sind bestätigt.','All-new localized weather with rolling clouds and wind over water and grass – tropical storms and hurricanes confirmed.')],
@@ -909,9 +1023,9 @@ const HEAT=[
 ];
 const HEATIND=[L('📹 Von Kamera erfasst','📹 Caught on CCTV'),L('💑 Fahndung nach einem Paar','💑 Looking for a couple'),L('👕 Kleidung bekannt','👕 Clothing known'),L('🙂 Identität bekannt','🙂 Identity known'),L('🔫 Tatwaffe bekannt','🔫 Weapon known')];
 const PLANCOLS=[['idea',L('Ideen','Ideas'),'#9b5cff'],['d1',L('Launch-Tag','Launch day'),'#ff2bd6'],['w1',L('Erste Woche','First week'),'#22e7ff'],['done',L('Erledigt ✓','Done ✓'),'#19f5c1']];
-const WIDGETS=['media','news','fav','bento','dream','plan','prog','heat','prep','tl','legend'];
-const WCOL0={heat:1,prep:1,tl:1,legend:1};
-const WHALF={fav:1,dream:1,plan:1,heat:1,prep:1,tl:1,prog:1,legend:1};
+const WIDGETS=['news','media','fav','prog'];
+const WCOL0={};
+const WHALF={fav:1,prog:1};
 const FIRST=[
  L('⚙️ Einstellungen: Minimap dauerhaft an, Gehtempo & Zielhilfe wählen','⚙️ Settings: minimap always on, pick walk speed & aim assist'),
  L('🏧 Bargeld regelmäßig am Geldautomaten einzahlen – beim Tod ist alles weg','🏧 Deposit cash at ATMs often – you lose it all when you die'),
@@ -1384,7 +1498,7 @@ function applyUI(){
 }
 function renderTabs(){
  $('#sideNav').innerHTML=TABS.map(([id,ic,lb])=>`<button data-v="${id}"><span class="e">${ic}</span>${T(lb)}</button>`).join('');
- const B=['home','map','garage','tips'];
+ const B=['home','news','map','garage'];
  $('#bottom').innerHTML=B.map(id=>{const t=TABS.find(x=>x[0]===id);return `<button data-v="${id}"><span class="e">${t[1]}</span>${T(t[2])}</button>`}).join('')+`<button data-more="1"><span class="e">☰</span>${T(L('Mehr','More'))}</button>`;
  $('#moreGrid').innerHTML=TABS.map(([id,ic,lb])=>`<button data-v="${id}"><span class="e">${ic}</span>${T(lb)}</button>`).join('');
  document.querySelectorAll('#sideNav [data-v],#bottom [data-v],#moreGrid [data-v]').forEach(b=>b.onclick=()=>{$('#more').classList.remove('on');location.hash=b.dataset.v});
@@ -1394,7 +1508,7 @@ function renderTabs(){
 function route(){
  let v=(location.hash||'#home').slice(1);if(!TABS.find(t=>t[0]===v))v='home';
  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
- const B=['home','map','garage','tips'];
+ const B=['home','news','map','garage'];
  document.querySelectorAll('#sideNav [data-v],#moreGrid [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
  document.querySelectorAll('#bottom [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
  const mb=$('#bottom [data-more]');if(mb)mb.classList.toggle('on',!B.includes(v));
@@ -1421,7 +1535,7 @@ function renderCD(){
 }
 const W={
  bento:()=>[UI.h_bento,`<div class="bento">${BENTO.map(b=>`<div class="b ${b[0]}" style="background:${b[1]}"><span class="em">${b[2]}</span><div class="big">${T(b[3])}</div><div class="sm">${T(b[4])}</div></div>`).join('')}</div>`],
- news:()=>[UI.h_news,`<div class="news rowscroll">${NEWS.map(n=>`<div class="card n"><div class="row"><span class="d">${n[0]}</span><span class="sp"></span>${badge(n[1])}</div><b style="display:block;margin:4px 0">${T(n[2])}</b><div class="tx muted" style="font-size:13.5px">${T(n[3])}</div></div>`).join('')}</div>`],
+ news:()=>{const n=nwUnread();return [L(T(UI.w_news)+(n?`<span class="nwCount">${n} ${T(L('neu','new'))}</span>`:''),T(UI.w_news)+(n?`<span class="nwCount">${n} ${T(L('neu','new'))}</span>`:'')),`<div class="nwHome">${NEWSC.slice(0,4).map(nwMini).join('')}</div><a class="lnk" href="#news">${T(UI.toNews)}</a>`]},
  media:()=>[UI.h_media,`<div class="media rowscroll">${MEDIA.map(m=>`<a class="vid" href="${m[3]}" target="_blank" rel="noopener"><div class="th" style="background:${m[4]}"><span class="lb">${m[0]}</span><span class="pl"></span>${m[2]?`<span class="du">${m[2]}</span>`:''}</div><div class="mt"><b>${T(m[5])}</b><span class="dim">${m[1]}</span></div></a>`).join('')}</div><p class="dim" style="margin:10px 0 0">${T(UI.mediaNote)} <a href="https://www.rockstargames.com/VI" target="_blank" rel="noopener">${T(UI.toRockstar)}</a></p>`],
  dream:()=>{const d=store.get('dream',[]);return [UI.w_dream,(d.length?`<div class="minichips">${d.map(n=>{const c=CARS.find(x=>x[0]===n);return `<span>${c?CATI[c[2]]:'🚗'} ${esc(n)}</span>`}).join('')}</div>`:`<div class="dim">${T(UI.emptyDream)}</div>`)+`<a class="lnk" href="#garage">${T(UI.toGarage)}</a>`]},
  plan:()=>{const p=getPlan();const c=k=>ACTS.filter(a=>p[a[1].de]===k);return [UI.w_plan,`<div class="minichips" style="margin-bottom:8px">${PLANCOLS.map(([k,l,col])=>`<span style="border-color:${col};background:transparent">${T(l)} · ${c(k).length}</span>`).join('')}</div><div class="dim">${T(L('Am Launch-Tag:','Launch day:'))} ${c('d1').map(a=>a[0]+' '+T(a[1])).join(' · ')||'—'}</div><a class="lnk" href="#missions">${T(UI.toPlan)}</a>`]},
@@ -1432,9 +1546,45 @@ const W={
  fav:()=>{const f=store.get('favs',{});const ks=Object.keys(f);return [UI.w_fav,ks.length?`<div class="minichips">${ks.map(k=>{const t=TABS.find(x=>x[0]===f[k].v);return `<span class="lnkchip" data-go="${f[k].v}" style="cursor:pointer">${t?t[1]:'⭐'} ${esc(f[k].t)}</span>`}).join('')}</div>`:`<div class="dim">${T(UI.noFav)}</div>`]},
  legend:()=>[UI.h_legend,`<div class="legend">${['off','seen','leak','rum','ue'].map(badge).join('')}</div><div class="dim">${T(UI.legendTxt)}</div>`],
 };
+
+const nwSeenTs=()=>store.get('nwseen',Date.parse('2026-11-10T00:00:00+01:00'));
+const nwDate=d=>{const [y,m,dd]=d.split('-');return LANG==='de'?`${dd}.${m}.`:new Date(d+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'})};
+const nwIsNew=n=>Date.parse(n[1]+'T23:59:59+01:00')>nwSeenTs()&&!store.get('nwread',{})[n[0]];
+const nwUnread=()=>NEWSC.filter(nwIsNew).length;
+const nwSrc=k=>{const s=NWSRC[k];return `<span class="src" style="background:${s[1]}">${s[0]}</span>`};
+const nwMini=n=>`<a class="nwMini" ${n[6]?`href="${n[6]}" target="_blank" rel="noopener"`:'href="#news"'} data-nid="${n[0]}"><div class="nwMeta">${nwSrc(n[2])}<span class="d">${nwDate(n[1])}</span>${nwIsNew(n)?`<span class="nwNew">${LANG==='de'?'NEU':'NEW'}</span>`:''}</div><b>${T(n[4])}</b></a>`;
+let NWF='all';
+function nwMarkRead(id){const r=store.get('nwread',{});r[id]=1;store.set('nwread',r);nwDot()}
+function nwDot(){const n=nwUnread();document.querySelectorAll('#bottom [data-v=news],#sideNav [data-v=news],#moreGrid [data-v=news]').forEach(b=>b.classList.toggle('ndot',n>0))}
+function renderNews(){
+ $('#nwUpd').textContent=T(L('Stand: ','Updated: '))+new Date(NWUPD).toLocaleString(LANG==='de'?'de-DE':'en-GB',{timeZone:'Europe/Berlin',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})+(LANG==='de'?' Uhr':'');
+ $('#nwAllRead').textContent='✓ '+T(UI.allRead);
+ const off=NEWSC.filter(n=>NWSRC[n[2]][2]==='off');const feat=off[0];const side=NEWSC.filter(n=>n!==feat).slice(0,3);
+ $('#nwTop').innerHTML=`<a class="nwFeat" ${feat[6]?`href="${feat[6]}" target="_blank" rel="noopener"`:''} data-nid="${feat[0]}"><div class="k">★ ${T(L('Top-Meldung','Top story'))} · ${NWSRC[feat[2]][0]} · ${nwDate(feat[1])}</div><h4>${T(feat[4])}</h4><p>${T(feat[5])}</p><span class="go">${T(UI.readArt)}</span></a><div class="nwSide">${side.map(nwMini).join('')}</div>`;
+ $('#nwCats').innerHTML=NWCAT.map(([k,l])=>{const c=k==='all'?NEWSC.length:NEWSC.filter(n=>NWSRC[n[2]][2]===k).length;return `<button class="chip ${NWF===k?'on':''}" data-c="${k}">${T(l)} · ${c}</button>`}).join('');
+ $('#nwCats').querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{NWF=b.dataset.c;renderNews();reveal()});
+ $('#nwQ').placeholder=T(UI.nwQ);$('#nwQ').oninput=renderNewsList;
+ renderNewsList();
+ $('#nwTl').innerHTML=`<b style="font-family:'Bebas Neue';font-size:24px;letter-spacing:1px">${T(UI.h_timeline)}</b>`+W.tl()[1];
+ $('#nwPrep').innerHTML=`<b style="font-family:'Bebas Neue';font-size:24px;letter-spacing:1px">${T(UI.h_preparo)}</b>`+W.prep()[1];
+ $('#nwHub').innerHTML=NWHUB.map(([k,u,l])=>`<a href="${u}" target="_blank" rel="noopener">${nwSrc(k)}<span>${T(l)}<small>${new URL(u).hostname.replace('www.','')}</small></span></a>`).join('');
+ $('#nwNote').textContent=T(UI.nwNote);
+ $('#nwLegend').innerHTML=`<b>${T(UI.h_legend)}</b><div class="legend" style="margin:8px 0">${['off','seen','leak','rum','ue'].map(badge).join('')}</div><div class="dim">${T(UI.legendTxt)}</div>`;
+ $('#nwAllRead').onclick=()=>{store.set('nwseen',Date.now());const r={};NEWSC.forEach(n=>r[n[0]]=1);store.set('nwread',r);renderNews();renderHome();nwDot();reveal();toast('✓')};
+ document.querySelectorAll('#v-news [data-nid]').forEach(a=>a.addEventListener('click',()=>nwMarkRead(a.dataset.nid)));
+ nwDot();
+}
+function renderNewsList(){
+ const q=($('#nwQ').value||'').trim().toLowerCase();const rd=store.get('nwread',{});
+ const list=NEWSC.filter(n=>(NWF==='all'||NWSRC[n[2]][2]===NWF)&&(!q||(T(n[4])+' '+T(n[5])+' '+NWSRC[n[2]][0]).toLowerCase().includes(q)));
+ $('#nwList').innerHTML=list.length?list.map(n=>`<article class="nwCard ${rd[n[0]]?'read':''}"><div class="nwMeta">${nwSrc(n[2])}<span class="d">${nwDate(n[1])}</span>${nwIsNew(n)?`<span class="nwNew">${LANG==='de'?'NEU':'NEW'}</span>`:''}<span class="sp" style="flex:1"></span>${badge(n[3])}</div><b>${T(n[4])}</b><div class="tx">${T(n[5])}</div><div class="ft">${n[6]?`<a href="${n[6]}" target="_blank" rel="noopener" data-nid="${n[0]}">${T(UI.readArt)}</a>`:''}${rd[n[0]]?'':`<button class="rd" data-r="${n[0]}">✓ ${T(UI.markRead)}</button>`}</div></article>`).join(''):`<div class="muted">${T(UI.noRes)}</div>`;
+ $('#nwList').querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{nwMarkRead(b.dataset.r);renderNewsList();renderHome()});
+ $('#nwList').querySelectorAll('a[data-nid]').forEach(a=>a.addEventListener('click',()=>{nwMarkRead(a.dataset.nid);setTimeout(renderNewsList,300)}));
+}
+function renderEdBento(){$('#edBento').innerHTML=BENTO.map(b=>`<div class="b ${b[0]}" style="background:${b[1]}"><span class="em">${b[2]}</span><div class="big">${T(b[3])}</div><div class="sm">${T(b[4])}</div></div>`).join('')}
 function renderHome(){
  $('#pills').innerHTML=PILLS.map(p=>`<span class="pill">${T(p)}</span>`).join('');
- const tk=TICKER.map(t=>`<span><b>${t[0]}</b>${T(t[1])}</span>`).join('');$('#ticker').innerHTML=tk+tk;
+ const tk=NEWSC.slice(0,8).map(n=>`<a href="#news"><span><b>${NWSRC[n[2]][0]} · ${nwDate(n[1])}</b>${T(n[4])}</span></a>`).join('');$('#ticker').innerHTML=tk+tk;
  $('#facts').innerHTML=FACTS.map(f=>`<div class="fact"><div class="k">${T(f[0])}</div><div class="v">${T(f[1])}</div><div class="s">${T(f[2])}</div></div>`).join('');
  let order=store.get('dash2',WIDGETS).filter(w=>W[w]);WIDGETS.forEach(w=>{if(!order.includes(w))order.push(w)});
  const col=store.get('dcol2',WCOL0);const favN=Object.keys(store.get('favs',{})).length;
@@ -1442,6 +1592,7 @@ function renderHome(){
  $('#dash').querySelectorAll('.wc').forEach(b=>b.onclick=()=>{const w=b.closest('.widget');w.classList.toggle('col');const c=store.get('dcol2',WCOL0);c[w.dataset.w]=w.classList.contains('col');store.set('dcol2',c)});
  if(window.Sortable){if(window._ds)window._ds.destroy();window._ds=Sortable.create($('#dash'),{handle:'.grip',animation:220,easing:'cubic-bezier(.2,.8,.2,1)',ghostClass:'sortable-ghost',chosenClass:'sortable-chosen',dragClass:'sortable-drag',onEnd:()=>{const cur=[...$('#dash').children].map(e=>e.dataset.w);if(!cur.includes('fav'))cur.unshift('fav');store.set('dash2',cur);toast(T(UI.saved))}})}
   $('#dash').querySelectorAll('[data-go]').forEach(c=>c.onclick=()=>{location.hash=c.dataset.go});
+ $('#dash').querySelectorAll('[data-nid]').forEach(a=>a.addEventListener('click',()=>{nwMarkRead(a.dataset.nid);setTimeout(renderHome,300)}));
  renderProg();
 }
 function renderProg(){
@@ -1708,7 +1859,7 @@ function buildIndex(){
  TIPS.forEach(c=>c.items.forEach(t=>add('tips',T(t[0]),T(t[1]))));
  EGGS.forEach(e=>add('secrets',T(e[1]),T(e[2])));LEAKS.forEach(e=>add('secrets',T(e[1]),T(e[2])));THEORIES.forEach(e=>add('secrets',T(e[0]),T(e[1])));
  RADIO.forEach(r=>add('radio',r.n,T(r.g)+' '+r.h));ALBUM.forEach(a=>add('radio',a[1],a[0]));
- TECH.forEach(t=>add('editions',T(t[0]),T(t[1])));NEWS.forEach(n=>add('home',T(n[2]),T(n[3])));
+ TECH.forEach(t=>add('editions',T(t[0]),T(t[1])));NEWSC.forEach(n=>add('news',T(n[4]),NWSRC[n[2]][0]+' '+T(n[5])));
  return I;
 }
 function doSearch(){
@@ -1847,7 +1998,7 @@ Maximal 160 Wörter, mit kurzen Zwischenüberschriften.`;
  if(P==='openai'){const r=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'content-type':'application/json','authorization':'Bearer '+K},body:JSON.stringify({model:SET.aiModel||'gpt-4o',max_tokens:700,messages:[{role:'user',content:[{type:'text',text:prompt},{type:'image_url',image_url:{url:'data:image/jpeg;base64,'+b64}}]}]})});const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||r.status);return j.choices[0].message.content}
  const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${SET.aiModel||'gemini-2.5-flash'}:generateContent?key=${encodeURIComponent(K)}`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt},{inline_data:{mime_type:'image/jpeg',data:b64}}]}]})});const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||r.status);return j.candidates[0].content.parts.map(p=>p.text||'').join('')}
 /* ================= INIT ================= */
-function renderAll(){applySet();applyUI();renderTabs();renderHome();renderDream();renderVsys();renderHeat();renderPins();renderColl();renderCoach();renderMap();renderRegion();renderDistricts();renderCrew();renderCarCats();renderCars();renderGuns();renderMissions();renderSim();renderTips();renderSecrets();renderRadio();renderEditions();$('#cdBox').dataset.mode='';renderCD();route();decorateFavs()}
+function renderAll(){applySet();applyUI();renderTabs();renderHome();renderDream();renderVsys();renderHeat();renderPins();renderColl();renderCoach();renderMap();renderRegion();renderDistricts();renderCrew();renderCarCats();renderCars();renderGuns();renderMissions();renderSim();renderTips();renderSecrets();renderRadio();renderEditions();renderNews();renderEdBento();$('#cdBox').dataset.mode='';renderCD();route();decorateFavs()}
 $('#btnLang').onclick=()=>{LANG=LANG==='de'?'en':'de';store.set('lang',LANG);renderAll()};
 $('#btnSearch').onclick=openSearch;$('#btnSet').onclick=openSet;$('#btnSet2').onclick=openSet;$('#setClose').onclick=()=>$('#setp').classList.remove('on');$('#pinMode').onclick=()=>{pinMode=!pinMode;renderMap()};$('#btnSearch2').onclick=openSearch;$('#btnLang2').onclick=()=>$('#btnLang').click();$('#moreClose').onclick=()=>$('#more').classList.remove('on');
 $('#dashReset').onclick=()=>{store.set('dash2',WIDGETS);store.set('dcol2',WCOL0);renderHome();reveal();toast('↺')};$('#sclose').onclick=closeSearch;
