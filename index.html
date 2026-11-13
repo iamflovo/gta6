@@ -879,6 +879,49 @@ body.tod-day .hero .heroShade{background:linear-gradient(90deg,rgba(15,33,80,.94
 #album .ttl{line-height:1.2}
 #album .lsn{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:11px;font-weight:700;letter-spacing:.4px;color:#2be0ff;padding:3px 9px;border-radius:999px;border:1px solid rgba(34,231,255,.35);background:rgba(34,231,255,.08)}
 #album a.card:hover .lsn{background:rgba(34,231,255,.2)}
+
+/* ===== v12 gallery ===== */
+.galHead{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.galHead .sp{flex:1}
+.galActs{display:flex;gap:8px;flex-wrap:wrap}
+.galSrc{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0 4px;font-size:12px;color:var(--mut)}
+.galSrc a{color:#2be0ff;text-decoration:none;border:1px solid rgba(34,231,255,.3);border-radius:999px;padding:4px 10px;background:rgba(34,231,255,.06)}
+.galChips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:12px -16px 14px;padding:0 16px}.galChips::-webkit-scrollbar{display:none}.galChips .chip{cursor:pointer;white-space:nowrap;flex:none}.galChips .chip b{opacity:.6;font-weight:600;margin-left:4px}
+.galGrid{columns:2 150px;column-gap:10px}
+@media(min-width:1000px){.galGrid{columns:4 220px;column-gap:14px}}
+.gi{break-inside:avoid;margin:0 0 10px;position:relative;border-radius:14px;overflow:hidden;cursor:zoom-in;background:#140827;border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 30px rgba(0,0,0,.35);transform:translateZ(0);transition:transform .25s,box-shadow .25s}
+@media(min-width:1000px){.gi{margin-bottom:14px}}
+.gi:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(255,43,214,.25)}
+.gi img{display:block;width:100%;height:auto}
+.gi::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(7,2,15,.75));pointer-events:none}
+.gi .gc{position:absolute;left:8px;bottom:7px;z-index:1;font-size:11px;font-weight:700;color:#fff;text-shadow:0 1px 4px #000}
+.gi .gh{position:absolute;right:7px;top:7px;z-index:1;font-size:10px;font-weight:800;letter-spacing:.5px;padding:3px 7px;border-radius:999px;background:linear-gradient(90deg,var(--pink),var(--orange));color:#fff}
+.galEmpty{padding:22px}
+.galEmpty ol{margin:10px 0 0 18px;padding:0;line-height:1.7;color:#e8dcff}
+.galDrop{outline:2px dashed var(--cyan);outline-offset:6px;border-radius:18px}
+.lb{position:fixed;inset:0;z-index:200;background:rgba(5,1,12,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;flex-direction:column}
+.lb[hidden]{display:none}
+.lb .lbImg{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:calc(56px + env(safe-area-inset-top)) 8px 8px;touch-action:pan-y}
+.lb .lbImg img{max-width:100%;max-height:100%;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.lb .lbX{position:absolute;right:12px;top:calc(10px + env(safe-area-inset-top))}
+.lb .lbN{position:absolute;left:14px;top:calc(18px + env(safe-area-inset-top));font-size:12px;color:var(--mut);font-family:'JetBrains Mono',monospace}
+.lb .lbP,.lb .lbF{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%}
+.lb .lbP{left:12px}.lb .lbF{right:12px}
+@media(max-width:999px){.lb .lbP,.lb .lbF{display:none}}
+.lb .lbBar{padding:10px 12px calc(14px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px;background:linear-gradient(180deg,transparent,rgba(7,2,15,.9) 30%)}
+.lb .lbBar .chips{margin:0;justify-content:center;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.lb .lbBar .chip{white-space:nowrap;cursor:pointer}
+.lb .lbActs{display:flex;gap:8px;justify-content:center}
+.ib.hot{background:linear-gradient(90deg,var(--pink),var(--orange));border-color:transparent;color:#fff}
+.heroPhoto{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 1.2s;pointer-events:none}
+.heroPhoto .hp{position:absolute;inset:-4%;background-size:cover;background-position:center 40%;opacity:0;transition:opacity 1.8s;animation:kb 24s ease-in-out infinite alternate}
+.heroPhoto .hp.on{opacity:1}
+@keyframes kb{from{transform:scale(1) translate(0,0)}to{transform:scale(1.08) translate(-1.5%,-1%)}}
+.heroPhoto::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,43,214,.22),transparent 45%,rgba(34,231,255,.16)),linear-gradient(180deg,rgba(7,2,15,.78) 0%,rgba(7,2,15,.42) 38%,rgba(7,2,15,.35) 62%,rgba(11,4,24,.95) 100%)}
+.hero.hasPhoto .heroPhoto{opacity:1}
+.hero.hasPhoto svg.scene{opacity:0;transition:opacity 1s}
+@media(min-width:1000px){.hero.hasPhoto .heroPhoto::after{background:linear-gradient(120deg,rgba(255,43,214,.2),transparent 45%,rgba(34,231,255,.14)),linear-gradient(180deg,rgba(7,2,15,.5),rgba(7,2,15,.15) 50%,rgba(11,4,24,.85))}}
+body.noanim .heroPhoto .hp{animation:none}
 </style>
 </head>
 <body>
@@ -916,13 +959,14 @@ body.tod-day .hero .heroShade{background:linear-gradient(90deg,rgba(15,33,80,.94
   </div>
 </header>
 <nav id="bottom"></nav>
+<div class="lb" id="lb" hidden></div>
 <div id="more"><div class="mh"><b data-i="moreTitle"></b><button class="ib" id="moreClose">✕</button></div><div class="mg" id="moreGrid"></div></div>
 
 <main class="wrap">
   <!-- HOME -->
   <section class="view" id="v-home">
     <div class="hero">
-      <svg class="scene heroScene" viewBox="2860 95 1200 570" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><use href="#pFarG"/><use href="#pMid"/><use href="#pNearG"/></svg>
+      <div class="heroPhoto" id="heroPhoto" aria-hidden="true"></div><svg class="scene heroScene" viewBox="2860 95 1200 570" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><use href="#pFarG"/><use href="#pMid"/><use href="#pNearG"/></svg>
       <div class="heroShade"></div><div class="hfade"></div>
       <div class="inner">
         <div class="kicker" data-i="kicker"></div>
@@ -1049,6 +1093,12 @@ body.tod-day .hero .heroShade{background:linear-gradient(90deg,rgba(15,33,80,.94
   </section>
 
   <!-- RADIO -->
+  <section class="view" id="v-gallery">
+    <div id="galTop"></div>
+    <div class="chips galChips" id="galChips"></div>
+    <div class="galGrid" id="galGrid"></div>
+  </section>
+
   <section class="view" id="v-radio">
     <h2 class="sec" data-i="t_radio"></h2>
     <p class="lead" data-i="l_radio"></p>
@@ -1073,7 +1123,7 @@ body.tod-day .hero .heroShade{background:linear-gradient(90deg,rgba(15,33,80,.94
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 13.11. 17:57</div>
+    <div class="dim" style="margin-top:8px">App-Version 13.11. 18:05</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -1193,7 +1243,7 @@ ctaNews:L('📰 Newszentrale','📰 News center'),
  counties:L('Countys','Counties'),pins:L('Pins','Pins'),
  saved:L('Gespeichert ✓','Saved ✓'),removed:L('Entfernt','Removed'),
 };
-const TABS=[['home','🌴',L('Start','Home')],['news','📰',L('News','News')],['map','🗺️',L('Karte','Map')],['crew','🃏',L('Crew','Crew')],['garage','🏎️',L('Garage','Garage')],['arsenal','🔫',L('Waffen','Arsenal')],['missions','🎯',L('Missionen','Missions')],['tips','⭐',L('Tipps','Tips')],['secrets','🕵️',L('Geheimnisse','Secrets')],['radio','📻',L('Radio','Radio')],['editions','💿',L('Editionen','Editions')]];
+const TABS=[['home','🌴',L('Start','Home')],['news','📰',L('News','News')],['map','🗺️',L('Karte','Map')],['crew','🃏',L('Crew','Crew')],['gallery','📸',L('Galerie','Gallery')],['garage','🏎️',L('Garage','Garage')],['arsenal','🔫',L('Waffen','Arsenal')],['missions','🎯',L('Missionen','Missions')],['tips','⭐',L('Tipps','Tips')],['secrets','🕵️',L('Geheimnisse','Secrets')],['radio','📻',L('Radio','Radio')],['editions','💿',L('Editionen','Editions')]];
 const ST={off:['b-off',L('Offiziell','Official')],seen:['b-seen',L('Gesichtet','Spotted')],leak:['b-leak',L('Leak','Leak')],rum:['b-rum',L('Gerücht','Rumor')],ue:['b-ue',L('Ultimate','Ultimate')],vvc:['b-ue',L('Vorbesteller','Pre-order')]};
 const badge=(s)=>{const b=ST[s];return b?`<span class="badge ${b[0]}">${T(b[1])}</span>`:''};
 
@@ -1880,7 +1930,7 @@ function renderNewsList(){
 }
 function renderEdBento(){$('#edBento').innerHTML=BENTO.map(b=>`<div class="b ${b[0]}" style="background:${b[1]}"><span class="em">${b[2]}</span><div class="big">${T(b[3])}</div><div class="sm">${T(b[4])}</div></div>`).join('')}
 
-const PANO={home:[.94,'Ocean Beach · Keys'],news:[.75,'Downtown · Vice City'],map:[.47,'Ambrosia'],crew:[.67,'Little Haiti · Little Cuba'],garage:[.87,'Ocean Beach'],arsenal:[.31,'Port Gellhorn'],missions:[.59,'Grassrivers'],tips:[.08,'Mount Kalaga'],secrets:[.59,'Grassrivers'],radio:[.87,'Ocean Beach'],editions:[.97,'Leonida Keys']};
+const PANO={home:[.94,'Ocean Beach · Keys'],news:[.75,'Downtown · Vice City'],map:[.47,'Ambrosia'],crew:[.67,'Little Haiti · Little Cuba'],garage:[.87,'Ocean Beach'],arsenal:[.31,'Port Gellhorn'],missions:[.59,'Grassrivers'],tips:[.08,'Mount Kalaga'],secrets:[.59,'Grassrivers'],radio:[.87,'Ocean Beach'],gallery:[.8,'Vice City'],editions:[.97,'Leonida Keys']};
 let panoT;
 function panTo(v){const el=$('#pano');if(!el)return;const [f,lb]=PANO[v]||PANO.home;const Wp=el.offsetWidth,vw=innerWidth;let tx=vw/2-f*Wp;tx=Math.max(Math.min(tx,0),vw-Wp);el.style.transform=`translateX(${tx}px)`;const fw=el.querySelector('.pFarWrap');if(fw)fw.style.transform=`translateX(${(-tx*.45).toFixed(1)}px)`;
  const tg=$('#panoTag');if(v==='home'){tg.classList.remove('on');return}tg.textContent='📍 '+lb;tg.classList.add('on');clearTimeout(panoT);panoT=setTimeout(()=>tg.classList.remove('on'),2600)}
@@ -2408,7 +2458,64 @@ function renderRbar(){const b=$('#rbar');if(!b)return;SET.rbar=false;document.bo
  $('#rbNext').onclick=e=>{e.stopPropagation();station=(station+1)%RADIO.length;store.set('station',station);renderRbar();if($('#v-radio.on'))renderRadio()};
  $('#rbX').onclick=e=>{e.stopPropagation();SET.rbar=false;saveSet();renderRbar();toast(T(L('Radio-Leiste aus – in den Einstellungen wieder einschalten','Radio bar off – turn it back on in settings')))};}
 addEventListener('scroll',()=>{const h=document.querySelector('.hero');if(!h)return;document.body.classList.toggle('pastHero',scrollY>h.offsetHeight*.55)},{passive:true});
-function renderAll(){applySet();applyUI();renderTabs();renderHome();renderDream();renderVsys();renderHeat();renderPins();renderColl();renderCoach();renderMap();renderRegion();renderDistricts();renderCrew();renderCarCats();renderCars();renderGuns();renderMissions();renderSim();renderTips();renderSecrets();renderRadio();renderEditions();renderNews();renderEdBento();renderReal();applyTod();applyWeather();renderRbar();$('#cdBox').dataset.mode='';renderCD();route();decorateFavs()}
+
+/* ===== v12 gallery (images stay on this device, IndexedDB) ===== */
+const GCATS=[['vc','🌆','Vice City'],['keys','🏝️','Leonida Keys'],['grass','🐊','Grassrivers'],['port','⚓','Port Gellhorn'],['amb','🏭','Ambrosia'],['kal','⛰️','Mount Kalaga'],['crew','👥','Jason & Lucia'],['cars','🏎️',L('Fahrzeuge','Vehicles')],['misc','✨',L('Sonstiges','Other')]];
+const GRX=[[/keys|key_west|island/i,'keys'],[/grass|swamp|gator/i,'grass'],[/gellhorn|port/i,'port'],[/ambrosia/i,'amb'],[/kalaga|mount|national.?park/i,'kal'],[/jason|lucia|boobie|brian|cal_?hampton|drequan|raul|dimez|character/i,'crew'],[/vehicle|car_|cars|auto|bike|boat/i,'cars'],[/vice|downtown|ocean|beach|miami|skyline|city/i,'vc']];
+const GDB={p:null,open(){return this.p||(this.p=new Promise((res,rej)=>{const r=indexedDB.open('leo-gal',1);r.onupgradeneeded=()=>r.result.createObjectStore('img',{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}))},
+ async run(mode,fn){const db=await this.open();return new Promise((res,rej)=>{const t=db.transaction('img',mode);const q=fn(t.objectStore('img'));t.oncomplete=()=>res(q&&q.result);t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error)})},
+ all(){return this.run('readonly',s=>s.getAll())},put(o){return this.run('readwrite',s=>s.put(o))},del(id){return this.run('readwrite',s=>s.delete(id))}};
+let GAL=[],gFilter='all',gIdx=-1;const GURL={};
+const gUrl=(o,k)=>{const key=o.id+k;if(!GURL[key])GURL[key]=URL.createObjectURL(o[k]);return GURL[key]};
+const gCat=id=>GCATS.find(c=>c[0]===id)||GCATS[GCATS.length-1];
+function gShrink(file,max,q){return new Promise((res,rej)=>{const u=URL.createObjectURL(file);const im=new Image();im.onload=()=>{const sc=Math.min(1,max/Math.max(im.naturalWidth,im.naturalHeight));const c=document.createElement('canvas');c.width=Math.round(im.naturalWidth*sc);c.height=Math.round(im.naturalHeight*sc);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>b?res({b,w:c.width,h:c.height}):rej(),'image/jpeg',q)};im.onerror=()=>{URL.revokeObjectURL(u);rej()};im.src=u})}
+async function gAdd(files){files=[...files].filter(f=>/^image\//.test(f.type));if(!files.length)return;
+ try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+ let ok=0;toast(T(L('⏳ Lade '+files.length+' Bilder …','⏳ Adding '+files.length+' images …')));
+ for(const f of files){try{const full=await gShrink(f,2000,.86),th=await gShrink(f,520,.8);const m=GRX.find(r=>r[0].test(f.name));
+  const o={id:'g'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),ts:Date.now(),cat:m?m[1]:(gFilter!=='all'?gFilter:'misc'),hero:false,w:full.w,h:full.h,full:full.b,thumb:th.b};
+  await GDB.put(o);GAL.unshift(o);ok++}catch(e){}}
+ toast(ok?T(L('📸 '+ok+' Bilder hinzugefügt','📸 '+ok+' images added')):T(L('⚠️ Konnte nicht speichern','⚠️ Could not save')));renderGallery();renderHeroPhoto()}
+function gPick(){const i=document.createElement('input');i.type='file';i.accept='image/*';i.multiple=true;i.onchange=()=>gAdd(i.files);i.click()}
+function gList(){return gFilter==='all'?GAL:gFilter==='hero'?GAL.filter(o=>o.hero):GAL.filter(o=>o.cat===gFilter)}
+function renderGallery(){const top=$('#galTop');if(!top)return;
+ top.innerHTML=`<div class="galHead"><div><h2 class="sec" style="margin-bottom:4px">${T(L('Galerie','Gallery'))}</h2><p class="lead" style="margin:0">${T(L('Deine GTA-6-Screenshots im Vice-City-Look. Sie bleiben nur auf diesem Gerät.','Your GTA 6 screenshots in Vice City style. They stay on this device only.'))}</p></div><span class="sp"></span><div class="galActs"><button class="cta" id="galAdd" style="padding:10px 16px">➕ ${T(L('Screenshots hinzufügen','Add screenshots'))}</button></div></div>
+ <div class="galSrc">${T(L('Quellen:','Sources:'))} <a href="https://www.rockstargames.com/VI" target="_blank" rel="noopener">Rockstar ↗</a><a href="https://www.gtabase.com/gta-6/screenshots/" target="_blank" rel="noopener">GTA Base ↗</a><a href="https://www.gtaboom.com/all-the-official-gta-6-screenshots-and-artwork-3nd7" target="_blank" rel="noopener">GTA Boom ↗</a></div>`;
+ $('#galAdd').onclick=gPick;
+ const cnt=k=>k==='all'?GAL.length:k==='hero'?GAL.filter(o=>o.hero).length:GAL.filter(o=>o.cat===k).length;
+ const ch=[['all','🗂️',L('Alle','All')],['hero','⭐',L('Startbild','Home')],...GCATS].filter(c=>c[0]==='all'||cnt(c[0]));
+ $('#galChips').innerHTML=GAL.length?ch.map(c=>`<span class="chip${gFilter===c[0]?' on':''}" data-gf="${c[0]}">${c[1]} ${T(c[2])}<b>${cnt(c[0])}</b></span>`).join(''):'';
+ $('#galChips').querySelectorAll('[data-gf]').forEach(b=>b.onclick=()=>{gFilter=b.dataset.gf;renderGallery()});
+ const g=$('#galGrid'),list=gList();
+ if(!GAL.length){g.style.columns='auto';g.innerHTML=`<div class="card galEmpty"><div class="ttl" style="font-size:17px">📸 ${T(L('Noch keine Screenshots','No screenshots yet'))}</div><ol><li>${T(L('Oben eine Quelle öffnen und die Bilder speichern','Open a source above and save the images'))}</li><li>${T(L('„Screenshots hinzufügen“ tippen – mehrere auf einmal gehen','Tap “Add screenshots” – multiple at once works'))}</li><li>${T(L('Die Gegend erkennt die App am Dateinamen, sonst im Bild ändern','The region is detected from the file name, or set it in the viewer'))}</li><li>${T(L('⭐ macht ein Bild zum Startbild – mehrere = Slideshow','⭐ sets a picture as home background – several = slideshow'))}</li></ol></div>`;return}
+ g.style.columns='';
+ g.innerHTML=list.map((o,i)=>{const c=gCat(o.cat);return `<figure class="gi" data-gi="${i}" style="aspect-ratio:${o.w}/${o.h}"><img src="${gUrl(o,'thumb')}" alt="" loading="lazy" decoding="async"><span class="gc">${c[1]} ${esc(T(c[2]))}</span>${o.hero?'<span class="gh">★ START</span>':''}</figure>`}).join('')||`<div class="dim" style="padding:20px">${T(L('Keine Bilder in dieser Kategorie','No images in this category'))}</div>`;
+ g.querySelectorAll('[data-gi]').forEach(f=>f.onclick=()=>gOpen(+f.dataset.gi))}
+function gOpen(i){const list=gList();if(!list.length)return;gIdx=(i+list.length)%list.length;const o=list[gIdx];const lb=$('#lb');
+ lb.innerHTML=`<span class="lbN">${gIdx+1} / ${list.length}</span><button class="ib lbX" data-lb="x">✕</button><div class="lbImg"><img src="${gUrl(o,'full')}" alt=""></div><button class="ib lbP" data-lb="p">‹</button><button class="ib lbF" data-lb="n">›</button>
+ <div class="lbBar"><div class="chips">${GCATS.map(c=>`<span class="chip${o.cat===c[0]?' on':''}" data-lc="${c[0]}">${c[1]} ${esc(T(c[2]))}</span>`).join('')}</div>
+ <div class="lbActs"><button class="ib${o.hero?' hot':''}" data-lb="h">${o.hero?'★':'☆'} ${T(L('Startbild','Home background'))}</button><button class="ib" data-lb="d">🗑 ${T(L('Löschen','Delete'))}</button></div></div>`;
+ lb.hidden=false;document.body.style.overflow='hidden';
+ lb.querySelector('.lbImg .on, .lbBar .chip.on')&&lb.querySelector('.lbBar .chip.on').scrollIntoView({inline:'center',block:'nearest'});
+ lb.querySelectorAll('[data-lc]').forEach(b=>b.onclick=async()=>{o.cat=b.dataset.lc;await GDB.put(o);renderGallery();gOpen(gList().indexOf(o)>=0?gList().indexOf(o):gIdx)});
+ lb.querySelectorAll('[data-lb]').forEach(b=>b.onclick=async e=>{e.stopPropagation();const a=b.dataset.lb;
+  if(a==='x')gClose();if(a==='p')gOpen(gIdx-1);if(a==='n')gOpen(gIdx+1);
+  if(a==='h'){o.hero=!o.hero;await GDB.put(o);renderGallery();renderHeroPhoto();toast(o.hero?T(L('⭐ Als Startbild gesetzt','⭐ Set as home background')):T(L('Startbild entfernt','Removed from home')));gOpen(gIdx)}
+  if(a==='d'){if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent=T(L('🗑 Wirklich löschen?','🗑 Really delete?'));return}
+   await GDB.del(o.id);GAL=GAL.filter(x=>x!==o);['thumb','full'].forEach(k=>{if(GURL[o.id+k]){URL.revokeObjectURL(GURL[o.id+k]);delete GURL[o.id+k]}});renderGallery();renderHeroPhoto();gList().length?gOpen(gIdx):gClose()}})}
+function gClose(){$('#lb').hidden=true;$('#lb').innerHTML='';document.body.style.overflow=''}
+(()=>{let x0=null;document.addEventListener('keydown',e=>{if($('#lb').hidden)return;if(e.key==='Escape')gClose();if(e.key==='ArrowLeft')gOpen(gIdx-1);if(e.key==='ArrowRight')gOpen(gIdx+1)});
+ $('#lb').addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});$('#lb').addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>50)gOpen(gIdx+(dx<0?1:-1))});
+ $('#lb').addEventListener('click',e=>{if(e.target.classList.contains('lbImg'))gClose()});
+ const v=$('#v-gallery');['dragover','dragenter'].forEach(t=>v.addEventListener(t,e=>{e.preventDefault();v.classList.add('galDrop')}));['dragleave','drop'].forEach(t=>v.addEventListener(t,e=>{e.preventDefault();v.classList.remove('galDrop');if(t==='drop'&&e.dataTransfer)gAdd(e.dataTransfer.files)}))})();
+let hpT=null;
+function renderHeroPhoto(){const box=$('#heroPhoto');if(!box)return;const hs=GAL.filter(o=>o.hero);const hero=box.closest('.hero');clearInterval(hpT);
+ if(!hs.length){hero.classList.remove('hasPhoto');box.innerHTML='';return}
+ box.innerHTML=hs.map((o,i)=>`<div class="hp${i?'':' on'}" style="background-image:url('${gUrl(o,'full')}')"></div>`).join('');hero.classList.add('hasPhoto');
+ if(hs.length>1){let k=0;hpT=setInterval(()=>{const el=box.querySelectorAll('.hp');if(!el.length)return;el[k%el.length].classList.remove('on');k++;el[k%el.length].classList.add('on')},7000)}}
+async function gInit(){try{GAL=(await GDB.all()||[]).sort((a,b)=>b.ts-a.ts)}catch(e){GAL=[]}renderGallery();renderHeroPhoto()}
+
+function renderAll(){applySet();applyUI();renderTabs();renderHome();renderDream();renderVsys();renderHeat();renderPins();renderColl();renderCoach();renderMap();renderRegion();renderDistricts();renderCrew();renderCarCats();renderCars();renderGuns();renderMissions();renderSim();renderTips();renderSecrets();renderRadio();renderEditions();renderNews();renderEdBento();renderReal();renderGallery();applyTod();applyWeather();renderRbar();$('#cdBox').dataset.mode='';renderCD();route();decorateFavs()}
 $('#btnLang').onclick=()=>{LANG=LANG==='de'?'en':'de';store.set('lang',LANG);renderAll()};
 $('#btnSearch').onclick=openSearch;$('#btnSet').onclick=openSet;$('#btnSet2').onclick=openSet;$('#setClose').onclick=()=>$('#setp').classList.remove('on');$('#pinMode').onclick=()=>{pinMode=!pinMode;renderMap()};$('#btnSearch2').onclick=openSearch;$('#btnLang2').onclick=()=>$('#btnLang').click();$('#moreClose').onclick=()=>$('#more').classList.remove('on');
 $('#dashReset').onclick=()=>{store.set('dash2',WIDGETS);store.set('dcol2',WCOL0);renderHome();reveal();toast('↺')};$('#sclose').onclick=closeSearch;
@@ -2417,7 +2524,7 @@ $('#carQ').addEventListener('input',renderCars);
 $('#spoilAll').onclick=()=>document.querySelectorAll('#missions .spoil').forEach(s=>s.classList.add('show'));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSearch();$('#setp').classList.remove('on')}if((e.key==='k'&&(e.metaKey||e.ctrlKey))||(e.key==='/'&&document.activeElement.tagName!=='INPUT')){e.preventDefault();openSearch()}});
 window.addEventListener('hashchange',route);
-splash();makeAcc();renderAll();tilt();parallax();
+splash();makeAcc();renderAll();gInit();tilt();parallax();
 setInterval(renderCD,1000);
 </script>
 <script>
