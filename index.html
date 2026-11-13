@@ -977,6 +977,44 @@ h2.sec{font-family:Anton,Impact,sans-serif!important;font-weight:400;font-size:c
 .ico .ic.emi,.kcard .e .ic.emi,.e>.ic.emi{width:22px;height:22px;stroke:url(#icG);stroke-width:1.8}
 .chip .ic.emi{width:14px;height:14px;stroke:currentColor}
 .go .ic.emi,a .ic.emi{width:.95em;height:.95em}
+
+/* ===== v15 activities + grouped nav ===== */
+#sideNav button{padding:7px 12px!important}
+#more .mg button{position:relative}
+.navG{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);padding:12px 12px 4px;opacity:.75}
+#sideNav .navG:first-child{padding-top:2px}
+#more .mg .navG{grid-column:1/-1;padding:10px 2px 0}
+#more .mg .navG:first-child{padding-top:0}
+.actStats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 10px}
+.actStats>div:not(.actBar){background:rgba(27,13,53,.85);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.actStats b{display:block;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:28px;line-height:1;background:linear-gradient(90deg,var(--sun),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.actStats span{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim)}
+.actBar{grid-column:1/-1;height:6px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden}.actBar i{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--orange),var(--sun));border-radius:6px;transition:width .5s}
+.actChips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px 6px;padding:0 16px}.actChips::-webkit-scrollbar{display:none}.actChips .chip{flex:none;white-space:nowrap;cursor:pointer}.actChips .chip b{opacity:.6;margin-left:4px}
+.actGrp{margin:18px 0 6px}
+.actHead{position:relative;border-radius:20px;overflow:hidden;min-height:118px;display:flex;align-items:flex-end;background:linear-gradient(120deg,#3a0d5c,#170638);background-size:cover;background-position:center;border:1px solid rgba(255,255,255,.1);margin-bottom:12px}
+.actHead::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,2,15,.05),rgba(7,2,15,.88)),linear-gradient(120deg,rgba(255,43,214,.18),transparent 55%)}
+.actHeadIn{position:relative;display:flex;align-items:center;gap:12px;padding:14px 16px;width:100%}
+.actHead h3{margin:0;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:26px;letter-spacing:.5px;text-transform:uppercase;line-height:1}
+.actHead p{margin:3px 0 0;font-size:13px;color:#e8dcff;opacity:.9}
+.actIco{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:rgba(11,4,24,.6);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(6px);flex:none}
+.actIco .ic{width:22px;height:22px;stroke:url(#icG)}
+.actN{margin-left:auto;font-family:Anton,Impact,sans-serif;font-size:30px;opacity:.85}
+.actCr{position:absolute;right:10px;top:8px;font-size:10px;color:#fff;opacity:.6}
+.actGrid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:700px){.actGrid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1200px){.actGrid{grid-template-columns:repeat(3,1fr)}}
+.actCard{display:flex;flex-direction:column;gap:6px;padding:14px}
+.actCard .top{display:flex;align-items:center;gap:12px}.actCard .ttl{margin-bottom:3px}
+.actCard .ico .ic{width:22px;height:22px;stroke:url(#icG)}
+.actCard .ttl{font-size:15.5px}
+.actCard .tx{flex:1;font-size:13.5px;color:#d9cfff}
+.actFoot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px}
+.actReg{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:13.5px;letter-spacing:.5px;color:#2be0ff;text-decoration:none}
+.actPlan{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:13px;letter-spacing:.8px;text-transform:uppercase;border-radius:999px;padding:5px 12px;border:1px solid var(--pc);color:var(--pc);background:transparent;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.actPlan.s-done{background:var(--pc);color:#0b0418}
+.actPlan .ic{width:14px;height:14px}
+.actCard.isDone{opacity:.72}
 </style>
 </head>
 <body>
@@ -1455,6 +1493,14 @@ h2.sec{font-family:Anton,Impact,sans-serif!important;font-weight:400;font-size:c
     <h3 data-i="h_story"></h3>
     <div class="row" style="margin-bottom:10px"><span class="dim" data-i="spoilHint"></span><span class="sp"></span><button class="ib" id="spoilAll" data-i="showAll"></button></div>
     <div class="grid" id="missions"></div>
+  </section>
+
+  <!-- ACTIVITIES -->
+  <section class="view" id="v-acts">
+    <h2 class="sec" data-i="t_acts"></h2>
+    <p class="lead" data-i="l_acts"></p>
+    <div id="actTop"></div>
+    <div id="actBox"></div>
     <h3 data-i="h_acts"></h3>
     <p class="dim" data-i="planHint" style="margin-top:-4px"></p>
     <div class="kanban" id="kanban"></div>
@@ -1513,7 +1559,7 @@ h2.sec{font-family:Anton,Impact,sans-serif!important;font-weight:400;font-size:c
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 13.11. 18:24</div>
+    <div class="dim" style="margin-top:8px">App-Version 13.11. 18:48</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -1577,11 +1623,13 @@ const UI={
  t_arsenal:L('Waffenarsenal','Arsenal'),
  l_arsenal:L('Waffen aus Trailern, Screenshots, Extended Look und Ultimate Edition. Echte Namen bestätigt Rockstar meist erst im Spiel.','Weapons from trailers, screenshots, the Extended Look and the Ultimate Edition. Rockstar usually confirms the real names only in-game.'),
  h_gunfeat:L('Kampfsystem – was neu ist','Combat – what’s new'),
- t_missions:L('Missionen & Aktivitäten','Missions & activities'),
+ t_missions:L('Missionen & Coups','Missions & heists'),
+ t_acts:L('Aktivitäten','Activities'),
+ l_acts:L('Alles, was du in Leonida neben der Story machen kannst – aus Game Informer, Extended Look und Trailern. Tipp auf den Status-Button, um Aktivitäten für den Launch zu planen.','Everything you can do in Leonida besides the story – from Game Informer, the Extended Look and trailers. Tap the status button to plan activities for launch.'),
  l_missions:L('Alles, was aus Trailern, Extended Look und Edition-Infos über Aufträge bekannt ist. Rockstar spricht von über 80 Stunden für Story plus Nebenziele.','Everything known about jobs from trailers, the Extended Look and edition info. Rockstar talks about 80+ hours for story plus side objectives.'),
  spoilHint:L('Story-Details sind unscharf – antippen zum Aufdecken.','Story details are blurred – tap to reveal.'),
  showAll:L('Aufdecken','Reveal'),
- h_acts:L('Freizeit in Leonida – zum Abhaken','Free time in Leonida – tick them off'),
+ h_acts:L('Dein Freizeit-Plan','Your free-time plan'),
  t_tips:L('Tipps & Tricks','Tips & tricks'),
  l_tips:L('Abgeleitet aus dem, was Rockstar und Previews bestätigt haben. Ab Release wird hier um echte Spielerfahrungen ergänzt.','Derived from what Rockstar and previews confirmed. Real player findings get added after launch.'),
  t_secrets:L('Geheimnisse, Leaks & Theorien','Secrets, leaks & theories'),
@@ -1634,8 +1682,9 @@ ctaNews:L('<svg class="ic"><use href="#i-newspaper"/></svg> Newszentrale','<svg 
  saved:L('Gespeichert ✓','Saved ✓'),removed:L('Entfernt','Removed'),
 };
 const icn=(n,c)=>`<svg class="ic${c?' '+c:''}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
-const ICN={home:'tree-palm',news:'newspaper',map:'map',crew:'users',gallery:'images',garage:'car',arsenal:'crosshair',missions:'target',tips:'lightbulb',secrets:'eye',radio:'radio',editions:'disc-3'};
-const TABS=[['home','🌴',L('Start','Home')],['news','📰',L('News','News')],['map','🗺️',L('Karte','Map')],['crew','🃏',L('Crew','Crew')],['gallery','📸',L('Galerie','Gallery')],['garage','🏎️',L('Garage','Garage')],['arsenal','🔫',L('Waffen','Arsenal')],['missions','🎯',L('Missionen','Missions')],['tips','⭐',L('Tipps','Tips')],['secrets','🕵️',L('Geheimnisse','Secrets')],['radio','📻',L('Radio','Radio')],['editions','💿',L('Editionen','Editions')]];
+const ICN={acts:'party-popper',home:'tree-palm',news:'newspaper',map:'map',crew:'users',gallery:'images',garage:'car',arsenal:'crosshair',missions:'target',tips:'lightbulb',secrets:'eye',radio:'radio',editions:'disc-3'};
+const TABS=[['home','🌴',L('Start','Home')],['news','📰',L('News','News')],['map','🗺️',L('Karte','Map')],['acts','🎉',L('Aktivitäten','Activities')],['missions','🎯',L('Missionen','Missions')],['crew','🃏',L('Crew','Crew')],['garage','🏎️',L('Garage','Garage')],['arsenal','🔫',L('Waffen','Arsenal')],['editions','💿',L('Editionen','Editions')],['gallery','📸',L('Galerie','Gallery')],['radio','📻',L('Radio','Radio')],['tips','⭐',L('Tipps','Tips')],['secrets','🕵️',L('Geheimnisse','Secrets')]];
+const NAVG=[[L('Entdecken','Explore'),['home','news','map','acts','gallery']],[L('Story & Crew','Story & crew'),['missions','crew']],[L('Ausrüstung','Gear'),['garage','arsenal','editions']],[L('Wissen','Know-how'),['tips','secrets','radio']]];
 const ST={off:['b-off',L('Offiziell','Official')],seen:['b-seen',L('Gesichtet','Spotted')],leak:['b-leak',L('Leak','Leak')],rum:['b-rum',L('Gerücht','Rumor')],ue:['b-ue',L('Ultimate','Ultimate')],vvc:['b-ue',L('Vorbesteller','Pre-order')]};
 const badge=(s)=>{const b=ST[s];return b?`<span class="badge ${b[0]}">${T(b[1])}</span>`:''};
 
@@ -2059,6 +2108,73 @@ const MISSIONS=[
 ];
 const ACTS=[['⛳',L('Minigolf','Mini golf')],['🛶',L('Kajak','Kayaking')],['🤿',L('Tauchen','Scuba diving')],['🪂',L('Fallschirm & Base-Jump','Skydiving & base jumps')],['🦁',L('Zoo besuchen','Visit the zoo')],['🎣',L('Angeln','Fishing')],['🏀',L('Basketball','Basketball')],['🪩',L('Nachtclubs','Nightclubs')],['🏁',L('Straßen- & Drag-Rennen','Street & drag races')],['🏍️',L('Dirtbike-Rennen','Dirt bike races')],['🎯',L('Darts','Darts')],['🎱',L('Billard','Pool')],['🔧',L('Auto tunen','Customize a car')],['💪',L('Gym (Muskeln sichtbar!)','Gym (visible muscle!)')],['📺',L('TV schauen','Watch TV')],['🐊',L('Tierkompendium','Animal compendium')],['💈',L('Friseur & Barber','Salon & barber')],['🖋️',L('Tattoo','Tattoo')],['🛍️',L('Shoppen','Shopping')],['🍔',L('Drive-thru (Boost)','Drive-thru (boost)')],['🚕',L('Ryde Me fahren','Ride with Ryde Me')],['🚌',L('Bus fahren','Take the bus')],['📸',L('Fotomodus','Photo mode')],['🐶',L('Hund streicheln','Pet a dog')],['💞',L('Date mit Partner','Date your partner')],['💥',L('Demolition Derby','Demolition derby')],['🚵',L('Mountainbike-Trails','MTB trails')],['🐟',L('Barsch-Angeln','Bass fishing')],['🦌',L('Legendäres Tier finden','Find a legendary animal')],['🤼',L('Wrestling','Wrestling')],['🎯',L('Schießstand','Shooting range')],['🏎️',L('Rennen mit 16 Fahrern','16-racer race')],['🏹',L('Jagen (für Geld)','Hunting (for cash)')],['📰',L('Zeitungen sammeln','Collect newspapers')],['🏚️',L('Gang-Compound ausheben','Raid a gang compound')],['🛒',L('Supermarkt-Einkauf','Grocery shopping')],['💍',L('Juwelier ausrauben','Rob a jewelry store')],['🏦',L('Bank ausrauben','Rob a bank')]];
 
+/* ===== v15 activities ===== */
+const ACATS=[
+ ['sport','dumbbell',L('Sport & Fitness','Sports & fitness'),'Vice_City_05',L('Gym, Körbe, Kampfsport – Jason und Lucia trainieren sichtbar.','Gym, hoops, fighting – Jason and Lucia visibly train.')],
+ ['water','waves',L('Auf & unter Wasser','On & under water'),'Leonida_Keys_04',L('Keys, Küste, Sümpfe: Leonida ist zur Hälfte Wasser.','Keys, coast, swamps: half of Leonida is water.')],
+ ['motor','flag',L('Motorsport & Offroad','Motorsport & off-road'),'Ambrosia_01',L('Straße, Schlamm, Flutlicht-Oval – Rennen für alles mit Rädern.','Street, mud, floodlit ovals – races for anything on wheels.')],
+ ['wild','paw-print',L('Natur & Tiere','Nature & wildlife'),'Mount_Kalaga_National_Park_05',L('Über 170 Tierarten, Jagd, Nationalpark und Höhenflüge.','170+ species, hunting, a national park and big drops.')],
+ ['night','wine',L('Nachtleben & Lifestyle','Nightlife & lifestyle'),'Vice_City_13',L('Clubs, Bars, Styling, Dates – das Leben zwischen den Coups.','Clubs, bars, styling, dates – life between the scores.')]];
+const ACTV=[
+ // [planKey(de), cat, icon, L(name), L(text), status, region]
+ ['Gym (Muskeln sichtbar!)','sport','dumbbell',L('Gym & Krafttraining','Gym & weights'),L('Von Game Informer bestätigt, im Extended Look zu sehen: Hanteln, Bankdrücken, Training am Strand.','Confirmed by Game Informer, shown in the Extended Look: dumbbells, bench press, beach workouts.'),'off','vice'],
+ ['Basketball','sport','dumbbell',L('Basketball','Basketball'),L('Streetball-Plätze in Vice City – im Extended Look gezeigt.','Streetball courts in Vice City – shown in the Extended Look.'),'seen','vice'],
+ ['Boxen & Kickboxen','sport','swords',L('Boxen & Kickboxen','Boxing & kickboxing'),L('Lucia trainiert am Sandsack, dazu Nahkampf-Training.','Lucia works the heavy bag, plus close-combat training.'),'seen','vice'],
+ ['Wrestling','sport','swords',L('Backyard-Wrestling','Backyard wrestling'),L('Kurz im Extended Look – wie tief es geht, ist noch offen.','Brief clip in the Extended Look – depth still unknown.'),'seen',''],
+ ['Tennis','sport','circle',L('Tennis','Tennis'),L('Auf Screenshots zu sehen, aber nicht offiziell als Minispiel bestätigt.','Seen in screenshots, not officially confirmed as a minigame.'),'rum','vice'],
+ ['Billard','sport','circle',L('Billard','Pool'),L('Offiziell bestätigt (Game Informer) – in Bars und im Safehouse.','Officially confirmed (Game Informer) – in bars and the safehouse.'),'off','vice'],
+ ['Minigolf','sport','flag',L('Minigolf','Mini golf'),L('Offiziell bestätigt, inklusive Alligator-Bahn.','Officially confirmed, including a gator-themed course.'),'off','vice'],
+ ['Golf','sport','flag',L('Golf','Golf'),L('Laut Game Informer gibt es Golfplätze im ländlichen Leonida.','Game Informer mentions golf courses in rural Leonida.'),'off','ambro'],
+ ['Schießstand','sport','crosshair',L('Schießstand','Shooting range'),L('Im Extended Look gezeigt – Training mit dem eigenen Arsenal.','Shown in the Extended Look – practise with your own arsenal.'),'seen','vice'],
+ ['Kajak','water','sailboat',L('Kajak','Kayaking'),L('Offiziell bestätigt – Flüsse, Mangroven und die Keys.','Officially confirmed – rivers, mangroves and the Keys.'),'off','keys'],
+ ['Jetski','water','sailboat',L('Jetski','Jet skiing'),L('Offiziell bestätigt, Jason und Lucia fahren gemeinsam.','Officially confirmed, Jason and Lucia ride together.'),'off','vice'],
+ ['Airboat','water','sailboat',L('Airboat-Touren','Airboating'),L('Offiziell bestätigt – durch die Sümpfe der Grassrivers, Alligatoren inklusive.','Officially confirmed – through the Grassrivers swamps, gators included.'),'off','grass'],
+ ['Tauchen','water','waves',L('Tauchen & Schnorcheln','Scuba & snorkelling'),L('Offiziell bestätigt – Riffe und Wracks vor den Leonida Keys.','Officially confirmed – reefs and wrecks off the Leonida Keys.'),'off','keys'],
+ ['Schwimmen','water','waves',L('Schwimmen','Swimming'),L('Im Extended Look zu sehen – Pools, Strand, offenes Meer.','Seen in the Extended Look – pools, beach, open sea.'),'seen','vice'],
+ ['Angeln','water','fish',L('Angeln','Fishing'),L('Gezeigt im Extended Look, Tiefe im Stil von Red Dead Redemption 2. Barsch-Angeln wird extra erwähnt.','Shown in the Extended Look with RDR2-style depth. Bass fishing gets a special mention.'),'seen','kalaga'],
+ ['Straßen- & Drag-Rennen','motor','flag',L('Straßenrennen','Street racing'),L('Offiziell bestätigt – inklusive Rennen mit bis zu 16 Fahrern.','Officially confirmed – including races with up to 16 drivers.'),'off','vice'],
+ ['Offroad-Rennen','motor','mountain',L('Offroad-Rennen','Off-road racing'),L('Offiziell bestätigt (Game Informer).','Officially confirmed (Game Informer).'),'off','kalaga'],
+ ['Dirtbike-Rennen','motor','motorbike',L('Motocross & Dirtbikes','Motocross & dirt bikes'),L('Motocross-Strecken nennt Game Informer, Dirtbike-Rennen waren im Extended Look.','Game Informer lists motocross, dirt-bike races were in the Extended Look.'),'off','ambro'],
+ ['ATV-Trails','motor','route',L('ATV-Trails','ATV trails'),L('Quad-Strecken zwischen den Orten im Norden Leonidas.','Quad trails between the towns of north Leonida.'),'off','ambro'],
+ ['Schlammpark','motor','truck',L('Schlammpark-Party','Mud park party'),L('Laut Game Informer eine feuchtfröhliche Schlammschlacht für alles mit zwei oder vier Rädern.','Per Game Informer a rowdy mud bash for anything on two or four wheels.'),'off','ambro'],
+ ['Demolition Derby','motor','zap',L('Demolition Derby','Demolition derby'),L('Crash-Rennen auf Flutlicht-Ovalen – offiziell erwähnt.','Crash races on floodlit ovals – officially mentioned.'),'off','ambro'],
+ ['Mountainbike-Trails','motor','bike',L('Mountainbike','Mountain biking'),L('Trails in den Hügeln des Nordens.','Trails in the hills of the north.'),'off','kalaga'],
+ ['E-Scooter','motor','scooter',L('E-Scooter','E-scooters'),L('In Vice City unterwegs auf E-Scootern – im Extended Look gezeigt.','Cruise Vice City on e-scooters – shown in the Extended Look.'),'seen','vice'],
+ ['Auto tunen','motor','wrench',L('Auto tunen','Car customisation'),L('Werkstätten und Customs-Shops, siehe auch Garage.','Workshops and custom shops, see also the Garage.'),'seen','vice'],
+ ['Jagen (für Geld)','wild','crosshair',L('Jagen','Hunting'),L('Zurück aus RDR2: Spuren lesen in Wald und Sumpf, Beute verkaufen.','Back from RDR2: track through woods and wetlands, sell the goods.'),'seen','kalaga'],
+ ['Tierkompendium','wild','paw-print',L('Tiere entdecken','Study wildlife'),L('Über 170 Arten – Flamingos, Manatis, Pelikane, Alligatoren, Leguane.','170+ species – flamingos, manatees, pelicans, gators, iguanas.'),'off','grass'],
+ ['Legendäres Tier finden','wild','paw-print',L('Legendäre Tiere','Legendary animals'),L('Seltene Tiere sollen versteckt sein – Details noch offen.','Rare animals are said to be hidden – details still unknown.'),'rum','kalaga'],
+ ['Zoo besuchen','wild','paw-print',L('Zoo','Zoo'),L('Offiziell bestätigt – was genau man dort macht, ist noch offen.','Officially confirmed – what exactly you do there is still unknown.'),'off','vice'],
+ ['Fallschirm & Base-Jump','wild','mountain',L('Base-Jump & Fallschirm','Base jumps & skydiving'),L('Base-Jumping offiziell bestätigt, Fallschirmsprünge im Extended Look.','Base jumping officially confirmed, skydiving in the Extended Look.'),'off','kalaga'],
+ ['Farmen & Ranches','wild','house',L('Farmen & Ranches','Farms & ranches'),L('Ländliches Leonida mit Höfen und Ranches (Game Informer).','Rural Leonida with farms and ranches (Game Informer).'),'off','ambro'],
+ ['Nachtclubs','night','music',L('Nachtclubs','Nightclubs'),L('Clubs in Vice City – im Extended Look zu sehen.','Clubs in Vice City – seen in the Extended Look.'),'seen','vice'],
+ ['Bars & Drinks','night','wine',L('Bars & Drinks','Bars & drinks'),L('Drinks an der Bar, im Trailer 2 gezeigt.','Drinks at the bar, shown in Trailer 2.'),'seen','vice'],
+ ['Strip-Clubs','night','sparkles',L('Strip-Clubs','Strip clubs'),L('Gehören wieder dazu – unter anderem ein Club von Boobie Ike.','Back again – including a club linked to Boobie Ike.'),'seen','vice'],
+ ['Shoppen','night','shirt',L('Klamotten shoppen','Clothes shopping'),L('Rockstars größte Auswahl an Kleidung bisher – auch zu zweit.','Rockstar\'s biggest clothing range yet – also as a duo.'),'off','vice'],
+ ['Friseur & Barber','night','scissors',L('Friseur & Salon','Barber & salon'),L('Neue Looks für beide – Sara\'s Salon gehört zur Ultimate Edition.','New looks for both – Sara\'s Salon is part of the Ultimate Edition.'),'ue','vice'],
+ ['Tattoo','night','pen-tool',L('Tattoos','Tattoos'),L('Jason ist tätowiert – ein Tattoo-Studio ist wahrscheinlich, aber unbestätigt.','Jason is inked – a tattoo parlour is likely but unconfirmed.'),'rum','vice'],
+ ['Date mit Partner','night','heart',L('Zeit zu zweit','Time together'),L('Gemeinsame Aktivitäten beeinflussen, ob Jason und Lucia Freunde bleiben oder ein Paar werden.','Shared activities shape whether Jason and Lucia stay friends or become a couple.'),'off',''],
+ ['TV schauen','night','tv',L('Safehouse-Leben','Safehouse life'),L('Fernsehen, Hund streicheln, abhängen – im Extended Look gezeigt.','Watch TV, pet the dog, chill – shown in the Extended Look.'),'seen',''],
+ ['Ryde Me fahren','night','car',L('Ryde Me','Ryde Me'),L('Fahrdienst-App als Schnellreise – offiziell bestätigt.','Ride-share app as fast travel – officially confirmed.'),'off','vice'],
+ ['Fotomodus','night','camera',L('Fotomodus','Photo mode'),L('Für die perfekten Leonida-Bilder – Details zum Umfang noch offen.','For the perfect Leonida shots – scope still unknown.'),'rum','']];
+// make sure every activity exists in the planner
+ACTV.forEach(a=>{if(!ACTS.find(x=>x[1].de===a[0]))ACTS.push([icn(a[2]),{de:a[0],en:a[3].en}])});
+let actCat='all',actOff=false;
+function renderActs(){const box=$('#actBox');if(!box)return;const p=getPlan();
+ const ord=PLANCOLS.map(x=>x[0]);const done=ACTV.filter(a=>p[a[0]]==='done').length;
+ const list=ACTV.filter(a=>(actCat==='all'||a[1]===actCat)&&(!actOff||a[5]==='off'));
+ $('#actTop').innerHTML=`<div class="actStats"><div><b>${ACTV.length}</b><span>${T(L('Aktivitäten','activities'))}</span></div><div><b>${ACTV.filter(a=>a[5]==='off').length}</b><span>${T(L('offiziell bestätigt','officially confirmed'))}</span></div><div><b>${done}</b><span>${T(L('von dir erledigt','done by you'))}</span></div><div class="actBar"><i style="width:${Math.round(done/ACTV.length*100)}%"></i></div></div>
+ <div class="chips actChips">${[['all','layout-grid',L('Alle','All')],...ACATS].map(c=>`<span class="chip${actCat===c[0]?' on':''}" data-ac="${c[0]}">${icn(c[1])} ${T(c[2])}<b>${c[0]==='all'?ACTV.length:ACTV.filter(a=>a[1]===c[0]).length}</b></span>`).join('')}<span class="chip${actOff?' on':''}" data-aoff="1">${icn('circle-check')} ${T(L('Nur offiziell','Official only'))}</span></div>`;
+ const cats=actCat==='all'?ACATS:ACATS.filter(c=>c[0]===actCat);
+ box.innerHTML=cats.map(c=>{const items=list.filter(a=>a[1]===c[0]);if(!items.length)return '';const n=typeof rsFind==='function'&&rsFind(c[3]);
+  return `<section class="actGrp"><div class="actHead"${n?` style="background-image:url('${rsu(n,1280)}')"`:''}><div class="actHeadIn"><span class="actIco">${icn(c[1])}</span><div><h3>${T(c[2])}</h3><p>${T(c[4])}</p></div><span class="actN">${items.length}</span></div>${n?'<span class="actCr">© Rockstar Games</span>':''}</div>
+  <div class="actGrid">${items.map(a=>{const st=p[a[0]]||'idea';const pc=PLANCOLS.find(x=>x[0]===st);const reg=a[6]&&REGIONS[a[6]];return `<div class="card actCard${st==='done'?' isDone':''}"><div class="top"><div class="ico">${icn(a[2])}</div><div style="flex:1;min-width:0"><div class="ttl">${T(a[3])}</div>${badge(a[5])}</div></div><div class="tx">${T(a[4])}</div><div class="actFoot">${reg?`<a href="#map" class="actReg" data-reg="${a[6]}">${icn('map-pin')} ${reg.n}</a>`:'<span></span>'}<button class="actPlan s-${st}" data-ap="${esc(a[0])}" style="--pc:${pc[2]}">${st==='done'?icn('circle-check'):st==='idea'?icn('plus'):''}${st==='idea'?T(L('Planen','Plan')):T(pc[1]).replace(' ✓','')}</button></div></div>`}).join('')}</div></section>`}).join('')||`<div class="dim" style="padding:20px">${T(L('Nichts gefunden','Nothing found'))}</div>`;
+ $('#actTop').querySelectorAll('[data-ac]').forEach(b=>b.onclick=()=>{actCat=b.dataset.ac;renderActs()});
+ $('#actTop').querySelector('[data-aoff]').onclick=()=>{actOff=!actOff;renderActs()};
+ box.querySelectorAll('[data-ap]').forEach(b=>b.onclick=()=>{const p=getPlan();const cur=p[b.dataset.ap]||'idea';p[b.dataset.ap]=ord[(ord.indexOf(cur)+1)%ord.length];store.set('plan',p);renderActs();renderKanban();renderProg();toast('→ '+T(PLANCOLS.find(x=>x[0]===p[b.dataset.ap])[1]))});
+ box.querySelectorAll('[data-reg]').forEach(a=>a.onclick=e=>{e.preventDefault();curRegion=a.dataset.reg;location.hash='map';renderMap();renderRegion()});
+}
+
 const TIPS=[
  {h:L('Fahndung & Flucht','Wanted & escape'),items:[
   [L('Hohle Sterne = sie kennen dich nicht.','Hollow stars = they don’t know you.'),L('Die Polizei sucht, hat aber keine Beschreibung. Ruhig bleiben und aus dem Suchkreis raus.','Police are searching without a description. Stay calm and leave the search circle.'),'off'],
@@ -2233,10 +2349,11 @@ function applyUI(){
  $('#langLbl').innerHTML=LANG==='de'?'<b>DE</b>/EN':'DE/<b>EN</b>';
 }
 function renderTabs(){
- $('#sideNav').innerHTML=TABS.map(([id,ic,lb])=>`<button data-v="${id}"><span class="e">${icn(ICN[id]||'sparkles')}</span>${T(lb)}</button>`).join('');
- const B=['home','news','map','garage'];
+ const nb=id=>{const t=TABS.find(x=>x[0]===id);return t?`<button data-v="${id}"><span class="e">${icn(ICN[id]||'sparkles')}</span>${T(t[2])}</button>`:''};
+ $('#sideNav').innerHTML=NAVG.map(([g,ids])=>`<div class="navG">${T(g)}</div>`+ids.map(nb).join('')).join('');
+ const B=['home','news','map','acts'];
  $('#bottom').innerHTML=B.map(id=>{const t=TABS.find(x=>x[0]===id);return `<button data-v="${id}"><span class="e">${icn(ICN[id])}</span>${T(t[2])}</button>`}).join('')+`<button data-more="1"><span class="e">${icn('layout-grid')}</span>${T(L('Mehr','More'))}</button>`;
- $('#moreGrid').innerHTML=TABS.map(([id,ic,lb])=>`<button data-v="${id}"><span class="e">${icn(ICN[id]||'sparkles')}</span>${T(lb)}</button>`).join('');
+ $('#moreGrid').innerHTML=NAVG.map(([g,ids])=>`<div class="navG">${T(g)}</div>`+ids.map(nb).join('')).join('');
  document.querySelectorAll('#sideNav [data-v],#bottom [data-v],#moreGrid [data-v]').forEach(b=>b.onclick=()=>{$('#more').classList.remove('on');location.hash=b.dataset.v});
  $('#bottom [data-more]').onclick=()=>$('#more').classList.toggle('on');
  $('#btnLang2').innerHTML=LANG==='de'?'<b>DE</b>/EN':'DE/<b>EN</b>';
@@ -2247,7 +2364,7 @@ function route(){
  {const vv=(location.hash||'#home').slice(1);document.body.dataset.v=TABS.find(t=>t[0]===vv)?vv:'home'}
  let v=(location.hash||'#home').slice(1);if(!TABS.find(t=>t[0]===v))v='home';
  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
- const B=['home','news','map','garage'];
+ const B=['home','news','map','acts'];
  document.querySelectorAll('#sideNav [data-v],#moreGrid [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
  document.querySelectorAll('#bottom [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
  const mb=$('#bottom [data-more]');if(mb)mb.classList.toggle('on',!B.includes(v));
@@ -2322,7 +2439,7 @@ function renderNewsList(){
 }
 function renderEdBento(){$('#edBento').innerHTML=BENTO.map(b=>`<div class="b ${b[0]}" style="background:${b[1]}"><span class="em">${b[2]}</span><div class="big">${T(b[3])}</div><div class="sm">${T(b[4])}</div></div>`).join('')}
 
-const PANO={home:[.94,'Ocean Beach · Keys'],news:[.75,'Downtown · Vice City'],map:[.47,'Ambrosia'],crew:[.67,'Little Haiti · Little Cuba'],garage:[.87,'Ocean Beach'],arsenal:[.31,'Port Gellhorn'],missions:[.59,'Grassrivers'],tips:[.08,'Mount Kalaga'],secrets:[.59,'Grassrivers'],radio:[.87,'Ocean Beach'],gallery:[.8,'Vice City'],editions:[.97,'Leonida Keys']};
+const PANO={home:[.94,'Ocean Beach · Keys'],news:[.75,'Downtown · Vice City'],map:[.47,'Ambrosia'],crew:[.67,'Little Haiti · Little Cuba'],garage:[.87,'Ocean Beach'],arsenal:[.31,'Port Gellhorn'],missions:[.59,'Grassrivers'],tips:[.08,'Mount Kalaga'],secrets:[.59,'Grassrivers'],radio:[.87,'Ocean Beach'],acts:[.55,'Grassrivers · Keys'],gallery:[.8,'Vice City'],editions:[.97,'Leonida Keys']};
 let panoT;
 function panTo(v){const el=$('#pano');if(!el)return;const [f,lb]=PANO[v]||PANO.home;const Wp=el.offsetWidth,vw=innerWidth;let tx=vw/2-f*Wp;tx=Math.max(Math.min(tx,0),vw-Wp);el.style.transform=`translateX(${tx}px)`;const fw=el.querySelector('.pFarWrap');if(fw)fw.style.transform=`translateX(${(-tx*.45).toFixed(1)}px)`;
  const tg=$('#panoTag');if(v==='home'){tg.classList.remove('on');return}tg.textContent='📍 '+lb;tg.classList.add('on');clearTimeout(panoT);panoT=setTimeout(()=>tg.classList.remove('on'),2600)}
@@ -2604,8 +2721,8 @@ function renderMissions(){
 function renderKanban(){
  const p=getPlan();
  $('#kanban').innerHTML=PLANCOLS.map(([k,l,c])=>{const items=ACTS.filter(a=>p[a[1].de]===k);return `<div class="kcol" data-c="${k}"><div class="kh"><i style="background:${c};box-shadow:0 0 10px ${c}"></i>${T(l)}<span>${items.length}</span></div><div class="klist" data-c="${k}">${items.map(a=>`<div class="kcard" data-a="${esc(a[1].de)}"><span class="e">${a[0]}</span>${T(a[1])}</div>`).join('')}</div></div>`}).join('');
- document.querySelectorAll('.kcard').forEach(c=>c.onclick=()=>{const ord=PLANCOLS.map(x=>x[0]);const p=getPlan();const cur=p[c.dataset.a];p[c.dataset.a]=ord[(ord.indexOf(cur)+1)%ord.length];store.set('plan',p);renderKanban();renderProg();toast('→ '+T(PLANCOLS.find(x=>x[0]===p[c.dataset.a])[1]))});
- if(window.Sortable){(window._ks||[]).forEach(x=>x.destroy());window._ks=[...document.querySelectorAll('.klist')].map(el=>Sortable.create(el,{group:'plan',animation:200,delay:150,delayOnTouchOnly:true,ghostClass:'sortable-ghost',chosenClass:'sortable-chosen',onEnd:()=>{const np={};document.querySelectorAll('.klist').forEach(l=>l.querySelectorAll('.kcard').forEach(c=>np[c.dataset.a]=l.dataset.c));store.set('plan',np);document.querySelectorAll('.kcol').forEach(col=>col.querySelector('.kh span').textContent=col.querySelectorAll('.kcard').length);renderProg();if(window.event&&0){} }}))}
+ document.querySelectorAll('.kcard').forEach(c=>c.onclick=()=>{const ord=PLANCOLS.map(x=>x[0]);const p=getPlan();const cur=p[c.dataset.a];p[c.dataset.a]=ord[(ord.indexOf(cur)+1)%ord.length];store.set('plan',p);renderKanban();renderProg();renderActs();toast('→ '+T(PLANCOLS.find(x=>x[0]===p[c.dataset.a])[1]))});
+ if(window.Sortable){(window._ks||[]).forEach(x=>x.destroy());window._ks=[...document.querySelectorAll('.klist')].map(el=>Sortable.create(el,{group:'plan',animation:200,delay:150,delayOnTouchOnly:true,ghostClass:'sortable-ghost',chosenClass:'sortable-chosen',onEnd:()=>{const np={};document.querySelectorAll('.klist').forEach(l=>l.querySelectorAll('.kcard').forEach(c=>np[c.dataset.a]=l.dataset.c));store.set('plan',np);renderActs();document.querySelectorAll('.kcol').forEach(col=>col.querySelector('.kh span').textContent=col.querySelectorAll('.kcard').length);renderProg();if(window.event&&0){} }}))}
 }
 /* tips + wanted sim */
 let sim={stars:3,face:true,outfit:true,car:true,msg:null};
@@ -2677,6 +2794,7 @@ function renderEditions(){
 function buildIndex(){
  const I=[];
  const add=(v,ttl,tx)=>I.push({v,ttl,tx:(ttl+' '+tx)});
+ ACTV.forEach(a=>add('acts',T(a[3]),T(a[4])));
  CARS.forEach(c=>add('garage',c[0],c[1]+' '+T(c[4])));
  GUNS.forEach(g=>add('arsenal',g[0],T(g[3])));
  CREW.forEach(c=>add('crew',c.n,T(c.r)+' '+T(c.d)));CREW2.forEach(c=>add('crew',c[0],T(c[2])));
@@ -2934,7 +3052,7 @@ function iconize(root){const w=document.createTreeWalker(root||document.body,Nod
  L.forEach(n=>{EMRX.lastIndex=0;const parts=n.nodeValue.split(EMRX);const f=document.createDocumentFragment();parts.forEach((t,i)=>{if(i%2){const sv=document.createElementNS('http://www.w3.org/2000/svg','svg');sv.setAttribute('class','ic emi');sv.setAttribute('aria-hidden','true');const u=document.createElementNS('http://www.w3.org/2000/svg','use');u.setAttribute('href','#i-'+EMI[t]);sv.appendChild(u);f.appendChild(sv)}else if(t)f.appendChild(document.createTextNode(t.replace(/^\uFE0F/,'')))});n.parentNode.replaceChild(f,n)})}
 (()=>{let q=0;const R=new Set();const run=()=>{q=0;R.forEach(n=>{if(n.isConnected)iconize(n)});R.clear()};new MutationObserver(ms=>{for(const m of ms){if(m.type==='characterData'){EMRX.lastIndex=0;if(EMRX.test(m.target.nodeValue||'')&&m.target.parentElement)R.add(m.target.parentElement)}else m.addedNodes.forEach(n=>{if(n.nodeType===1&&n.namespaceURI!=='http://www.w3.org/2000/svg')R.add(n);else if(n.nodeType===3&&n.parentElement){EMRX.lastIndex=0;if(EMRX.test(n.nodeValue))R.add(n.parentElement)}})}if(R.size&&!q)q=requestAnimationFrame(run)}).observe(document.body,{childList:true,subtree:true,characterData:true});})();
 
-function renderAll(){applySet();applyUI();renderTabs();renderHome();renderDream();renderVsys();renderHeat();renderPins();renderColl();renderCoach();renderMap();renderRegion();renderDistricts();renderCrew();renderCarCats();renderCars();renderGuns();renderMissions();renderSim();renderTips();renderSecrets();renderRadio();renderEditions();renderNews();renderEdBento();renderReal();renderGallery();applyTod();applyWeather();$('#cdBox').dataset.mode='';renderCD();route();decorateFavs()}
+function renderAll(){applySet();applyUI();renderTabs();renderHome();renderDream();renderVsys();renderHeat();renderPins();renderColl();renderCoach();renderMap();renderRegion();renderDistricts();renderCrew();renderCarCats();renderCars();renderGuns();renderMissions();renderSim();renderTips();renderSecrets();renderRadio();renderEditions();renderNews();renderEdBento();renderReal();renderGallery();renderActs();applyTod();applyWeather();$('#cdBox').dataset.mode='';renderCD();route();decorateFavs()}
 $('#btnLang').onclick=()=>{LANG=LANG==='de'?'en':'de';store.set('lang',LANG);renderAll()};
 $('#btnSearch').onclick=openSearch;$('#btnSet').onclick=openSet;$('#btnSet2').onclick=openSet;$('#setClose').onclick=()=>$('#setp').classList.remove('on');$('#pinMode').onclick=()=>{pinMode=!pinMode;renderMap()};$('#btnSearch2').onclick=openSearch;$('#btnLang2').onclick=()=>$('#btnLang').click();$('#moreClose').onclick=()=>$('#more').classList.remove('on');
 $('#dashReset').onclick=()=>{store.set('dash2',WIDGETS);store.set('dcol2',WCOL0);renderHome();reveal();toast('↺')};$('#sclose').onclick=closeSearch;
