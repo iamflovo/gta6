@@ -143,6 +143,79 @@ input.search:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,43,214
 
 
 
+
+/* ===== map v3 (raster, GPU) ===== */
+.mapbox .plane{transform-style:preserve-3d;will-change:auto!important;transition:none!important}
+.mapbox .plane.moving{will-change:transform!important}
+.mapbox .plane{aspect-ratio:420/520}
+.mapbox .plane .mraster{position:absolute;left:0;top:0;display:block;width:400%;height:400%;transform:scale(.25);transform-origin:0 0;border-radius:72px;background:linear-gradient(160deg,#16486f,#0a2443);box-shadow:0 0 0 4px rgba(255,255,255,.16),0 120px 240px rgba(0,0,0,.55)}
+.mapbox .mshadow{position:absolute;inset:-6% -8% -12%;background:radial-gradient(closest-side,rgba(0,0,0,.6),rgba(0,0,0,.35) 60%,transparent);transform:translateZ(-30px);pointer-events:none}
+.mapbox .mclouds{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transform:translateZ(18px);transition:opacity 1s;animation:mcl 70s linear infinite alternate;border-radius:18px}
+.mapbox.ready .mclouds{opacity:.42}
+.mapbox.detail .mclouds{opacity:.12}
+@keyframes mcl{from{translate:-4% -2%}to{translate:4% 2%}}
+.mapbox .mload{position:absolute;inset:0;display:grid;place-content:center;gap:10px;justify-items:center;font-size:12.5px;color:rgba(255,255,255,.75);pointer-events:none;transition:opacity .5s}
+.mapbox .mload span{width:26px;height:26px;border-radius:50%;border:3px solid rgba(34,231,255,.25);border-top-color:var(--cyan);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.mapbox.ready .mload{opacity:0}
+.mapbox .mhit{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.mapbox .mhit .region{cursor:pointer}
+.mapbox .mhit .hf{fill:transparent;stroke:none}
+.mapbox .mhit .hl{fill:none;stroke:transparent}
+.mapbox .mhit .region:hover .hf{fill:rgba(255,255,255,.07)}
+.mapbox .mhit .region.on .hf{fill:var(--c);fill-opacity:.16;stroke:var(--c);stroke-width:1.6}
+.mapbox .mhit .region.on .hl{stroke:var(--c);stroke-opacity:.35;stroke-width:7;stroke-linejoin:round}
+.mapbox.noraster .mraster{background:radial-gradient(ellipse at 60% 45%,#1f6a92,#061a36)}
+.mapbox.noraster .mhit .hf{fill:#4e6a48;stroke:#e8d8a2;stroke-width:1.4}
+.mapbox .mlabels{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:3}
+.mapbox .ml{position:absolute;left:0;top:0;width:0;height:0;pointer-events:none;will-change:transform}
+.mapbox .ml>*{pointer-events:auto}
+.mapbox .ml .mlbl{position:absolute;left:0;top:0;transform:translate(-50%,-118%)}
+.mapbox .ml .mlbl:hover,.mapbox .ml .mlbl.on{transform:translate(-50%,-126%) scale(1.06)}
+.mapbox .ml .mdist{position:absolute;left:0;top:0;transform:translate(-50%,-50%)}
+.mapbox .ml .mpin{position:absolute;left:0;top:0;transform:translate(-50%,-100%)}
+.mapbox.detail .ml-vice{opacity:0}
+.mapbox.detail .ml-vice *{pointer-events:none}
+.tower i{animation:none!important;box-shadow:none!important}
+.mapbox .plane .mhit{box-shadow:none;border-radius:0;height:100%}
+.mapbox .mhit .region,.mapbox .mhit .region:hover,.mapbox .mhit .region.on{filter:none!important;transition:none}
+.mapbox .compass svg{transition:none}
+
+/* ===== time of day ===== */
+#panoSky::before{content:"";position:absolute;border-radius:50%;transition:all 1.2s}
+body.tod-night #panoSky::before{width:70px;height:70px;right:12%;top:16%;background:radial-gradient(circle at 35% 35%,#fff7e6,#e9dcc2 60%,#bfae92);box-shadow:0 0 40px rgba(255,240,210,.35);opacity:.55}
+body.tod-dusk #panoSky{background:radial-gradient(90% 55% at 50% 100%,rgba(255,106,77,.38),rgba(179,25,127,.25) 45%,transparent 75%),linear-gradient(180deg,rgba(43,10,80,.2),rgba(255,95,90,.12))}
+body.tod-dusk #panoSky::before{width:260px;height:260px;left:50%;bottom:-60px;transform:translateX(-50%);background:linear-gradient(180deg,#ffe259,#ff8a3d 55%,#ff2bd6);opacity:.45;-webkit-mask-image:repeating-linear-gradient(180deg,#000 0 14px,transparent 14px 20px);mask-image:repeating-linear-gradient(180deg,#000 0 14px,transparent 14px 20px)}
+body.tod-day #panoSky{background:radial-gradient(100% 60% at 50% 0%,rgba(80,190,255,.22),transparent 65%),radial-gradient(90% 50% at 50% 100%,rgba(255,179,71,.18),transparent 70%)}
+body.tod-day #panoSky::before{width:90px;height:90px;right:14%;top:12%;background:radial-gradient(circle,rgba(255,246,201,.9),rgba(255,210,63,.55) 45%,rgba(255,210,63,0) 72%);opacity:.38}
+body.tod-day #pano{filter:saturate(.8) brightness(1.25) contrast(.95)}
+body.tod-day #pano [fill="url(#pw)"],body.tod-day #pano [fill="url(#pw2)"],body.tod-day #pano [fill="url(#pw3)"]{opacity:.25}
+body.tod-day #pano [filter="url(#pglow)"]{opacity:.45}
+body.tod-dusk #pano{filter:saturate(1.1)}
+/* ===== weather ===== */
+#rain{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0;transition:opacity 1.5s}
+body.storm #rain{opacity:1}
+body.storm #panoSky{animation:flash 9s infinite}
+@keyframes flash{0%,93%,100%{filter:none}94%{filter:brightness(2.4)}95%{filter:none}96.5%{filter:brightness(1.8)}97%{filter:none}}
+body.storm.noanim #panoSky{animation:none}
+/* ===== radio bar ===== */
+#rbar{position:fixed;right:10px;left:10px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:69;display:none;align-items:center;gap:10px;height:44px;padding:0 6px 0 12px;border-radius:14px;background:linear-gradient(90deg,rgba(10,30,26,.92),rgba(20,8,40,.92));border:1px solid rgba(25,245,193,.3);box-shadow:0 8px 24px rgba(0,0,0,.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);cursor:pointer}
+body.rbar #rbar{display:flex}
+#rbar .eqm{display:flex;align-items:flex-end;gap:2px;height:16px;flex:0 0 auto}
+#rbar .eqm i{width:3px;background:var(--rc,#19f5c1);border-radius:1px;animation:eqm 1s ease-in-out infinite;height:40%}
+#rbar .eqm i:nth-child(2){animation-delay:.2s}#rbar .eqm i:nth-child(3){animation-delay:.45s}#rbar .eqm i:nth-child(4){animation-delay:.1s}
+@keyframes eqm{50%{height:100%}}
+#rbar .lcd{flex:1;min-width:0;overflow:hidden;font-family:"JetBrains Mono",monospace;line-height:1.15}
+#rbar .lcd .k{font-size:9.5px;letter-spacing:1.2px;color:var(--rc,#19f5c1);text-transform:uppercase;opacity:.9}
+#rbar .lcd .mq{white-space:nowrap;font-size:12.5px;color:#d9fff4;display:inline-block;padding-right:40px}
+#rbar .lcd .mq.run{animation:mq 14s linear infinite}
+@keyframes mq{0%,12%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+#rbar button{flex:0 0 auto;width:34px;height:34px;border-radius:10px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;font-size:14px;padding:0}
+body.rbar{padding-bottom:calc(150px + env(safe-area-inset-bottom))}
+body.rbar #panoTag{bottom:calc(140px + env(safe-area-inset-bottom))}
+@media(max-width:999px){body.rbar .toast{bottom:calc(150px + env(safe-area-inset-bottom))}}
+@media(min-width:1000px){#rbar{left:auto;right:20px;bottom:20px;width:340px}body.rbar{padding-bottom:30px}body.rbar #panoTag{bottom:76px}}
+body.noanim #rbar .eqm i,body.noanim #rbar .mq{animation:none!important}
 /* own images */
 .flip .fa.hasImg{background-size:cover!important;background-position:center 20%!important}
 .flip .fa.hasImg::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,4,24,0) 35%,rgba(11,4,24,.92));pointer-events:none}
@@ -599,7 +672,7 @@ details.acc>summary:hover h3{color:#fff}
 </style>
 </head>
 <body>
-<div id="panoSky"></div><div id="pano"><svg id="panoSvg" viewBox="0 0 3200 700" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<div id="panoSky"></div><canvas id="rain"></canvas><div id="rbar" role="button"></div><div id="pano"><svg id="panoSvg" viewBox="0 0 3200 700" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
 <pattern id="pw" width="14" height="18" patternUnits="userSpaceOnUse"><rect x="3" y="4" width="5" height="7" fill="#ffd27a" opacity=".55"/></pattern>
 <pattern id="pw2" width="10" height="14" patternUnits="userSpaceOnUse"><rect x="2" y="3" width="4" height="6" fill="#9ef0ff" opacity=".45"/></pattern>
 <pattern id="pw3" width="18" height="12" patternUnits="userSpaceOnUse"><rect x="2" y="3" width="12" height="3" fill="#ff8fe6" opacity=".35"/></pattern>
@@ -834,7 +907,7 @@ details.acc>summary:hover h3{color:#fff}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 13.11. 12:28</div>
+    <div class="dim" style="margin-top:8px">App-Version 13.11. 12:45</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -858,7 +931,7 @@ const T=(o)=>typeof o==='string'?o:(o?o[LANG]||o.de:'');
 const L=(de,en)=>({de,en});
 const RELEASE=new Date('2026-11-19T00:00:00+01:00');
 let done=store.get('done',{});
-let SET=Object.assign({spoil:1,chapter:0,compact:false,noanim:false,launchPreview:false,ai:'anthropic',aiKey:'',aiModel:''},store.get('set',{}));
+let SET=Object.assign({tod:0,wx:0,rbar:true,spoil:1,chapter:0,compact:false,noanim:false,launchPreview:false,ai:'anthropic',aiKey:'',aiModel:''},store.get('set',{}));
 const saveSet=()=>{store.set('set',SET);applySet()};
 function applySet(){document.body.classList.toggle('compact',!!SET.compact);document.body.classList.toggle('noanim',!!SET.noanim)}
 const isLaunch=()=>Date.now()>=RELEASE||SET.launchPreview;
@@ -1677,93 +1750,149 @@ const DIST=[[330,328,'Downtown'],[346,316,'Ocean Beach'],[312,352,'Little Cuba']
 const TOWERS=[[318,330,70],[326,342,96],[334,326,58],[322,356,46],[340,346,80],[312,344,38],[330,360,62],[344,330,44],[336,372,34],[308,320,30],[346,360,52]];
 function shade(hex,f){const n=parseInt(hex.slice(1),16);let r=n>>16,g=(n>>8)&255,b=n&255;r=Math.round(r*f);g=Math.round(g*f);b=Math.round(b*f);return `rgb(${r},${g},${b})`}
 let VIEW=Object.assign({z:1,r:-9,t:46,x:0,y:0},store.get('mapview',{}));if(!map3d)VIEW.t=0;let VIEWSAVE=null;
-function renderMap(){
+const MAPV='v3';let MAPRASTER=null,MAPRASTERING=null;
+function mapTerrainSVG(K){
  const R=REGIONS;
- const terrain=`
-  <filter id="noise" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="3" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0" result="na"/><feComposite in="na" in2="SourceGraphic" operator="in" result="nm"/><feBlend in="SourceGraphic" in2="nm" mode="multiply"/></filter>
-  <filter id="soft"><feGaussianBlur stdDeviation="5"/></filter>
-  <filter id="cloud"><feTurbulence type="fractalNoise" baseFrequency=".018" numOctaves="4" seed="3"/><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.6 -.75"/></filter>
-  <pattern id="p-forest" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.8" fill="#1a2c16"/><circle cx="6" cy="5" r="2.1" fill="#36552d"/><circle cx="3" cy="7" r="1.3" fill="#24391f"/></pattern>
+ const defs=`
+  <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="2" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .5 0" result="na"/><feComposite in="na" in2="SourceGraphic" operator="in" result="nm"/><feBlend in="SourceGraphic" in2="nm" mode="multiply"/></filter>
+  ${[['relief',3,.03,5],['reliefM',9,.045,6],['reliefF',1.6,.05,4]].map(([id,ss,bf,oc])=>`<filter id="${id}" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="${bf}" numOctaves="${oc}" seed="${id.length*7}" result="h"/><feDiffuseLighting in="h" surfaceScale="${ss}" lighting-color="#fff" result="l"><feDistantLight azimuth="235" elevation="50"/></feDiffuseLighting><feComponentTransfer in="l" result="l2"><feFuncR type="linear" slope="1.45"/><feFuncG type="linear" slope="1.45"/><feFuncB type="linear" slope="1.45"/></feComponentTransfer><feComposite in="l2" in2="SourceGraphic" operator="in" result="lm"/><feBlend in="SourceGraphic" in2="lm" mode="multiply"/></filter>`).join('')}
+  <filter id="waves" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".012 .06" numOctaves="3" seed="4"/><feColorMatrix type="matrix" values="0 0 0 0 .6  0 0 0 0 .85  0 0 0 0 1  0 0 0 .55 -.2"/></filter>
+  <filter id="soft"><feGaussianBlur stdDeviation="5"/></filter><filter id="soft2"><feGaussianBlur stdDeviation="2"/></filter><filter id="glow"><feGaussianBlur stdDeviation="1.6"/></filter>
+  <pattern id="p-forest" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#2a4423"/><circle cx="2" cy="2" r="1.9" fill="#1a2c16"/><circle cx="6" cy="5" r="2.2" fill="#3b5d31"/><circle cx="3" cy="7" r="1.4" fill="#24391f"/></pattern>
   <pattern id="p-farm" width="26" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(8)"><rect width="13" height="9" fill="#8f9d55"/><rect x="13" width="13" height="9" fill="#6c7d3c"/><rect y="9" width="13" height="9" fill="#a5a061"/><rect x="13" y="9" width="13" height="9" fill="#7a8a47"/><path d="M0 9H26M13 0V18" stroke="#c7b98a" stroke-width=".5"/></pattern>
   <pattern id="p-swamp" width="18" height="14" patternUnits="userSpaceOnUse"><rect width="18" height="14" fill="#4c6a44"/><ellipse cx="5" cy="4" rx="4" ry="2.2" fill="#2f5450"/><ellipse cx="13" cy="10" rx="3.2" ry="1.8" fill="#335b55"/><circle cx="12" cy="3" r="1.4" fill="#5f7d4c"/></pattern>
-  <pattern id="p-city" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#8d8f8c"/><rect x="1" y="1" width="3.4" height="3.4" fill="#a4a6a2"/><rect x="5" y="1" width="3" height="3.4" fill="#76797a"/><rect x="1" y="5" width="3.4" height="3" fill="#7c7f7d"/><rect x="5" y="5" width="3" height="3" fill="#b3b4ae"/></pattern>
+  <pattern id="p-city" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="#7e8287"/><rect x=".6" y=".6" width="2.2" height="2.2" fill="#a9acac"/><rect x="3.4" y=".6" width="2" height="2.2" fill="#666b70"/><rect x=".6" y="3.4" width="2.2" height="2" fill="#73777b"/><rect x="3.4" y="3.4" width="2" height="2" fill="#bdbdb6"/></pattern>
   <pattern id="p-ind" width="12" height="10" patternUnits="userSpaceOnUse"><rect width="12" height="10" fill="#6d6a58"/><rect x="1" y="1" width="6" height="4" fill="#8a8670"/><rect x="8" y="2" width="3" height="6" fill="#56543f"/><rect x="1" y="6" width="5" height="3" fill="#61705a"/></pattern>
-  <pattern id="p-sand" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="#c8b98b"/><circle cx="3" cy="3" r="1.6" fill="#7c8f52"/><circle cx="7" cy="7" r="1.2" fill="#6a7f46"/></pattern>`;
- const region=k=>{const d=RPATH[k],sel=curRegion===k,[c1,c2,p]=RSAT[k];let side='';for(let z=7;z>=1;z--)side+=`<path d="${d}" transform="translate(0 ${z})" fill="${shade(c2,.55+z*.03)}"/>`;
-  return `<g class="region ${sel?'on':''}" data-r="${k}" ${sel?'transform="translate(0 -4)"':''}>${side}<path d="${d}" fill="url(#p-${p})" filter="url(#noise)"/><path d="${d}" fill="none" stroke="#e8dcae" stroke-opacity=".55" stroke-width="1.6"/>${sel?`<path d="${d}" fill="${R[k].c}" fill-opacity=".18" stroke="${R[k].c}" stroke-width="2.5"/>`:''}</g>`};
- const shallow=Object.values(RPATH).map(d=>`<path d="${d}" fill="none" stroke="#3fd0d4" stroke-width="16" stroke-linejoin="round" opacity=".55"/>`).join('');
- const anchors=[...Object.entries(RLBL).map(([k,[x,y]])=>`<circle class="anc" data-a="r:${k}" cx="${x}" cy="${y}" r=".1" fill="none"/>`),...DIST.map(([x,y],i)=>`<circle class="anc" data-a="d:${i}" cx="${x}" cy="${y}" r=".1" fill="none"/>`),...store.get('pins',[]).map((p,i)=>`<circle class="anc" data-a="p:${i}" cx="${p.x}" cy="${p.y}" r=".1" fill="none"/>`)].join('');
- const svg=`<svg viewBox="0 0 420 520" xmlns="http://www.w3.org/2000/svg">
- <defs>${terrain}
-  <radialGradient id="sea" cx="62%" cy="45%" r="80%"><stop offset="0" stop-color="#1d5e86"/><stop offset=".55" stop-color="#0e3a63"/><stop offset="1" stop-color="#07203f"/></radialGradient>
-  <radialGradient id="lake" cx="40%" cy="35%"><stop offset="0" stop-color="#2f7fa8"/><stop offset="1" stop-color="#123f63"/></radialGradient>
- </defs>
+  <pattern id="p-sand" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="#cdbd8c"/><circle cx="3" cy="3" r="1.6" fill="#7c8f52"/><circle cx="7" cy="7" r="1.2" fill="#6a7f46"/></pattern>
+  <radialGradient id="sea" cx="62%" cy="45%" r="85%"><stop offset="0" stop-color="#1f6a92"/><stop offset=".5" stop-color="#0f3f68"/><stop offset="1" stop-color="#061a36"/></radialGradient>
+  <radialGradient id="lake" cx="40%" cy="35%"><stop offset="0" stop-color="#3a8db5"/><stop offset="1" stop-color="#134268"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="72%"><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".45"/></radialGradient>`;
+ const order=['kalaga','gell','ambro','grass','vice','keys'];
+ const shallow=order.map(k=>`<path d="${RPATH[k]}" fill="none" stroke="#2bb7c4" stroke-width="30" stroke-linejoin="round" opacity=".22"/><path d="${RPATH[k]}" fill="none" stroke="#45d6d2" stroke-width="14" stroke-linejoin="round" opacity=".38"/><path d="${RPATH[k]}" fill="none" stroke="#8ff0e0" stroke-width="6" stroke-linejoin="round" opacity=".45"/>`).join('');
+ const land=k=>{const d=RPATH[k],[c1,c2,p]=RSAT[k];let side='';for(let z=7;z>=1;z--)side+=`<path d="${d}" transform="translate(0 ${z})" fill="${shade(c2,.5+z*.03)}"/>`;
+  const rf=k==='kalaga'?'reliefM':(k==='vice'?'reliefF':'relief');
+  return `<g>${side}<path d="${d}" fill="none" stroke="#e8d8a2" stroke-width="3.2" stroke-linejoin="round"/><path d="${d}" fill="url(#p-${p})" filter="url(#${rf})"/><path d="${d}" fill="url(#p-${p})" filter="url(#grain)" opacity=".35"/></g>`};
+ // city lights in Vice
+ let lights='';let sd=11;const rnd=()=>(sd=(sd*16807)%2147483647)/2147483647;
+ for(let i=0;i<260;i++){const x=296+rnd()*66,y=286+rnd()*112;lights+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(.35+rnd()*.6).toFixed(2)}" fill="${rnd()<.2?'#ff8fe6':'#ffe2a0'}" opacity="${(.45+rnd()*.5).toFixed(2)}"/>`}
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 520" width="${420*K}" height="${520*K}"><defs>${defs}<clipPath id="cv"><path d="${RPATH.vice}"/></clipPath></defs>
  <rect width="420" height="520" fill="url(#sea)"/>
- <rect width="420" height="520" fill="url(#sea)" filter="url(#noise)" opacity=".5"/>
+ <rect width="420" height="520" filter="url(#waves)" opacity=".5"/>
  <g filter="url(#soft)">${shallow}</g>
- <path d="M30 70 L250 62 L300 80 L292 120 L240 112 L160 118 L60 124 Z" fill="none" stroke="rgba(255,255,255,.18)" stroke-dasharray="3 4"/>
- ${['kalaga','gell','ambro','grass','vice','keys'].map(region).join('')}
- <path d="M340 230 L356 300 L352 370 L330 410" fill="none" stroke="#efe2b0" stroke-width="3" stroke-linecap="round" opacity=".9"/>
- <g stroke="#d9d4c4" stroke-opacity=".55" fill="none" stroke-width="1.2"><path d="M60 128 L170 140 L250 160 L300 200 L325 300 L330 380"/><path d="M200 300 L260 330 L310 330"/><path d="M276 426 L300 404"/></g>
- <ellipse cx="255" cy="215" rx="26" ry="20" fill="url(#lake)" stroke="#5aa9c9" stroke-width="1.2"/>
- <g opacity="${mapCounties?1:0}" style="transition:opacity .3s" font-family="Inter" font-size="9" fill="rgba(255,255,255,.9)" font-style="italic" font-weight="700" paint-order="stroke" stroke="rgba(0,0,0,.6)" stroke-width="2">
-  <text x="200" y="98">Lummox Co.*</text><text x="50" y="110">Kelly Co.</text><text x="198" y="160">Ambrosia Co.</text><text x="300" y="210">Leonard Co.</text><text x="318" y="330">Vice-Dale Co.</text><text x="160" y="440">Mariana Co.</text>
- </g>
- <g class="clouds" opacity=".55" pointer-events="none"><rect x="-200" y="0" width="820" height="520" filter="url(#cloud)"><animateTransform attributeName="transform" type="translate" from="-60 0" to="60 10" dur="90s" repeatCount="indefinite" additive="sum" calcMode="linear" values="-60 0;60 10;-60 0" keyTimes="0;.5;1"/></rect></g>
-
- ${anchors}
+ ${order.map(land).join('')}
+ <path d="M30 70 L250 62 L300 80 L292 120 L240 112 L160 118 L60 124 Z" fill="none" stroke="rgba(255,255,255,.22)" stroke-dasharray="3 4"/>
+ <g clip-path="url(#cv)"><g filter="url(#soft2)" opacity=".7">${lights}</g>${lights}</g>
+ <g fill="none" stroke-linecap="round"><path d="M340 230 L356 300 L352 370 L330 410" stroke="#f3e6b4" stroke-width="3"/>
+  <g stroke="#ffb35a" stroke-opacity=".9" stroke-width="1.3"><path d="M60 128 L170 140 L250 160 L300 200 L325 300 L330 380"/><path d="M200 300 L260 330 L310 330"/><path d="M276 426 L300 404"/></g>
+  <g stroke="#ffb35a" stroke-opacity=".5" stroke-width="3.5" filter="url(#glow)"><path d="M60 128 L170 140 L250 160 L300 200 L325 300 L330 380"/><path d="M200 300 L260 330 L310 330"/></g></g>
+ <ellipse cx="255" cy="215" rx="26" ry="20" fill="url(#lake)" stroke="#e8d8a2" stroke-width="1.4"/><ellipse cx="255" cy="215" rx="26" ry="20" filter="url(#waves)" opacity=".4"/>
+ <rect width="420" height="520" fill="url(#vig)"/>
  </svg>`;
- const towers=TOWERS.map(([x,y,h],i)=>`<div class="tower" style="left:${x/420*100}%;top:${y/520*100}%;--h:${h}px;--d:${i*0.37}s"><i></i><i></i></div>`).join('');
- const labels=Object.entries(RLBL).map(([k,[,,t]])=>`<button class="mlbl ${curRegion===k?'on':''}" data-a="r:${k}" data-r="${k}" style="--c:${R[k].c}"><span class="dot"></span>${t}</button>`).join('')+DIST.map(([,,t],i)=>`<span class="mdist" data-a="d:${i}">${t}</span>`).join('')+store.get('pins',[]).map((p,i)=>{const c=PINCATS.find(x=>x[0]===p.c)||PINCATS[6];return `<button class="mpin ${p.done?'done':''}" data-a="p:${i}" data-pi="${i}" title="${esc(p.t||'')}"><span style="rotate:45deg">${c[1]}</span></button>`}).join('');
- $('#mapbox').innerHTML=`<div class="stage"><div class="plane">${svg}${towers}</div></div><div class="mlabels">${labels}</div>
+}
+function mapCloudSVG(){return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 520" width="840" height="1040"><filter id="c"><feTurbulence type="fractalNoise" baseFrequency=".016" numOctaves="4" seed="3"/><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.7 -.85"/></filter><rect width="420" height="520" filter="url(#c)"/></svg>`}
+function svgToCanvas(svg,w,h){return new Promise((ok,no)=>{const img=new Image();const u=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));img.onload=()=>{const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);URL.revokeObjectURL(u);ok(c)};img.onerror=e=>{URL.revokeObjectURL(u);no(e)};img.src=u})}
+async function getMapRaster(){
+ if(MAPRASTER)return MAPRASTER;if(MAPRASTERING)return MAPRASTERING;
+ MAPRASTERING=(async()=>{
+  const K=Math.min(5,Math.max(3,Math.round((devicePixelRatio||2)*1.7)));const key=`/__leo_map_${MAPV}_${K}.png`;
+  let cache=null;try{cache=await caches.open('leo-map')}catch(e){}
+  if(cache){try{const r=await cache.match(key);if(r){const bm=await createImageBitmap(await r.blob());const c=document.createElement('canvas');c.width=bm.width;c.height=bm.height;c.getContext('2d').drawImage(bm,0,0);MAPRASTER={map:c,clouds:await svgToCanvas(mapCloudSVG(),840,1040)};return MAPRASTER}}catch(e){}}
+  const map=await svgToCanvas(mapTerrainSVG(K),420*K,520*K);
+  const clouds=await svgToCanvas(mapCloudSVG(),840,1040);
+  MAPRASTER={map,clouds};
+  if(cache)try{map.toBlob(b=>{if(b)cache.put(key,new Response(b)).catch(()=>{})},'image/png')}catch(e){}
+  return MAPRASTER})();
+ return MAPRASTERING;
+}
+function renderMap(){
+ const R=REGIONS;const box=$('#mapbox');
+ const hit=Object.keys(RPATH).filter(k=>RSAT[k]).map(k=>`<g class="region ${curRegion===k?'on':''}" data-r="${k}" style="--c:${R[k].c}"><path class="hl" d="${RPATH[k]}"/><path class="hf" d="${RPATH[k]}"/></g>`).join('');
+ const counties=`<g class="counties" opacity="${mapCounties?1:0}" font-family="Inter,system-ui" font-size="9" fill="rgba(255,255,255,.92)" font-style="italic" font-weight="700" paint-order="stroke" stroke="rgba(0,0,0,.65)" stroke-width="2" pointer-events="none"><text x="200" y="98">Lummox Co.*</text><text x="50" y="110">Kelly Co.</text><text x="198" y="160">Ambrosia Co.</text><text x="300" y="210">Leonard Co.</text><text x="318" y="330">Vice-Dale Co.</text><text x="160" y="440">Mariana Co.</text></g>`;
+ const towers=TOWERS.map(([x,y,h])=>`<div class="tower" style="left:${x/420*100}%;top:${y/520*100}%;--h:${h}px"><i></i><i></i></div>`).join('');
+ const bb=(x,y,html,cls='')=>`<div class="ml ${cls}" data-x="${x}" data-y="${y}">${html}</div>`;
+ const labels=Object.entries(RLBL).map(([k,[x,y,t]])=>bb(x,y,`<button class="mlbl ${curRegion===k?'on':''}" data-r="${k}" style="--c:${R[k].c}"><span class="dot"></span>${t}</button>`,'mlr ml-'+k)).join('')
+  +DIST.map(([x,y,t])=>bb(x,y,`<span class="mdist">${t}</span>`,'mld')).join('')
+  +store.get('pins',[]).map((p,i)=>{const c=PINCATS.find(x=>x[0]===p.c)||PINCATS[6];return bb(p.x,p.y,`<button class="mpin ${p.done?'done':''}" data-pi="${i}" title="${esc(p.t||'')}"><span style="rotate:45deg">${c[1]}</span></button>`,'mlp')}).join('');
+ box.innerHTML=`<div class="stage"><div class="plane"><div class="mshadow"></div><canvas class="mraster" width="8" height="10"></canvas><div class="mload"><span></span>${T(L('Satellitenbild wird berechnet …','Rendering satellite view …'))}</div><canvas class="mclouds" width="8" height="10"></canvas><svg class="mhit" viewBox="0 0 420 520" xmlns="http://www.w3.org/2000/svg">${hit}${counties}</svg>${towers}</div></div><div class="mlabels">${labels}</div>
  <div class="maptools"><button id="m3d" class="${VIEW.t>5?'on':''}">${VIEW.t>5?'3D':'2D'}</button><button id="mcBtn" class="${mapCounties?'on':''}">${T(UI.counties)}</button></div>
- <button class="compass" id="cmp" title="Nord"><svg viewBox="0 0 40 40" width="40" height="40"><circle cx="20" cy="20" r="18" fill="rgba(11,4,24,.7)" stroke="rgba(255,255,255,.35)"/><g id="needle"><path d="M20 5 L25 20 L20 18 L15 20Z" fill="#ff4f6d"/><path d="M20 35 L25 20 L20 22 L15 20Z" fill="#dfe6ee"/><text x="20" y="13.5" text-anchor="middle" font-size="7" font-weight="800" fill="#fff" font-family="Inter">N</text></g></svg></button>
- <div class="mzoom"><button data-mz="1.35">+</button><button data-mz="0.74">−</button><button data-mr="-30" title="⟲">⟲</button><button data-mr="30" title="⟳">⟳</button></div>
- <div class="mhint">${T(L('Ziehen · 2 Finger: zoomen & drehen · Doppeltipp: Zoom','Drag · 2 fingers: zoom & rotate · double-tap: zoom'))}</div>`;
- $('#mapbox').querySelectorAll('.region,.mlbl').forEach(el=>el.addEventListener('click',()=>{if(pinMode||window._mapMoved)return;curRegion=el.dataset.r;renderMap();renderRegion();if(innerWidth<800)$('#rpanel').scrollIntoView({behavior:'smooth',block:'start'})}));
- $('#mcBtn').onclick=()=>{mapCounties=!mapCounties;renderMap()};
- $('#m3d').onclick=()=>{map3d=!(VIEW.t>5);store.set('map3d',map3d);setView({t:map3d?46:0},true)};
- $('#cmp').onclick=()=>setView({r:0,t:map3d?46:0},true);
- $('#mapbox').querySelectorAll('[data-mz]').forEach(b=>b.onclick=()=>setView({z:VIEW.z*+b.dataset.mz},true));
- $('#mapbox').querySelectorAll('[data-mr]').forEach(b=>b.onclick=()=>setView({r:VIEW.r+ +b.dataset.mr},true));
+ <button class="compass" id="cmp" title="Nord"><svg viewBox="0 0 40 40" width="40" height="40"><circle cx="20" cy="20" r="18" fill="rgba(11,4,24,.72)" stroke="rgba(255,255,255,.35)"/><g id="needle"><path d="M20 5 L25 20 L20 18 L15 20Z" fill="#ff4f6d"/><path d="M20 35 L25 20 L20 22 L15 20Z" fill="#dfe6ee"/><text x="20" y="13.5" text-anchor="middle" font-size="7" font-weight="800" fill="#fff" font-family="Inter">N</text></g></svg></button>
+ <div class="mzoom"><button data-mz="1.5" aria-label="Zoom +">+</button><button data-mz="0.67" aria-label="Zoom −">−</button><button data-mr="-45" title="⟲">⟲</button><button data-mr="45" title="⟳">⟳</button></div>
+ <div class="mhint">${T(L('Ziehen · 2 Finger: zoomen & drehen · 2 Finger hoch/runter: neigen · Doppeltipp: Zoom','Drag · 2 fingers: zoom & rotate · 2 fingers up/down: tilt · double-tap: zoom'))}</div>`;
+ getMapRaster().then(({map,clouds})=>{const c=box.querySelector('.mraster'),cl=box.querySelector('.mclouds');if(!c)return;c.width=map.width;c.height=map.height;c.getContext('2d').drawImage(map,0,0);cl.width=clouds.width;cl.height=clouds.height;cl.getContext('2d').drawImage(clouds,0,0);box.classList.add('ready');MG=null;applyView()}).catch(()=>{box.classList.add('ready','noraster')});
+ box.querySelectorAll('.region,.mlbl').forEach(el=>el.addEventListener('click',()=>{if(pinMode||window._mapMoved)return;curRegion=el.dataset.r;updateRegionSel();renderRegion();if(innerWidth<800)$('#rpanel').scrollIntoView({behavior:'smooth',block:'start'})}));
+ $('#mcBtn').onclick=()=>{mapCounties=!mapCounties;box.querySelector('.counties').setAttribute('opacity',mapCounties?1:0);$('#mcBtn').classList.toggle('on',mapCounties)};
+ $('#m3d').onclick=()=>{map3d=!(VIEW.t>5);store.set('map3d',map3d);animView({t:map3d?46:0})};
+ $('#cmp').onclick=()=>animView({r:0,t:map3d?46:0});
+ box.querySelectorAll('[data-mz]').forEach(b=>b.onclick=()=>zoomAt(VIEW.z*+b.dataset.mz,null,true));
+ box.querySelectorAll('[data-mr]').forEach(b=>b.onclick=()=>animView({r:VIEW.r+ +b.dataset.mr}));
  if(pinMode){VIEWSAVE=VIEWSAVE||Object.assign({},VIEW);Object.assign(VIEW,{z:1,r:0,t:0,x:0,y:0})}else if(VIEWSAVE){Object.assign(VIEW,VIEWSAVE);VIEWSAVE=null}
- applyView(false);bindGestures();bindPins();trackLabels(80);
+ MG=null;applyView();bindGestures();bindPins();requestAnimationFrame(()=>{MG=null;applyView()});
 }
-function setView(p,anim){Object.assign(VIEW,p);applyView(anim)}
-function applyView(anim){
- VIEW.z=Math.max(1,Math.min(4.5,VIEW.z));VIEW.t=Math.max(0,Math.min(60,VIEW.t));
- const lim=(VIEW.z-1)*200+30;VIEW.x=Math.max(-lim,Math.min(lim,VIEW.x));VIEW.y=Math.max(-lim,Math.min(lim,VIEW.y));
- const pl=$('#mapbox .plane');if(!pl)return;pl.classList.toggle('anim',!!anim);
- pl.style.transform=`translate(${VIEW.x}px,${VIEW.y}px) rotateX(${VIEW.t}deg) rotateZ(${VIEW.r}deg) scale(${VIEW.z*(VIEW.t>5?.96:1)})`;
+
+let MG=null;
+function mapGeom(){const box=$('#mapbox');const pl=box&&box.querySelector('.plane'),st=box&&box.querySelector('.stage');if(!pl||!pl.offsetWidth)return MG=null;
+ const off=el=>{let x=0,y=0;while(el&&el!==box){x+=el.offsetLeft;y+=el.offsetTop;el=el.offsetParent}return {x,y}};
+ const P=off(pl),S=off(st);const cs=getComputedStyle(st);const per=parseFloat(cs.perspective)||1100;const po=cs.perspectiveOrigin.split(' ').map(parseFloat);
+ MG={L:P.x,T:P.y,w:pl.offsetWidth,h:pl.offsetHeight,per,pox:S.x+po[0],poy:S.y+po[1],W:box.clientWidth,H:box.clientHeight,els:[...box.querySelectorAll('.mlabels .ml')].map(e=>({e,x:+e.dataset.x,y:+e.dataset.y}))};return MG}
+function projLabels(s){if(!MG||!MG.els.length||!MG.w)mapGeom();if(!MG)return;const g=MG,ox=g.w/2,oy=g.h/2;
+ const m=new DOMMatrix().translate(ox+VIEW.x,oy+VIEW.y).rotateAxisAngle(1,0,0,VIEW.t).rotateAxisAngle(0,0,1,VIEW.r).scale(s).translate(-ox,-oy);
+ for(const it of g.els){const q=m.transformPoint(new DOMPoint(it.x/420*g.w,it.y/520*g.h,0));const X0=q.x+g.L,Y0=q.y+g.T,d=g.per-q.z;if(d<=1){it.e.style.visibility='hidden';continue}
+  const f=g.per/d,X=g.pox+(X0-g.pox)*f,Y=g.poy+(Y0-g.poy)*f;const out=X<-60||Y<-40||X>g.W+60||Y>g.H+40;
+  it.e.style.visibility=out?'hidden':'';if(!out)it.e.style.transform=`translate3d(${X.toFixed(1)}px,${Y.toFixed(1)}px,0)`}}
+addEventListener('resize',()=>{MG=null;if($('#mapbox .plane'))applyView()});
+function updateRegionSel(){const box=$('#mapbox');box.querySelectorAll('.region').forEach(g=>g.classList.toggle('on',g.dataset.r===curRegion));box.querySelectorAll('.mlbl').forEach(g=>g.classList.toggle('on',g.dataset.r===curRegion))}
+let _vf=0,_cls='';
+function clampView(){const box=$('#mapbox');const w=box?box.clientWidth:360;VIEW.z=Math.max(1,Math.min(6,VIEW.z));VIEW.t=Math.max(0,Math.min(62,VIEW.t));const lim=w*(VIEW.z-1)*.55+40;VIEW.x=Math.max(-lim,Math.min(lim,VIEW.x));VIEW.y=Math.max(-lim*1.2,Math.min(lim*1.2,VIEW.y))}
+function applyView(){
+ clampView();const pl=$('#mapbox .plane');if(!pl)return;
+ const s=VIEW.z*(VIEW.t>5?.96:1);
+ pl.style.transform=`translate3d(${VIEW.x}px,${VIEW.y}px,0) rotateX(${VIEW.t}deg) rotateZ(${VIEW.r}deg) scale(${s})`;
+ projLabels(s);
  const nd=$('#needle');if(nd)nd.setAttribute('transform',`rotate(${VIEW.r} 20 20)`);
- const box=$('#mapbox');box.classList.toggle('zoomed',VIEW.z>1.05);box.classList.toggle('detail',VIEW.z>=1.7);
- const b3=$('#m3d');if(b3){b3.textContent=VIEW.t>5?'3D':'2D';b3.classList.toggle('on',VIEW.t>5)}
- if(!pinMode&&!VIEWSAVE)store.set('mapview',VIEW);
- trackLabels(anim?750:30);
+ const cls=(VIEW.z>1.05?'z':'')+(VIEW.z>=1.7?'d':'')+(VIEW.t>5?'3':'');
+ if(cls!==_cls){_cls=cls;const box=$('#mapbox');box.classList.toggle('zoomed',VIEW.z>1.05);box.classList.toggle('detail',VIEW.z>=1.7);const b3=$('#m3d');if(b3){b3.textContent=VIEW.t>5?'3D':'2D';b3.classList.toggle('on',VIEW.t>5)}}
 }
+let _mvT;function moving(on){const pl=$('#mapbox .plane');if(!pl)return;clearTimeout(_mvT);if(on)pl.classList.add('moving');else _mvT=setTimeout(()=>pl.classList.remove('moving'),180)}
+let _saveT;function saveView(){clearTimeout(_saveT);moving(false);_saveT=setTimeout(()=>{if(!pinMode&&!VIEWSAVE)store.set('mapview',VIEW)},400)}
+function frame(){moving(true);if(!_vf)_vf=requestAnimationFrame(()=>{_vf=0;applyView()})}
+let _anim=0;
+function animView(to,ms=520){cancelAnimationFrame(_anim);if(SET.noanim){Object.assign(VIEW,to);applyView();saveView();return}const from=Object.assign({},VIEW);if(to.r!=null){let d=((to.r-from.r)%360+540)%360-180;to=Object.assign({},to,{r:from.r+d})}const t0=performance.now();const ease=x=>1-Math.pow(1-x,3);
+ moving(true);const st=now=>{const k=Math.min(1,(now-t0)/ms),e=ease(k);for(const p in to)VIEW[p]=from[p]+(to[p]-from[p])*e;applyView();if(k<1)_anim=requestAnimationFrame(st);else saveView()};_anim=requestAnimationFrame(st)}
+function planeCenter(){const box=$('#mapbox'),pl=box.querySelector('.plane'),st=box.querySelector('.stage');return {x:st.offsetLeft+pl.offsetLeft+pl.offsetWidth/2,y:st.offsetTop+pl.offsetTop+pl.offsetHeight/2}}
+function zoomAt(z,pt,anim){const c=planeCenter();const box=$('#mapbox');const P=pt||{x:box.clientWidth/2,y:box.clientHeight/2};const nz=Math.max(1,Math.min(6,z)),k=nz/VIEW.z;
+ const tx=P.x-c.x-k*(P.x-c.x-VIEW.x),ty=P.y-c.y-k*(P.y-c.y-VIEW.y);const to=nz<=1.001?{z:1,x:0,y:0}:{z:nz,x:tx,y:ty};if(anim)animView(to,380);else{Object.assign(VIEW,to);frame();saveView()}}
 function bindGestures(){
  const box=$('#mapbox');if(box._g)return;box._g=1;
- const P=new Map();let st=null,moved=0;
- box.addEventListener('pointerdown',e=>{if(e.target.closest('.maptools,.mzoom,.compass'))return;P.set(e.pointerId,{x:e.clientX,y:e.clientY});moved=0;window._mapMoved=false;
-  if(P.size===2){const [a,b]=[...P.values()];st={d:Math.hypot(a.x-b.x,a.y-b.y),ang:Math.atan2(b.y-a.y,b.x-a.x),z:VIEW.z,r:VIEW.r,t:VIEW.t,my:(a.y+b.y)/2}}
-  else st={x:e.clientX,y:e.clientY,vx:VIEW.x,vy:VIEW.y,r:VIEW.r,t:VIEW.t,btn:e.button,sh:e.shiftKey};
+ const P=new Map();let st=null,moved=0,vel={x:0,y:0},lastT=0,lastP=null;
+ const rel=e=>{const r=box.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top}};
+ box.addEventListener('pointerdown',e=>{if(e.target.closest('.maptools,.mzoom,.compass')||pinMode)return;cancelAnimationFrame(_anim);P.set(e.pointerId,rel(e));moved=0;window._mapMoved=false;vel={x:0,y:0};lastP=rel(e);lastT=performance.now();
+  if(P.size===2){const [a,b]=[...P.values()];st={two:1,d:Math.hypot(a.x-b.x,a.y-b.y),ang:Math.atan2(b.y-a.y,b.x-a.x),z:VIEW.z,r:VIEW.r,t:VIEW.t,m:{x:(a.x+b.x)/2,y:(a.y+b.y)/2},vx:VIEW.x,vy:VIEW.y,c:planeCenter(),mode:null}}
+  else st={x:lastP.x,y:lastP.y,vx:VIEW.x,vy:VIEW.y,r:VIEW.r,t:VIEW.t,btn:e.button,sh:e.shiftKey};
  });
- box.addEventListener('pointermove',e=>{if(!P.has(e.pointerId)||!st||pinMode)return;P.set(e.pointerId,{x:e.clientX,y:e.clientY});
-  if(P.size>=2&&st.d){const [a,b]=[...P.values()];const d=Math.hypot(a.x-b.x,a.y-b.y),ang=Math.atan2(b.y-a.y,b.x-a.x),my=(a.y+b.y)/2;
-   VIEW.z=st.z*d/st.d;VIEW.r=st.r+(ang-st.ang)*180/Math.PI;VIEW.t=st.t+(my-st.my)*.25;moved=99;window._mapMoved=true;applyView(false);e.preventDefault();return}
-  if(P.size===1&&st.x!=null){const dx=e.clientX-st.x,dy=e.clientY-st.y;moved=Math.max(moved,Math.hypot(dx,dy));
-   if(st.btn===2||st.sh){VIEW.r=st.r+dx*.4;VIEW.t=st.t+dy*.25;window._mapMoved=moved>5;applyView(false);return}
-   if(VIEW.z>1.05||e.pointerType==='mouse'){if(moved>5){window._mapMoved=true;VIEW.x=st.vx+dx;VIEW.y=st.vy+dy;applyView(false)}}}
+ box.addEventListener('pointermove',e=>{if(!P.has(e.pointerId)||!st||pinMode)return;const q=rel(e);P.set(e.pointerId,q);
+  if(P.size>=2&&st.two){const [a,b]=[...P.values()];const d=Math.hypot(a.x-b.x,a.y-b.y),ang=Math.atan2(b.y-a.y,b.x-a.x),m={x:(a.x+b.x)/2,y:(a.y+b.y)/2};
+   const dd=Math.abs(d-st.d),da=Math.abs(ang-st.ang)*180/Math.PI,dy=m.y-st.m.y;
+   if(!st.mode&&(dd>12||da>6||Math.abs(dy)>14))st.mode=(Math.abs(dy)>14&&dd<10&&da<5)?'tilt':'pinch';
+   if(st.mode==='tilt'){VIEW.t=st.t-dy*.35}
+   else if(st.mode==='pinch'){const k=Math.max(1/st.z,Math.min(6/st.z,d/st.d)),th=ang-st.ang;const ux=st.m.x-st.c.x-st.vx,uy=st.m.y-st.c.y-st.vy;const co=Math.cos(th),si=Math.sin(th);
+    VIEW.z=st.z*k;VIEW.r=st.r+th*180/Math.PI;VIEW.x=m.x-st.c.x-k*(co*ux-si*uy);VIEW.y=m.y-st.c.y-k*(si*ux+co*uy)}
+   moved=99;window._mapMoved=true;frame();e.preventDefault();return}
+  if(P.size===1&&st.x!=null){const dx=q.x-st.x,dy=q.y-st.y;moved=Math.max(moved,Math.hypot(dx,dy));
+   if(st.btn===2||st.sh){VIEW.r=st.r+dx*.4;VIEW.t=st.t+dy*.25;window._mapMoved=moved>5;frame();return}
+   if(VIEW.z>1.05||e.pointerType==='mouse'){if(moved>4){window._mapMoved=true;const now=performance.now(),dt=Math.max(1,now-lastT);vel={x:.8*vel.x+.2*(q.x-lastP.x)/dt,y:.8*vel.y+.2*(q.y-lastP.y)/dt};lastP=q;lastT=now;VIEW.x=st.vx+dx;VIEW.y=st.vy+dy;frame()}}}
  });
- const up=e=>{P.delete(e.pointerId);if(P.size===0){st=null;setTimeout(()=>window._mapMoved=false,50)}else if(P.size===1){const [a]=[...P.values()];st={x:a.x,y:a.y,vx:VIEW.x,vy:VIEW.y,r:VIEW.r,t:VIEW.t}}};
+ const up=e=>{if(!P.has(e.pointerId))return;P.delete(e.pointerId);
+  if(P.size===0){const wasPan=st&&!st.two&&window._mapMoved;st=null;setTimeout(()=>window._mapMoved=false,50);
+   if(wasPan&&!SET.noanim&&Math.hypot(vel.x,vel.y)>.25){let vx=vel.x*16,vy=vel.y*16;const fl=()=>{vx*=.92;vy*=.92;VIEW.x+=vx;VIEW.y+=vy;applyView();if(Math.hypot(vx,vy)>.4)_anim=requestAnimationFrame(fl);else saveView()};_anim=requestAnimationFrame(fl)}else saveView()}
+  else if(P.size===1){const [a]=[...P.values()];st={x:a.x,y:a.y,vx:VIEW.x,vy:VIEW.y,r:VIEW.r,t:VIEW.t};saveView()}};
  box.addEventListener('pointerup',up);box.addEventListener('pointercancel',up);box.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')up(e)});
  box.addEventListener('contextmenu',e=>{if(e.target.closest('.stage'))e.preventDefault()});
- box.addEventListener('wheel',e=>{if(pinMode)return;e.preventDefault();setView({z:VIEW.z*(e.deltaY<0?1.12:.89)},false)},{passive:false});
- box.addEventListener('dblclick',e=>{if(pinMode||e.target.closest('.maptools,.mzoom,.compass'))return;setView({z:VIEW.z<3?VIEW.z*1.6:1,x:VIEW.z<3?VIEW.x:0,y:VIEW.z<3?VIEW.y:0},true)});
+ box.addEventListener('wheel',e=>{if(pinMode)return;e.preventDefault();cancelAnimationFrame(_anim);zoomAt(VIEW.z*Math.exp(-e.deltaY*(e.ctrlKey?.01:.0022)),rel(e),false)},{passive:false});
+ box.addEventListener('dblclick',e=>{if(pinMode||e.target.closest('.maptools,.mzoom,.compass,.mlbl,.mpin'))return;zoomAt(VIEW.z<3.5?VIEW.z*2:1,rel(e),true)});
 }
-function placeLabels(){const box=$('#mapbox');if(!box||!box.offsetParent)return;const br=box.getBoundingClientRect();box.querySelectorAll('.anc').forEach(a=>{const r=a.getBoundingClientRect();const l=box.querySelector(`.mlabels [data-a="${a.dataset.a}"]`);if(l){const x=r.left+r.width/2-br.left,y=r.top+r.height/2-br.top;l.style.left=x+'px';l.style.top=y+'px';l.style.visibility=(x<-20||y<-20||x>br.width+20||y>br.height+20)?'hidden':''}})}
-function trackLabels(ms){const t0=performance.now();const f=()=>{placeLabels();if(performance.now()-t0<ms)requestAnimationFrame(f)};requestAnimationFrame(f)}
-addEventListener('resize',()=>placeLabels());
+function placeLabels(){}
+function trackLabels(){}
+
 function renderRegion(){
  const r=REGIONS[curRegion];
  if(!r){$('#rpanel').innerHTML=`<div class="muted">👆 ${T(UI.tapRegion)}</div><ul class="list" style="margin-top:10px">${Object.entries(REGIONS).map(([k,v])=>`<li style="cursor:pointer" data-go="${k}"><span style="color:${v.c}">●</span><b>${v.n}</b><span class="sp"></span><span class="dim">${v.county}</span></li>`).join('')}</ul>`;
@@ -1903,7 +2032,7 @@ function renderRadio(){
  <div style="text-align:center"><div class="muted">${T(s.g)}</div><div style="margin-top:4px">🎙️ <b>${s.h}</b></div><div style="margin-top:8px">${badge('off')}</div></div>
  <div class="row" style="justify-content:center;gap:10px;margin-top:14px"><button class="ib" id="rPrev">⏮</button><button class="ib" id="rNext">⏭</button></div>
  <p class="dim" style="text-align:center;margin:10px 0 0">${T(L('Frequenzen sind Deko – Rockstar hat keine genannt. Hörproben gibt’s auf der offiziellen GTA-VI-Website.','Frequencies are decorative – Rockstar named none. Previews are on the official GTA VI website.'))}</p>`;
- const set=i=>{station=(i+RADIO.length)%RADIO.length;store.set('station',station);renderRadio()};
+ const set=i=>{station=(i+RADIO.length)%RADIO.length;store.set('station',station);renderRadio();renderRbar()};
  $('#radio').querySelectorAll('.st').forEach(e=>e.onclick=()=>set(+e.dataset.i));
  $('#rPrev').onclick=()=>set(station-1);$('#rNext').onclick=()=>set(station+1);
  $('#album').innerHTML=ALBUM.map(a=>`<div class="card item"><div class="top"><div class="ico">💿</div><div><div class="ttl" style="font-size:14px">${esc(a[1])}</div><div class="mk">${esc(a[0])}</div></div></div></div>`).join('');
@@ -1978,6 +2107,9 @@ function renderSettings(){
  <div class="sgrp"><h4>${T(L('Spoiler-Schutz','Spoiler shield'))}</h4><div class="dim">${T(L('Wie viel von Story und Leaks willst du sehen?','How much story and leak info do you want to see?'))}</div>${seg('spoil',[[0,L('🔒 Streng','🔒 Strict')],[1,L('👀 Normal','👀 Normal')],[2,L('🔓 Alles','🔓 Everything')]])}
   <div class="dim" style="margin-top:8px">${T([L('Story-Missionen, Figuren-Hintergründe und Leaks bleiben komplett verborgen.','Story missions, character backstories and leaks stay fully hidden.'),L('Story & Leaks sind unscharf und lassen sich antippen.','Story & leaks are blurred and can be tapped open.'),L('Alles offen.','Everything open.')][SET.spoil])}</div>
   <div style="margin-top:12px"><b>${T(L('Mein Kapitel','My chapter'))}: <span id="chv">${SET.chapter||T(L('aus','off'))}</span></b><input type="range" min="0" max="12" value="${SET.chapter}" id="chR"><div class="dim">${T(L('Inhalte aus späteren Kapiteln werden ausgeblendet. Die Kapitel-Zuordnung trage ich nach Release nach – bisher ist nur der Prolog zugeordnet.','Content from later chapters is hidden. I’ll add chapter tags after launch – only the prologue is tagged so far.'))}</div></div></div>
+ <div class="sgrp"><h4>${T(L('Stimmung','Atmosphere'))}</h4><div class="dim">${T(L('Tageszeit des Stadt-Panoramas','Time of day of the city panorama'))}</div>${seg('tod',[[0,L('🕐 Auto','🕐 Auto')],[1,L('☀️ Tag','☀️ Day')],[2,L('🌅 Abend','🌅 Dusk')],[3,L('🌙 Nacht','🌙 Night')]])}
+  <div class="dim" style="margin-top:10px">${T(L('Hurrikan-Wetter (Auto = wenn ein Sturm in den News ist)','Hurricane weather (Auto = when a storm is in the news)'))}</div>${seg('wx',[[0,L('Auto','Auto')],[1,L('🌧️ An','🌧️ On')],[2,L('Aus','Off')]])}
+  <div style="margin-top:10px">${sw('rbar',L('Radio-Leiste','Radio bar'),L('Schmale „Auf Sendung“-Leiste unten mit dem aktuellen Sender','Slim “on air” bar at the bottom with the current station'))}</div></div>
  <div class="sgrp"><h4>${T(L('Ansicht','Display'))}</h4>${sw('compact',L('Kompakt-Modus','Compact mode'),L('Kleinere Karten, Texte auf 2 Zeilen gekürzt (antippen zum Aufklappen)','Smaller cards, text clipped to 2 lines (tap to expand)'))}${sw('noanim',L('Animationen aus','Animations off'),L('Kein Intro, keine Effekte – maximal schnell','No intro, no effects – max speed'))}${sw('launchPreview',L('Launch-Modus vorschauen','Preview launch mode'),L('Startseite so zeigen wie ab dem 19.11.','Show the home screen as it will look from 19 Nov'))}</div>
  <div class="sgrp"><h4>${T(L('Screenshot-Coach (KI)','Screenshot coach (AI)'))}</h4><div class="dim">${T(L('Dein eigener API-Schlüssel – bleibt nur auf diesem Gerät. Funktioniert in der Homescreen-App (GitHub), nicht in der Claude-Vorschau.','Your own API key – stays on this device only. Works in the home-screen app (GitHub), not in the Claude preview.'))}</div>
   <select class="fld" id="aiP"><option value="anthropic">Claude (Anthropic)</option><option value="openai">OpenAI</option><option value="gemini">Google Gemini</option></select>
@@ -2070,7 +2202,31 @@ Maximal 160 Wörter, mit kurzen Zwischenüberschriften.`;
  if(P==='openai'){const r=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'content-type':'application/json','authorization':'Bearer '+K},body:JSON.stringify({model:SET.aiModel||'gpt-4o',max_tokens:700,messages:[{role:'user',content:[{type:'text',text:prompt},{type:'image_url',image_url:{url:'data:image/jpeg;base64,'+b64}}]}]})});const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||r.status);return j.choices[0].message.content}
  const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${SET.aiModel||'gemini-2.5-flash'}:generateContent?key=${encodeURIComponent(K)}`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt},{inline_data:{mime_type:'image/jpeg',data:b64}}]}]})});const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||r.status);return j.candidates[0].content.parts.map(p=>p.text||'').join('')}
 /* ================= INIT ================= */
-function renderAll(){applySet();applyUI();renderTabs();renderHome();renderDream();renderVsys();renderHeat();renderPins();renderColl();renderCoach();renderMap();renderRegion();renderDistricts();renderCrew();renderCarCats();renderCars();renderGuns();renderMissions();renderSim();renderTips();renderSecrets();renderRadio();renderEditions();renderNews();renderEdBento();renderReal();$('#cdBox').dataset.mode='';renderCD();route();decorateFavs()}
+
+/* ===== time of day / weather / radio bar ===== */
+function todNow(){if(SET.tod)return ['','day','dusk','night'][SET.tod];const h=+new Date().toLocaleString('en-GB',{timeZone:'Europe/Berlin',hour:'2-digit',hour12:false});return (h>=8&&h<16)?'day':((h>=16&&h<20)||(h>=6&&h<8))?'dusk':'night'}
+function applyTod(){const t=todNow();['day','dusk','night'].forEach(x=>document.body.classList.toggle('tod-'+x,x===t))}
+setInterval(applyTod,5*60e3);
+const STORMRX=/hurri|sturm|storm|roxy|tropensturm/i;
+function stormNews(){const lim=Date.now()-7*864e5;return NEWSC.find(n=>Date.parse(n[1])>=lim&&STORMRX.test(n[4].de+' '+n[4].en+' '+n[5].de+' '+n[5].en))}
+let rainRun=0,rainShown=false;
+function applyWeather(){const sn=stormNews();const on=SET.wx===1||(SET.wx===0&&!!sn);document.body.classList.toggle('storm',on);
+ const red=SET.noanim||matchMedia('(prefers-reduced-motion:reduce)').matches;
+ if(on&&!red)startRain();else stopRain();
+ if(on&&sn&&!rainShown){rainShown=true;setTimeout(()=>{const tg=$('#panoTag');if(!tg)return;tg.textContent=T(L('🌀 Sturmwarnung · ','🌀 Storm warning · '))+(sn[4].de.includes('Roxy')||sn[5].de.includes('Roxy')?'Hurrikan Roxy':T(L('siehe News','see news')));tg.classList.add('on');setTimeout(()=>tg.classList.remove('on'),4200)},1800)}}
+function startRain(){if(rainRun)return;const c=$('#rain');const ctx=c.getContext('2d');let W,H,drops=[];const dpr=Math.min(2,devicePixelRatio||1);
+ const size=()=>{W=c.width=innerWidth*dpr;H=c.height=innerHeight*dpr;const n=Math.round(Math.min(140,innerWidth/5));drops=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,l:(10+Math.random()*18)*dpr,v:(7+Math.random()*7)*dpr,a:.12+Math.random()*.22}))};size();addEventListener('resize',size);
+ let last=0;const f=t=>{rainRun=requestAnimationFrame(f);if(document.hidden||t-last<33)return;last=t;ctx.clearRect(0,0,W,H);ctx.lineWidth=1*dpr;ctx.lineCap='round';
+  for(const d of drops){ctx.strokeStyle=`rgba(170,225,255,${d.a})`;ctx.beginPath();ctx.moveTo(d.x,d.y);ctx.lineTo(d.x-d.l*.28,d.y+d.l);ctx.stroke();d.y+=d.v;d.x-=d.v*.28;if(d.y>H){d.y=-d.l;d.x=Math.random()*W*1.2}}};rainRun=requestAnimationFrame(f)}
+function stopRain(){if(rainRun){cancelAnimationFrame(rainRun);rainRun=0}const c=$('#rain');if(c)c.getContext('2d').clearRect(0,0,c.width,c.height)}
+function renderRbar(){const b=$('#rbar');if(!b)return;document.body.classList.toggle('rbar',!!SET.rbar);if(!SET.rbar){b.innerHTML='';return}
+ const s=RADIO[station];const txt=`${s.n} · ${s.f} FM · 🎙️ ${s.h} · ${T(s.g)}`;
+ b.style.setProperty('--rc',s.c);
+ b.innerHTML=`<div class="eqm"><i></i><i></i><i></i><i></i></div><div class="lcd"><div class="k">${T(L('Auf Sendung','On air'))}</div><div style="overflow:hidden"><span class="mq run">${esc(txt)}&nbsp;&nbsp;•&nbsp;&nbsp;${esc(txt)}</span></div></div><button id="rbNext" aria-label="next">⏭</button><button id="rbX" aria-label="close">✕</button>`;
+ b.onclick=e=>{if(e.target.closest('button'))return;location.hash='radio'};
+ $('#rbNext').onclick=e=>{e.stopPropagation();station=(station+1)%RADIO.length;store.set('station',station);renderRbar();if($('#v-radio.on'))renderRadio()};
+ $('#rbX').onclick=e=>{e.stopPropagation();SET.rbar=false;saveSet();renderRbar();toast(T(L('Radio-Leiste aus – in den Einstellungen wieder einschalten','Radio bar off – turn it back on in settings')))};}
+function renderAll(){applySet();applyUI();renderTabs();renderHome();renderDream();renderVsys();renderHeat();renderPins();renderColl();renderCoach();renderMap();renderRegion();renderDistricts();renderCrew();renderCarCats();renderCars();renderGuns();renderMissions();renderSim();renderTips();renderSecrets();renderRadio();renderEditions();renderNews();renderEdBento();renderReal();applyTod();applyWeather();renderRbar();$('#cdBox').dataset.mode='';renderCD();route();decorateFavs()}
 $('#btnLang').onclick=()=>{LANG=LANG==='de'?'en':'de';store.set('lang',LANG);renderAll()};
 $('#btnSearch').onclick=openSearch;$('#btnSet').onclick=openSet;$('#btnSet2').onclick=openSet;$('#setClose').onclick=()=>$('#setp').classList.remove('on');$('#pinMode').onclick=()=>{pinMode=!pinMode;renderMap()};$('#btnSearch2').onclick=openSearch;$('#btnLang2').onclick=()=>$('#btnLang').click();$('#moreClose').onclick=()=>$('#more').classList.remove('on');
 $('#dashReset').onclick=()=>{store.set('dash2',WIDGETS);store.set('dcol2',WCOL0);renderHome();reveal();toast('↺')};$('#sclose').onclick=closeSearch;
