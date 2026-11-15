@@ -156,7 +156,7 @@ input.search:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,43,214
 .mapbox .plane .mraster{position:absolute;left:0;top:0;display:block;width:400%;height:400%;transform:scale(.25);transform-origin:0 0;border-radius:72px;background:linear-gradient(160deg,#16486f,#0a2443);box-shadow:0 0 0 4px rgba(255,255,255,.16),0 120px 240px rgba(0,0,0,.55)}
 .mapbox .mshadow{position:absolute;inset:-6% -8% -12%;background:radial-gradient(closest-side,rgba(0,0,0,.6),rgba(0,0,0,.35) 60%,transparent);transform:translateZ(-30px);pointer-events:none}
 .mapbox .mclouds{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transform:translateZ(18px);transition:opacity 1s;animation:mcl 70s linear infinite alternate;border-radius:18px}
-.mapbox.ready .mclouds{opacity:.42}
+.mapbox.ready .mclouds{opacity:.26}
 .mapbox.detail .mclouds{opacity:.12}
 @keyframes mcl{from{translate:-4% -2%}to{translate:4% 2%}}
 .mapbox .mload{position:absolute;inset:0;display:grid;place-content:center;gap:10px;justify-items:center;font-size:12.5px;color:rgba(255,255,255,.75);pointer-events:none;transition:opacity .5s}
@@ -1575,7 +1575,7 @@ h2.sec{font-family:Anton,Impact,sans-serif!important;font-weight:400;font-size:c
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 15.11. 11:46</div>
+    <div class="dim" style="margin-top:8px">App-Version 15.11. 12:05</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -2516,7 +2516,7 @@ let mapLeak=store.get('mapleak',true);
 const TOWERS=[[318,330,70],[326,342,96],[334,326,58],[322,356,46],[340,346,80],[312,344,38],[330,360,62],[344,330,44],[336,372,34],[308,320,30],[346,360,52]];
 function shade(hex,f){const n=parseInt(hex.slice(1),16);let r=n>>16,g=(n>>8)&255,b=n&255;r=Math.round(r*f);g=Math.round(g*f);b=Math.round(b*f);return `rgb(${r},${g},${b})`}
 let VIEW=Object.assign({z:1,r:-9,t:46,x:0,y:0},store.get('mapview',{}));if(!map3d)VIEW.t=0;let VIEWSAVE=null;
-const MAPV='v3';let MAPRASTER=null,MAPRASTERING=null;
+const MAPV='v4';let MAPRASTER=null,MAPRASTERING=null;
 function mapTerrainSVG(K){
  const R=REGIONS;
  const defs=`
@@ -2556,14 +2556,109 @@ function mapTerrainSVG(K){
  </svg>`;
 }
 function mapCloudSVG(){return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 520" width="840" height="1040"><filter id="c"><feTurbulence type="fractalNoise" baseFrequency=".016" numOctaves="4" seed="3"/><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.7 -.85"/></filter><rect width="420" height="520" filter="url(#c)"/></svg>`}
+/* ===== v18 procedural satellite map (own artwork, deterministic) ===== */
+async function genSatellite(K){
+ const W=420*K,H=520*K,LW=420,LH=520;
+ const yieldUI=()=>new Promise(r=>setTimeout(r,0));
+ // --- value noise from a 256² tile ---
+ let sd=1337;const rnd=()=>(sd=(sd*16807)%2147483647)/2147483647;
+ const N=256,NT=new Float32Array(N*N);for(let i=0;i<N*N;i++)NT[i]=rnd();
+ const vn=(x,y)=>{const xi=Math.floor(x),yi=Math.floor(y);let fx=x-xi,fy=y-yi;fx=fx*fx*(3-2*fx);fy=fy*fy*(3-2*fy);const x0=xi&255,y0=yi&255,x1=(x0+1)&255,y1=(y0+1)&255;const a=NT[y0*N+x0],b=NT[y0*N+x1],c=NT[y1*N+x0],d=NT[y1*N+x1];return a+(b-a)*fx+(c-a)*fy+(a-b-c+d)*fx*fy};
+ const fbm=(x,y,o)=>{let s=0,a=.5,f=1,n=0;for(let i=0;i<o;i++){s+=a*vn(x*f+i*31.7,y*f+i*17.3);n+=a;a*=.5;f*=2.03}return s/n};
+ const hash=(a,b)=>{let h=(a*374761393+b*668265263)|0;h=(h^(h>>>13))*1274126177|0;return((h^(h>>>16))>>>0)/4294967295};
+ // --- low-res masks (base units) ---
+ const mk=(fn)=>{const c=document.createElement('canvas');c.width=LW;c.height=LH;const x=c.getContext('2d');x.fillStyle='#fff';fn(x);return x.getImageData(0,0,LW,LH).data};
+ const P=k=>new Path2D(RPATH[k]);
+ const ORDER=['kalaga','gell','ambro','grass','vice','keys'];
+ const landRaw=mk(x=>{ORDER.forEach(k=>x.fill(P(k)));x.globalCompositeOperation='destination-out';x.beginPath();x.ellipse(255,215,26,20,0,0,7);x.fill();
+   // Biscayne-style bay behind a barrier island
+   x.beginPath();x.moveTo(337,246);x.quadraticCurveTo(349,296,346,330);x.quadraticCurveTo(343,372,331,398);x.lineTo(325,396);x.quadraticCurveTo(336,368,338,330);x.quadraticCurveTo(340,296,330,250);x.closePath();x.fill();});
+ const regW={};ORDER.forEach(k=>{const d=mk(x=>x.fill(P(k)));const a=new Float32Array(LW*LH);for(let i=0;i<LW*LH;i++)a[i]=d[i*4+3]/255;regW[k]=a});
+ const blur=(src,r)=>{const t=new Float32Array(LW*LH),o=new Float32Array(LW*LH),n=2*r+1;
+  for(let y=0;y<LH;y++){let s=0;for(let x=-r;x<=r;x++)s+=src[y*LW+Math.min(LW-1,Math.max(0,x))];for(let x=0;x<LW;x++){t[y*LW+x]=s/n;s+=src[y*LW+Math.min(LW-1,x+r+1)]-src[y*LW+Math.max(0,x-r)]}}
+  for(let x=0;x<LW;x++){let s=0;for(let y=-r;y<=r;y++)s+=t[Math.min(LH-1,Math.max(0,y))*LW+x];for(let y=0;y<LH;y++){o[y*LW+x]=s/n;s+=t[Math.min(LH-1,y+r+1)*LW+x]-t[Math.max(0,y-r)*LW+x]}}return o};
+ const land0=new Float32Array(LW*LH);for(let i=0;i<LW*LH;i++)land0[i]=landRaw[i*4+3]/255;
+ const mS=blur(blur(land0,2),2),mL=blur(blur(land0,9),9),mXL=blur(blur(land0,22),22);
+ const RB={},RBL={};ORDER.forEach(k=>{RB[k]=blur(regW[k],3);RBL[k]=blur(blur(regW[k],12),12)});
+ const bil=(a,x,y)=>{x=Math.max(0,Math.min(LW-1.001,x));y=Math.max(0,Math.min(LH-1.001,y));const xi=x|0,yi=y|0,fx=x-xi,fy=y-yi,i=yi*LW+xi;return a[i]*(1-fx)*(1-fy)+a[i+1]*fx*(1-fy)+a[i+LW]*(1-fx)*fy+a[i+LW+1]*fx*fy};
+ await yieldUI();
+ // --- palette helpers ---
+ const mix=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];
+ const C={deep:[8,34,60],mid:[13,56,90],shal:[30,128,140],shal2:[88,182,176],sand:[214,201,160],wet:[166,160,128],
+  forest:[[34,52,30],[46,66,38],[62,80,48]],rock:[128,122,104],
+  swamp:[[78,90,56],[62,80,52],[112,112,72]],swampW:[38,62,62],
+  ind:[[112,108,92],[92,90,78],[140,134,116],[78,92,64]],
+  fields:[[112,126,72],[92,110,62],[140,136,92],[158,146,108],[84,100,58],[122,114,82],[100,116,74],[132,128,96]],
+  roof:[[150,155,158],[188,186,178],[118,126,128],[205,200,190],[96,102,108],[170,120,96],[220,218,212]],asph:[78,82,86],park:[70,110,58]};
+ const GT=new Uint8ClampedArray(256);for(let i=0;i<256;i++)GT[i]=Math.round(255*Math.pow(i/255,.84));
+ const img=new ImageData(W,H),D=img.data;
+ const cs=Math.cos(.14),sn=Math.sin(.14);
+ for(let py=0;py<H;py++){
+  const y=py/K;
+  for(let px=0;px<W;px++){
+   const x=px/K,o=(py*W+px)*4;
+   const n1=fbm(x*.045,y*.045,4),n2=fbm(x*.16,y*.16,3),nh=vn(x*.9,y*.9);
+   const kz=y>420?.15:1,wx0=((fbm(x*.02+11,y*.02+3,3)-.5)*26+(n2-.5)*5)*kz,wy0=((fbm(x*.02+7,y*.02+19,3)-.5)*26+(n2-.5)*5)*kz;let coast=bil(mS,x+wx0,y+wy0)+(n1-.5)*.34+(n2-.5)*.16;
+   if(y>418){const kb=bil(RB.keys,x,y);if(kb>.02)coast-=Math.max(0,Math.sin(x*.21+fbm(x*.05,y*.05,2)*5))*.32*Math.min(1,kb*3)}
+   let col;
+   if(coast<.5){ // water
+    const shelf=x<300?1.7:1.05,sh=Math.min(1,bil(mL,x,y)*shelf+(n1-.5)*.45+(n2-.5)*.2),xl=bil(mXL,x,y);
+    col=mix(C.deep,C.mid,Math.min(1,xl*2.2+(n1-.5)*.4));
+    if(sh>.08)col=mix(col,C.shal,Math.min(.92,(sh-.08)*1.1));
+    if(coast>.44)col=mix(col,C.shal2,(coast-.44)/.06*.75);
+    // sandbars & reefs near the keys
+    if(y>420&&sh>.25&&n2>.62)col=mix(col,C.shal2,.35);
+    const wv=vn(x*.35+y*.08,y*1.6)*.06;col=[col[0]*(.97+wv),col[1]*(.97+wv),col[2]*(.97+wv)];
+   }else{
+    // biome via domain-warped region weights
+    const bwx=(fbm(x*.035+21,y*.035+2,3)-.5)*44+(vn(x*.22,y*.22)-.5)*7,bwy=(fbm(x*.035+3,y*.035+27,3)-.5)*44+(vn(x*.22+9,y*.22)-.5)*7,wx=x+bwx,wy=y+bwy;let best='ambro',bw=-1;for(const k of ORDER){const v=bil(RB[k],wx,wy);if(v>bw){bw=v;best=k}}if(bw<.08){bw=-1;for(const k of ORDER){const v=bil(RBL[k],x,y);if(v>bw){bw=v;best=k}}}
+    const e=fbm(x*.045+5,y*.045+9,5),e2=fbm(x*.045+5.3,y*.045+9.3,5);
+    let relief=best==='kalaga'?2.6:best==='gell'?.55:best==='ambro'?.18:.1;
+    const hs=Math.max(.6,Math.min(1.28,1+(e-e2)*relief*6));
+    if(best==='kalaga'){const f=C.forest[(n2*2.99)|0];col=mix(f,C.forest[2],nh*.5);if(e>.62)col=mix(col,C.rock,Math.min(1,(e-.62)*5));if(vn(x*2.2,y*2.2)>.78)col=mix(col,[18,34,18],.5)}
+    else if(best==='grass'){col=mix(C.swamp[(n2*2.99)|0],C.swamp[2],nh*.35);const ch=Math.abs(fbm(x*.07+3,y*.11,3)-.5);if(ch<.035)col=mix(col,C.swampW,1-ch/.035);else if(vn(x*.5,y*.5)>.72)col=mix(col,C.swampW,.45)}
+    else if(best==='gell'){col=mix([70,84,52],[104,104,70],n2);col=mix(col,[48,64,40],vn(x*1.6,y*1.6)*.55);const tw=fbm(x*.06+40,y*.06,3);if(tw>.62){const u=Math.floor(x/2.2),v=Math.floor(y/1.8),h=hash(u,v);const t2=(x%2.2)<.45||(y%1.8)<.4;col=t2?C.asph:mix(C.ind[(h*3.99)|0],C.roof[(h*6.99)|0],.4)}else if(tw>.57)col=mix(col,[120,114,90],.45)}
+    else if(best==='ambro'){const zr=(hash(Math.floor(x/40),Math.floor(y/40))-.5)*.5,zc=Math.cos(.14+zr),zs=Math.sin(.14+zr),u=x*zc+y*zs,v=-x*zs+y*zc,cw=5+hash(Math.floor(v/4.5),3)*4.5,iu=Math.floor(u/cw),iv=Math.floor(v/4.5),h=hash(iu,iv);
+     col=C.fields[(h*7.99)|0];const fu=(u/cw)-iu,fv=(v/4.5)-iv;if(fu<.06||fv<.08)col=mix(col,[176,166,124],.6);col=mix(col,[col[0]*.85,col[1]*.92,col[2]*.85],vn(x*1.4,y*1.4));
+     if(h>.93){const cx=(iu+.5)*cw,cy=(iv+.5)*4.5,du=u-cx,dv=v-cy;if(du*du+dv*dv<4)col=[120,138,74]}
+     const town=fbm(x*.07+80,y*.07+5,3);if(town>.71){const g2=(x%1.6)<.32||(y%1.6)<.32;col=g2?C.asph:mix(C.roof[(hash(Math.floor(x/1.6),Math.floor(y/1.6))*6.99)|0],[90,112,70],.25)}}
+    else if(best==='vice'){const dt=Math.hypot(x-330,y-332),u=x*Math.cos(.05)+y*Math.sin(.05),v=-x*Math.sin(.05)+y*Math.cos(.05),bs=dt<22?2.6:3.4,iu=Math.floor(u/bs),iv=Math.floor(v/bs),fu=u/bs-iu,fv=v/bs-iv,h=hash(iu,iv);
+     const av=(iu%6===0)||(iv%7===0);const st=av?.26:.17;
+     if(fu<st||fv<st)col=av?[96,98,100]:C.asph;
+     else if(h<.06)col=C.park;
+     else{const sub=hash(Math.floor(u*1.1),Math.floor(v*1.1));col=C.roof[(sub*6.99)|0];if(dt<22){col=mix(col,[226,228,230],.25);if(fu>.75||fv>.75)col=mix(col,[40,44,50],.55)}if(vn(x*.8,y*.8)>.62&&dt>26)col=mix(col,[72,104,60],.5);if(vn(x*3,y*3)>.8)col=mix(col,[64,96,54],.6)}}
+    else{ // keys
+     col=mix([86,112,62],[200,190,146],Math.min(1,Math.max(0,(.62-coast)*6)));if(vn(x*.7,y*.7)>.6)col=mix(col,[58,92,52],.5)}
+    // beach band
+    const bb=best==='vice'?.035:.05;if(coast<.5+bb&&best!=='kalaga')col=mix(C.sand,col,(coast-.5)/bb);
+    else if(coast<.5+bb)col=mix(C.wet,col,(coast-.5)/bb);
+    col=[col[0]*hs,col[1]*hs,col[2]*hs];
+   }
+   const g=(nh-.5)*10;D[o]=GT[Math.max(0,Math.min(255,col[0]*1.06+g))|0];D[o+1]=GT[Math.max(0,Math.min(255,col[1]*1.06+g))|0];D[o+2]=GT[Math.max(0,Math.min(255,col[2]*1.04+g))|0];D[o+3]=255;
+  }
+  if((py&63)===63)await yieldUI();
+ }
+ const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');x.putImageData(img,0,0);
+ // lake rim & roads (vector on top)
+ x.scale(K,K);x.lineCap='round';x.lineJoin='round';
+ const road=(d,w,col)=>{const p=new Path2D(d);x.strokeStyle='rgba(30,32,34,.55)';x.lineWidth=w+.9;x.stroke(p);x.strokeStyle=col;x.lineWidth=w;x.stroke(p)};
+ road('M60 128 Q120 132 170 140 T250 160 Q290 178 300 200 Q318 250 325 300 T330 380',1.5,'#c9c4b4');
+ road('M200 300 Q232 318 260 330 T310 330',1.1,'#bdb8a8');road('M122 112 Q160 150 176 170 T196 270',.9,'#b4ae9c');road('M292 122 Q300 160 304 190',.9,'#b4ae9c');
+ road('M282 432 C262 448 236 458 206 466 C180 472 156 470 136 464',.7,'#d8d2c0');road('M276 426 L300 404',1,'#c9c4b4');
+ [[312,300,345,298],[318,334,344,332],[322,368,340,368]].forEach(([a,b,c2,d])=>road(`M${a} ${b} L${c2} ${d}`,.8,'#d0cbbb'));
+ // soft atmospheric vignette
+ x.setTransform(1,0,0,1,0,0);const gr=x.createRadialGradient(W*.55,H*.45,W*.2,W*.5,H*.5,W*.95);gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(1,'rgba(0,10,25,.22)');x.fillStyle=gr;x.fillRect(0,0,W,H);
+ return c;
+}
+
 function svgToCanvas(svg,w,h){return new Promise((ok,no)=>{const img=new Image();const u=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));img.onload=()=>{const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);URL.revokeObjectURL(u);ok(c)};img.onerror=e=>{URL.revokeObjectURL(u);no(e)};img.src=u})}
 async function getMapRaster(){
  if(MAPRASTER)return MAPRASTER;if(MAPRASTERING)return MAPRASTERING;
  MAPRASTERING=(async()=>{
-  const K=Math.min(5,Math.max(3,Math.round((devicePixelRatio||2)*1.7)));const key=`/__leo_map_${MAPV}_${K}.png`;
+  const K=Math.min(4,Math.max(3,Math.round((devicePixelRatio||2)*1.7)));const key=`/__leo_map_${MAPV}_${K}.png`;
   let cache=null;try{cache=await caches.open('leo-map')}catch(e){}
   if(cache){try{const r=await cache.match(key);if(r){const bm=await createImageBitmap(await r.blob());const c=document.createElement('canvas');c.width=bm.width;c.height=bm.height;c.getContext('2d').drawImage(bm,0,0);MAPRASTER={map:c,clouds:await svgToCanvas(mapCloudSVG(),840,1040)};return MAPRASTER}}catch(e){}}
-  const map=await svgToCanvas(mapTerrainSVG(K),420*K,520*K);
+  let map;try{map=await genSatellite(K)}catch(e){map=await svgToCanvas(mapTerrainSVG(K),420*K,520*K)}
   const clouds=await svgToCanvas(mapCloudSVG(),840,1040);
   MAPRASTER={map,clouds};
   if(cache)try{map.toBlob(b=>{if(b)cache.put(key,new Response(b)).catch(()=>{})},'image/png')}catch(e){}
