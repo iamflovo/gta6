@@ -1601,7 +1601,6 @@ body[data-v=home] #wstars.on{opacity:1;transform:none}
     <div id="meTop"></div>
     <div class="card meSec" id="meShare"></div>
     <div class="card meSec" id="meCards"></div>
-    <div class="card meSec" id="meQuiz"><h3 class="qzH"></h3><div id="quizBox"></div></div>
     <div class="card meSec" id="meDiary"><h3 class="dyH"></h3><div id="diaryBox"></div></div>
     <div class="card meSec" id="meMoney"><h3 class="mnH"></h3><div id="moneyBox"></div></div>
   </section>
@@ -1670,7 +1669,7 @@ body[data-v=home] #wstars.on{opacity:1;transform:none}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 15.11. 15:53</div>
+    <div class="dim" style="margin-top:8px">App-Version 15.11. 16:21</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -3357,41 +3356,15 @@ async function storyCard(kind,opt){await Promise.all(['400 120px Anton','400 80p
  const line=(t,y,sz,col)=>{x.font=`600 ${sz}px "Barlow Condensed",sans-serif`;x.fillStyle=col||'#fff';x.fillText(t,540,y)};
  if(kind==='garage'){head(T(L('MEINE','MY')),330,150);head(T(L('TRAUMGARAGE','DREAM GARAGE')),470,130);const d=store.get('dream',[]);const top=photo?1460:560;
   (d.length?d:[T(L('Noch leer – ab in die Garage!','Still empty – hit the garage!'))]).forEach((n,i)=>{const y=(kind==='garage'?600:top)+i*112;x.fillStyle='rgba(11,4,24,.62)';x.beginPath();x.roundRect(140,y,800,88,24);x.fill();x.strokeStyle='rgba(255,255,255,.18)';x.stroke();x.font='700 46px "Barlow Condensed",sans-serif';x.fillStyle='#fff';x.textAlign='left';x.fillText(`${i+1}  ${n}`,180,y+60);x.textAlign='center'})}
- else if(kind==='progress'){head(T(L('MEIN','MY')),330,150);head('LEONIDA',480,170);const p=getPlan();const dn=ACTV.filter(a=>p[a[0]]==='done').length;const pins=store.get('pins',[]).length,qb=store.get('quizBest',0),dg=store.get('dream',[]).length;
-  [[dn+'/'+ACTV.length,T(L('Aktivitäten erledigt','activities done'))],[pins,T(L('Pins gesetzt','pins placed'))],[dg+'/6',T(L('Autos in der Traumgarage','cars in dream garage'))],[qb+'/'+QUIZ.length,T(L('Quiz-Bestwert','quiz best'))]].forEach(([v,l],i)=>{const y=600+i*170;x.fillStyle='rgba(11,4,24,.6)';x.beginPath();x.roundRect(160,y,760,140,30);x.fill();x.font='400 80px Anton,Impact,sans-serif';x.fillStyle='#ffd23f';x.fillText(String(v),540,y+85);x.font='600 34px "Barlow Condensed",sans-serif';x.fillStyle='#e8dcff';x.fillText(l.toUpperCase(),540,y+126)})}
+ else if(kind==='progress'){head(T(L('MEIN','MY')),330,150);head('LEONIDA',480,170);const p=getPlan();const dn=ACTV.filter(a=>p[a[0]]==='done').length;const pins=store.get('pins',[]).length,dy=store.get('diary',[]).length,dg=store.get('dream',[]).length;
+  [[dn+'/'+ACTV.length,T(L('Aktivitäten erledigt','activities done'))],[pins,T(L('Pins gesetzt','pins placed'))],[dg+'/6',T(L('Autos in der Traumgarage','cars in dream garage'))],[dy,T(L('Tagebuch-Einträge','diary entries'))]].forEach(([v,l],i)=>{const y=600+i*170;x.fillStyle='rgba(11,4,24,.6)';x.beginPath();x.roundRect(160,y,760,140,30);x.fill();x.font='400 80px Anton,Impact,sans-serif';x.fillStyle='#ffd23f';x.fillText(String(v),540,y+85);x.font='600 34px "Barlow Condensed",sans-serif';x.fillStyle='#e8dcff';x.fillText(l.toUpperCase(),540,y+126)})}
  else if(kind==='countdown'){const ms=RELEASE-Date.now();if(ms>0){const dd=Math.ceil(ms/864e5);head(String(dd),640,420);head(T(L(dd===1?'TAG':'TAGE',dd===1?'DAY':'DAYS')),800,150);script(T(L('bis Leonida','until Leonida')),920,110)}else{head(T(L('ICH BIN','I’M IN')),560,170);head('IN LEONIDA',740,150);script('Grand Theft Auto VI',880,100)}}
- else if(kind==='quiz'){head('QUIZ',400,220);head(`${opt.score}/${QUIZ.length}`,700,260);script(T(L(opt.score>=QUIZ.length-2?'Leonida-Profi!':opt.score>=QUIZ.length/2?'Gar nicht schlecht':'Da geht noch was','Leonida pro!')),850,100)}
  else if(kind==='photo'){head(opt.title||'VICE CITY',1500,150);script(T(L('Mein Leonida','My Leonida')),1640,90)}
  line('iamflovo.github.io/gta6',1830,40,'rgba(255,255,255,.75)');x.font='400 24px Inter,sans-serif';x.fillStyle='rgba(255,255,255,.5)';x.fillText(T(L('Inoffizieller Fan-Guide','Unofficial fan guide'))+(photo&&opt.off?' · Bild © Rockstar Games':''),540,1870);
  return c}
 async function showCard(kind,opt){const out=$('#scOut');out.innerHTML=`<div class="dim">${T(L('Bild wird erstellt …','Creating image …'))}</div>`;const c=await storyCard(kind,opt);
  c.toBlob(b=>{if(!b)return;const u=URL.createObjectURL(b);out.innerHTML=`<img src="${u}" class="scImg" alt=""><div class="shBtns"><button class="cta" id="scShare">${icn('share-2')} ${T(L('Teilen','Share'))}</button><a class="ib" href="${u}" download="leonida-${kind}.png">${icn('download')} ${T(L('Speichern','Save'))}</a></div>`;
   $('#scShare').onclick=async()=>{const f=new File([b],`leonida-${kind}.png`,{type:'image/png'});try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'Leonida Pro Guide'});return}}catch(e){if(e&&e.name==='AbortError')return}const a=document.createElement('a');a.href=u;a.download=f.name;a.click()}},'image/png')}
-/* --- quiz (confirmed facts only) --- */
-const QUIZ=[
- [L('Wann erscheint GTA VI?','When does GTA VI launch?'),[L('19. November 2026','19 November 2026'),L('26. Mai 2026','26 May 2026'),L('17. September 2026','17 September 2026'),L('Frühjahr 2027','Spring 2027')],0],
- [L('Wie heißen die beiden Hauptfiguren?','What are the two leads called?'),['Jason Duval & Lucia Caminos','Jason Diaz & Lucia Ortega','Jayden Cruz & Luna Caminos','Jason Vance & Lucia Duval'],0],
- [L('Wie heißt der Bundesstaat im Spiel?','What is the in-game state called?'),['Leonida','San Andreas','Gloriana','Floridia'],0],
- [L('Welche echte Stadt steckt hinter Vice City?','Which real city is Vice City based on?'),['Miami','Tampa','Orlando','New Orleans'],0],
- [L('Wie viele Fahndungssterne gibt es wieder?','How many wanted stars are back?'),['6','5','4','7'],0],
- [L('Wie viel größer ist Leonida laut Rockstar als die Karte von GTA V?','How much bigger than GTA V’s map is Leonida, per Rockstar?'),[L('Etwa doppelt so groß','About twice the size'),L('Gleich groß','Same size'),L('Fünfmal so groß','Five times'),L('Etwas kleiner','A bit smaller')],0],
- [L('Wie viele Tierarten soll es laut Game Informer geben?','How many animal species, per Game Informer?'),[L('Über 170','Over 170'),L('Rund 40','About 40'),L('Über 500','Over 500'),L('Genau 100','Exactly 100')],0],
- [L('Welche Gegend ist den Everglades nachempfunden?','Which region is modelled on the Everglades?'),['Grassrivers','Ambrosia','Port Gellhorn','Mount Kalaga'],0],
- [L('Wo lief der „Extended Look“ zuerst?','Where did the “Extended Look” premiere?'),['Netflix','Twitch','YouTube','PlayStation Showcase'],0],
- [L('Wer hat den Song aus dem Pre-Load-Trailer, „Blood In Your Eyes“?','Who sings “Blood In Your Eyes” from the pre-load trailer?'),['Tove Lo','Dua Lipa','Rosalía','Billie Eilish'],0],
- [L('Wie heißt der Alligator aus der Zeichentrickserie im Spiel?','What is the cartoon gator in the game called?'),['Macca','Gator Joe','Chomp','Kalaga'],0],
- [L('Was kostet die Ultimate Edition?','How much is the Ultimate Edition?'),['99,99 €','79,99 €','119,99 €','89,99 €'],0],
- [L('Gegen welches Team spielen die Miami HEAT am 18.11. als „Vice City“?','Who do the Miami HEAT face as “Vice City” on 18 Nov?'),['Milwaukee Bucks','Boston Celtics','New York Knicks','Orlando Magic'],0],
- [L('Wer komponierte den Original-Score?','Who composed the original score?'),['Justice','Daft Punk','Hans Zimmer','The Chemical Brothers'],0]];
-let qz={i:0,score:0,ans:null,order:null};
-function renderQuiz(){const b=$('#quizBox');if(!b)return;const best=store.get('quizBest',0);
- if(!qz.order)qz.order=QUIZ.map((q,i)=>({i,opts:q[1].map((o,j)=>j).sort(()=>Math.random()-.5)})).sort(()=>Math.random()-.5);
- if(qz.i>=QUIZ.length){if(qz.score>best)store.set('quizBest',qz.score);b.innerHTML=`<div class="qzEnd"><div class="qzScore">${qz.score}<span>/${QUIZ.length}</span></div><div class="dim">${T(L('Bestwert','Best'))}: ${Math.max(best,qz.score)}</div><div class="shBtns"><button class="cta" id="qzAgain">${T(L('Nochmal','Again'))}</button><button class="ib" id="qzCard">${icn('image-down')} ${T(L('Als Story-Bild','As story image'))}</button></div></div>`;
-  $('#qzAgain').onclick=()=>{qz={i:0,score:0,ans:null,order:null};renderQuiz()};$('#qzCard').onclick=()=>{document.getElementById('meCards').scrollIntoView({behavior:'smooth'});showCard('quiz',{score:qz.score})};return}
- const o=qz.order[qz.i],q=QUIZ[o.i];
- b.innerHTML=`<div class="qzTop"><span>${T(L('Frage','Question'))} ${qz.i+1}/${QUIZ.length}</span><span>${icn('star','fill')} ${qz.score}</span></div><div class="qzBar"><i style="width:${qz.i/QUIZ.length*100}%"></i></div><div class="qzQ">${T(q[0])}</div><div class="qzA">${o.opts.map(j=>`<button data-j="${j}" class="${qz.ans===null?'':j===q[2]?'ok':j===qz.ans?'no':''}" ${qz.ans!==null?'disabled':''}>${esc(T(q[1][j]))}</button>`).join('')}</div>${qz.ans!==null?`<button class="cta qzNext">${qz.i+1<QUIZ.length?T(L('Weiter','Next')):T(L('Ergebnis','Result'))} →</button>`:''}`;
- b.querySelectorAll('[data-j]').forEach(x=>x.onclick=()=>{qz.ans=+x.dataset.j;if(qz.ans===q[2])qz.score++;if(navigator.vibrate&&SET.haptic!==false)navigator.vibrate(qz.ans===q[2]?12:[20,40,20]);renderQuiz()});
- const nx=b.querySelector('.qzNext');if(nx)nx.onclick=()=>{qz.i++;qz.ans=null;renderQuiz()}}
 /* --- diary --- */
 let dyWho='both';
 function renderDiary(){const b=$('#diaryBox');if(!b)return;const L2=store.get('diary',[]);const today=new Date().toISOString().slice(0,10);
@@ -3424,8 +3397,8 @@ function renderMoney(){const b=$('#moneyBox');if(!b)return;const M=store.get('mo
  b.querySelectorAll('[data-ld]').forEach(x=>x.onclick=()=>{const M2=store.get('money',{log:[],goals:[]});M2.log=M2.log.filter(e=>String(e.ts)!==x.dataset.ld);store.set('money',M2);renderMoney()})}
 /* --- "Mein Leonida" page --- */
 function renderMe(){const top=$('#meTop');if(!top)return;
- top.innerHTML=`<h2 class="sec">${T(L('Mein Leonida','My Leonida'))}</h2><p class="lead">${T(L('Dein persönlicher Bereich: Daten mit Kollegen teilen, Story-Bilder bauen, Quiz, Spieltagebuch und Geld-Planer. Alles bleibt auf deinem Gerät.','Your personal space: share data with friends, build story images, quiz, play diary and money planner. Everything stays on your device.'))}</p>
- <div class="chips meNav">${[['meShare','share-2',L('Teilen','Share')],['meCards','image-down',L('Story-Bilder','Story images')],['meQuiz','brain','Quiz'],['meDiary','notebook-pen',L('Tagebuch','Diary')],['meMoney','wallet',L('Geld','Money')]].map(([id,ic,l])=>`<span class="chip" data-go="${id}">${icn(ic)} ${T(l)}</span>`).join('')}</div>`;
+ top.innerHTML=`<h2 class="sec">${T(L('Mein Leonida','My Leonida'))}</h2><p class="lead">${T(L('Dein persönlicher Bereich: Daten mit Kollegen teilen, Story-Bilder bauen, Spieltagebuch und Geld-Planer. Alles bleibt auf deinem Gerät.','Your personal space: share data with friends, build story images, play diary and money planner. Everything stays on your device.'))}</p>
+ <div class="chips meNav">${[['meShare','share-2',L('Teilen','Share')],['meCards','image-down',L('Story-Bilder','Story images')],['meDiary','notebook-pen',L('Tagebuch','Diary')],['meMoney','wallet',L('Geld','Money')]].map(([id,ic,l])=>`<span class="chip" data-go="${id}">${icn(ic)} ${T(l)}</span>`).join('')}</div>`;
  top.querySelectorAll('[data-go]').forEach(c=>c.onclick=()=>document.getElementById(c.dataset.go).scrollIntoView({behavior:'smooth',block:'start'}));
  $('#meShare').innerHTML=`<h3>${icn('qr-code')} ${T(L('Mit Kollegen teilen','Share with friends'))}</h3><p class="dim">${T(L('Schick deine Garage, Pins oder deinen Plan als Link oder QR-Code. Kein Konto, kein Server.','Send your garage, pins or plan as a link or QR code. No account, no server.'))}</p><div class="chips">${SHK.map(([k,ic,l])=>`<span class="chip" data-sh="${k}">${icn(ic)} ${T(l)}</span>`).join('')}</div><div id="shOut"></div>`;
  $('#meShare').querySelectorAll('[data-sh]').forEach(c=>c.onclick=()=>{$('#meShare').querySelectorAll('[data-sh]').forEach(y=>y.classList.toggle('on',y===c));makeShare(c.dataset.sh)});
@@ -3433,8 +3406,8 @@ function renderMe(){const top=$('#meTop');if(!top)return;
  $('#meCards').innerHTML=`<h3>${icn('image-down')} ${T(L('Story-Bilder','Story images'))}</h3><p class="dim">${T(L('Fertige Bilder im Vice-City-Look für WhatsApp-Status oder Instagram-Story.','Ready-made Vice City images for WhatsApp status or Instagram stories.'))}</p><div class="chips">${[['countdown','clock',L('Countdown','Countdown')],['garage','car',L('Traumgarage','Dream garage')],['progress','trophy',L('Mein Fortschritt','My progress')]].map(([k,ic,l])=>`<span class="chip" data-sc="${k}">${icn(ic)} ${T(l)}</span>`).join('')}</div>${own.length?`<div class="dim" style="margin:8px 0 4px">${T(L('Mit eigenem Foto:','With your own photo:'))}</div><div class="scPick">${own.map(o=>`<img src="${gUrl(o,'thumb')}" data-scp="${o.id}" alt="">`).join('')}</div>`:''}<div id="scOut"></div>`;
  $('#meCards').querySelectorAll('[data-sc]').forEach(c=>c.onclick=()=>showCard(c.dataset.sc));
  $('#meCards').querySelectorAll('[data-scp]').forEach(im=>im.onclick=()=>{const o=GAL.find(g=>g.id===im.dataset.scp);if(o)showCard('photo',{img:gUrl(o,'full'),title:'VICE CITY'})});
- $('#meQuiz .qzH').innerHTML=icn('brain')+' '+T(L('Leonida-Quiz','Leonida quiz'));$('#meDiary .dyH').innerHTML=icn('notebook-pen')+' '+T(L('Spieltagebuch','Play diary'));$('#meMoney .mnH').innerHTML=icn('wallet')+' '+T(L('Geld-Planer','Money planner'));
- renderQuiz();renderDiary();renderMoney()}
+ $('#meDiary .dyH').innerHTML=icn('notebook-pen')+' '+T(L('Spieltagebuch','Play diary'));$('#meMoney .mnH').innerHTML=icn('wallet')+' '+T(L('Geld-Planer','Money planner'));
+ renderDiary();renderMoney()}
 /* --- map night & storm --- */
 let mapNight=store.get('mapnight',0); // 0 auto,1 day,2 night
 function applyMapNight(){const b=$('#mapbox');if(!b)return;const n=mapNight===2||(mapNight===0&&document.body.classList.contains('tod-night'));b.classList.toggle('night',n);const bt=$('#mnBtn');if(bt){bt.innerHTML=icn(n?'moon':'sun');bt.title=T([L('Tag/Nacht: Auto','Day/night: auto'),L('Tag','Day'),L('Nacht','Night')][mapNight]);bt.classList.toggle('on',mapNight!==0)}}
