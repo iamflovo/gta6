@@ -268,7 +268,7 @@ body.noanim #pano{transition:none}
 .nwCard .tx{font-size:13.5px;color:var(--mut)}
 .nwCard .ft{margin-top:auto;display:flex;align-items:center;gap:8px;padding-top:4px}
 .nwCard .ft a{font-weight:800;font-size:12.5px;text-decoration:none}
-.nwCard .trTag{display:inline-flex;align-items:center;gap:3px;font:700 10.5px/1 var(--fm,monospace);letter-spacing:.06em;color:var(--cy,#22e7ff);border:1px solid rgba(34,231,255,.35);border-radius:999px;padding:3px 7px}.nwCard .trTag .ic{width:11px;height:11px}.nwCard .ft a.trOrig{font-weight:600;font-size:11.5px;color:var(--mut);text-decoration:underline}
+.nwCard .trTag{display:inline-flex;align-items:center;gap:3px;font:700 10.5px/1 var(--fm,monospace);letter-spacing:.06em;color:var(--cy,#22e7ff);border:1px solid rgba(34,231,255,.35);border-radius:999px;padding:3px 7px}.nwCard .trTag.off{color:var(--mut);border-color:var(--line)}.nwCard .trTag .ic{width:11px;height:11px}.nwCard .ft a.trOrig{font-weight:600;font-size:11.5px;color:var(--mut);text-decoration:underline}
 .nwCard.read{opacity:.62}
 .nwCard .rd{margin-left:auto;background:none;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:11.5px;color:var(--mut)}
 .nwHub{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}
@@ -1702,7 +1702,7 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 16.11. 10:38</div>
+    <div class="dim" style="margin-top:8px">App-Version 16.11. 11:00</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -2590,7 +2590,7 @@ function renderNews(){
 function renderNewsList(){
  const q=($('#nwQ').value||'').trim().toLowerCase();const rd=store.get('nwread',{});
  const list=NEWSC.filter(n=>(NWF==='all'||NWSRC[n[2]][2]===NWF)&&(!q||(T(n[4])+' '+T(n[5])+' '+NWSRC[n[2]][0]).toLowerCase().includes(q)));
- $('#nwList').innerHTML=list.length?list.map(n=>`<article class="nwCard ${rd[n[0]]?'read':''}"><div class="nwMeta">${nwSrc(n[2])}<span class="d">${nwDate(n[1])}</span>${nwIsNew(n)?`<span class="nwNew">${LANG==='de'?'NEU':'NEW'}</span>`:''}<span class="sp" style="flex:1"></span>${badge(n[3])}</div><b>${T(n[4])}</b><div class="tx">${T(n[5])}</div><div class="ft">${n[6]?`<a href="${n[6]}" target="_blank" rel="noopener" data-nid="${n[0]}">${T(UI.readArt)}</a>${trOn(n[6])?`<span class="trTag" title="Google Übersetzer">${icn('globe')}DE</span><a class="trOrig" href="${n[6]}" target="_blank" rel="noopener" data-orig data-nid="${n[0]}">Original</a>`:''}`:''}${rd[n[0]]?'':`<button class="rd" data-r="${n[0]}">✓ ${T(UI.markRead)}</button>`}</div></article>`).join(''):`<div class="muted">${T(UI.noRes)}</div>`;
+ $('#nwList').innerHTML=list.length?list.map(n=>`<article class="nwCard ${rd[n[0]]?'read':''}"><div class="nwMeta">${nwSrc(n[2])}<span class="d">${nwDate(n[1])}</span>${nwIsNew(n)?`<span class="nwNew">${LANG==='de'?'NEU':'NEW'}</span>`:''}<span class="sp" style="flex:1"></span>${badge(n[3])}</div><b>${T(n[4])}</b><div class="tx">${T(n[5])}</div><div class="ft">${n[6]?`<a href="${n[6]}" target="_blank" rel="noopener" data-nid="${n[0]}">${T(UI.readArt)}</a>${trTag(n[6])}`:''}${rd[n[0]]?'':`<button class="rd" data-r="${n[0]}">✓ ${T(UI.markRead)}</button>`}</div></article>`).join(''):`<div class="muted">${T(UI.noRes)}</div>`;
  $('#nwList').querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{nwMarkRead(b.dataset.r);renderNewsList();renderHome()});
  $('#nwList').querySelectorAll('a[data-nid]').forEach(a=>a.addEventListener('click',()=>{nwMarkRead(a.dataset.nid);setTimeout(renderNewsList,300)}));
 }
@@ -3471,14 +3471,28 @@ function applyMapNight(){const b=$('#mapbox');if(!b)return;const n=mapNight===2|
 function stormOn(){return SET.wx===1||(SET.wx===0&&typeof stormNews==='function'&&!!stormNews())}
 
 /* --- auto-translate foreign links (DE UI) --- */
-const TR_SKIP=/(^|\.)(youtube\.com|youtu\.be|twitch\.tv|x\.com|twitter\.com|discord\.com|discord\.gg|instagram\.com|tiktok\.com|spotify\.com|apple\.com|reddit\.com|wikimedia\.org|translate\.goog|translate\.google\.com|github\.io|claude\.ai|bsky\.app|threads\.net|facebook\.com)$/i;
-function trOn(u){try{if(LANG!=='de'||SET.trLinks===false)return false;const x=new URL(u);if(!/^https?:$/.test(x.protocol))return false;const h=x.hostname;
- if(TR_SKIP.test(h))return false;if(/\.(de|at)$/i.test(h)||/^de\./i.test(h))return false;if(/\.ch$/i.test(h)&&!/^\/(fr|it|en)\//i.test(x.pathname))return false;
- if(/^\/(de|de-de|de_de|de-at|de-ch)(\/|$)/i.test(x.pathname)||/[?&](lang|hl|locale)=de/i.test(x.search))return false;
- if(/\.(jpe?g|png|webp|gif|avif|mp4|pdf)$/i.test(x.pathname)||/\/_next\/static\//.test(x.pathname))return false;return true}catch(e){return false}}
-const trUrl=u=>'https://translate.google.com/translate?sl=auto&tl=de&hl=de&u='+encodeURIComponent(u);
+const TR_SKIP=/(^|\.)(youtube\.com|youtu\.be|twitch\.tv|x\.com|twitter\.com|discord\.com|discord\.gg|instagram\.com|tiktok\.com|spotify\.com|apple\.com|reddit\.com|wikimedia\.org|translate\.goog|google\.com|github\.io|claude\.ai|bsky\.app|threads\.net|facebook\.com|lnk\.to)$/i;
+/* sites that block the Google proxy (checked 16.11.): open the original */
+const TR_BLOCK=/(^|\.)(archyde\.com|gamespot\.com|variety\.com)$/i;
+function trInfo(u){try{const x=new URL(u),h=x.hostname,pa=x.pathname;if(!/^https?:$/.test(x.protocol)||TR_SKIP.test(h))return null;
+ if(/\.(jpe?g|png|webp|gif|avif|mp4|pdf)$/i.test(pa)||/\/_next\/static\//.test(pa))return null;
+ const deDom=/\.(de|at)$/i.test(h)||/^de\./i.test(h)||(/\.ch$/i.test(h)&&!/^\/(fr|it|en)\//i.test(pa));
+ if(deDom&&!/^\/en(-[a-z]{2})?\//i.test(pa))return null;
+ if(/^\/(de|de-de|de_de|de-at|de-ch)(\/|$)/i.test(pa)||/[?&](lang|hl|locale)=de/i.test(x.search))return null;
+ /* native German pages where the site has them */
+ if(/(^|\.)rockstargames\.com$/i.test(h)&&/^\/newswire\//.test(pa)){x.pathname='/de'+pa;return{m:'native',u:x.href}}
+ if(/(^|\.)(playstation\.com|xbox\.com)$/i.test(h)&&/^\/[a-z]{2}-[a-z]{2}\//i.test(pa)){x.pathname=pa.replace(/^\/[a-z]{2}-[a-z]{2}\//i,'/de-de/');return{m:'native',u:x.href}}
+ if(TR_BLOCK.test(h))return{m:'block',u:u};
+ const th=h.replace(/-/g,'--').replace(/\./g,'-')+'.translate.goog';
+ const q=(x.search?x.search+'&':'?')+'_x_tr_sl=auto&_x_tr_tl=de&_x_tr_hl=de&_x_tr_pto=wapp';
+ return{m:'tr',u:'https://'+th+pa+q+x.hash}}catch(e){return null}}
+const trActive=()=>LANG==='de'&&SET.trLinks!==false;
+function trOn(u){return trActive()&&!!trInfo(u)}
+function trTag(u){const i=trActive()&&trInfo(u);if(!i)return'';
+ if(i.m==='block')return`<span class="trTag off" title="${T(L('Diese Seite lässt keine automatische Übersetzung zu','This site blocks automatic translation'))}">EN</span>`;
+ return`<span class="trTag" title="${i.m==='native'?'Deutsche Seite':'Google Übersetzer'}">${icn('globe')}DE</span><a class="trOrig" href="${u}" target="_blank" rel="noopener" data-orig>Original</a>`}
 function trSwap(e){const a=e.target.closest&&e.target.closest('a[href^="http"]');if(!a||a.hasAttribute('data-orig'))return;const src=a.dataset.src||a.getAttribute('href');
- if(trOn(src)){a.dataset.src=src;a.setAttribute('href',trUrl(src))}else if(a.dataset.src){a.setAttribute('href',a.dataset.src)}}
+ const i=trActive()&&trInfo(src);if(i&&i.m!=='block'){a.dataset.src=src;a.setAttribute('href',i.u)}else if(a.dataset.src){a.setAttribute('href',a.dataset.src)}}
 ['pointerdown','click','keydown','contextmenu'].forEach(t=>document.addEventListener(t,trSwap,{capture:true,passive:true}));
 /* --- motion: wanted stars, haptics, sound --- */
 function wantedStars(){let w=$('#wstars');if(!w){w=document.createElement('div');w.id='wstars';w.innerHTML='<i></i><i></i><i></i><i></i><i></i><i></i>';document.body.appendChild(w)}
