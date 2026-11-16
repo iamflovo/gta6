@@ -268,6 +268,7 @@ body.noanim #pano{transition:none}
 .nwCard .tx{font-size:13.5px;color:var(--mut)}
 .nwCard .ft{margin-top:auto;display:flex;align-items:center;gap:8px;padding-top:4px}
 .nwCard .ft a{font-weight:800;font-size:12.5px;text-decoration:none}
+.nwCard .trTag{display:inline-flex;align-items:center;gap:3px;font:700 10.5px/1 var(--fm,monospace);letter-spacing:.06em;color:var(--cy,#22e7ff);border:1px solid rgba(34,231,255,.35);border-radius:999px;padding:3px 7px}.nwCard .trTag .ic{width:11px;height:11px}.nwCard .ft a.trOrig{font-weight:600;font-size:11.5px;color:var(--mut);text-decoration:underline}
 .nwCard.read{opacity:.62}
 .nwCard .rd{margin-left:auto;background:none;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:11.5px;color:var(--mut)}
 .nwHub{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}
@@ -1143,7 +1144,7 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
   <path d="M11 15.5c.5 2.5-.17 4.5-1 6.5h4c2-5.5-.5-12-1-14" /></symbol><symbol id="i-newspaper" viewBox="0 0 24 24"><path d="M15 18h-5" />
   <path d="M18 14h-8" />
   <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2" />
-  <rect width="8" height="4" x="10" y="6" rx="1" /></symbol><symbol id="i-map" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" />
+  <rect width="8" height="4" x="10" y="6" rx="1" /></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></symbol><symbol id="i-map" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" />
   <path d="M15 5.764v15" />
   <path d="M9 3.236v15" /></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
   <path d="M16 3.128a4 4 0 0 1 0 7.744" />
@@ -1701,7 +1702,7 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 16.11. 09:47</div>
+    <div class="dim" style="margin-top:8px">App-Version 16.11. 10:38</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -1725,7 +1726,7 @@ const T=(o)=>typeof o==='string'?o:(o?o[LANG]||o.de:'');
 const L=(de,en)=>({de,en});
 const RELEASE=new Date('2026-11-19T00:00:00+01:00');
 let done=store.get('done',{});
-let SET=Object.assign({haptic:true,sound:false,tod:0,wx:0,spoil:1,chapter:0,compact:false,noanim:false,launchPreview:false,ai:'anthropic',aiKey:'',aiModel:''},store.get('set',{}));
+let SET=Object.assign({trLinks:true,haptic:true,sound:false,tod:0,wx:0,spoil:1,chapter:0,compact:false,noanim:false,launchPreview:false,ai:'anthropic',aiKey:'',aiModel:''},store.get('set',{}));
 const saveSet=()=>{store.set('set',SET);applySet()};
 function applySet(){document.body.classList.toggle('compact',!!SET.compact);document.body.classList.toggle('noanim',!!SET.noanim)}
 const isLaunch=()=>Date.now()>=RELEASE||SET.launchPreview;
@@ -2589,7 +2590,7 @@ function renderNews(){
 function renderNewsList(){
  const q=($('#nwQ').value||'').trim().toLowerCase();const rd=store.get('nwread',{});
  const list=NEWSC.filter(n=>(NWF==='all'||NWSRC[n[2]][2]===NWF)&&(!q||(T(n[4])+' '+T(n[5])+' '+NWSRC[n[2]][0]).toLowerCase().includes(q)));
- $('#nwList').innerHTML=list.length?list.map(n=>`<article class="nwCard ${rd[n[0]]?'read':''}"><div class="nwMeta">${nwSrc(n[2])}<span class="d">${nwDate(n[1])}</span>${nwIsNew(n)?`<span class="nwNew">${LANG==='de'?'NEU':'NEW'}</span>`:''}<span class="sp" style="flex:1"></span>${badge(n[3])}</div><b>${T(n[4])}</b><div class="tx">${T(n[5])}</div><div class="ft">${n[6]?`<a href="${n[6]}" target="_blank" rel="noopener" data-nid="${n[0]}">${T(UI.readArt)}</a>`:''}${rd[n[0]]?'':`<button class="rd" data-r="${n[0]}">✓ ${T(UI.markRead)}</button>`}</div></article>`).join(''):`<div class="muted">${T(UI.noRes)}</div>`;
+ $('#nwList').innerHTML=list.length?list.map(n=>`<article class="nwCard ${rd[n[0]]?'read':''}"><div class="nwMeta">${nwSrc(n[2])}<span class="d">${nwDate(n[1])}</span>${nwIsNew(n)?`<span class="nwNew">${LANG==='de'?'NEU':'NEW'}</span>`:''}<span class="sp" style="flex:1"></span>${badge(n[3])}</div><b>${T(n[4])}</b><div class="tx">${T(n[5])}</div><div class="ft">${n[6]?`<a href="${n[6]}" target="_blank" rel="noopener" data-nid="${n[0]}">${T(UI.readArt)}</a>${trOn(n[6])?`<span class="trTag" title="Google Übersetzer">${icn('globe')}DE</span><a class="trOrig" href="${n[6]}" target="_blank" rel="noopener" data-orig data-nid="${n[0]}">Original</a>`:''}`:''}${rd[n[0]]?'':`<button class="rd" data-r="${n[0]}">✓ ${T(UI.markRead)}</button>`}</div></article>`).join(''):`<div class="muted">${T(UI.noRes)}</div>`;
  $('#nwList').querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{nwMarkRead(b.dataset.r);renderNewsList();renderHome()});
  $('#nwList').querySelectorAll('a[data-nid]').forEach(a=>a.addEventListener('click',()=>{nwMarkRead(a.dataset.nid);setTimeout(renderNewsList,300)}));
 }
@@ -3142,7 +3143,7 @@ function renderSettings(){
  <div class="sgrp"><h4>${T(L('Stimmung','Atmosphere'))}</h4><div class="dim">${T(L('Tageszeit des Stadt-Panoramas','Time of day of the city panorama'))}</div>${seg('tod',[[0,L('🕐 Auto','🕐 Auto')],[1,L('☀️ Tag','☀️ Day')],[2,L('🌅 Abend','🌅 Dusk')],[3,L('🌙 Nacht','🌙 Night')]])}
   <div class="dim" style="margin-top:10px">${T(L('Hurrikan-Wetter (Auto = wenn ein Sturm in den News ist)','Hurricane weather (Auto = when a storm is in the news)'))}</div>${seg('wx',[[0,L('Auto','Auto')],[1,L('🌧️ An','🌧️ On')],[2,L('Aus','Off')]])}
 </div>
- <div class="sgrp"><h4>${T(L('Ansicht','Display'))}</h4>${sw('compact',L('Kompakt-Modus','Compact mode'),L('Kleinere Karten, Texte auf 2 Zeilen gekürzt (antippen zum Aufklappen)','Smaller cards, text clipped to 2 lines (tap to expand)'))}${sw('noanim',L('Animationen aus','Animations off'),L('Kein Intro, keine Effekte – maximal schnell','No intro, no effects – max speed'))}${sw('launchPreview',L('Launch-Modus vorschauen','Preview launch mode'),L('Startseite so zeigen wie ab dem 19.11.','Show the home screen as it will look from 19 Nov'))}${sw('haptic',L('Vibration','Haptics'),L('Kurzes Feedback beim Tippen (Android)','Short feedback on taps (Android)'))}${sw('sound',L('Sound beim Öffnen','Sound on open'),L('Kurzer Synth-Akkord beim ersten Tippen','Short synth chord on first tap'))}<button class="ib" style="margin-top:10px" onclick="document.getElementById('setp').classList.remove('on');location.hash='show'">🎆 ${T(L('Release-Show testen','Test release show'))}</button></div>
+ <div class="sgrp"><h4>${T(L('Ansicht','Display'))}</h4>${sw('compact',L('Kompakt-Modus','Compact mode'),L('Kleinere Karten, Texte auf 2 Zeilen gekürzt (antippen zum Aufklappen)','Smaller cards, text clipped to 2 lines (tap to expand)'))}${sw('noanim',L('Animationen aus','Animations off'),L('Kein Intro, keine Effekte – maximal schnell','No intro, no effects – max speed'))}${sw('launchPreview',L('Launch-Modus vorschauen','Preview launch mode'),L('Startseite so zeigen wie ab dem 19.11.','Show the home screen as it will look from 19 Nov'))}${sw('trLinks',L('Links auf Deutsch öffnen','Open links in German'),L('Fremdsprachige Artikel öffnen automatisch übersetzt (Google Übersetzer). „Original“ öffnet die Quelle unverändert.','Foreign-language articles open auto-translated (Google Translate). “Original” opens the source unchanged.'))}${sw('haptic',L('Vibration','Haptics'),L('Kurzes Feedback beim Tippen (Android)','Short feedback on taps (Android)'))}${sw('sound',L('Sound beim Öffnen','Sound on open'),L('Kurzer Synth-Akkord beim ersten Tippen','Short synth chord on first tap'))}<button class="ib" style="margin-top:10px" onclick="document.getElementById('setp').classList.remove('on');location.hash='show'">🎆 ${T(L('Release-Show testen','Test release show'))}</button></div>
  <div class="sgrp"><h4>${T(L('Screenshot-Coach (KI)','Screenshot coach (AI)'))}</h4><div class="dim">${T(L('Dein eigener API-Schlüssel – bleibt nur auf diesem Gerät. Funktioniert in der Homescreen-App (GitHub), nicht in der Claude-Vorschau.','Your own API key – stays on this device only. Works in the home-screen app (GitHub), not in the Claude preview.'))}</div>
   <select class="fld" id="aiP"><option value="anthropic">Claude (Anthropic)</option><option value="openai">OpenAI</option><option value="gemini">Google Gemini</option></select>
   <input class="fld" id="aiK" type="password" placeholder="API-Key" value="${esc(SET.aiKey)}" autocomplete="off">
@@ -3468,6 +3469,17 @@ let mapNight=store.get('mapnight',0); // 0 auto,1 day,2 night
 function paintRaster(){const b=$('#mapbox');const c=b&&b.querySelector('.mraster');if(!c||!MAPRASTER||c.width<100)return;const n=b.classList.contains('night');if(c._n===n)return;c._n=n;const x=c.getContext('2d');x.globalCompositeOperation='source-over';x.drawImage(MAPRASTER.map,0,0);if(n){x.fillStyle='rgba(2,6,22,.74)';x.fillRect(0,0,c.width,c.height);if(MAPRASTER.lights)x.drawImage(MAPRASTER.lights,0,0)}}
 function applyMapNight(){const b=$('#mapbox');if(!b)return;const n=mapNight===2||(mapNight===0&&document.body.classList.contains('tod-night'));b.classList.toggle('night',n);paintRaster();const bt=$('#mnBtn');if(bt){bt.innerHTML=icn(n?'moon':'sun');bt.title=T([L('Tag/Nacht: Auto','Day/night: auto'),L('Tag','Day'),L('Nacht','Night')][mapNight]);bt.classList.toggle('on',mapNight!==0)}}
 function stormOn(){return SET.wx===1||(SET.wx===0&&typeof stormNews==='function'&&!!stormNews())}
+
+/* --- auto-translate foreign links (DE UI) --- */
+const TR_SKIP=/(^|\.)(youtube\.com|youtu\.be|twitch\.tv|x\.com|twitter\.com|discord\.com|discord\.gg|instagram\.com|tiktok\.com|spotify\.com|apple\.com|reddit\.com|wikimedia\.org|translate\.goog|translate\.google\.com|github\.io|claude\.ai|bsky\.app|threads\.net|facebook\.com)$/i;
+function trOn(u){try{if(LANG!=='de'||SET.trLinks===false)return false;const x=new URL(u);if(!/^https?:$/.test(x.protocol))return false;const h=x.hostname;
+ if(TR_SKIP.test(h))return false;if(/\.(de|at)$/i.test(h)||/^de\./i.test(h))return false;if(/\.ch$/i.test(h)&&!/^\/(fr|it|en)\//i.test(x.pathname))return false;
+ if(/^\/(de|de-de|de_de|de-at|de-ch)(\/|$)/i.test(x.pathname)||/[?&](lang|hl|locale)=de/i.test(x.search))return false;
+ if(/\.(jpe?g|png|webp|gif|avif|mp4|pdf)$/i.test(x.pathname)||/\/_next\/static\//.test(x.pathname))return false;return true}catch(e){return false}}
+const trUrl=u=>'https://translate.google.com/translate?sl=auto&tl=de&hl=de&u='+encodeURIComponent(u);
+function trSwap(e){const a=e.target.closest&&e.target.closest('a[href^="http"]');if(!a||a.hasAttribute('data-orig'))return;const src=a.dataset.src||a.getAttribute('href');
+ if(trOn(src)){a.dataset.src=src;a.setAttribute('href',trUrl(src))}else if(a.dataset.src){a.setAttribute('href',a.dataset.src)}}
+['pointerdown','click','keydown','contextmenu'].forEach(t=>document.addEventListener(t,trSwap,{capture:true,passive:true}));
 /* --- motion: wanted stars, haptics, sound --- */
 function wantedStars(){let w=$('#wstars');if(!w){w=document.createElement('div');w.id='wstars';w.innerHTML='<i></i><i></i><i></i><i></i><i></i><i></i>';document.body.appendChild(w)}
  const h=document.documentElement.scrollHeight-innerHeight;const p=h>0?scrollY/h:0;const n=Math.round(p*6);w.classList.toggle('on',scrollY>140);w.querySelectorAll('i').forEach((s,i)=>s.classList.toggle('f',i<n))}
