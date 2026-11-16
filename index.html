@@ -269,6 +269,15 @@ body.noanim #pano{transition:none}
 .nwCard .ft{margin-top:auto;display:flex;align-items:center;gap:8px;padding-top:4px}
 .nwCard .ft a{font-weight:800;font-size:12.5px;text-decoration:none}
 .nwCard .trTag{display:inline-flex;align-items:center;gap:3px;font:700 10.5px/1 var(--fm,monospace);letter-spacing:.06em;color:var(--cy,#22e7ff);border:1px solid rgba(34,231,255,.35);border-radius:999px;padding:3px 7px}.nwCard .trTag.off{color:var(--mut);border-color:var(--line)}.nwCard .trTag .ic{width:11px;height:11px}.nwCard .ft a.trOrig{font-weight:600;font-size:11.5px;color:var(--mut);text-decoration:underline}
+.hist{display:grid;gap:10px}@media(min-width:760px){.hist{grid-template-columns:1fr 1fr}}
+.hRow{padding:14px!important}.hRow.now{box-shadow:0 0 0 1px rgba(255,43,214,.45),0 18px 40px -20px rgba(255,43,214,.6)!important}
+.hHd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}.hHd b{font-size:17px}.hY{font:700 12px/1 var(--fm,monospace);color:var(--cyan);letter-spacing:.08em}
+.hL{display:flex;align-items:flex-start;gap:8px;font-size:13.5px;margin-top:6px}.hK{flex:0 0 78px;display:inline-flex;align-items:center;gap:5px;color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.06em}.hK .ic{width:13px;height:13px}.hV{flex:1}
+.hBar{position:relative;height:16px;border-radius:999px;background:rgba(255,255,255,.06);margin:5px 0 2px 86px;overflow:hidden}
+.hBar i,.hBar s{position:absolute;left:0;top:0;bottom:0;border-radius:999px}
+.hBar.m i{background:linear-gradient(90deg,rgba(255,43,214,.35),rgba(255,43,214,.75))}.hBar.m s{background:linear-gradient(90deg,#ff2bd6,#ff9a3c)}
+.hBar.t i{background:linear-gradient(90deg,rgba(34,231,255,.5),#22e7ff)}
+.hBar em{position:absolute;right:8px;top:0;line-height:16px;font:700 10.5px/16px var(--fm,monospace);font-style:normal;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6)}.hBar em.na{left:8px;right:auto;color:var(--mut)}
 .nwCard.read{opacity:.62}
 .nwCard .rd{margin-left:auto;background:none;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:11.5px;color:var(--mut)}
 .nwHub{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}
@@ -1696,13 +1705,15 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
     <div class="ed" id="eds"></div>
     <h3 data-i="h_tech"></h3>
     <div class="card"><table class="cmp" id="tech"></table></div>
+    <h3 data-i="h_hist"></h3>
+    <div id="hist"></div>
     <h3 data-i="h_sources"></h3>
     <div class="card"><ul class="src" id="srcs"></ul><p class="dim" data-i="srcNote"></p></div>
   </section>
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 16.11. 11:00</div>
+    <div class="dim" style="margin-top:8px">App-Version 16.11. 17:31</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -1786,6 +1797,7 @@ const UI={
  t_ed:L('Editionen, Technik & Quellen','Editions, tech & sources'),
  l_ed:L('Preise für Deutschland, was drin ist und was die Konsolen leisten.','German prices, what’s included and how the consoles perform.'),
  h_tech:L('Technik & Plattformen','Tech & platforms'),
+ h_hist:L('Die GTA-Reihe in Zahlen: Kosten & Teams','The GTA series in numbers: budgets & teams'),
  h_sources:L('Quellen (Stand 12.11.2026)','Sources (as of 12 Nov 2026)'),
  srcNote:L('Community-Funde stammen aus dem r/GTA6-Discord (Kanäle #credible-info, #debunked-info, #official-news), GTAForums und dem Mapping-Projekt. Reddit selbst blockiert den automatischen Abruf.','Community finds come from the r/GTA6 Discord (#credible-info, #debunked-info, #official-news), GTAForums and the mapping project. Reddit itself blocks automated access.'),
  footer:L('Leonida Pro Guide – inoffizielles Fan-Projekt, nicht verbunden mit Rockstar Games oder Take-Two. Alle Marken gehören ihren Inhabern. Stand der Infos: 13.11.2026.','Leonida Pro Guide – unofficial fan project, not affiliated with Rockstar Games or Take-Two. All trademarks belong to their owners. Info as of 13 Nov 2026.'),
@@ -1828,7 +1840,7 @@ const icn=(n,c)=>`<svg class="ic${c?' '+c:''}" aria-hidden="true"><use href="#i-
 const ICN={me:'user',acts:'party-popper',home:'tree-palm',news:'newspaper',map:'map',crew:'users',gallery:'images',garage:'car',arsenal:'crosshair',missions:'target',tips:'lightbulb',secrets:'eye',radio:'radio',editions:'disc-3'};
 const TABS=[['home','🌴',L('Start','Home')],['news','📰',L('News','News')],['map','🗺️',L('Karte','Map')],['acts','🎉',L('Aktivitäten','Activities')],['me','⭐',L('Mein Leonida','My Leonida')],['missions','🎯',L('Missionen','Missions')],['crew','🃏',L('Crew','Crew')],['garage','🏎️',L('Garage','Garage')],['arsenal','🔫',L('Waffen','Arsenal')],['editions','💿',L('Editionen','Editions')],['gallery','📸',L('Galerie','Gallery')],['radio','📻',L('Radio','Radio')],['tips','⭐',L('Tipps','Tips')],['secrets','🕵️',L('Geheimnisse','Secrets')]];
 const NAVG=[[L('Entdecken','Explore'),['home','news','map','acts','gallery']],[L('Persönlich','Personal'),['me']],[L('Story & Crew','Story & crew'),['missions','crew']],[L('Ausrüstung','Gear'),['garage','arsenal','editions']],[L('Wissen','Know-how'),['tips','secrets','radio']]];
-const ST={off:['b-off',L('Offiziell','Official')],seen:['b-seen',L('Gesichtet','Spotted')],leak:['b-leak',L('Leak','Leak')],rum:['b-rum',L('Gerücht','Rumor')],ue:['b-ue',L('Ultimate','Ultimate')],vvc:['b-ue',L('Vorbesteller','Pre-order')]};
+const ST={rs:['b-off',L('Rockstar-Angabe','Rockstar figure')],est:['b-rum',L('Schätzung','Estimate')],rep:['b-seen',L('Bericht','Report')],na:['b-ue',L('Nicht bekannt','Unknown')],off:['b-off',L('Offiziell','Official')],seen:['b-seen',L('Gesichtet','Spotted')],leak:['b-leak',L('Leak','Leak')],rum:['b-rum',L('Gerücht','Rumor')],ue:['b-ue',L('Ultimate','Ultimate')],vvc:['b-ue',L('Vorbesteller','Pre-order')]};
 const badge=(s)=>{const b=ST[s];return b?`<span class="badge ${b[0]}">${T(b[1])}</span>`:''};
 
 /* ================= DATA ================= */
@@ -3060,6 +3072,7 @@ function renderEditions(){
   $('#eds').querySelectorAll('[data-ed]').forEach(im=>im.onclick=()=>{gFilter='eds';location.hash='gallery';renderGallery();const k=gList().findIndex(o=>o.name===im.dataset.ed);setTimeout(()=>gOpen(k),350)});
   $('#eds').querySelectorAll('[data-edg]').forEach(a=>a.onclick=e=>{e.preventDefault();gShow('eds')});}
  $('#tech').innerHTML=`<tr><th>${T(L('Thema','Topic'))}</th><th>${T(L('Stand','Status'))}</th><th></th></tr>`+TECH.map(t=>`<tr><td><b>${T(t[0])}</b></td><td>${T(t[1])}</td><td>${badge(t[2])}</td></tr>`).join('');
+ renderHist();
  $('#srcs').innerHTML=SRCS.map(s=>`<li><a href="${s[1]}" target="_blank" rel="noopener">${esc(s[0])}</a></li>`).join('');
 }
 
@@ -3117,7 +3130,7 @@ function buildHeroScene(){const sc=document.querySelector('.hero svg.scene');if(
 
 function parallax(){const sc=document.querySelector('.hero svg.scene');if(!sc)return;let tk=0,ly=-1;addEventListener('scroll',()=>{if(tk)return;tk=requestAnimationFrame(()=>{tk=0;const y=Math.min(scrollY,600);if(y===ly||(y>=600&&ly>=600))return;ly=y;const tr=`translate3d(0,${y*.25}px,0)`;sc.style.transform=tr;const fx=document.querySelector('.hero svg.heroFx');if(fx)fx.style.transform=tr})},{passive:true})}
 function bindTiles(sel){document.querySelectorAll(sel+' .tile').forEach(c=>{if(c._t)return;c._t=1;c.addEventListener('click',e=>{if(e.target.closest('button'))return;c.classList.toggle('open')})})}
-function makeAcc(){[['h_vsys',0],['h_allcars',1],['h_gunfeat',0],['h_districts',0],['h_pois',0],['h_mypins',1],['h_coll',1],['h_eggs',1],['h_leaks',0],['h_theories',0],['h_more',1],['h_album',1],['h_trailersongs',0],['h_tech',1],['h_sources',0],['h_story',1],['h_acts',1]].forEach(([k,open])=>{const h=document.querySelector(`h3[data-i="${k}"]`);if(!h||h.closest('details'))return;const d=document.createElement('details');d.className='acc';if(open)d.open=true;const sm=document.createElement('summary');h.parentNode.insertBefore(d,h);sm.appendChild(h);d.appendChild(sm);let n=d.nextSibling;const stop=x=>x&&x.nodeType===1&&(x.tagName==='H3'||x.tagName==='DETAILS'||x.tagName==='H2');while(n&&!stop(n)){const nx=n.nextSibling;d.appendChild(n);n=nx}})}
+function makeAcc(){[['h_vsys',0],['h_allcars',1],['h_gunfeat',0],['h_districts',0],['h_pois',0],['h_mypins',1],['h_coll',1],['h_eggs',1],['h_leaks',0],['h_theories',0],['h_more',1],['h_album',1],['h_trailersongs',0],['h_tech',1],['h_hist',1],['h_sources',0],['h_story',1],['h_acts',1]].forEach(([k,open])=>{const h=document.querySelector(`h3[data-i="${k}"]`);if(!h||h.closest('details'))return;const d=document.createElement('details');d.className='acc';if(open)d.open=true;const sm=document.createElement('summary');h.parentNode.insertBefore(d,h);sm.appendChild(h);d.appendChild(sm);let n=d.nextSibling;const stop=x=>x&&x.nodeType===1&&(x.tagName==='H3'||x.tagName==='DETAILS'||x.tagName==='H2');while(n&&!stop(n)){const nx=n.nextSibling;d.appendChild(n);n=nx}})}
 /* ---------- favorites ---------- */
 function decorateFavs(){
  const f=store.get('favs',{});
@@ -3507,6 +3520,30 @@ function decorateImages(){
  document.querySelectorAll('#cars .tile,#guns .tile').forEach(t=>{if(t.querySelector('.tThumb'))return;const n=(t.querySelector('.ttl')||{}).textContent;const f=CARIMG[n]&&rsEd(CARIMG[n]);if(f)t.insertAdjacentHTML('afterbegin',`<div class="tThumb" style="background-image:url('${rsu(f,640)}')"><span>© Rockstar Games</span></div>`)});
  [['v-missions','Jason_and_Lucia_Robbery_landscape','art'],['v-radio','Vice_City_13','shot'],['v-tips','Vice_City_09','shot']].forEach(([sec,key,kind])=>{const s=document.getElementById(sec);if(!s||s.querySelector('.secBanner'))return;const f=kind==='art'?rsArt(key):rsFind(key);if(!f)return;const lead=s.querySelector('.lead');if(lead)lead.insertAdjacentHTML('afterend',`<div class="secBanner" style="background-image:url('${rsu(f,1280)}')"><span>© Rockstar Games</span></div>`)})}
 
+
+/* GTA series: budgets & team sizes. [year,title,cost,costBadge,[lo,hi] $M,team,teamBadge,teamN,devTime,note,url] */
+const GTAHIST=[
+ [1997,'Grand Theft Auto',L('Nie veröffentlicht','Never disclosed'),'na',null,L('Kleines Team bei DMA Design in Dundee – genaue Zahl unbekannt','Small team at DMA Design in Dundee – exact number unknown'),'na',0,L('ca. 2,5 Jahre (ab April 1995)','approx. 2.5 years (from April 1995)'),L('Startete als „Race ’n’ Chase“ und wäre mehrmals fast eingestellt worden.','Started as “Race ’n’ Chase” and was nearly cancelled several times.'),'https://en.wikipedia.org/wiki/Grand_Theft_Auto_(video_game)'],
+ [1999,'GTA 2',L('Nie veröffentlicht','Never disclosed'),'na',null,L('DMA Design Dundee; rund 170 Namen im Abspann (inkl. Verlag & Tester)','DMA Design Dundee; around 170 names in the credits (incl. publisher & QA)'),'rep',170,L('ca. 2 Jahre','approx. 2 years'),L('Letztes GTA in 2D-Draufsicht.','Last top-down 2D GTA.'),'https://www.mobygames.com/game/grand-theft-auto-2'],
+ [2001,'GTA III',L('ca. 5–10 Mio. $','approx. $5–10M'),'est',[5,10],L('Kernteam von 23 Leuten bei DMA Design in Edinburgh, eng mit Rockstar New York','Core team of 23 at DMA Design in Edinburgh, working closely with Rockstar New York'),'rep',23,L('ca. 2 Jahre','approx. 2 years'),L('Das erste 3D-GTA – danach wurde DMA zu Rockstar North.','The first 3D GTA – afterwards DMA became Rockstar North.'),'https://en.wikipedia.org/wiki/Grand_Theft_Auto_III'],
+ [2002,'Vice City',L('ca. 5–15 Mio. $','approx. $5–15M'),'est',[5,15],L('Kernteam von rund 50 Leuten bei Rockstar North','Core team of about 50 at Rockstar North'),'rep',50,L('nur ca. 9 Monate Vollproduktion','only about 9 months of full production'),L('Sollte ursprünglich nur ein Missions-Pack für GTA III werden.','Was originally meant to be a mission pack for GTA III.'),'https://en.wikipedia.org/wiki/Grand_Theft_Auto:_Vice_City'],
+ [2004,'San Andreas',L('ca. 10–30 Mio. $','approx. $10–30M'),'est',[10,30],L('Am Ende rund 80 Entwickler (laut Ex-Technikchef Obbe Vermeij)','Around 80 developers by the end (per ex-technical director Obbe Vermeij)'),'rep',80,L('ca. 2 Jahre','approx. 2 years'),L('Größte Karte ihrer Zeit: drei Städte plus Land.','Biggest map of its time: three cities plus countryside.'),'https://insider-gaming.com/inside-the-development-of-gta-san-andreas/'],
+ [2008,'GTA IV',L('ca. 100 Mio. $','approx. $100M'),'rs',[100,100],L('Rund 1.000 Leute','About 1,000 people'),'rs',1000,L('ca. 3,5 Jahre','approx. 3.5 years'),L('Produzent Leslie Benzies schätzte die Kosten selbst – damals das teuerste Spiel überhaupt.','Producer Leslie Benzies estimated the cost himself – the most expensive game ever at the time.'),'https://www.engadget.com/2008-04-30-gta-iv-could-be-most-expensive-game-ever-made.html'],
+ [2013,'GTA V',L('ca. 137 Mio. $ Entwicklung · ca. 265 Mio. $ inkl. Marketing','approx. $137M development · approx. $265M incl. marketing'),'est',[137,265],L('Über 1.000 Leute in mehreren Rockstar-Studios („wahrscheinlich viel mehr“), Kernteam bei Rockstar North rund 360','Over 1,000 people across several Rockstar studios (“probably much more”), core team of about 360 at Rockstar North'),'rs',1000,L('ca. 5 Jahre','approx. 5 years'),L('Die 265 Mio. $ stammen von der Zeitung The Scotsman (170 Mio. £).','The $265M figure comes from The Scotsman newspaper (£170M).'),'https://mcvuk.com/business-news/over-1000-people-made-gta-v/'],
+ [2026,'GTA VI',L('Wohl über 1 Mrd. $ – laut Rockstar aber nicht über 1,5 Mrd. $','Likely over $1B – but not over $1.5B according to Rockstar'),'est',[1000,1500],L('Rockstar hat 4.711 Mitarbeitende in 12 Studios (Aug. 2026), fast 5.000 waren beteiligt','Rockstar has 4,711 staff across 12 studios (Aug 2026), nearly 5,000 were involved'),'rep',4711,L('über 8 Jahre (viele Teams ab 2018 nach RDR2)','over 8 years (many teams from 2018 after RDR2)'),L('Rockstar-Chefin Jennifer Kolbe widersprach Bloomberg: nicht über 1,5 Mrd. $. Eine eigene Zahl nennt Rockstar nicht. Zum Vergleich: Beim Release von RDR2 hatte Rockstar 2.441 Mitarbeitende.','Rockstar’s Jennifer Kolbe told Bloomberg it was not over $1.5B, without giving a figure. For comparison: Rockstar had 2,441 staff when RDR2 released.'),'https://fenixbazaar.com/2026/11/16/bloomberg-gta-6-report-jason-schreier/'],
+];
+function renderHist(){const el=$('#hist');if(!el)return;
+ const lg=(v,a,b)=>Math.max(3,Math.min(100,(Math.log10(v)-Math.log10(a))/(Math.log10(b)-Math.log10(a))*100));
+ const money=v=>v>=1000?(v/1000).toLocaleString(LANG==='de'?'de-DE':'en-GB')+(LANG==='de'?' Mrd. $':'B $'):v+(LANG==='de'?' Mio. $':'M $');
+ el.innerHTML=`<p class="dim" style="margin:0 0 12px">${T(L('Rockstar veröffentlicht fast nie Budgets. Die Farbe zeigt, woher eine Zahl stammt: Rockstar-Angabe, Bericht oder Schätzung. Balken sind logarithmisch – sonst wären die alten Teile unsichtbar.','Rockstar almost never publishes budgets. The badge shows where a number comes from: Rockstar figure, report or estimate. Bars are logarithmic – otherwise the old games would be invisible.'))}</p><div class="hist">`+GTAHIST.map(g=>{
+  const c=g[4],cw=c?lg(c[1],1,1500):0,cs=c?lg(c[0],1,1500):0;
+  return `<article class="card hRow${g[0]===2026?' now':''}"><div class="hHd"><span class="hY">${g[0]}</span><b>${g[1]}</b></div>
+  <div class="hL"><span class="hK">${icn('wallet')}${T(L('Kosten','Cost'))}</span><span class="hV">${T(g[2])}</span>${badge(g[3])}</div>
+  <div class="hBar m">${c?`<i style="width:${cw}%"></i>${c[0]!==c[1]?`<s style="width:${cs}%"></s>`:''}<em>${c[0]===c[1]?money(c[0]):money(c[0])+' – '+money(c[1])}</em>`:`<em class="na">?</em>`}</div>
+  <div class="hL"><span class="hK">${icn('users')}${T(L('Team','Team'))}</span><span class="hV">${T(g[5])}</span>${badge(g[6])}</div>
+  <div class="hBar t">${g[7]?`<i style="width:${lg(g[7],10,5000)}%"></i><em>${g[7].toLocaleString(LANG==='de'?'de-DE':'en-GB')}${g[0]===2013?'+':''}</em>`:`<em class="na">?</em>`}</div>
+  <div class="hL"><span class="hK">${icn('clock')}${T(L('Dauer','Time'))}</span><span class="hV">${T(g[8])}</span></div>
+  <div class="tx dim" style="margin-top:6px">${T(g[9])} <a href="${g[10]}" target="_blank" rel="noopener">${T(L('Quelle','Source'))} ↗</a></div></article>`}).join('')+`</div>`}
 function renderAll(){applySet();applyUI();renderTabs();renderHome();renderDream();renderVsys();renderHeat();renderPins();renderColl();renderCoach();renderMap();renderRegion();renderLeakCard();renderDistricts();renderCrew();renderCarCats();renderCars();renderGuns();renderMissions();renderSim();renderTips();renderSecrets();renderRadio();renderEditions();renderNews();renderEdBento();renderReal();renderGallery();renderActs();renderRevNews();renderMe();decorateImages();launchCheck();applyTod();applyWeather();$('#cdBox').dataset.mode='';renderCD();route();decorateFavs()}
 $('#btnLang').onclick=()=>{LANG=LANG==='de'?'en':'de';store.set('lang',LANG);renderAll()};
 $('#btnSearch').onclick=openSearch;$('#btnSet').onclick=openSet;$('#btnSet2').onclick=openSet;$('#setClose').onclick=()=>$('#setp').classList.remove('on');$('#pinMode').onclick=()=>{pinMode=!pinMode;renderMap()};$('#btnSearch2').onclick=openSearch;$('#btnLang2').onclick=()=>$('#btnLang').click();$('#moreClose').onclick=()=>$('#more').classList.remove('on');
