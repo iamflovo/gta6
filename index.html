@@ -272,6 +272,7 @@ body.noanim #pano{transition:none}
 @media(max-width:560px){.hL{flex-wrap:wrap}.hL .badge{order:3;margin-left:86px}.hV{flex:1 1 calc(100% - 90px)}}
 .vid .th.hasTh .lb{text-shadow:0 2px 10px rgba(0,0,0,.8)}
 img{color:transparent}
+.rev .revTop{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;margin-bottom:10px}.rev .revTop .revMc{flex:0 0 auto}.rev .revMc.oc b{color:var(--cyan)}.rev .revNote{flex:1 1 200px;display:flex;flex-direction:column;gap:3px;font-size:13px;color:var(--mut)}.rev .revNote b{color:#fff;font-size:14.5px}
 .hist{display:grid;gap:10px}@media(min-width:760px){.hist{grid-template-columns:1fr 1fr}}
 .hRow{padding:14px!important}.hRow.now{box-shadow:0 0 0 1px rgba(255,43,214,.45),0 18px 40px -20px rgba(255,43,214,.6)!important}
 .hHd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}.hHd b{font-size:17px}.hY{font:700 12px/1 var(--fm,monospace);color:var(--cyan);letter-spacing:.08em}
@@ -1565,7 +1566,7 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
     <div class="nwHead"><span class="nwLive"><i></i>Newsroom</span><span class="upd" id="nwUpd"></span><span class="sp"></span><button class="ib" id="nwAllRead"></button></div>
     <div class="nwTop" id="nwTop"></div>
     <div id="nwRev"></div>
-    <div class="nwBar"><div class="chips" id="nwCats"></div><input id="nwQ" type="search"></div>
+    <div class="nwBar"><div class="card" id="nwRev" style="margin:0 0 16px"></div><div class="chips" id="nwCats"></div><input id="nwQ" type="search"></div>
     <div class="nwList" id="nwList"></div>
     <h3 data-i="h_road"></h3>
     <div class="tipsTop"><div class="card" id="nwTl"></div><div class="card" id="nwPrep"></div></div>
@@ -1716,7 +1717,7 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 18.11. 07:43</div>
+    <div class="dim" style="margin-top:8px">App-Version 18.11. 18:50</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -1794,7 +1795,7 @@ const UI={
  h_eggs:L('Easter Eggs','Easter eggs'),h_leaks:L('Was die Leaks gezeigt haben','What the leaks showed'),h_theories:L('Community-Theorien','Community theories'),
  leakNote:L('Die CyberLeek-Clips (18.–24.08.2026, weitere im Oktober) stammen laut Insider NateTheHate aus einem rund ein Jahr alten Build. Take-Two geht rechtlich dagegen vor. Hier steht nur, welche Spielsysteme zu sehen waren – keine Links.','The CyberLeek clips (18–24 Aug 2026, more in October) come from a roughly year-old build, per insider NateTheHate. Take-Two is pursuing it legally. Only the game systems seen are listed here – no links.'),
  t_radio:L('Radio Leonida','Radio Leonida'),
- l_radio:L('Dreh am Regler. Sechs Sender hat Rockstar am 8.10.2026 vorgestellt – im Spiel hörst du Radio auch zu Fuß über Kopfhörer.','Turn the dial. Rockstar revealed six stations on 8 Oct 2026 – in-game you can also listen on foot via earbuds.'),
+ l_radio:L('Dreh am Regler. Laut Tests gibt es 23 Sender – sechs davon hat Rockstar schon vorgestellt. Im Spiel hörst du Radio auch zu Fuß über Kopfhörer. Die komplette Liste kommt nach dem Release.','Turn the dial. Reviews mention 23 stations – Rockstar has revealed six so far. In-game you can also listen on foot via earbuds. The full list follows after launch.'),
  h_album:L('GTA VI: The Album – 34 Original-Tracks · ▶️ schon anhörbar','GTA VI: The Album – 34 original tracks · ▶️ already streaming'),
  h_trailersongs:L('Songs aus den Trailern','Songs from the trailers'),
  t_ed:L('Editionen & Fakten','Editions & facts'),
@@ -1853,7 +1854,7 @@ const FACTS=[
  [L('Story','Story'),L('80+ Std.','80+ hrs'),L('Story + Nebenziele','story + side content')],
  [L('Karte','Map'),L('~2× GTA V','~2× GTA V'),L('≈ 3× Red Dead 2','≈ 3× Red Dead 2')],
  [L('Fahndung','Wanted'),L('6 Sterne','6 stars'),L('wieder da nach GTA V','back after GTA V')],
- [L('Preload','Pre-load'),L('läuft','live'),L('seit 10.11. (PS Store)','since 10 Nov (PS Store)')],
+ [L('Tests','Reviews'),L('99 Meta','99 Meta'),L('Rekord – OpenCritic 98','record – OpenCritic 98')],
 ];
 const PILLS=[L('<i>●</i> Preload läuft','<i>●</i> Pre-load live'),L('PS5 · PS5 Pro · Xbox Series X|S','PS5 · PS5 Pro · Xbox Series X|S'),L('Nur Einzelspieler zum Start','Single-player at launch')];
 const TICKER=[
@@ -1882,7 +1883,7 @@ const MEDIA=[
  ['Features Trailer','11/2026','','https://www.youtube.com/watch?v=8L0CzL2V72c','linear-gradient(160deg,#ffd23f,#ff9a3c 50%,#5b2ea8)',L('PS5-Features (PlayStation)','PS5 features (PlayStation)')],
  ['Launch-Galerie','11/2026','','https://www.rockstargames.com/VI/launch-gallery','linear-gradient(160deg,#9b5cff,#22e7ff 70%)',L('Neue offizielle Screenshots','New official screenshots')],
 ];
-const MEDIATH={"Trailer 1": "trailer-1.06b6paykx247w.jpg", "Trailer 2": "trailer-2.0l.7aqib91fz6.jpg", "Extended Look": "an-extended-look.0zw.9~1j0ne~4.jpg", "Launch Trailer": "launch-trailer.0cq1gbt4507ty.jpg", "Pre-Load Now": "pre-load.0~7aq~08y784d.jpg", "Launch-Galerie": "screenshotsDesktop.0q9.0q677hl7h.jpg"};
+const MEDIATH={"Trailer 1": "trailer-1.06b6paykx247w.jpg", "Trailer 2": "trailer-2.0l.7aqib91fz6.jpg", "Extended Look": "an-extended-look.0zw.9~1j0ne~4.jpg", "Launch Trailer": "launch-trailer.0.fbrrtu5j-9_.jpg", "Pre-Load Now": "pre-load.0zuzm7cd1f3h1.jpg", "Launch-Galerie": "screenshotsDesktop.0q9.0q677hl7h.jpg"};
 
 const NWCAT=[['all',L('Alle','All')],['off',L('Offiziell','Official')],['de',L('Deutsch','German')],['int',L('International','International')],['com',L('Community','Community')]];
 const NWSRC={
@@ -1892,9 +1893,14 @@ const NWSRC={
  rsi:['RockstarINTEL','#b388ff','com'],discord:['Discord r/GTA6','#8c9eff','com'],
  nbc:['Notebookcheck','#9fe7c4','int'],df:['DiscussingFilm','#ffcf6e','int'],alt:['AltChar','#ffb3e6','int'],vice:['VICE','#ff8fb1','int'],press:['Presse','#e8e2d0','de'],cb:['ComputerBase','#9fd3ff','de'],psi:['PlayStationInfo','#7fb6ff','de'],kotaku:['Kotaku','#ffd0a8','int'],tr:['TechRadar','#a8c8ff','int'],
 };
-const NWUPD='2026-11-18T08:00:00+01:00';
+const NWUPD='2026-11-18T19:30:00+01:00';
 // id, date, source, badge, title, text, url
 const NEWSC=[
+ ['rev-99','2026-11-18','press','off',L('Tests: 99 auf Metacritic – Allzeit-Rekord','Reviews: 99 on Metacritic – all-time record'),L('Die Tests sind da: GTA 6 steht auf Metacritic bei 99 und ist damit gleichauf mit Zelda: Ocarina of Time das bestbewertete Spiel aller Zeiten. Kein einziger der über 150 Tests ist gemischt oder negativ. In Deutschland: GameStar 97 und GamePro 98 – jeweils die höchste Wertung ihrer Geschichte –, PC Games 10/10, IGN Deutschland und Eurogamer 100, 4Players 95. Kritik gibt es fast nur an den 30 fps und einigen zähen Abschnitten. Alle Wertungen stehen im Test-Ticker auf der Startseite.','Reviews are in: GTA 6 sits at 99 on Metacritic, tied with Zelda: Ocarina of Time as the best-reviewed game ever. Not one of 150+ reviews is mixed or negative. In Germany: GameStar 97 and GamePro 98 – each their highest score ever –, PC Games 10/10, IGN Germany and Eurogamer 100, 4Players 95. Criticism is mostly about 30 fps and a few slow stretches. All scores are in the review ticker on the home screen.'),'https://www.gamestar.de/artikel/gta-6-test-review-spoilerfrei,3463175.html'],
+ ['gp-test','2026-11-18','gamepro','off',L('GamePro-Test: 98 und 23 Radiosender','GamePro review: 98 and 23 radio stations'),L('Nach über 100 Stunden vergibt GamePro 98 Punkte. Gelobt werden der Detailgrad, Licht und Wetter, die Animationen, die englische Sprachausgabe und die abwechslungsreichen Hauptmissionen. Neu bestätigt: Es gibt 23 verschiedene Radiosender.','After 100+ hours GamePro gives it 98. Praise goes to the detail, lighting and weather, animations, English voice acting and varied main missions. Newly confirmed: there are 23 different radio stations.'),'https://www.gamepro.de/artikel/gta-6-test,3463144,wertung.html'],
+ ['sc-record','2026-11-18','press','seen',L('Streaming-Rekord: über 6 Mio. Zuschauer','Streaming record: 6M+ viewers'),L('Seit 12 Uhr läuft GTA 6 in Neuseeland – und bricht sofort den Streaming-Rekord: Laut Streams Charts schauten innerhalb von 90 Minuten 6,38 Millionen Menschen gleichzeitig auf Twitch, YouTube und Kick zu. Der alte Rekord lag bei 1,74 Millionen (Valorant).','Since noon CET GTA 6 is live in New Zealand – and instantly breaks the streaming record: per Streams Charts 6.38 million people watched at once on Twitch, YouTube and Kick within 90 minutes. The old record was 1.74 million (Valorant).'),'https://rockstarreport.com/news/gta-6-breaks-livestream-viewer-record'],
+ ['r-festtimes','2026-11-18','rockstar','off',L('Festival: Zeiten stehen, Erlös für Miami','Festival: set times out, proceeds to Miami'),L('Rockstar hat die Zeiten für „GTA VI: The Festival“ am 21.11. in Miami veröffentlicht: Einlass 16 Uhr Ortszeit, zwei Bühnen u. a. mit Travis Scott, Cardi B, Metro Boomin und einem DJ-Set von Justice. Alle Ticket-Einnahmen gehen an Hilfsorganisationen in Miami.','Rockstar posted the set times for “GTA VI: The Festival” on 21 Nov in Miami: doors 4 PM local, two stages with Travis Scott, Cardi B, Metro Boomin and a Justice DJ set among others. All ticket proceeds go to Miami charities.'),'https://www.rockstargames.com/VI/gtavi-thefestival'],
+ ['r-score','2026-11-18','rockstar','off',L('Original Score von Justice ab 11. Dezember','Justice’s Original Score on 11 December'),L('Rockstars Musikseite nennt den Termin: Der Original Score von Justice erscheint am 11. Dezember mit 30 Tracks plus Bonus-Tracks – digital, auf CD und Vinyl. Schon hörbar: „Flower in a Hurricane“ und „Pusher“ (feat. Gesaffelstein).','Rockstar’s music page has the date: Justice’s Original Score arrives on 11 December with 30 tracks plus bonus tracks – digital, CD and vinyl. Already out: “Flower in a Hurricane” and “Pusher” (feat. Gesaffelstein).'),'https://www.rockstargames.com/VI/music'],
  ['ig-embargo','2026-11-18','press','seen',L('Heute 12 Uhr: Tests – und Neuseeland spielt','Today 12:00 CET: reviews – and New Zealand plays'),L('Laut Insider Gaming fällt das Test-Embargo heute um 12 Uhr deutscher Zeit – genau dann, wenn GTA 6 in Neuseeland um Mitternacht freigeschaltet wird. Rockstar hat den Termin nicht offiziell bestätigt. Bei uns geht es in der Nacht auf Donnerstag um 0 Uhr los.','Per Insider Gaming the review embargo lifts today at 12:00 CET – exactly when GTA 6 unlocks at midnight in New Zealand. Rockstar has not confirmed the time. In Germany it unlocks at midnight on Thursday.'),'https://insider-gaming.com/grand-theft-auto-6-review-embargo/'],
  ['nbc-heatps5','2026-11-18','nbc','seen',L('Vice-City-PS5-Pro für die Miami HEAT','Vice City PS5 Pro for the Miami HEAT'),L('HEAT-Spieler zeigen auf Instagram ihre Rockstar-Pakete: eine PS5 Pro im Vice-City-Design, zwei limitierte DualSense-Controller und das Spiel im Flightcase. Verkauft wird davon nichts. Heute Nacht läuft das HEAT-Spiel im Vice-City-Look.','HEAT players show their Rockstar packages on Instagram: a Vice City PS5 Pro, two limited DualSense controllers and the game in a flight case. None of it is for sale. Tonight’s HEAT game runs in the Vice City look.'),'https://www.notebookcheck.net/GTA-6-s-custom-PS5-Pro-plates-revealed-but-Sony-won-t-sell-you-any-fans-slam-Rockstar.1453227.0.html'],
  ['psi-weather','2026-11-16','psi','off',L('Wetterbericht für Leonida: 6 neue Bilder','Leonida weather report: 6 new images'),L('Rockstar hat dem US-Sender The Weather Channel sechs exklusive Screenshots zum neuen Wettersystem gegeben: Starkregen in den Leonida Keys, ein Unwetter in Pelican Valley, Nebelwand am South Ocean Beach, Tropensturm am Rusty Anchor, Morgennebel in Gambit Bay und Regen in Key Lento. Laut Owen Shepherd (Rockstar, Licht & Rendering) wurde das Wetter komplett überarbeitet: regionaler, länger anhaltend und dynamischer – wie im echten Florida.','Rockstar gave The Weather Channel six exclusive screenshots of the new weather system: heavy rain in the Leonida Keys, a storm in Pelican Valley, a fog bank at South Ocean Beach, a tropical storm at the Rusty Anchor, morning fog in Gambit Bay and rain in Key Lento. Per Owen Shepherd (Rockstar, lighting & rendering) weather was completely reworked: more regional, longer-lasting and more dynamic – like real Florida.'),'https://www.playstationinfo.de/2026/11/17/gta-6-zeigt-sechs-neue-bilder-und-der-grosse-hackerfall-nimmt-eine-ueberraschende-wendung/'],
@@ -1960,7 +1966,7 @@ const NWHUB=[
  ['rsi','https://rockstarintel.com/',L('Fan-News & Leaks','Fan news & leaks')],
 ];
 NEWSC.sort((a,b)=>b[1].localeCompare(a[1]));
-const NWTOP='ig-embargo';
+const NWTOP='rev-99';
 
 const NEWS=[
  ['29.09.2026','seen',L('Game Informer: Nord-Leonida','Game Informer: northern Leonida'),L('Zwischen den Nordstädten: ATV-Trails, eine Schlamm-Party, Demolition-Derby auf Flutlicht-Ovalen, Mountainbike-Strecken, Farmen, ein privater Golfplatz, Sanddünen für MX-Bikes und Barsch-Angeln im Zypressensee.','Between the northern towns: ATV trails, a mud-park party, demolition derbies on floodlit ovals, MTB trails, farms, a private golf course, dunes for MX bikes and bass fishing in a cypress lake.')],
@@ -2602,6 +2608,7 @@ function renderNews(){
  $('#nwAllRead').textContent='✓ '+T(UI.allRead);
  const off=NEWSC.filter(n=>NWSRC[n[2]][2]==='off');const feat=NEWSC.find(n=>n[0]===NWTOP)||off[0];const side=NEWSC.filter(n=>n!==feat).slice(0,3);
  $('#nwTop').innerHTML=`<a class="nwFeat" ${feat[6]?`href="${feat[6]}" target="_blank" rel="noopener"`:''} data-nid="${feat[0]}"><div class="k">★ ${T(L('Top-Meldung','Top story'))} · ${NWSRC[feat[2]][0]} · ${nwDate(feat[1])}</div><h4>${T(feat[4])}</h4><p>${T(feat[5])}</p><span class="go">${T(UI.readArt)}</span></a><div class="nwSide">${side.map(nwMini).join('')}</div>`;
+ $('#nwRev').innerHTML=`<b style="font-family:Anton;font-size:24px;letter-spacing:1px">${T(L('Alle Testwertungen','All review scores'))}</b>`+revHTML(false);
  $('#nwCats').innerHTML=NWCAT.map(([k,l])=>{const c=k==='all'?NEWSC.length:NEWSC.filter(n=>NWSRC[n[2]][2]===k).length;return `<button class="chip ${NWF===k?'on':''}" data-c="${k}">${T(l)} · ${c}</button>`}).join('');
  $('#nwCats').querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{NWF=b.dataset.c;renderNews();reveal()});
  $('#nwQ').placeholder=T(UI.nwQ);$('#nwQ').oninput=renderNewsList;
@@ -3377,13 +3384,13 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
 /* ===== v19 features: launch show, reviews, sharing, story cards, quiz, diary, money, map night/storm, motion ===== */
 const SHAREBASE='https://iamflovo.github.io/gta6/';
 /* --- reviews ticker --- */
-const REVIEWS={embargo:new Date('2026-11-18T12:00:00+01:00'),mc:null,list:[] /* [outlet, score, max, url] */};
+const REVIEWS={embargo:new Date('2026-11-18T12:00:00+01:00'),mc:99,oc:98,mcN:150,list:[["GameStar", 97, 100, "https://www.gamestar.de/artikel/gta-6-test-review-spoilerfrei,3463175.html"],["GamePro", 98, 100, "https://www.gamepro.de/artikel/gta-6-test,3463144,wertung.html"],["PC Games", 10, 10, "https://www.hardwareluxx.de/index.php/news/software/spiele/71021-gta-6-im-testspiegel-99-punkte-fuer-rockstars-rueckkehr-nach-vice-city.html"],["IGN Deutschland", 100, 100, "https://esports.ch/esportsnews/gta-6-reviews-metascore-twitch-rekord/"],["Eurogamer.de", 100, 100, "https://esports.ch/esportsnews/gta-6-reviews-metascore-twitch-rekord/"],["4Players", 95, 100, "https://esports.ch/esportsnews/gta-6-reviews-metascore-twitch-rekord/"],["IGN", 10, 10, "https://www.ign.com/articles/grand-theft-auto-vi-review"],["GameSpot", 10, 10, "https://opencritic.com/game/15398/grand-theft-auto-vi"],["Game Informer", 10, 10, "https://opencritic.com/game/15398/grand-theft-auto-vi"],["GamesRadar+", 5, 5, "https://www.gamesradar.com/games/grand-theft-auto/gta-6-review/"],["VGC", 5, 5, "https://www.videogameschronicle.com/review/grand-theft-auto-6/"],["Eurogamer", 5, 5, "https://opencritic.com/game/15398/grand-theft-auto-vi"],["The Guardian", 5, 5, "https://opencritic.com/game/15398/grand-theft-auto-vi"],["TechRadar", 5, 5, "https://www.techradar.com/gaming/gta-6-review"],["Destructoid", 10, 10, "https://www.destructoid.com/reviews/grand-theft-auto-6-review/"],["Giant Bomb", 5, 5, "https://giantbomb.com/reviews/grand-theft-auto-vi-review"],["Windows Central", 5, 5, "https://www.windowscentral.com/gaming/xbox/grand-theft-auto-6-xbox-review"],["TheSixthAxis", 9, 10, "https://opencritic.com/game/15398/grand-theft-auto-vi"],["ScreenHub", 4, 5, "https://www.hardwareluxx.de/index.php/news/software/spiele/71021-gta-6-im-testspiegel-99-punkte-fuer-rockstars-rueckkehr-nach-vice-city.html"]] /* [outlet, score, max, url] */};
 function revHTML(compact){const now=Date.now(),t=REVIEWS.embargo-now;
  if(t>0&&!REVIEWS.list.length){const d=Math.floor(t/864e5),h=Math.floor(t/36e5)%24,m=Math.floor(t/6e4)%60;
   return `<div class="rev"><div class="revCd"><b>${d?d+'T ':''}${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}</b><span>${T(L('bis zu den Tests','until reviews'))}</span></div><div class="dim">${T(L('Die Wertungen fallen laut Berichten am 18.11. gegen 12 Uhr – offiziell bestätigt ist das nicht. Hier erscheinen dann GameStar, GamePro, IGN & Co. und der Metacritic-Schnitt.','Reviews reportedly drop on 18 Nov around noon CET – not officially confirmed. GameStar, GamePro, IGN & co. plus the Metacritic average will show up here.'))}</div></div>`}
  if(!REVIEWS.list.length)return `<div class="rev"><div class="dim">${T(L('Die Tests sind raus – die Wertungen werden gerade eingetragen.','Reviews are out – scores are being added.'))}</div></div>`;
  const avg=REVIEWS.mc||Math.round(REVIEWS.list.reduce((a,r)=>a+r[1]/r[2]*100,0)/REVIEWS.list.length);
- return `<div class="rev"><div class="revMc"><b>${avg}</b><span>${REVIEWS.mc?'Metacritic':T(L('Schnitt','Average'))}</span></div><div class="revList">${REVIEWS.list.slice(0,compact?6:40).map(r=>`<a href="${r[3]}" target="_blank" rel="noopener"><span>${esc(r[0])}</span><b>${r[1]}${r[2]!==100?'/'+r[2]:''}</b></a>`).join('')}</div></div>`}
+ return `<div class="rev"><div class="revTop"><div class="revMc"><b>${avg}</b><span>${REVIEWS.mc?'Metacritic':T(L('Schnitt','Average'))}</span></div>${REVIEWS.oc?`<div class="revMc oc"><b>${REVIEWS.oc}</b><span>OpenCritic</span></div>`:''}<div class="revNote"><b>${T(L('Bestbewertetes Spiel aller Zeiten','Best-reviewed game ever'))}</b><span>${T(L('Gleichauf mit Zelda: Ocarina of Time (1998). Über 150 Tests, kein einziger gemischter. Kritik gibt es fast nur an den 30 fps und ein paar zähen Passagen.','Tied with Zelda: Ocarina of Time (1998). 150+ reviews, not a single mixed one. Criticism is mostly about 30 fps and a few slow stretches.'))}</span></div></div><div class="revList">${REVIEWS.list.slice(0,compact?6:40).map(r=>`<a href="${r[3]}" target="_blank" rel="noopener"><span>${esc(r[0])}</span><b>${r[1]}${r[2]!==100?'/'+r[2]:''}</b></a>`).join('')}</div></div>`}
 W.rev=()=>[L('Test-Ticker','Review ticker'),revHTML(true)];
 WIDGETS.unshift('rev');
 setInterval(()=>{const e=document.querySelectorAll('.rev');if(e.length&&REVIEWS.embargo>Date.now()){document.querySelectorAll('[data-w=rev] .wb').forEach(b=>b.innerHTML=revHTML(true));const n=$('#nwRev');if(n)n.innerHTML=revHTML(false)}},30000);
