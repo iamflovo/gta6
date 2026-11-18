@@ -273,6 +273,11 @@ body.noanim #pano{transition:none}
 .vid .th.hasTh .lb{text-shadow:0 2px 10px rgba(0,0,0,.8)}
 img{color:transparent}
 .rev .revTop{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;margin-bottom:10px}.rev .revTop .revMc{flex:0 0 auto}.rev .revMc.oc b{color:var(--cyan)}.rev .revNote{flex:1 1 200px;display:flex;flex-direction:column;gap:3px;font-size:13px;color:var(--mut)}.rev .revNote b{color:#fff;font-size:14.5px}
+.gazCard{margin-top:14px}.gzHd{display:flex;gap:12px;align-items:flex-start;justify-content:space-between}.gzHd>div{display:flex;flex-direction:column;gap:4px}.gzHd b{font-family:Anton,Impact,sans-serif;font-size:24px;letter-spacing:.5px;text-transform:uppercase}
+.gzStats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.gzStats>div{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}.gzStats b{display:block;font-family:Anton,Impact,sans-serif;font-size:22px;color:var(--cyan)}.gzStats span{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+.gz summary{flex-wrap:wrap}.gz summary .dim{width:100%;font-size:12.5px;margin-top:2px}.gzR{display:grid;gap:10px;padding:6px 0 4px}.gzA b{display:block;font-size:14px;margin-bottom:5px}.gzA .chips{display:flex;flex-wrap:wrap;gap:6px}.gzA .chip{font-size:12px;padding:4px 9px}
+.gzT{margin:16px 0 8px;font-family:Anton,Impact,sans-serif;font-size:19px;letter-spacing:.5px;text-transform:uppercase}.gzCnt{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}.gzCnt>div{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px;padding:9px 10px;font-size:12.5px}.gzCnt .ic{width:16px;height:16px;flex:none;stroke:url(#icG)}.gzCnt b{font-family:Anton,Impact,sans-serif;font-size:19px;min-width:30px}
+@media(max-width:560px){.gzStats{grid-template-columns:repeat(2,1fr)}}
 .hist{display:grid;gap:10px}@media(min-width:760px){.hist{grid-template-columns:1fr 1fr}}
 .hRow{padding:14px!important}.hRow.now{box-shadow:0 0 0 1px rgba(255,43,214,.45),0 18px 40px -20px rgba(255,43,214,.6)!important}
 .hHd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}.hHd b{font-size:17px}.hY{font:700 12px/1 var(--fm,monospace);color:var(--cyan);letter-spacing:.08em}
@@ -1585,6 +1590,7 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
       <div class="mapbox" id="mapbox"></div>
       <div class="card rpanel" id="rpanel"></div>
     </div>
+    <div class="card gazCard" id="gaz"></div>
     <div class="card leakCard" id="leakCard"></div>
     <h3 data-i="h_mypins"></h3>
     <div id="mypins"></div>
@@ -1656,6 +1662,7 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
     <h2 class="sec" data-i="t_acts"></h2>
     <p class="lead" data-i="l_acts"></p>
     <div id="actTop"></div>
+    <div class="card gazCard" id="actMap"></div>
     <div id="actBox"></div>
     <h3 data-i="h_acts"></h3>
     <p class="dim" data-i="planHint" style="margin-top:-4px"></p>
@@ -1717,7 +1724,7 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 18.11. 18:50</div>
+    <div class="dim" style="margin-top:8px">App-Version 18.11. 19:07</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -1767,7 +1774,7 @@ const UI={
  h_progress:L('Mein Leonida-Fortschritt','My Leonida progress'),
  progTxt:L('Hake in der Garage gefahrene Autos ab und zieh Aktivitäten im Launch-Plan auf „Erledigt“. Wird nur auf diesem Gerät gespeichert.','Tick driven cars in the Garage and drag activities to “Done” in the launch plan. Saved on this device only.'),
  t_map:L('Die Karte von Leonida','The map of Leonida'),
- l_map:L('Tippe auf eine Region. Schematische Karte – Rockstar zeigt die echte Karte erst im Spiel. Lage der Regionen nach Rockstar-Infos und dem Fan-Mapping-Projekt.','Tap a region. Schematic map – Rockstar only reveals the real map in-game. Region placement based on Rockstar info and the fan mapping project.'),
+ l_map:L('Tippe auf eine Region. Die Karte oben ist noch schematisch – darunter findest du alle Orte und Zahlen aus der echten Ingame-Karte. Rockstars offizielle Karte bauen wir ein, sobald sie am 19.11. erscheint.','Tap a region. The map above is still schematic – below you’ll find every place and count from the real in-game map. We’ll add Rockstar’s official map as soon as it drops on 19 Nov.'),
  crewImgHint:L('📷 Tipp: Mit der Kamera-Taste kannst du jeder Figur dein eigenes Bild geben, zum Beispiel einen Screenshot von deiner PS5. Es bleibt nur auf deinem Gerät.','📷 Tip: use the camera button to give any character your own image, e.g. a screenshot from your PS5. It stays on your device only.'),
  h_districts:L('Viertel von Vice City','Vice City districts'),
  h_pois:L('Orte & Läden, die schon bekannt sind','Known places & shops'),
@@ -2009,7 +2016,7 @@ const FIRST=[
  L('🔒 Im Leonida Pro Guide dein Kapitel einstellen (Spoiler-Schutz)','🔒 Set your chapter in Leonida Pro Guide (spoiler shield)'),
 ];
 const PINCATS=[['hide','🗝️',L('Versteck','Hideout')],['gang','🏚️',L('Gang-Compound','Gang compound')],['animal','🦌',L('Tier','Animal')],['car','🚗',L('Classic Car','Classic car')],['coll','📰',L('Sammelobjekt','Collectible')],['shop','🛒',L('Laden/Hehler','Shop/fence')],['note','📌',L('Notiz','Note')]];
-const COLL=[['legend','🦌',L('Legendäre Tiere','Legendary animals'),null,L('Selten · entdeckbar · legendär','Rare · discoverable · legendary')],['species','🐊',L('Arten im Kompendium','Compendium species'),null,L('Jede gesichtete Art zählt','Every spotted species counts')],['classic','🚙',L('Classic Cars für Wyman','Classic cars for Wyman'),null,L('4 davon nur in der Ultimate','4 are Ultimate-only')],['paper','📰',L('Sammel-Zeitungen','Collectible newspapers'),null,L('Beim Ladenraub entdeckt','Spotted during a store robbery')],['gang','🏚️',L('Gang-Compounds','Gang compounds'),null,L('„lots and lots“ laut Rockstar','“lots and lots” per Rockstar')],['fish','🎣',L('Angel-Sammelobjekte','Fishing collectibles'),null,L('Fische bringen Geld & Sammelobjekte','Fish give cash & collectibles')]];
+const COLL=[['legend','🦌',L('Legendäre Tiere','Legendary animals'),null,L('Selten · entdeckbar · legendär','Rare · discoverable · legendary')],['species','🐊',L('Arten im Kompendium','Compendium species'),null,L('Jede gesichtete Art zählt','Every spotted species counts')],['classic','🚙',L('Classic Cars für Wyman','Classic cars for Wyman'),null,L('4 davon nur in der Ultimate','4 are Ultimate-only')],['paper','📰',L('Sammel-Zeitungen','Collectible newspapers'),null,L('Beim Ladenraub entdeckt','Spotted during a store robbery')],['gang','🏚️',L('Gang-Operationen','Gang operations'),39,L('39 auf der Ingame-Karte','39 on the in-game map')],['banks','🏦',L('Bank-Jobs','Bank jobs'),22,L('14 Filialen, 8 Tresore','14 branches, 8 vaults')],['smash','💥',L('Smash ’n’ Grabs','Smash ’n’ grabs'),35,L('Schnelle Raubzüge','Quick robberies')],['loans','💰',L('Kredithaie','Payday loans'),7,L('Auf der Karte markiert','Marked on the map')],['fish','🎣',L('Angel-Sammelobjekte','Fishing collectibles'),null,L('Fische bringen Geld & Sammelobjekte','Fish give cash & collectibles')]];
 const HEISTT=[['store','🏪',L('Laden','Store')],['jewel','💎',L('Juwelier','Jeweler')],['bank','🏦',L('Bank','Bank')]];
 const HEISTSTEPS={
  base:[L('Fluchtwagen ohne GPS-Tracker besorgen (vorher mit WAINK scannen)','Get a getaway car without a GPS tracker (scan with WAINK first)'),L('Tank voll? Rockstar will, dass du an Sprit denkst','Full tank? Rockstar wants you thinking about fuel'),L('Ersatzoutfit in den Kofferraum','Spare outfit in the trunk'),L('Maske VOR der Tat aufsetzen','Mask on BEFORE the crime'),L('Hinterausgang & Kameras checken','Check the back exit & cameras'),L('Niemanden töten → Criminal Profile steigt','Kill no one → Criminal Profile goes up')],
@@ -2230,6 +2237,31 @@ const CARS=[
  ['Vapid Police Cruiser','Vapid','cop','seen',L('Interceptor-Streife.','Interceptor patrol.')],
  ['Bravado Gauntlet Interceptor','Bravado','cop','seen',L('Schnelle Verfolger-Streife.','Fast pursuit car.')],
  ['Brute Police Riot','Brute','cop','seen',L('Einsatzfahrzeug ab hohen Sternen.','Riot truck for high stars.')],
+ ["Progen Emerus",'Progen','super','off',L("Offizieller Rockstar-Screenshot (Hypedrive, 6.11.) – Hypercar.","Official Rockstar screenshot (Hypedrive, 6 Nov) – hypercar.")],
+ ["Albany Manana",'Albany','muscle','off',L("Offizieller Rockstar-Screenshot (Hypedrive, 6.11.) – Lowrider-Klassiker.","Official Rockstar screenshot (Hypedrive, 6 Nov) – lowrider classic.")],
+ ["Pegassi Infernus Classic",'Pegassi','super','seen',L("In Fahrzeuglisten der Community bestätigt.","Confirmed in community vehicle lists.")],
+ ["Truffade Thrax",'Truffade','super','seen',L("Bugatti-artiger Hypersportwagen.","Bugatti-style hyper car.")],
+ ["Grotti Itali RSX",'Grotti','super','seen',L("Auch als GTA+-Auto in GTA Online.","Also a GTA+ car in GTA Online.")],
+ ["Declasse Mamba GT",'Declasse','super','ue',L("Screenshot der Ultimate Edition.","Ultimate Edition screenshot.")],
+ ["Albany V-STR",'Albany','sedan','seen',L("Sportlimousine (Cadillac-CT5-V-Stil).","Sports sedan (Cadillac CT5-V-style).")],
+ ["Annis Elegy Retro Custom",'Annis','super','seen',L("JDM-Klassiker (Skyline-Stil).","JDM classic (Skyline-style).")],
+ ["Karin Futo",'Karin','super','seen',L("Drift-Klassiker (AE86-Stil).","Drift classic (AE86-style).")],
+ ["Declasse Tulip",'Declasse','muscle','off',L("Jason & Lucias Fluchtwagen aus Trailer 2.","Jason & Lucia’s getaway car from Trailer 2.")],
+ ["Schyster Deviant",'Schyster','muscle','seen',L("Muscle-Car (Challenger-Stil).","Muscle car (Challenger-style).")],
+ ["Ubermacht Rebla GTS",'Ubermacht','suv','seen',L("Luxus-SUV (BMW-X5-Stil).","Luxury SUV (BMW X5-style).")],
+ ["Enus Jubilee",'Enus','suv','seen',L("Luxus-SUV (Rolls-Royce-Cullinan-Stil).","Luxury SUV (Rolls-Royce Cullinan-style).")],
+ ["Vapid Aleutian",'Vapid','suv','seen',L("Großer SUV (Expedition-Stil).","Full-size SUV (Expedition-style).")],
+ ["Vapid Riata Classic",'Vapid','suv','seen',L("Klassischer Pickup.","Classic pickup.")],
+ ["Vapid Contender",'Vapid','suv','seen',L("Pickup/SUV.","Pickup/SUV.")],
+ ["Lampadati Novak",'Lampadati','suv','seen',L("Kompakt-SUV (Maserati-Levante-Stil).","Compact SUV (Maserati Levante-style).")],
+ ["Pegassi Toros",'Pegassi','suv','seen',L("Super-SUV (Urus-Stil).","Super SUV (Urus-style).")],
+ ["Declasse Rancher",'Declasse','suv','seen',L("Klassischer Geländewagen.","Classic off-roader.")],
+ ["Bravado Rumpo",'Bravado','suv','seen',L("Transporter aus Trailer 1.","Van from Trailer 1.")],
+ ["Maibatsu Mule",'Maibatsu','suv','seen',L("Lkw aus Trailer 2.","Truck from Trailer 2.")],
+ ["JoBuilt Phantom",'JoBuilt','suv','seen',L("Sattelzugmaschine.","Semi truck.")],
+ ["Vapid Liberator",'Vapid','suv','seen',L("Monstertruck.","Monster truck.")],
+ ["Zirconium Journey",'Zirconium','suv','seen',L("Wohnmobil (Pace-Arrow-Stil).","Motorhome (Pace Arrow-style).")],
+ ["Shitzu Tropic",'Shitzu','boat','seen',L("Sportboot aus Trailer 2.","Speedboat from Trailer 2.")],
 ];
 const GUNCATS={hand:L('Pistolen','Handguns'),ar:L('Sturmgewehre','Assault rifles'),smg:L('MPs & MGs','SMGs & MGs'),sg:L('Schrotflinten','Shotguns'),sn:L('Scharfschützen','Snipers'),hv:L('Schwere Waffen','Heavy'),th:L('Wurfwaffen & Gadgets','Throwables & gadgets'),mel:L('Nahkampf','Melee')};
 const GUNI={hand:'🔫',ar:'🎯',smg:'💥',sg:'💢',sn:'🔭',hv:'🚀',th:'💣',mel:'🔨'};
@@ -2241,7 +2273,11 @@ const GUNS=[
  ['Nipper .38','hand','seen',L('Kompakter Revolver.','Compact revolver.')],
  ['Heavy Pistol','hand','seen',L('M1911-Vorbild.','M1911-style.')],
  ['Shocker (Taser)','hand','leak',L('Taser – im Leak beim Raffinerie-Überfall.','Taser – used in the refinery leak.')],
- ['Assault Rifle','ar','seen',L('AK-Vorbild, teils mit Holzschaft.','AK-style, partly wood furniture.')],
+ ['Duke Arms 556 (Sturmgewehr)','ar','seen',L('AK-Vorbild, teils mit Holzschaft.','AK-style, partly wood furniture.')],
+ ['Shrewsbury AKM','ar','seen',L('Sturmgewehr nach AKM-Vorbild – in Community-Datenbanken unter diesem Namen geführt.','AKM-style assault rifle – listed under this name in community databases.')],
+ ['Capo','hand','seen',L('Pistole, in Community-Listen nach dem Launch geführt.','Pistol, listed in community lists after launch.')],
+ ['MAC-11-MP','smg','seen',L('Kompakte Maschinenpistole, in mehreren Weapon-Listen genannt.','Compact machine pistol, named in several weapon lists.')],
+ ['Schlagring','mel','seen',L('Knuckle Dusters – laut Community-Liste wieder dabei.','Knuckle dusters – back per community lists.')],
  ['Carbine Rifle (+ Mk II)','ar','seen',L('AR-15/HK416-Vorbild.','AR-15/HK416-style.')],
  ['Service Carbine','ar','seen',L('M16-Vorbild.','M16-style.')],
  ['Micro SMG','smg','seen',L('Mini-Uzi.','Mini Uzi.')],
@@ -3095,7 +3131,7 @@ function renderEditions(){
   $('#eds').querySelectorAll('[data-ed]').forEach(im=>im.onclick=()=>{gFilter='eds';location.hash='gallery';renderGallery();const k=gList().findIndex(o=>o.name===im.dataset.ed);setTimeout(()=>gOpen(k),350)});
   $('#eds').querySelectorAll('[data-edg]').forEach(a=>a.onclick=e=>{e.preventDefault();gShow('eds')});}
  $('#tech').innerHTML=`<tr><th>${T(L('Thema','Topic'))}</th><th>${T(L('Stand','Status'))}</th><th></th></tr>`+TECH.map(t=>`<tr><td><b>${T(t[0])}</b></td><td>${T(t[1])}</td><td>${badge(t[2])}</td></tr>`).join('');
- renderHist();
+ renderHist();try{renderGaz()}catch(e){}try{const am=$('#actMap');if(am)am.innerHTML=`<div class="gzHd"><div><b>${T(L('Leonida in Zahlen','Leonida by numbers'))}</b><span class="dim">${T(L('So viel ist laut Ingame-Karte los – Stand Release.','This much is on the in-game map – as of launch.'))}</span></div>${badge('seen')}</div><div class="gzCnt" style="margin-top:12px">${MAPCOUNT.filter((m,i)=>[0,1,2,3,4,5,12,14,15,19,20,22].includes(i)).map(m=>`<div>${icn(m[0])}<b>${m[1]}</b><span>${T(m[2])}</span></div>`).join('')}</div>`}catch(e){}
  $('#srcs').innerHTML=SRCS.map(s=>`<li><a href="${s[1]}" target="_blank" rel="noopener">${esc(s[0])}</a></li>`).join('');
 }
 
@@ -3567,6 +3603,15 @@ function renderHist(){const el=$('#hist');if(!el)return;
   <div class="hBar t">${g[7]?`<i style="width:${lg(g[7],10,5000)}%"></i><em>${g[7].toLocaleString(LANG==='de'?'de-DE':'en-GB')}${g[0]===2013?'+':''}</em>`:`<em class="na">?</em>`}</div>
   <div class="hL"><span class="hK">${icn('clock')}${T(L('Dauer','Time'))}</span><span class="hV">${T(g[8])}</span></div>
   <div class="tx dim" style="margin-top:6px">${T(g[9])} <a href="${g[10]}" target="_blank" rel="noopener">${T(L('Quelle','Source'))} ↗</a></div></article>`}).join('')+`</div>`}
+const GAZ=[["mariana","Mariana County",L('Süden: Keys, Sümpfe & Grassrivers','South: Keys, swamps & Grassrivers'),[["Southwind", ["Riquezas Keys", "Permit Keys", "Maroon Key", "Abismo Key", "Leonida Bay"]], ["Key Lento", ["Gambit Bay", "Shoeless Keys", "Corsair Key", "Peregrine Bay", "Leonida Straits"]], ["Pelican Valley", ["Cottonmouth Lake", "Wetman Bay", "Gullet Marsh", "Pelican River"]], ["Watson Bay", ["Bobcat Key", "Bobcat Bight"]], ["Grassrivers", ["Tola Bay"]], ["Capri", ["Tortoise Lake", "Capri Sound", "Belpoint", "Gulf of Leonida"]], ["North Mariana County", ["Nehrling River"]], ["Mile Zero Air Station", []]]],["vicedale","Vice-Dale County",L('Vice City und Umland','Vice City and surroundings'),[["Vice City", ["Downtown", "Little Cuba", "Southside", "Peacock Bay", "Tequesta", "Tequesta Retreat", "Salton", "Rockridge", "Crosstown", "Bayside", "La Perle", "Balsero", "Stockyard", "Decor District", "Leaf Links", "Rialto Islands", "Starfish Island", "Waxman Island", "Port Vice City", "Catalan Bay", "Catalan Key", "Gloriana Key", "Dalton Island"]], ["Vice Beach", ["Ocean Beach", "Washington Beach"]], ["VCIA", []], ["Hamlet", []], ["South Vice-Dale County", []], ["West Vice-Dale County", []]]],["kelly","Kelly County",L('Nordwesten: Port Gellhorn & Golfküste','North-west: Port Gellhorn & Gulf coast'),[["Port Gellhorn", ["Wild Hog Point", "Borrachero Sound", "Crude Islands", "Sandbars"]], ["South Kelly County", ["Buckskin Swamp", "Emerald River", "Emerald Springs", "Gellhorn"]], ["Draper Island", ["Draper Bay"]], ["North Kelly County", ["Frogswater", "Manifest Canyon"]]]],["leonard","Leonard County",L('Nordosten: Seen & Parks','North-east: lakes & parks'),[["Belville", []], ["Waning Sands", ["Leith River"]], ["North Leonard County", ["Lake Leonida", "Richard Barebone State Park", "Little Hardin Island"]], ["South Leonard County", []]]],["lummox","Lummox County",L('Norden: Mount Kalaga & Wildnis','North: Mount Kalaga & wilderness'),[["Mount Kalaga National Park", []], ["Bonanza", ["Moreau", "Okchioha Bay", "MacAlister Gold Mine", "Saint Attaway Islands", "Hyde Island", "Moreau River"]], ["Grayson", ["San Malo Bay", "Featherstone Islands"]], ["East Lummox County", ["Partridge Bay", "Frampton Islands", "Lake Tallaloko", "Kalaga Reservoir", "Dawson Dam"]], ["Millport", ["Millport Basin"]], ["South West Lummox County", ["Zephyr Islands"]]]]];
+const MAPCOUNT=[['crosshair',39,L('Gang-Operationen','Gang operations')],['landmark',22,L('Bank-Jobs (14 klein, 8 Tresore)','bank jobs (14 small, 8 vaults)')],['zap',35,L('Smash ’n’ Grabs','smash ’n’ grabs')],['wallet',7,L('Kredithaie','payday loans')],['crosshair',24,L('Ammu-Nations','Ammu-Nations')],['wrench',14,L('Tuning-Werkstätten','mod shops')],['car',19,L('Pay ’n’ Spray','Pay ’n’ Spray')],['house',12,L('Garagen','garages')],['zap',57,L('Tankstellen','gas stations')],['car',6,L('Waschanlagen','car washes')],['route',25,L('Bahnhöfe','train stations')],['sailboat',2,L('Fähranleger','ferry terminals')],['shirt',67,L('Kleidungsläden','clothing stores')],['shirt',17,L('Schuhläden','shoe stores')],['scissors',18,L('Friseure & Beauty','hair & beauty')],['pen-tool',11,L('Tattoo-Studios','tattoo studios')],['tv',15,L('Elektronik','electronics')],['shopping-bag',72,L('Kioske & Märkte','convenience stores')],['wine',14,L('Spirituosen','liquor stores')],['wine',122,L('Bars','bars')],['utensils',87,L('Cafés & Takeaways','cafés & takeout')],['utensils',21,L('Fast Food','fast food')],['utensils',118,L('Imbissstände','street food')]];
+function renderGaz(){const el=$('#gaz');if(!el)return;
+ el.innerHTML=`<div class="gzHd"><div><b>${T(L('Die Ingame-Karte ist da','The in-game map is here'))}</b><span class="dim">${T(L('Seit dem Start in Neuseeland ausgewertet: 5 Countys, rund 175 km² (16 × 10,9 km), etwa 35 % Wasser. Viele Gebäude sind begehbar, manche Hochhäuser über mehrere Etagen per Aufzug. Rockstars offizielle Karte zum Ausdrucken folgt am 19.11. – dann ersetzen wir die schematische Karte oben.','Analysed since the New Zealand launch: 5 counties, about 175 km² (16 × 10.9 km), roughly 35% water. Many buildings are enterable, some towers across several floors by elevator. Rockstar’s official printable map follows on 19 Nov – then we replace the schematic map above.'))}</span></div>${badge('seen')}</div>
+ <div class="gzStats">${[['5',L('Countys','counties')],['175 km²',L('Fläche','area')],['35 %',L('Wasser','water')],['120+',L('benannte Orte','named places')]].map(x=>`<div><b>${x[0]}</b><span>${T(x[1])}</span></div>`).join('')}</div>
+ <div class="gzList">${GAZ.map((g,i)=>`<details class="acc gz" ${i===1?'open':''}><summary><h3>${g[1]} <span class="cnt">${g[3].reduce((a,r)=>a+1+r[1].length,0)}</span></h3><span class="dim">${T(g[2])}</span></summary><div class="gzR">${g[3].map(r=>`<div class="gzA"><b>${r[0]}</b>${r[1].length?`<div class="chips">${r[1].map(x=>`<span class="chip">${x}</span>`).join('')}</div>`:''}</div>`).join('')}</div></details>`).join('')}</div>
+ <h4 class="gzT">${T(L('Was auf der Karte eingezeichnet ist','What the map shows'))}</h4>
+ <div class="gzCnt">${MAPCOUNT.map(m=>`<div>${icn(m[0])}<b>${m[1]}</b><span>${T(m[2])}</span></div>`).join('')}</div>
+ <p class="dim" style="margin:10px 0 0;font-size:12px">${T(L('Quelle: Auswertung der Ingame-Karte durch PowerPyx (18.11.).','Source: in-game map analysis by PowerPyx (18 Nov).'))} <a href="https://www.powerpyx.com/gta-6-full-world-map-revealed/" target="_blank" rel="noopener">${T(L('Original','Original'))} ↗</a></p>`}
 function renderAll(){applySet();applyUI();renderTabs();renderHome();renderDream();renderVsys();renderHeat();renderPins();renderColl();renderCoach();renderMap();renderRegion();renderLeakCard();renderDistricts();renderCrew();renderCarCats();renderCars();renderGuns();renderMissions();renderSim();renderTips();renderSecrets();renderRadio();renderEditions();renderNews();renderEdBento();renderReal();renderGallery();renderActs();renderRevNews();renderMe();decorateImages();launchCheck();applyTod();applyWeather();$('#cdBox').dataset.mode='';renderCD();route();decorateFavs()}
 $('#btnLang').onclick=()=>{LANG=LANG==='de'?'en':'de';store.set('lang',LANG);renderAll()};
 $('#btnSearch').onclick=openSearch;$('#btnSet').onclick=openSet;$('#btnSet2').onclick=openSet;$('#setClose').onclick=()=>$('#setp').classList.remove('on');$('#pinMode').onclick=()=>{pinMode=!pinMode;renderMap()};$('#btnSearch2').onclick=openSearch;$('#btnLang2').onclick=()=>$('#btnLang').click();$('#moreClose').onclick=()=>$('#more').classList.remove('on');
