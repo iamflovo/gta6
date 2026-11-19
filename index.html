@@ -278,6 +278,11 @@ img{color:transparent}
 .gz summary{flex-wrap:wrap}.gz summary .dim{width:100%;font-size:12.5px;margin-top:2px}.gzR{display:grid;gap:10px;padding:6px 0 4px}.gzA b{display:block;font-size:14px;margin-bottom:5px}.gzA .chips{display:flex;flex-wrap:wrap;gap:6px}.gzA .chip{font-size:12px;padding:4px 9px}
 .gzT{margin:16px 0 8px;font-family:Anton,Impact,sans-serif;font-size:19px;letter-spacing:.5px;text-transform:uppercase}.gzCnt{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}.gzCnt>div{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px;padding:9px 10px;font-size:12.5px}.gzCnt .ic{width:16px;height:16px;flex:none;stroke:url(#icG)}.gzCnt b{font-family:Anton,Impact,sans-serif;font-size:19px;min-width:30px}
 @media(max-width:560px){.gzStats{grid-template-columns:repeat(2,1fr)}}
+.stArt{position:relative;height:150px;border-radius:14px;margin:10px 0 6px;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid var(--line)}.stArt img{max-height:84px;max-width:70%;object-fit:contain;filter:drop-shadow(0 4px 14px rgba(0,0,0,.6))}.stArt span,.nwImg span{position:absolute;right:8px;bottom:6px;font-size:10px;color:rgba(255,255,255,.75)}
+.musCovers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.musCover{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;text-decoration:none;color:inherit}.musCover .mc{width:72px;height:72px;flex:none;border-radius:10px;background-size:cover;background-position:center;box-shadow:0 8px 20px -8px rgba(0,0,0,.7)}.musCover b{display:block;font-size:14px;line-height:1.25}.musCover .dim{display:block;font-size:12px}.musCover small{display:block;font-size:10px;color:var(--mut);margin-top:3px}
+@media(max-width:560px){.musCovers{grid-template-columns:1fr}}
+.nwImg{position:relative;height:150px;margin:-14px -14px 4px;border-radius:14px 14px 0 0;background-size:cover;background-position:center}
+.nwFeat.hasImg{background:linear-gradient(180deg,rgba(11,4,24,.25),rgba(11,4,24,.92) 70%),var(--fimg) center/cover!important}
 .hist{display:grid;gap:10px}@media(min-width:760px){.hist{grid-template-columns:1fr 1fr}}
 .hRow{padding:14px!important}.hRow.now{box-shadow:0 0 0 1px rgba(255,43,214,.45),0 18px 40px -20px rgba(255,43,214,.6)!important}
 .hHd{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}.hHd b{font-size:17px}.hY{font:700 12px/1 var(--fm,monospace);color:var(--cyan);letter-spacing:.08em}
@@ -1702,6 +1707,7 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
     <h2 class="sec" data-i="t_radio"></h2>
     <p class="lead" data-i="l_radio"></p>
     <div class="radio" id="radio"></div>
+    <div class="musCovers" id="musCovers"></div>
     <h3 data-i="h_album"></h3>
     <div class="grid sm" id="album"></div>
     <h3 data-i="h_trailersongs"></h3>
@@ -1724,7 +1730,7 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 19.11. 08:08</div>
+    <div class="dim" style="margin-top:8px">App-Version 19.11. 08:16</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -1976,6 +1982,7 @@ const NWHUB=[
  ['rsi','https://rockstarintel.com/',L('Fan-News & Leaks','Fan news & leaks')],
 ];
 NEWSC.sort((a,b)=>b[1].localeCompare(a[1]));
+const NWIMG={"r-fest": "o39o87a435a25a/f14b9244ed05b99e611d0376ad7e0ec3b4f84aab.jpg", "r-festtimes": "o39o87a435a25a/f14b9244ed05b99e611d0376ad7e0ec3b4f84aab.jpg", "r-preload": "89834o94713o21/94f09130d07de4a50e3ab971e2b7d8c253b7c706.jpg", "r-trailer": "89834o94713o21/94f09130d07de4a50e3ab971e2b7d8c253b7c706.jpg", "r-preann": "k4ak9okk485712/81e58e08369adca0d68a17dac9b12c3a63848fc3.jpg", "gspot-gal": "39ak81277255o9/72074994d6364ad0de8872aa971fc47653f644ab.jpg", "r-score": "39ak8a12395591/cfc61a2d2e7b8c700e46582dc865e180b6c431d9.jpg", "r-launch": "517572321a549a/0637b4bb19438399bc5b3e7bbdfe6936f79cdbf3.jpg", "r-goodtime": "9k2a49ook82o57/cbdf4fc342bfca94c789a887244c3b70283047ae.jpg", "r-week": "39ak81277255o9/72074994d6364ad0de8872aa971fc47653f644ab.jpg", "pcg-poster": "k4ak9okk485712/81e58e08369adca0d68a17dac9b12c3a63848fc3.jpg", "r-tove": "89834o94713o21/94f09130d07de4a50e3ab971e2b7d8c253b7c706.jpg"};const NWIMGB='https://media-rockstargames-com.akamaized.net/tina-uploads/posts/';
 const NWTOP='r-launch';
 
 const NEWS=[
@@ -2516,13 +2523,14 @@ const THEORIES=[
  [L('Mapping-Projekt','Mapping project'),L('Über 16.000 Fans rekonstruieren die Karte (GTAForums-Thread seit 2022, 10.500+ Posts). Schätzung: ca. 2–2,5× GTA V Landfläche.','16,000+ fans rebuild the map (GTAForums thread since 2022, 10,500+ posts). Estimate: ~2–2.5× GTA V land.')],
 ];
 const RADIO=[
- {n:'Cocoteo FM',s:'Cocoteo',f:'92.4',g:L('Moderner Latin: Bachata, Merengue, Dembow, Reggaeton','Modern Latin: bachata, merengue, dembow, reggaeton'),h:'El Martillo & La Gata',c:'#ff9a3c'},
- {n:'Back Country Radio',s:'Country',f:'95.1',g:L('Renegade Country','Renegade country'),h:'MW & Delta Dawne',c:'#c98a4b'},
- {n:'AfroBank FM',s:'AfroBank',f:'97.7',g:L('Afrikanische Musik – Klassiker bis Amapiano & 3-Step','African music – classics to amapiano & 3-step'),h:'Burna & Palmsy',c:'#19f5c1'},
- {n:'The Chamber 106.6',s:'Chamber',f:'106.6',g:L('Metal','Metal'),h:'DJ Kerry & DJ Tom',c:'#ff4f4f'},
- {n:'Flash FM',s:'Flash',f:'101.9',g:L('Pop – zurück aus Vice City 2002','Pop – back from 2002’s Vice City'),h:'Robyn & Alex',c:'#ff2bd6'},
- {n:'Dirty South Classics',s:'Dirty South',f:'103.5',g:L('Regionaler Rap & Hip-Hop-Klassiker','Regional rap & hip-hop classics'),h:'Trick & Trina',c:'#ffd23f'},
+ {n:'Cocoteo FM',logo:'cocoteo-logo.0f_q~~9u45zf5.png',bg:'cocoteo-background.0~6dq9w0~ac7f.jpg',s:'Cocoteo',f:'92.4',g:L('Moderner Latin: Bachata, Merengue, Dembow, Reggaeton','Modern Latin: bachata, merengue, dembow, reggaeton'),h:'El Martillo & La Gata',c:'#ff9a3c'},
+ {n:'Back Country Radio',logo:'country-logo.0_u9b8toxgaqe.png',bg:'country-background.0dgx5dx.44v.x.jpg',s:'Country',f:'95.1',g:L('Renegade Country','Renegade country'),h:'MW & Delta Dawne',c:'#c98a4b'},
+ {n:'AfroBank FM',logo:'afrobank-logo.0r-.t_v9b~9l_.png',bg:'afrobank-background.140-_kytq55lt.jpg',s:'AfroBank',f:'97.7',g:L('Afrikanische Musik – Klassiker bis Amapiano & 3-Step','African music – classics to amapiano & 3-step'),h:'Burna & Palmsy',c:'#19f5c1'},
+ {n:'The Chamber 106.6',logo:'chamber-logo.039x21cy5jsiv.png',bg:'chamber-background.0bdn5.jnvwos2.jpg',s:'Chamber',f:'106.6',g:L('Metal','Metal'),h:'DJ Kerry & DJ Tom',c:'#ff4f4f'},
+ {n:'Flash FM',logo:'flash-logo.04o~oki.8dgm0.png',bg:'flash-background.0tc3kakjq4vi6.jpg',s:'Flash',f:'101.9',g:L('Pop – zurück aus Vice City 2002','Pop – back from 2002’s Vice City'),h:'Robyn & Alex',c:'#ff2bd6'},
+ {n:'Dirty South Classics',logo:'dirty-south-logo.0oparlmygi1zd.png',bg:'dirty-south-background.05~e07omgorbi.jpg',s:'Dirty South',f:'103.5',g:L('Regionaler Rap & Hip-Hop-Klassiker','Regional rap & hip-hop classics'),h:'Trick & Trina',c:'#ffd23f'},
 ];
+const MUSART={"album": "GTAVI_MusicPage_AlbumArt.05qucexa8vzgb.jpg", "score": "Score_CoverArt_1014_1600x1600.0.5dr9slukqhb.jpg", "vinyl": "D2C_SPLATTER.0us~vn1m.~ikt.jpg", "scoreVinyl": "exclusiveVinyl.0tb.kvi4kc2iz.jpg"};
 const ALBUM=[['Tove Lo','Blood In Your Eyes'],['Yung Lean feat. Future & Metro Boomin','That’s It'],['Travis Scott','RHYNO'],['CA7RIEL & Paco Amoroso, PinkPantheress, Fred again.. & Etienne de Crécy','Sexy Magic'],['Morgan Wallen','Last Thing You Need'],['Fuerza Regida','Suzuki'],['Rauw Alejandro','Macacoa 2000'],['Cardi B','Don’t Chart'],['Keith Richards','Bright Lights, Big City']];
 const TSONGS=[['Tove Lo','Blood In Your Eyes',L('Pre-Load-Trailer (10.11.)','Pre-load trailer (10 Nov)')],['Tom Petty','Love Is a Long Road',L('Trailer 1','Trailer 1')],['The Pointer Sisters','Hot Together',L('Trailer 2','Trailer 2')],['Justice feat. Tame Impala, SZA, King Gizzard','Flower In a Hurricane',L('Launch-Trailer · Justice macht auch den Score','Launch trailer · Justice also composed the score')],['Phil Collins','Against All Odds',L('Promo-Material','Promo material')],['Justice feat. Gesaffelstein','Pusher',L('Single aus dem Original-Score','Single from the original score')]];
 const EDS=[
@@ -2646,7 +2654,7 @@ function renderNews(){
  $('#nwUpd').textContent=T(L('Stand: ','Updated: '))+new Date(NWUPD).toLocaleString(LANG==='de'?'de-DE':'en-GB',{timeZone:'Europe/Berlin',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})+(LANG==='de'?' Uhr':'');
  $('#nwAllRead').textContent='✓ '+T(UI.allRead);
  const off=NEWSC.filter(n=>NWSRC[n[2]][2]==='off');const feat=NEWSC.find(n=>n[0]===NWTOP)||off[0];const side=NEWSC.filter(n=>n!==feat).slice(0,3);
- $('#nwTop').innerHTML=`<a class="nwFeat" ${feat[6]?`href="${feat[6]}" target="_blank" rel="noopener"`:''} data-nid="${feat[0]}"><div class="k">★ ${T(L('Top-Meldung','Top story'))} · ${NWSRC[feat[2]][0]} · ${nwDate(feat[1])}</div><h4>${T(feat[4])}</h4><p>${T(feat[5])}</p><span class="go">${T(UI.readArt)}</span></a><div class="nwSide">${side.map(nwMini).join('')}</div>`;
+ $('#nwTop').innerHTML=`<a class="nwFeat${NWIMG[feat[0]]?' hasImg':''}" ${NWIMG[feat[0]]?`style="--fimg:url('${NWIMGB+NWIMG[feat[0]]}')"`:''} ${feat[6]?`href="${feat[6]}" target="_blank" rel="noopener"`:''} data-nid="${feat[0]}"><div class="k">★ ${T(L('Top-Meldung','Top story'))} · ${NWSRC[feat[2]][0]} · ${nwDate(feat[1])}</div><h4>${T(feat[4])}</h4><p>${T(feat[5])}</p><span class="go">${T(UI.readArt)}</span></a><div class="nwSide">${side.map(nwMini).join('')}</div>`;
  $('#nwRev').innerHTML=`<b style="font-family:Anton;font-size:24px;letter-spacing:1px">${T(L('Alle Testwertungen','All review scores'))}</b>`+revHTML(false);
  $('#nwCats').innerHTML=NWCAT.map(([k,l])=>{const c=k==='all'?NEWSC.length:NEWSC.filter(n=>NWSRC[n[2]][2]===k).length;return `<button class="chip ${NWF===k?'on':''}" data-c="${k}">${T(l)} · ${c}</button>`}).join('');
  $('#nwCats').querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{NWF=b.dataset.c;renderNews();reveal()});
@@ -2664,7 +2672,7 @@ function renderNews(){
 function renderNewsList(){
  const q=($('#nwQ').value||'').trim().toLowerCase();const rd=store.get('nwread',{});
  const list=NEWSC.filter(n=>(NWF==='all'||NWSRC[n[2]][2]===NWF)&&(!q||(T(n[4])+' '+T(n[5])+' '+NWSRC[n[2]][0]).toLowerCase().includes(q)));
- $('#nwList').innerHTML=list.length?list.map(n=>`<article class="nwCard ${rd[n[0]]?'read':''}"><div class="nwMeta">${nwSrc(n[2])}<span class="d">${nwDate(n[1])}</span>${nwIsNew(n)?`<span class="nwNew">${LANG==='de'?'NEU':'NEW'}</span>`:''}<span class="sp" style="flex:1"></span>${nwBadge(n)}</div><b>${T(n[4])}</b><div class="tx">${T(n[5])}</div><div class="ft">${n[6]?`<a href="${n[6]}" target="_blank" rel="noopener" data-nid="${n[0]}">${T(UI.readArt)}</a>${trTag(n[6])}`:''}${rd[n[0]]?'':`<button class="rd" data-r="${n[0]}">✓ ${T(UI.markRead)}</button>`}</div></article>`).join(''):`<div class="muted">${T(UI.noRes)}</div>`;
+ $('#nwList').innerHTML=list.length?list.map(n=>`<article class="nwCard ${rd[n[0]]?'read':''}">${NWIMG[n[0]]?`<div class="nwImg" style="background-image:url('${NWIMGB+NWIMG[n[0]]}')"><span>© Rockstar Games</span></div>`:''}<div class="nwMeta">${nwSrc(n[2])}<span class="d">${nwDate(n[1])}</span>${nwIsNew(n)?`<span class="nwNew">${LANG==='de'?'NEU':'NEW'}</span>`:''}<span class="sp" style="flex:1"></span>${nwBadge(n)}</div><b>${T(n[4])}</b><div class="tx">${T(n[5])}</div><div class="ft">${n[6]?`<a href="${n[6]}" target="_blank" rel="noopener" data-nid="${n[0]}">${T(UI.readArt)}</a>${trTag(n[6])}`:''}${rd[n[0]]?'':`<button class="rd" data-r="${n[0]}">✓ ${T(UI.markRead)}</button>`}</div></article>`).join(''):`<div class="muted">${T(UI.noRes)}</div>`;
  $('#nwList').querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{nwMarkRead(b.dataset.r);renderNewsList();renderHome()});
  $('#nwList').querySelectorAll('a[data-nid]').forEach(a=>a.addEventListener('click',()=>{nwMarkRead(a.dataset.nid);setTimeout(renderNewsList,300)}));
 }
@@ -3107,12 +3115,13 @@ function renderSecrets(){
 
 /* radio */
 let station=store.get('station',4);
-function renderRadio(){
+function renderMusCovers(){const el=$('#musCovers');if(!el)return;el.innerHTML=[['album',L('GTA VI: The Album','GTA VI: The Album'),L('34 Songs · seit 19.11.','34 songs · out 19 Nov')],['score',L('Original Score von Justice','Original Score by Justice'),L('30 Tracks · ab 11.12.','30 tracks · 11 Dec')]].map(([k,t,d])=>`<a class="musCover" href="https://www.rockstargames.com/VI/music" target="_blank" rel="noopener"><div class="mc" style="background-image:url('${RSB+MUSART[k]}?imwidth=640')"></div><div><b>${T(t)}</b><span class="dim">${T(d)}</span><small>© Rockstar Games</small></div></a>`).join('')}
+function renderRadio(){try{renderMusCovers()}catch(e){}
  const s=RADIO[station];
  const pos=i=>8+i*(84/(RADIO.length-1));
  $('#radio').innerHTML=`<div class="dial">${RADIO.map((r,i)=>`<span class="st ${i===station?'on':''}" style="left:${pos(i)}%" data-i="${i}">${r.s}</span>`).join('')}<div class="needle" style="left:${pos(station)}%"></div></div>
  <div class="freq">${s.f} <span style="font-size:18px">FM</span></div>
- <div class="stname" style="color:${s.c};text-shadow:0 0 14px ${s.c}">${s.n}</div>
+ ${s.logo?`<div class="stArt" style="background-image:linear-gradient(180deg,rgba(11,4,24,.15),rgba(11,4,24,.85)),url('${RSB+s.bg}?imwidth=960')"><img src="${RSB+s.logo}?imwidth=480" alt="${esc(s.n)}" loading="lazy" onerror="this.remove()"><span>© Rockstar Games</span></div>`:''}<div class="stname" style="color:${s.c};text-shadow:0 0 14px ${s.c}">${s.n}</div>
  <div class="eq">${Array.from({length:18},(_,i)=>`<i style="animation-delay:${(i*137%900)/1000}s"></i>`).join('')}</div>
  <div style="text-align:center"><div class="muted">${T(s.g)}</div><div style="margin-top:4px">🎙️ <b>${s.h}</b></div><div style="margin-top:8px">${badge('off')}</div></div>
  <div class="row" style="justify-content:center;gap:10px;margin-top:14px"><button class="ib" id="rPrev">⏮</button><button class="ib" id="rNext">⏭</button></div>
