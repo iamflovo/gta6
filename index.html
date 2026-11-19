@@ -1162,8 +1162,8 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
 .mapbox .rl:not(.rw){-webkit-mask-composite:source-over}
 .mapbox .rl.rw img{filter:brightness(.5) saturate(.85) contrast(1.05)}
 .mapbox .rl.rc img{filter:brightness(1.12) contrast(1.06)}
-.mapbox.night .rl img{filter:brightness(.27) saturate(.8)}.mapbox.night .rl.rw img{filter:brightness(.14)}.mapbox.night .rl.rc img{filter:brightness(.55) sepia(.5) saturate(2.4) hue-rotate(-20deg)}
-.maptools #mrlBtn svg{width:16px;height:16px}
+.mapbox.night .rl img{filter:brightness(.27) saturate(.8)}.mapbox.night.mgame .rl img{filter:saturate(1.2) contrast(1.14) brightness(calc(var(--b,1)*.44))}.mapbox.night.mgame .rl.rw img{filter:brightness(.2)}.mapbox.night .rl.rw img{filter:brightness(.14)}.mapbox.night .rl.rc img{filter:brightness(.55) sepia(.5) saturate(2.4) hue-rotate(-20deg)}
+.maptools button svg{width:16px;height:16px}
 </style>
 </head>
 <body>
@@ -1749,7 +1749,7 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 19.11. 20:00</div>
+    <div class="dim" style="margin-top:8px">App-Version 19.11. 20:01</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -3693,7 +3693,7 @@ function renderMe(){const top=$('#meTop');if(!top)return;
  renderDiary();renderMoney()}
 /* --- map night & storm --- */
 let mapNight=store.get('mapnight',0); // 0 auto,1 day,2 night
-function paintRaster(){const b=$('#mapbox');const c=b&&b.querySelector('.mraster');if(!c||!MAPRASTER||c.width<100)return;const n=b.classList.contains('night');if(c._n===n)return;c._n=n;const x=c.getContext('2d');x.globalCompositeOperation='source-over';x.drawImage(MAPRASTER.map,0,0);if(n){x.fillStyle='rgba(2,6,22,.74)';x.fillRect(0,0,c.width,c.height);if(MAPRASTER.lights)x.drawImage(MAPRASTER.lights,0,0)}}
+function paintRaster(){const b=$('#mapbox');const c=b&&b.querySelector('.mraster');if(!c||!MAPRASTER||c.width<100)return;const n=b.classList.contains('night');if(c._n===n)return;c._n=n;const x=c.getContext('2d');x.globalCompositeOperation='source-over';x.drawImage(MAPRASTER.map,0,0);if(n){x.fillStyle=(MAPRASTER.map._off&&mapStyle==='game')?'rgba(2,6,22,.42)':'rgba(2,6,22,.74)';x.fillRect(0,0,c.width,c.height);if(MAPRASTER.lights)x.drawImage(MAPRASTER.lights,0,0)}}
 function applyMapNight(){const b=$('#mapbox');if(!b)return;const n=mapNight===2||(mapNight===0&&document.body.classList.contains('tod-night'));b.classList.toggle('night',n);paintRaster();const bt=$('#mnBtn');if(bt){bt.innerHTML=icn(n?'moon':'sun');bt.title=T([L('Tag/Nacht: Auto','Day/night: auto'),L('Tag','Day'),L('Nacht','Night')][mapNight]);bt.classList.toggle('on',mapNight!==0)}}
 function stormOn(){return SET.wx===1||(SET.wx===0&&typeof stormNews==='function'&&!!stormNews())}
 
