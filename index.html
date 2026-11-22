@@ -406,6 +406,13 @@ table.cmp{width:100%;border-collapse:collapse;font-size:13.5px}
 table.cmp td,table.cmp th{padding:8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 table.cmp th{color:var(--cyan);font-size:11px;letter-spacing:1.5px;text-transform:uppercase}
 .tipcat{display:flex;gap:10px;align-items:flex-start}
+.chtCode{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px}
+.chtCode span{display:inline-grid;place-items:center;min-width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);font:600 14px 'JetBrains Mono',monospace}
+.chtCard{display:flex;gap:10px;align-items:flex-start}.chtCard input{margin-top:4px;width:18px;height:18px;accent-color:#ff4fa3}
+.chtCard.got{opacity:.6}.chtUn{font-size:12.5px;margin-top:4px}
+.pskey{display:inline-grid;place-items:center;min-width:26px;height:24px;padding:0 6px;border-radius:12px;background:#1d1d2b;border:1px solid rgba(255,255,255,.25);font:700 12px 'Barlow Condensed',sans-serif;white-space:nowrap}
+.ctlRow{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px dashed rgba(255,255,255,.1)}.ctlRow:last-child{border:0}.ctlRow .k{flex:0 0 auto;display:flex;gap:3px;flex-wrap:wrap;max-width:46%}
+.ctlNew{font-size:10.5px;padding:1px 6px;border-radius:8px;background:#ff4fa3;color:#160b1a;font-weight:700;margin-left:6px}
 .tipcat .n{font-family:Anton;font-size:30px;line-height:1;color:var(--pink);min-width:34px;text-shadow:0 0 10px var(--pink)}
 
 /* ===== v2 layout ===== */
@@ -1710,6 +1717,7 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
     <p class="lead" data-i="l_tips"></p>
     <div class="tipsTop"><div class="card" id="sim"></div><div class="card" id="heat"></div></div>
     <div class="card coach" id="coach" style="margin-top:14px"></div>
+    <div id="cheatBox"></div>
     <div id="tipsBox"></div>
   </section>
 
@@ -1760,7 +1768,7 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 22.11. 13:34</div>
+    <div class="dim" style="margin-top:8px">App-Version 22.11. 13:41</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -3357,7 +3365,64 @@ function renderSim(){
   if(!sim.face&&!sim.outfit&&!sim.car&&a!=='reset'){sim.msg=L('🎉 Keine Beschreibung mehr übrig – du bist nur noch ein Gesicht in der Menge. Raus aus dem Suchkreis und die Hitze ist weg.','🎉 No description left – you’re just a face in the crowd. Leave the search circle and the heat is gone.');sim.stars=Math.min(sim.stars,1)}
   renderSim()});
 }
-function renderTips(){
+/* cheats & controls */
+const CHEATS=[
+ ['money',L('250.000 $','$250,000'),L('Gibt dir sofort 250.000 $ – mehrfach eingebbar','Instantly adds $250,000 – can be entered repeatedly'),'↑→↓←↑←↓→',L('Hauptstory beenden','Finish the main story'),'rep'],
+ ['focus',L('Unbegrenzter Fokus','Unlimited Focus'),L('Fokus geht nie aus','Focus never runs out'),'↓↑↑↓↑↓↑↓↑→',L('Hauptstory beenden','Finish the main story'),'rep'],
+ ['attack',L('Attack Force','Attack Force'),L('Schüsse und Schläge schleudern Gegner weg','Bullets and melee launch targets away'),'↓↑←←→↓↓↑↓',L('Hauptstory beenden','Finish the main story'),'rep'],
+ ['weather',L('Wetter wechseln','Cycle weather'),L('Schaltet durch die Wetterlagen','Cycles through weather conditions'),'↓→↑↓→↑→',L('Hauptstory beenden','Finish the main story'),'rep'],
+ ['armor',L('Schutzweste','Body armor'),L('Legt eine Weste in dein Loadout','Adds body armor to your loadout'),'↓↑←↑↑↑↑↑↓↓',L('100 Workouts','100 workouts'),'rep'],
+ ['heat',L('Heat erhöhen','Raise heat level'),L('Erhöht deine Heat auf der Karte','Raises your heat across the map'),'←↓→↓↑↓↑',L('25× einer 3-Sterne-Fahndung entkommen','Escape a 3-star wanted level 25 times'),'rep'],
+ ['wanted',L('Fahndung erhöhen','Raise wanted level'),L('Mehr Fahndungssterne','More wanted stars'),'←↓→↓↑→↑',L('50× einer 3-Sterne-Fahndung entkommen','Escape a 3-star wanted level 50 times'),'rep'],
+ ['ammo',L('Max. Munition','Max ammo'),L('Füllt die Munition auf','Fills up your ammo'),'↓↑→↓←←↑↑↓←',L('25× Bronze oder besser am Schießstand','25 bronze medals or better at shooting ranges'),'rep'],
+ ['drunk',L('Betrunken','Drunk'),L('Du (und dein Partner) seid sofort betrunken','You (and your partner) are instantly drunk'),'',L('2.500 $ für Alkohol ausgeben','Spend $2,500 on alcohol'),'rep'],
+ ['nofall',L('Kein Fallschaden','No fall damage'),'', '',L('20× einen Sturz aus 12 m (40 ft) überleben','Survive a 40 ft fall 20 times'),'rep'],
+ ['para',L('Fallschirm','Parachute'),'','',L('50 Skydives oder BASE-Jumps aus mind. 90 m (300 ft)','50 skydives or BASE jumps from 300+ ft'),'rep'],
+ ['repair',L('Fahrzeug reparieren','Repair vehicle'),'','',L('10 Rennen gewinnen (Gellhorn Raceway, Thrillbilly Mud Club, Boone Speedway)','Win 10 races (Gellhorn Raceway, Thrillbilly Mud Club, Boone Speedway)'),'rep'],
+ ['nitro',L('Unbegrenztes Nitro','Unlimited nitrous'),'','',L('50 Stunt-Sprünge landen','Land 50 stunt jumps'),'rep'],
+ ['time',L('Zeit vorspulen','Move time forward'),'','',L('10 Sammler-Uhren finden','Find 10 collectible watches'),'rep'],
+ ['filter',L('Bildfilter','Screen filter'),'','',L('4 Stunden Händchen halten','Spend 4 hours holding hands'),'rep']];
+const CTRL=[
+ [L('Zu Fuß','On foot'),[
+  [['L3'],L('Rennen – nochmal klicken = Sprinten','Run – click again to sprint'),1],
+  [['✕'],L('Springen / Klettern','Jump / climb'),1],
+  [['○'],L('Ducken · halten = Ausruhen','Crouch · hold = rest'),1],
+  [['▢'],L('Nahkampf','Melee'),1],
+  [['△'],L('Interagieren / Einsteigen','Interact / enter vehicle')],
+  [['L2'],L('halten: mit Personen interagieren','hold: interact with people')],
+  [['L3','R3'],L('gleichzeitig: Fokus','together: Focus')],
+  [['R3'],L('halten: nach hinten schauen','hold: look behind')]]],
+ [L('Kampf','Combat'),[
+  [['L2'],L('Zielen','Aim')],[['R2'],L('Schießen','Shoot')],[['R1'],L('Deckung','Cover')],
+  [['L1'],L('tippen = Holstern · halten = Loadout (Waffen, Items, Weste)','tap = holster · hold = loadout (weapons, items, armor)')],
+  [['L2','R1'],L('beim Zielen R1 halten: Schnellwurf','while aiming hold R1: quick throw')],
+  [['L2','△'],L('beim Zielen: Waffe schnell wechseln','while aiming: quick swap weapon')]]],
+ [L('Steuerkreuz','D-pad'),[
+  [['↑'],L('Handy · halten = WAiNK-App','Phone · hold = WAiNK app')],
+  [['←'],L('Radio · halten = Radiomenü','Radio · hold = radio menu')],
+  [['→'],L('Sprengstoff zünden · halten = Partnermenü','Detonate explosives · hold = partner menu')],
+  [['→','R1'],L('→ halten + R1: Jason/Lucia wechseln','hold → + R1: switch Jason/Lucia'),1],
+  [['↓'],L('Ziel & Minikarte · halten = Schnellnavigation','Objective & minimap · hold = quick navigation')]]],
+ [L('Fahren','Driving'),[
+  [['R2'],L('Gas','Accelerate')],[['L2'],L('Bremsen / Rückwärts','Brake / reverse')],[['✕'],L('Handbremse','Handbrake')],
+  [['L3'],L('Hupe / Nitro','Horn / nitrous')],[['←','→'],L('Blinker links / rechts','Turn signal left / right'),1],
+  [['R1'],L('Aus dem Fahrzeug schießen','Shoot from vehicle')],[['△'],L('Aussteigen','Exit vehicle')]]],
+ [L('Karte','Map'),[
+  [['Touchpad'],L('Karte öffnen','Open map')],[['L3'],L('Karte zentrieren','Recenter map')],
+  [['R3'],L('zwischen 3D- und 2D-Karte wechseln','switch 3D / 2D map'),1],[['✕'],L('Ziel setzen','Set destination')]]]];
+function renderCheats(){const b=$('#cheatBox');if(!b)return;const got=store.get('cheats',{});
+ const known=CHEATS.filter(c=>c[3]).length;
+ const ch=CHEATS.map(c=>`<div class="card chtCard ${got[c[0]]?'got':''}"><input type="checkbox" data-cht="${c[0]}" ${got[c[0]]?'checked':''} aria-label="${T(L('freigeschaltet','unlocked'))}"><div style="flex:1"><div class="row" style="flex-wrap:wrap;gap:6px"><b>${T(c[1])}</b>${badge(c[5])}</div>${c[2]?`<div class="muted" style="font-size:13px;margin-top:2px">${T(c[2])}</div>`:''}${c[3]?`<div class="chtCode">${[...c[3]].map(a=>`<span>${a}</span>`).join('')}</div>`:`<div class="dim" style="font-size:12.5px;margin-top:6px">${T(L('Code noch nicht bekannt','Code not known yet'))}</div>`}<div class="chtUn">🔓 ${T(c[4])}</div></div></div>`).join('');
+ const ct=CTRL.map(g=>`<div class="card"><b>${T(g[0])}</b>${g[1].map(r=>`<div class="ctlRow"><div class="k">${r[0].map(k=>`<span class="pskey">${k}</span>`).join('')}</div><div style="font-size:13.5px">${T(r[1])}${r[2]?`<span class="ctlNew">${T(L('NEU','NEW'))}</span>`:''}</div></div>`).join('')}</div>`).join('');
+ b.innerHTML=`<details class="acc" open><summary><h3>🎮 ${T(L('Cheats','Cheats'))} <span class="cnt">${known}/61</span></h3></summary>
+ <div class="card" style="font-size:13.5px"><b>${T(L('So funktioniert’s','How it works'))}</b><div class="muted" style="margin-top:4px">${T(L('Es gibt 61 Cheats, aber keinen davon von Anfang an: Jeder wird über eine Aufgabe freigeschaltet, vier davon direkt nach dem Story-Ende. Eingabe über das Steuerkreuz. Achtung: Cheats sperren Trophäen. Bekannt sind bisher nur einige Codes – Community-Angaben, von Rockstar nicht bestätigt. Hak ab, was du schon freigeschaltet hast.','There are 61 cheats, but none from the start: each is unlocked by a challenge, four right after the story ends. Enter them on the D-pad. Note: cheats disable trophies. Only some codes are known so far – community info, not confirmed by Rockstar. Tick off what you’ve unlocked.'))}</div></div>
+ <div class="grid">${ch}</div></details>
+ <details class="acc"><summary><h3>🕹️ ${T(L('PS5-Steuerung','PS5 controls'))} <span class="cnt">${CTRL.reduce((a,g)=>a+g[1].length,0)}</span></h3></summary>
+ <div class="card" style="font-size:13.5px"><b>${T(L('Wichtigste Änderung zu GTA V','Biggest change from GTA V'))}</b><div class="muted" style="margin-top:4px">${T(L('Rennen liegt jetzt auf L3 (Stick klicken) statt ✕-Tippen, Springen auf ✕, Ducken auf ○, Nahkampf auf ▢. Wer die alte Belegung will: Einstellungen → Steuerung → „Klassisch“ (Rennen wieder auf ✕, Springen auf ▢). Es gibt auch ein Linkshänder-Layout. Auf PS5 nutzt das Spiel adaptive Trigger und Haptik des DualSense.','Running is now on L3 (click the stick) instead of tapping ✕, jump on ✕, crouch on ○, melee on ▢. Want the old layout? Settings → Controls → “Classic” (run back on ✕, jump on ▢). There’s also a left-handed layout. On PS5 the game uses the DualSense adaptive triggers and haptics.'))}</div></div>
+ <div class="grid">${ct}</div><div class="dim" style="font-size:12px;margin:6px 2px">${T(L('Standard-Belegung („Standard“-Schema). Xbox: ✕=A, ○=B, ▢=X, △=Y, L1/R1=LB/RB, L2/R2=LT/RT, Touchpad=Ansicht-Taste.','Default scheme. Xbox: ✕=A, ○=B, ▢=X, △=Y, L1/R1=LB/RB, L2/R2=LT/RT, touchpad=View button.'))}</div></details>`;
+ b.querySelectorAll('[data-cht]').forEach(i=>i.onchange=()=>{const g=store.get('cheats',{});g[i.dataset.cht]=i.checked;store.set('cheats',g);i.closest('.chtCard').classList.toggle('got',i.checked)});
+}
+function renderTips(){try{renderCheats()}catch(e){console.warn(e)}
  $('#tipsBox').innerHTML=TIPS.map((c,ci)=>`<details class="acc" ${ci===0?'open':''}><summary><h3>${T(c.h)} <span class="cnt">${c.items.length}</span></h3></summary><div class="grid">${c.items.map((t,i)=>`<div class="card tipcat"><div class="n">${String(ci*10+i+1).padStart(2,'0')}</div><div><div class="row" style="flex-wrap:wrap;gap:6px"><b class="${t[2]==='off'&&i<2?'hl':''}">${T(t[0])}</b>${badge(t[2])}</div><div class="tx muted" style="font-size:13.5px;margin-top:4px">${T(t[1])}</div></div></div>`).join('')}</div></details>`).join('');
 }
 
