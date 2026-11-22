@@ -1118,6 +1118,12 @@ body[data-v=home] #wstars.on{opacity:1;transform:none}
 #wstars i{width:11px;height:11px;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);background:rgba(255,255,255,.18);transition:background .3s}
 #wstars i.f{background:linear-gradient(180deg,#fff2c4,#ffd23f);filter:drop-shadow(0 0 4px rgba(255,210,63,.8))}
 @media(min-width:1000px){#wstars{top:18px;right:24px}}
+.pgWrap{display:flex;gap:16px;align-items:center}.pgRing{position:relative;width:118px;height:118px;flex:0 0 auto}.pgRing svg{transform:rotate(-90deg)}.pgRing .v{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font:400 30px Anton;line-height:1}.pgRing .v small{display:block;font:600 11px 'Barlow Condensed';letter-spacing:1px;opacity:.7}
+.pgSum{flex:1;display:grid;gap:10px}.pgSum b{display:block;font:400 26px Anton;letter-spacing:.5px}.pgSum span{font-size:12px;opacity:.7}.pgMore{margin-top:10px}.pgMore summary{cursor:pointer;font:600 13px 'Barlow Condensed';letter-spacing:1px;text-transform:uppercase;opacity:.8;padding:4px 0}.pgCats{margin-top:6px;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}.pgCat{display:flex;gap:7px;align-items:center;font-size:12.5px;padding:6px 8px;border-radius:10px;background:rgba(255,255,255,.05);cursor:pointer}.pgCat .b{flex:1}.pgCat .bar{height:4px;border-radius:3px;background:rgba(255,255,255,.12);margin-top:3px;overflow:hidden}.pgCat .bar i{display:block;height:100%;background:linear-gradient(90deg,#ff4fa3,#ffb347)}.pgCat.full{outline:1px solid #59f0b2}
+.pgNext{margin-top:12px}.pgNext .it{display:flex;gap:8px;align-items:center;padding:7px 0;border-top:1px dashed rgba(255,255,255,.12);cursor:pointer;font-size:13.5px}.pgNext .it .r{margin-left:auto;font:600 12px 'JetBrains Mono';color:#ffb347}
+.plTop{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.plT{font:400 38px Anton;letter-spacing:1px}.plT.run{color:#59f0b2;text-shadow:0 0 18px rgba(89,240,178,.5)}.plBtns{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}.plBtns button{padding:8px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:inherit;font:600 14px 'Barlow Condensed';cursor:pointer}.plBtns .go{background:linear-gradient(90deg,#ff4fa3,#ff8a3d);border:0;color:#160b1a}
+.plScale{position:relative;height:12px;border-radius:7px;background:rgba(255,255,255,.1);margin:26px 0 30px}.plScale>i{position:absolute;left:0;top:0;bottom:0;border-radius:7px;background:linear-gradient(90deg,#59f0b2,#ff4fa3)}.plMk{position:absolute;top:-4px;bottom:-4px;width:2px;background:#fff8}.plMk span{position:absolute;top:18px;transform:translateX(-50%);white-space:nowrap;font-size:10.5px;opacity:.8}.plMk.up span{top:-18px}
+.ownCam{position:absolute;top:10px;right:58px;width:34px;height:34px;display:grid;place-items:center;padding:0!important;font-size:15px!important;z-index:2;border:1px dashed rgba(255,255,255,.35);background:rgba(10,4,24,.6);color:inherit;border-radius:10px;padding:4px 8px;font-size:12px;cursor:pointer}.tThumb.own span{background:#59f0b2;color:#08140f}
 .tThumb{position:relative;height:110px;margin:-14px -14px 10px;border-radius:16px 16px 0 0;background-size:cover;background-position:center}
 .tThumb span,.secBanner span{position:absolute;right:8px;bottom:6px;font-size:10px;color:#fff;opacity:.65;text-shadow:0 1px 3px #000}
 .secBanner{position:relative;height:clamp(120px,26vw,220px);border-radius:20px;background-size:cover;background-position:center 40%;margin:4px 0 16px;border:1px solid rgba(255,255,255,.1);overflow:hidden}
@@ -1181,6 +1187,34 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
 .blipBar .bchip{display:inline-flex;align-items:center;gap:5px;opacity:.55}.blipBar .bchip.on{opacity:1;border-color:var(--bc)}
 .blipBar .bchip i{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--bc);color:var(--bc)}.blipBar .bchip i svg{width:10px;height:10px}
 .blipBar .bchip b{font-weight:700;opacity:.7}.blipBar .bnote{flex-basis:100%;font-size:11px}
+
+/* ===== Next-Level design layer ===== */
+body{--acc:#ff2bd6;--acc2:#ff9a3c}
+body[data-v=news]{--acc:#22e7ff;--acc2:#9b5cff}body[data-v=map]{--acc:#3ef2b0;--acc2:#22e7ff}body[data-v=acts]{--acc:#ff9a3c;--acc2:#ffd23f}body[data-v=missions]{--acc:#ff4d6d;--acc2:#ff9a3c}body[data-v=crew]{--acc:#c77dff;--acc2:#ff2bd6}body[data-v=garage]{--acc:#ff2bd6;--acc2:#22e7ff}body[data-v=arsenal]{--acc:#ff4d4d;--acc2:#ffb347}body[data-v=gallery]{--acc:#ffd23f;--acc2:#ff2bd6}body[data-v=radio]{--acc:#9b5cff;--acc2:#22e7ff}body[data-v=tips]{--acc:#ffd23f;--acc2:#3ef2b0}body[data-v=secrets]{--acc:#7b61ff;--acc2:#3ef2b0}body[data-v=editions]{--acc:#ffd23f;--acc2:#ff9a3c}body[data-v=me]{--acc:#3ef2b0;--acc2:#ff2bd6}
+.card{background:linear-gradient(90deg,var(--acc),var(--acc2)) top center/calc(100% - 36px) 2px no-repeat,linear-gradient(165deg,rgba(42,22,82,.94),rgba(24,10,48,.96))!important;transition:box-shadow .35s,border-color .35s,transform .25s}
+header::after{background:linear-gradient(90deg,transparent,var(--acc),var(--acc2),transparent)!important;height:2px!important;opacity:.85;transition:background .5s}
+#bottom button.on{background:linear-gradient(180deg,color-mix(in srgb,var(--acc) 38%,transparent),color-mix(in srgb,var(--acc2) 16%,transparent))!important;box-shadow:0 0 22px -6px var(--acc)}
+#bottom button.on .e{filter:drop-shadow(0 0 8px var(--acc))}
+.widget .wh h3,.view>h2,.view h2.sec{text-shadow:0 0 16px color-mix(in srgb,var(--acc) 55%,transparent)}
+@media(hover:hover){.card:hover,.tile:hover{border-color:color-mix(in srgb,var(--acc) 45%,transparent)!important;box-shadow:0 18px 40px -18px color-mix(in srgb,var(--acc) 60%,transparent),var(--sh)}}
+.tile,.cta,.chip,#bottom button,.plBtns button,.pgCat{transition:transform .18s cubic-bezier(.2,.8,.2,1)}
+.tile:active,.cta:active,.chip:active,#bottom button:active,.plBtns button:active,.pgCat:active{transform:scale(.96)}
+.tilt{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .12s}
+.tilt::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(260px circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.13),transparent 60%);opacity:var(--go,0);transition:opacity .3s}
+/* HUD */
+.hud+.facts{margin-top:0!important}.hud{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:8px;margin:-18px 0 12px;position:relative;z-index:3}
+.hud a{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:12px 12px 10px;border-radius:18px;text-decoration:none;color:#fff;background:linear-gradient(160deg,rgba(14,6,30,.88),rgba(30,12,60,.82));border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);position:relative;overflow:hidden}
+.hud a::before{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:var(--hc,#6bd16b);box-shadow:0 0 14px var(--hc,#6bd16b)}
+.hud .hv{font:400 25px Anton;letter-spacing:.5px;line-height:1.05;white-space:nowrap;color:var(--hc);text-shadow:0 2px 0 #000,0 0 16px color-mix(in srgb,var(--hc) 45%,transparent);-webkit-text-stroke:.6px rgba(0,0,0,.55)}
+.hud .hl{font:600 11px 'Barlow Condensed';letter-spacing:1.4px;text-transform:uppercase;opacity:.72}
+.hud .money{--hc:#7ee08a}.hud .time{--hc:#fff}.hud .pct{--hc:#ffd23f}
+@media(min-width:700px){.hud .hv{font-size:32px}}
+@keyframes hudIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.hud a{animation:hudIn .6s cubic-bezier(.2,.8,.2,1) both}.hud a:nth-child(2){animation-delay:.08s}.hud a:nth-child(3){animation-delay:.16s}
+@keyframes shine{from{transform:translateX(-120%)}to{transform:translateX(220%)}}
+.hud a::after{content:"";position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.12),transparent);animation:shine 5.5s ease-in-out infinite;animation-delay:inherit}
+@media(prefers-reduced-motion:reduce){.hud a,.hud a::after{animation:none}.tilt{transform:none}}
+body.noanim .hud a,body.noanim .hud a::after{animation:none}
 </style>
 </head>
 <body>
@@ -1598,6 +1632,7 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
         <div class="heroSig">✦ a Flovo production ✦</div>
       </div>
     </div>
+    <div class="hud" id="hud"></div>
     <div class="facts" id="facts"></div>
     <div class="ticker"><div class="tr" id="ticker"></div></div>
 
@@ -1768,7 +1803,7 @@ body::after{mix-blend-mode:normal!important;opacity:.03!important}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 22.11. 13:41</div>
+    <div class="dim" style="margin-top:8px">App-Version 22.11. 14:04</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -2085,9 +2120,9 @@ const HEAT=[
 ];
 const HEATIND=[L('📹 Von Kamera erfasst','📹 Caught on CCTV'),L('💑 Fahndung nach einem Paar','💑 Looking for a couple'),L('👕 Kleidung bekannt','👕 Clothing known'),L('🙂 Identität bekannt','🙂 Identity known'),L('🔫 Tatwaffe bekannt','🔫 Weapon known')];
 const PLANCOLS=[['idea',L('Ideen','Ideas'),'#9b5cff'],['d1',L('Launch-Tag','Launch day'),'#ff2bd6'],['w1',L('Erste Woche','First week'),'#22e7ff'],['done',L('Erledigt ✓','Done ✓'),'#19f5c1']];
-const WIDGETS=['news','media','fav','prog'];
+const WIDGETS=['prog','play','news','media','fav'];
 const WCOL0={};
-const WHALF={fav:1,prog:1};
+const WHALF={fav:1};
 const FIRST=[
  L('⚙️ Einstellungen: Minimap dauerhaft an, Gehtempo & Zielhilfe wählen','⚙️ Settings: minimap always on, pick walk speed & aim assist'),
  L('🏧 Bargeld regelmäßig am Geldautomaten einzahlen – beim Tod ist alles weg','🏧 Deposit cash at ATMs often – you lose it all when you die'),
@@ -2854,7 +2889,8 @@ const W={
  heat:()=>[UI.w_heat,HEAT.map(h=>`<div class="hrow"><span class="s">${h[0]}</span><div><b>${T(h[1])}</b><div class="dim">${T(h[2])}</div></div></div>`).join('')],
  prep:()=>[UI.h_preparo,`<ul class="list">${PREP.map(p=>`<li><span>✅</span><div><b>${T(p[0])}</b> ${badge(p[2])}<div class="tx muted" style="font-size:13.5px">${T(p[1])}</div></div></li>`).join('')}</ul>`],
  tl:()=>{const now=Date.now();let nx=false;return [UI.h_timeline,`<div class="tl">${TL.map(t=>{const [dd,mm,yy]=t[0].split('–').pop().split('.');const dt=new Date(`${yy}-${mm}-${dd}T00:00:00+01:00`);let c='';if(!nx&&dt>now){c='next';nx=true}return `<div class="it ${c}"><div class="d">${t[0]}</div><div class="t">${T(t[1])}</div><div class="muted" style="font-size:13.5px">${T(t[2])}</div></div>`}).join('')}</div>`]},
- prog:()=>[UI.h_progress,`<div id="progBox"></div>`],
+ prog:()=>[L('100 %-Tracker','100% tracker'),`<div id="progBox"></div>`],
+ play:()=>[L('Spielzeit','Playtime'),`<div id="playBox"></div>`],
  fav:()=>{const f=store.get('favs',{});const ks=Object.keys(f);return [UI.w_fav,ks.length?`<div class="minichips">${ks.map(k=>{const t=TABS.find(x=>x[0]===f[k].v);return `<span class="lnkchip" data-go="${f[k].v}" style="cursor:pointer">${t?t[1]:'⭐'} ${esc(f[k].t)}</span>`}).join('')}</div>`:`<div class="dim">${T(UI.noFav)}</div>`]},
  legend:()=>[UI.h_legend,`<div class="legend">${['off','seen','leak','rum','ue'].map(badge).join('')}<span class="badge b-off">${T(L('Bestätigt','Confirmed'))}</span></div><div class="dim">${T(UI.legendTxt)}</div>`],
 };
@@ -2920,20 +2956,67 @@ function renderHome(){
  $('#pills').innerHTML=PILLS.map(p=>`<span class="pill">${T(p)}</span>`).join('');
  const tk=NEWSC.slice(0,8).map(n=>`<a href="#news"><span><b>${NWSRC[n[2]][0]} · ${nwDate(n[1])}</b>${T(n[4])}</span></a>`).join('');$('#ticker').innerHTML=tk+tk;
  $('#facts').innerHTML=FACTS.map(f=>`<div class="fact"><div class="k">${T(f[0])}</div><div class="v">${T(f[1])}</div><div class="s">${T(f[2])}</div></div>`).join('');
- let order=store.get('dash2',WIDGETS).filter(w=>W[w]);WIDGETS.forEach(w=>{if(!order.includes(w)){if(w==='rev')order.unshift(w);else order.push(w)}});
+ let order=store.get('dash2',WIDGETS).filter(w=>W[w]);WIDGETS.forEach(w=>{if(!order.includes(w)){if(w==='rev'||w==='play')order.unshift(w);else order.push(w)}});
  const col=store.get('dcol2',WCOL0);const favN=Object.keys(store.get('favs',{})).length;
  $('#dash').innerHTML=order.filter(w=>w!=='fav'||favN).map(w=>{const [t,b]=W[w]();return `<section class="widget ${WHALF[w]?'half':''} ${col[w]?'col':''}" data-w="${w}"><div class="wh"><span class="grip" title="drag">⠿</span><h3>${T(t)}</h3><button class="wc" aria-label="toggle">⌄</button></div><div class="wb">${b}</div></section>`}).join('');
  $('#dash').querySelectorAll('.wc').forEach(b=>b.onclick=()=>{const w=b.closest('.widget');w.classList.toggle('col');const c=store.get('dcol2',WCOL0);c[w.dataset.w]=w.classList.contains('col');store.set('dcol2',c)});
  if(window.Sortable){if(window._ds)window._ds.destroy();window._ds=Sortable.create($('#dash'),{handle:'.grip',animation:220,easing:'cubic-bezier(.2,.8,.2,1)',ghostClass:'sortable-ghost',chosenClass:'sortable-chosen',dragClass:'sortable-drag',onEnd:()=>{const cur=[...$('#dash').children].map(e=>e.dataset.w);if(!cur.includes('fav'))cur.unshift('fav');store.set('dash2',cur);toast(T(UI.saved))}})}
   $('#dash').querySelectorAll('[data-go]').forEach(c=>c.onclick=()=>{location.hash=c.dataset.go});
  $('#dash').querySelectorAll('[data-nid]').forEach(a=>a.addEventListener('click',()=>{nwMarkRead(a.dataset.nid);setTimeout(renderHome,300)}));
- renderProg();
+ renderProg();try{renderPlay()}catch(e){console.warn(e)}try{renderHud()}catch(e){console.warn(e)}
 }
-function renderProg(){
- const box=$('#progBox');if(!box)return;
- const p=getPlan();const cDone=CARS.filter(c=>done['car:'+c[0]]).length,aDone=ACTS.filter(a=>p[a[1].de]==='done').length;
- const bar=(n,t,l)=>`<div style="margin:8px 0"><div class="row"><b>${l}</b><span class="sp"></span><span class="dim">${n}/${t}</span></div><div class="prog"><i style="width:${t?n/t*100:0}%"></i></div></div>`;
- box.innerHTML=`<div class="dim">${T(UI.progTxt)}</div>${bar(cDone,CARS.length,'🏎️ '+T(TABS.find(t=>t[0]==='garage')[2]))}${bar(aDone,ACTS.length,'🎯 '+T(L('Freizeit-Plan erledigt','Leisure plan done')))}${bar(store.get('dream',[]).length,6,'🏆 '+T(UI.w_dream))}<div class="dim" style="margin-top:6px">📍 ${store.get('pins',[]).length} Pins · 🏅 ${Object.values(store.get('coll',{})).reduce((a,b)=>a+b,0)} ${T(L('gesammelt','collected'))}</div>`;
+function pgCats(){const p=getPlan();const C=store.get('coll',{});const cg=store.get('cheats',{});
+ const out=COLL.filter(c=>typeof c[3]==='number').map(c=>({ic:c[1],l:c[2],n:Math.min(C[c[0]]||0,c[3]),t:c[3],go:'map',h:c[4]}));
+ try{out.push({ic:'🎮',l:L('Cheats freigeschaltet','Cheats unlocked'),n:CHEATS.filter(c=>cg[c[0]]).length,t:CHEATS.length,go:'tips'})}catch(e){}
+ try{out.push({ic:'🎉',l:L('Aktivitäten erledigt','Activities done'),n:ACTV.filter(a=>p[a[0]]==='done').length,t:ACTV.length,go:'acts'})}catch(e){}
+ out.push({ic:'🏎️',l:L('Fahrzeuge abgehakt','Vehicles ticked'),n:CARS.filter(c=>done['car:'+c[0]]).length,t:CARS.length,go:'garage'});
+ return out}
+function renderProg(){const box=$('#progBox');if(!box)return;const cs=pgCats();
+ const pct=Math.round(cs.reduce((a,c)=>a+c.n/c.t,0)/cs.length*1000)/10;const R=50,U=2*Math.PI*R;
+ const nxt=cs.filter(c=>c.n<c.t).sort((a,b)=>(b.n/b.t)-(a.n/a.t)||(a.t-a.n)-(b.t-b.n)).slice(0,3);
+ box.innerHTML=`<div class="pgWrap"><div class="pgRing"><svg width="118" height="118" viewBox="0 0 118 118"><defs><linearGradient id="pgG" x1="0" x2="1"><stop offset="0" stop-color="#ff4fa3"/><stop offset="1" stop-color="#ffb347"/></linearGradient></defs><circle cx="59" cy="59" r="${R}" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="11"/><circle cx="59" cy="59" r="${R}" fill="none" stroke="url(#pgG)" stroke-width="11" stroke-linecap="round" stroke-dasharray="${U}" stroke-dashoffset="${U}" data-off="${U*(1-pct/100)}" class="pgArc" style="transition:stroke-dashoffset 1.1s cubic-bezier(.2,.8,.2,1)"/></svg><div class="v"><div>${String(pct).replace('.',LANG==='de'?',':'.')}%<small>${T(L('KOMPLETT','COMPLETE'))}</small></div></div></div>
+ <div class="pgSum"><div><b>${cs.reduce((a,c)=>a+c.n,0)}</b><span>${T(L('von','of'))} ${cs.reduce((a,c)=>a+c.t,0)} ${T(L('Zielen','goals'))}</span></div><div><b>${cs.filter(c=>c.n>=c.t).length}/${cs.length}</b><span>${T(L('Kategorien komplett','categories complete'))}</span></div></div></div>
+ <details class="pgMore"><summary>${T(L('Alle Kategorien','All categories'))}</summary><div class="pgCats">${cs.map(c=>`<div class="pgCat ${c.n>=c.t?'full':''}" data-go="${c.go}"><span>${c.ic}</span><div class="b"><div class="row"><span>${T(c.l)}</span><span class="sp"></span><span class="dim">${c.n}/${c.t}</span></div><div class="bar"><i style="width:${c.n/c.t*100}%"></i></div></div></div>`).join('')}</div></details>
+ <div class="pgNext"><b class="lkT">🎯 ${T(L('Nächste Ziele','Next goals'))}</b>${nxt.map(c=>`<div class="it" data-go="${c.go}"><span>${c.ic}</span><span>${T(c.l)}${c.h?` <span class="dim">· ${T(c.h)}</span>`:''}</span><span class="r">${T(L('noch','left'))} ${c.t-c.n}</span></div>`).join('')}</div>
+ <div class="dim" style="font-size:12px;margin-top:6px">${T(L('Jede Kategorie zählt gleich viel. Zählen kannst du bei Sammelobjekten auf der Karte, Cheats unter Tipps, Aktivitäten und Fahrzeuge in ihren Tabs.','Each category counts equally. Track collectibles on the map, cheats under Tips, activities and vehicles in their tabs.'))}</div>`;
+ box.querySelectorAll('[data-go]').forEach(e=>e.onclick=()=>{location.hash=e.dataset.go});
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{const a=box.querySelector('.pgArc');if(a)a.setAttribute('stroke-dashoffset',a.dataset.off)}));
+}
+/* HUD + tilt */
+function countUp(el,to,fmt,ms){const red=SET.noanim||matchMedia('(prefers-reduced-motion:reduce)').matches;if(red||!to){el.textContent=fmt(to);return}const t0=performance.now();const st=n=>{const k=Math.min(1,(n-t0)/ms);const e=1-Math.pow(1-k,3);el.textContent=fmt(to*e);if(k<1)requestAnimationFrame(st)};requestAnimationFrame(st)}
+function renderHud(){const h=$('#hud');if(!h)return;let bal=0;try{bal=(store.get('money',{log:[]}).log||[]).reduce((a,e)=>a+(+e.amt||0),0)}catch(e){}
+ let pct=0;try{const cs=pgCats();pct=cs.reduce((a,c)=>a+c.n/c.t,0)/cs.length*100}catch(e){}const tot=plTot(plGet());
+ h.innerHTML=`<a class="money" href="#me"><span class="hv" id="hudM">$0</span><span class="hl">${T(L('Kontostand','Balance'))}</span></a><a class="time" href="#home" data-hud="play"><span class="hv" id="hudT">0:00</span><span class="hl">${T(L('Spielzeit','Playtime'))}</span></a><a class="pct" href="#home" data-hud="prog"><span class="hv" id="hudP">0%</span><span class="hl">${T(L('Komplett','Complete'))}</span></a>`;
+ const nf=new Intl.NumberFormat('en-US');countUp($('#hudM'),bal,v=>(v<0?'-$':'$')+nf.format(Math.round(Math.abs(v))),1100);countUp($('#hudT'),tot,v=>plFmt(v),900);countUp($('#hudP'),pct,v=>(Math.round(v*10)/10).toString().replace('.',LANG==='de'?',':'.')+'%',1000);
+ h.querySelectorAll('[data-hud]').forEach(a=>a.onclick=e=>{e.preventDefault();const w=document.querySelector(`.widget[data-w="${a.dataset.hud}"]`);if(w){w.classList.remove('col');w.scrollIntoView({behavior:'smooth',block:'start'})}});
+}
+(()=>{if(!matchMedia('(hover:hover) and (pointer:fine)').matches)return;let cur=null;
+ document.addEventListener('pointermove',e=>{if(SET.noanim)return;const t=e.target.closest&&e.target.closest('.tile,.hud a,.pgRing');if(cur&&cur!==t){cur.style.removeProperty('--rx');cur.style.removeProperty('--ry');cur.style.setProperty('--go',0);cur=null}
+  if(!t)return;if(!t.classList.contains('tilt'))t.classList.add('tilt');cur=t;const r=t.getBoundingClientRect();const x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+  t.style.setProperty('--ry',((x-.5)*7).toFixed(2)+'deg');t.style.setProperty('--rx',((.5-y)*7).toFixed(2)+'deg');t.style.setProperty('--gx',(x*100)+'%');t.style.setProperty('--gy',(y*100)+'%');t.style.setProperty('--go',1)},{passive:true})})();
+/* playtime */
+const PLREF=[[55,L('Story ~55 h','Story ~55h'),'rep'],[73,L('Ø Tester 73 h','Reviewers 73h'),'rep',1],[80,L('Rockstar 80 h','Rockstar 80h'),'rs']];
+function plGet(){return store.get('play',{t:0,run:null,days:{}})}
+function plTot(P){return P.t+(P.run?Date.now()-P.run:0)}
+function plFmt(ms){const m=Math.floor(ms/6e4);return `${Math.floor(m/60)}:${String(m%60).padStart(2,'0')}`}
+function plDay(){return new Date().toISOString().slice(0,10)}
+function plStop(P){if(!P.run)return P;const d=Date.now()-P.run;P.t+=d;const k=new Date(P.run).toISOString().slice(0,10);P.days[k]=(P.days[k]||0)+d;P.run=null;return P}
+let plTick=null;
+function renderPlay(){const box=$('#playBox');if(!box)return;const P=plGet();const tot=plTot(P);const h=tot/36e5;const max=100;
+ const today=(P.days[plDay()]||0)+(P.run&&new Date(P.run).toISOString().slice(0,10)===plDay()?Date.now()-P.run:0);
+ const nDays=Object.keys(P.days).filter(k=>P.days[k]>0).length;
+ box.innerHTML=`<div class="plTop"><div><div class="plT ${P.run?'run':''}" id="plT">${plFmt(tot)}</div><div class="dim" style="font-size:12px">${T(L('Stunden gesamt','hours total'))} · ${T(L('heute','today'))} <span id="plD">${plFmt(today)}</span>${nDays?` · ${nDays} ${T(L('Spieltage','play days'))}`:''}</div></div>
+ <div class="plBtns"><button class="go" id="plGo">${P.run?'⏸ '+T(L('Stopp','Stop')):'▶ '+T(L('Session starten','Start session'))}</button><button data-pl="-15">−15</button><button data-pl="15">+15</button><button data-pl="60">+1 h</button><button id="plSet">✎</button></div></div>
+ <div class="plScale"><i style="width:${Math.min(100,h/max*100)}%"></i>${PLREF.map(r=>`<div class="plMk ${r[3]?'up':''}" style="left:${r[0]/max*100}%"><span>${T(r[1])}</span></div>`).join('')}</div>
+ <div class="dim" style="font-size:12.5px">${h>=80?T(L('Du bist über der Story-Länge von Rockstar – Zeit für die 100 %? Dafür rechnen Spieler mit 200 Stunden und mehr.','You’re past Rockstar’s story length – time for 100%? Players expect 200+ hours for that.')):T(L(`Noch ca. ${Math.max(0,Math.round(80-h))} h bis zu den ~80 Stunden, die Rob Nelson (Rockstar North) für Story plus einige Nebenziele gebraucht hat. Reine Story: laut Berichten eher 50–60 h. 100 %: 200 h+.`,`About ${Math.max(0,Math.round(80-h))}h to go to the ~80 hours Rob Nelson (Rockstar North) needed for story plus some side goals. Story only: reportedly 50–60h. 100%: 200h+.`))} ${badge('rs')}</div>
+ ${P.run&&Date.now()-P.run>8*36e5?`<div class="card" style="margin-top:8px;border-color:#ffb347">⚠️ ${T(L('Der Timer läuft seit über 8 Stunden – vergessen zu stoppen?','The timer has been running for over 8 hours – forgot to stop?'))}</div>`:''}
+ <div id="plSetBox" style="display:none;margin-top:8px" class="row"><input class="fld" id="plIn" type="number" min="0" step="0.5" placeholder="${T(L('Stunden laut Spiel, z. B. 23,5','Hours from the game, e.g. 23.5'))}" style="flex:1"><button class="cta" id="plOk">OK</button></div>`;
+ const save=P2=>{store.set('play',P2);renderPlay();try{renderHud()}catch(e){}};
+ $('#plGo').onclick=()=>{const P2=plGet();if(P2.run)plStop(P2);else P2.run=Date.now();save(P2);try{navigator.vibrate&&navigator.vibrate(20)}catch(e){}};
+ box.querySelectorAll('[data-pl]').forEach(b=>b.onclick=()=>{const P2=plGet();const d=+b.dataset.pl*6e4;P2.t=Math.max(0,P2.t+d);const k=plDay();P2.days[k]=Math.max(0,(P2.days[k]||0)+d);save(P2)});
+ $('#plSet').onclick=()=>{const b=$('#plSetBox');b.style.display=b.style.display==='none'?'flex':'none'};
+ $('#plOk').onclick=()=>{const v=parseFloat(String($('#plIn').value).replace(',','.'));if(isNaN(v))return;const P2=plStop(plGet());P2.t=Math.round(v*36e5);save(P2);toast('✅ '+T(L('Spielzeit gesetzt','Playtime set')))};
+ clearInterval(plTick);if(P.run)plTick=setInterval(()=>{const e=$('#plT');if(!e){clearInterval(plTick);return}const P3=plGet();e.textContent=plFmt(plTot(P3))},15000);
 }
 function getPlan(){const p=store.get('plan',{});ACTS.forEach(a=>{if(!p[a[1].de])p[a[1].de]='idea'});return p}
 
@@ -3553,7 +3636,10 @@ function renderSettings(){
   <select class="fld" id="aiP"><option value="anthropic">Claude (Anthropic)</option><option value="openai">OpenAI</option><option value="gemini">Google Gemini</option></select>
   <input class="fld" id="aiK" type="password" placeholder="API-Key" value="${esc(SET.aiKey)}" autocomplete="off">
   <input class="fld" id="aiM" placeholder="${T(L('Modell (leer = Standard)','Model (empty = default)'))}" value="${esc(SET.aiModel)}"></div>
- <div class="sgrp"><h4>${T(L('Daten','Data'))}</h4><div class="dim">${T(L('Traumgarage, Pins, Plan, Gemerktes und Einstellungen liegen nur auf diesem Gerät.','Dream garage, pins, plan, saved items and settings live on this device only.'))}</div><div class="seg"><button id="expD">⬇️ ${T(L('Sicherung kopieren','Copy backup'))}</button><button id="impD">⬆️ ${T(L('Sicherung einfügen','Paste backup'))}</button></div><textarea class="fld" id="bkT" rows="3" style="display:none"></textarea></div>`;
+ <div class="sgrp"><h4>${T(L('Daten','Data'))}</h4><div class="dim">${T(L('Traumgarage, Pins, Plan, Gemerktes und Einstellungen liegen nur auf diesem Gerät.','Dream garage, pins, plan, saved items and settings live on this device only.'))}</div><div class="seg"><button id="expD">⬇️ ${T(L('Sicherung kopieren','Copy backup'))}</button><button id="impD">⬆️ ${T(L('Sicherung einfügen','Paste backup'))}</button></div><textarea class="fld" id="bkT" rows="3" style="display:none"></textarea>
+ <div class="dim" style="margin-top:10px">${T(L('Komplett-Sicherung als Datei – alles inkl. Cheats, Spielzeit, Tagebuch und Geld-Log. Mit eigenen Fotos wird die Datei größer.','Full backup as a file – everything incl. cheats, playtime, diary and money log. With your own photos the file gets bigger.'))}</div>
+ <label class="row" style="gap:8px;margin:6px 0"><input type="checkbox" id="bkPh"> ${T(L('Eigene Fotos mitsichern','Include my photos'))}</label>
+ <div class="seg"><button id="bkFile">💾 ${T(L('Als Datei sichern','Save as file'))}</button><button id="bkLoad">📂 ${T(L('Datei laden','Load file'))}</button></div></div>`;
  $('#aiP').value=SET.ai;
  $('#setBody').querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>{LANG=b.dataset.lang;store.set('lang',LANG);renderAll();renderSettings()});
  $('#setBody').querySelectorAll('.seg [data-k]').forEach(b=>b.onclick=()=>{SET[b.dataset.k]=+b.dataset.v;saveSet();renderAll();renderSettings()});
@@ -3561,6 +3647,7 @@ function renderSettings(){
  $('#chR').oninput=e=>{$('#chv').textContent=e.target.value>0?e.target.value:T(L('aus','off'))};$('#chR').onchange=e=>{SET.chapter=+e.target.value;saveSet();renderMissions()};
  $('#aiP').onchange=e=>{SET.ai=e.target.value;saveSet()};$('#aiK').onchange=e=>{SET.aiKey=e.target.value.trim();saveSet();toast(T(UI.saved))};$('#aiM').onchange=e=>{SET.aiModel=e.target.value.trim();saveSet()};
  const keys=['lang','done','dream','plan','favs','pins','coll','dash2','dcol2','set','heist','station','map3d'];
+ try{bkBind()}catch(e){}
  $('#expD').onclick=async()=>{const o={};keys.forEach(k=>o[k]=store.get(k,null));const o2=JSON.parse(JSON.stringify(o));if(o2.set)o2.set.aiKey='';const t=JSON.stringify(o2);const ta=$('#bkT');ta.style.display='block';ta.value=t;try{await navigator.clipboard.writeText(t);toast('📋 '+T(L('Kopiert','Copied')))}catch(e){ta.select()}};
  $('#impD').onclick=()=>{const ta=$('#bkT');if(ta.style.display!=='block'||!ta.value.trim()){ta.style.display='block';ta.value='';ta.placeholder=T(L('Sicherung hier einfügen und nochmal tippen','Paste backup here and tap again'));ta.focus();return}try{const o=JSON.parse(ta.value);keys.forEach(k=>{if(o[k]!=null&&k!=='set')store.set(k,o[k])});if(o.set){const ak=SET.aiKey;Object.assign(SET,o.set);SET.aiKey=ak;saveSet()}done=store.get('done',{});renderAll();toast('✅')}catch(e){toast('⚠️ JSON')}};
 }
@@ -3738,7 +3825,7 @@ function renderHeroPhoto(){const box=$('#heroPhoto');if(!box)return;const hero=b
  load(el[0],ok=>{if(!ok||hpKey!==key)return;el[0].classList.add('on');hero.classList.add('hasPhoto');if(el[1])load(el[1])});
  if(el.length>1)hpT=setInterval(()=>{const nx=el[(k+1)%el.length];if(!nx.dataset.ok){load(nx);return}el[k%el.length].classList.remove('on');k=(k+1)%el.length;el[k].classList.add('on');load(el[(k+1)%el.length])},7000)}
 async function gInit(){const sel=RSSEL();RSI=RSN.map(n=>{const m=GRX.find(r=>r[0].test(n));return{id:'rs:'+n,off:true,name:n,cat:m?m[1]:'misc',w:16,h:9,hero:sel.includes(n)}}).concat(RSART.filter(n=>n.includes('_landscape.')).map(n=>{const b=n.split('_landscape.')[0];return{id:'rs:'+n,off:true,name:n,cat:'art',w:16,h:9,hero:sel.includes(n),phone:rsArt(b+'_phone'),label:b.replace(/_/g,' ')}}),RSED.map(n=>({id:'rs:'+n,off:true,name:n,cat:'eds',w:16,h:9,hero:sel.includes(n),label:n.split('.')[0].replace(/_/g,' ').replace(/\b(\w)(\w*)/g,(m,a,b)=>a+b.toLowerCase())}))).sort((a,b)=>{const o=c=>GCATS.findIndex(x=>x[0]===c);return o(a.cat)-o(b.cat)||a.name.localeCompare(b.name,'en',{numeric:true})});
- try{GAL=(await GDB.all()||[]).sort((a,b)=>b.ts-a.ts)}catch(e){GAL=[]}renderGallery();renderHeroPhoto();renderRegion();renderCrew()}
+ try{GAL=(await GDB.all()||[]).sort((a,b)=>b.ts-a.ts)}catch(e){GAL=[]}renderGallery();renderHeroPhoto();renderRegion();renderCrew();try{decorateOwn()}catch(e){}}
 
 
 /* ===== v14 iconize: swap UI emoji for line icons ===== */
@@ -3843,7 +3930,7 @@ function renderDiary(){const b=$('#diaryBox');if(!b)return;const L2=store.get('d
 const MSRC=[['heist','landmark',L('Überfälle & Coups','Robberies & heists')],['story','target','Story'],['hunt','paw-print',L('Jagd & Angeln','Hunting & fishing')],['race','flag',L('Rennen','Races')],['cars','car',L('Autos verkaufen','Selling cars')],['other','sparkles',L('Sonstiges','Other')]];
 let mSrc='heist',mSign=1;
 const fmt$=n=>'$'+Math.round(n).toLocaleString(LANG==='de'?'de-DE':'en-US');
-function renderMoney(){const b=$('#moneyBox');if(!b)return;const M=store.get('money',{log:[],goals:[]});const bal=M.log.reduce((a,e)=>a+e.amt,0);const bySrc={};M.log.filter(e=>e.amt>0).forEach(e=>bySrc[e.src]=(bySrc[e.src]||0)+e.amt);const maxS=Math.max(1,...Object.values(bySrc));
+function renderMoney(){setTimeout(()=>{try{renderHud()}catch(e){}},0);const b=$('#moneyBox');if(!b)return;const M=store.get('money',{log:[],goals:[]});const bal=M.log.reduce((a,e)=>a+e.amt,0);const bySrc={};M.log.filter(e=>e.amt>0).forEach(e=>bySrc[e.src]=(bySrc[e.src]||0)+e.amt);const maxS=Math.max(1,...Object.values(bySrc));
  b.innerHTML=`<div class="mBal"><span>${T(L('Kontostand','Balance'))}</span><b>${fmt$(bal)}</b></div>
  <div class="mForm"><div class="galSeg"><button data-sg="1" class="${mSign>0?'on':''}">+ ${T(L('Einnahme','Income'))}</button><button data-sg="-1" class="${mSign<0?'on':''}">− ${T(L('Ausgabe','Expense'))}</button></div><div class="chips mChips">${MSRC.map(s=>`<span class="chip ${mSrc===s[0]?'on':''}" data-ms="${s[0]}">${icn(s[1])} ${T(s[2])}</span>`).join('')}</div><div class="row" style="gap:8px"><input type="number" inputmode="numeric" id="mAmt" placeholder="${T(L('Betrag in $','Amount in $'))}"><button class="cta" id="mAdd">${T(L('Buchen','Add'))}</button></div></div>
  ${Object.keys(bySrc).length?`<div class="mSrc">${MSRC.filter(s=>bySrc[s[0]]).map(s=>`<div class="mRow"><span>${icn(s[1])} ${T(s[2])}</span><i style="width:${bySrc[s[0]]/maxS*100}%"></i><b>${fmt$(bySrc[s[0]])}</b></div>`).join('')}</div>`:''}
@@ -3911,7 +3998,38 @@ const CARIMG2={"Principe Alvino V1": "Jason_Duval_01", "Bravado Police Buffalo S
 const ACTIMG2={"Gym & Krafttraining": "Lucia_Caminos_09", "Gym & weights": "Lucia_Caminos_09", "Boxen & Kickboxen": "Lucia_Caminos_01", "Boxing & kickboxing": "Lucia_Caminos_01", "Billard": "Cal_Hampton_02", "Pool": "Cal_Hampton_02", "Minigolf": "Cal_Hampton_01", "Mini golf": "Cal_Hampton_01", "Tauchen": "Leonida_Keys_07", "Diving": "Leonida_Keys_07", "Schnorcheln": "Leonida_Keys_04", "Snorkeling": "Leonida_Keys_04", "Kajak": "Mount_Kalaga_National_Park_06", "Kayaking": "Mount_Kalaga_National_Park_06", "Jetski": "Leonida_Keys_05", "Jet ski": "Leonida_Keys_05", "Airboat": "Grassrivers_03", "Angeln": "Jason_Duval_03", "Fishing": "Jason_Duval_03", "Schwimmen": "Lucia_Caminos_02", "Swimming": "Lucia_Caminos_02", "Dirtbike-Rennen": "Mount_Kalaga_National_Park_01", "Dirt bike races": "Mount_Kalaga_National_Park_01", "Schlammpark": "Ambrosia_06", "Mud park": "Ambrosia_06", "Nachtclubs": "Vice_City_13", "Nightclubs": "Vice_City_13", "Bars & Drinks": "Jason_Duval_06", "Bars & drinks": "Jason_Duval_06", "Strip-Clubs": "Boobie_Ike_04", "Strip clubs": "Boobie_Ike_04", "Tierkompendium": "Mount_Kalaga_National_Park_05", "Animal compendium": "Mount_Kalaga_National_Park_05", "Jagen (für Geld)": "Mount_Kalaga_National_Park_03", "Hunting (for cash)": "Mount_Kalaga_National_Park_03", "Straßen- & Drag-Rennen": "Vice_City_24", "Street & drag races": "Vice_City_24", "Sonnenbaden": "Vice_City_05", "Sunbathing": "Vice_City_05", "Basketball": "Vice_City_03", "Date mit Partner": "Jason_and_Lucia_16", "Date your partner": "Jason_and_Lucia_16", "Läden ausrauben – zu zweit": "Jason_and_Lucia_15", "Rob shops – as a duo": "Jason_and_Lucia_15", "Ganz Leonida erkunden": "Leonida_Keys_01", "Explore all of Leonida": "Leonida_Keys_01", "Freizeitpark": "Vice_City_08", "Amusement park": "Vice_City_08", "Offroad-Rennen": "Grassrivers_04", "Off-road races": "Grassrivers_04", "Rallye-Rennen": "Grassrivers_04", "Rally races": "Grassrivers_04", "Fallschirm & Base-Jump": "Vice_City_11", "Parachute & base jump": "Vice_City_11", "Zoo besuchen": "Leonida_Keys_06", "Visit the zoo": "Leonida_Keys_06", "Backyard-Wrestling": "Jason_and_Lucia_05", "Backyard wrestling": "Jason_and_Lucia_05", "Angel-Duell gegen Cal": "Jason_Duval_03", "Fishing duel vs. Cal": "Jason_Duval_03", "Airboat-Touren": "Grassrivers_03", "Airboating": "Grassrivers_03", "Tauchen & Schnorcheln": "Leonida_Keys_04", "Scuba & snorkelling": "Leonida_Keys_04", "Straßenrennen": "Vice_City_24", "Street racing": "Vice_City_24", "Motocross & Dirtbikes": "Mount_Kalaga_National_Park_01", "Motocross & dirt bikes": "Mount_Kalaga_National_Park_01", "ATV-Trails": "Mount_Kalaga_National_Park_01", "ATV trails": "Mount_Kalaga_National_Park_01", "Schlammpark-Party": "Ambrosia_06", "Mud park party": "Ambrosia_06", "Jagen": "Mount_Kalaga_National_Park_03", "Hunting": "Mount_Kalaga_National_Park_03", "Tiere entdecken": "Mount_Kalaga_National_Park_05", "Study wildlife": "Mount_Kalaga_National_Park_05", "Legendäre Tiere": "Grassrivers_08", "Legendary animals": "Grassrivers_08", "Farmen & Ranches": "Ambrosia_04", "Farms & ranches": "Ambrosia_04", "Zeit zu zweit": "Jason_and_Lucia_16", "Time together": "Jason_and_Lucia_16", "Fremde & Freaks": "Grassrivers_07", "Strangers & Freaks": "Grassrivers_07", "Stunts & Sprünge": "Jason_Duval_13", "Stunts & jumps": "Jason_Duval_13", "20 verschiedene Rennen": "Jason_Duval_13", "20 different races": "Jason_Duval_13", "Vogelbeobachtung": "Grassrivers_05", "Birdwatching": "Grassrivers_05", "Markierte Scheine waschen": "Jason_and_Lucia_02", "Launder marked bills": "Jason_and_Lucia_02", "Zoo": "Leonida_Keys_06"};
 const rsEd=p=>RSED.find(n=>n.startsWith(p+'.'));
 const ACTIMG={'Garagen kaufen':'ULTIMATE_EDITION_SAFEHOUSE_VEHICLES_02','Buy garages':'ULTIMATE_EDITION_SAFEHOUSE_VEHICLES_02','Friseur & Salon':'ULTIMATE_EDITION_SARAS_SALON_01','Tattoos':'ULTIMATE_EDITION_ELECTRIC_FANG_01','Auto tunen':'ULTIMATE_EDITION_RIDEOUT_CUSTOMS_01','Klamotten shoppen':'ULTIMATE_EDITION_STOCK_305_01','Safehouse-Leben':'ULTIMATE_EDITION_SAFEHOUSE_VEHICLES_01','Classic Car Collection':'ULTIMATE_EDITION_WYMAN_CAR_COLLECTION_01','PTT Youngin$-Raid':'ULTIMATE_EDITION_PTT_STORE_01','Hair & salon':'ULTIMATE_EDITION_SARAS_SALON_01','Car tuning':'ULTIMATE_EDITION_RIDEOUT_CUSTOMS_01','Clothes shopping':'ULTIMATE_EDITION_STOCK_305_01','Safehouse life':'ULTIMATE_EDITION_SAFEHOUSE_VEHICLES_01'};
-function decorateImages(){
+/* full backup */
+const b2d=b=>new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result);f.readAsDataURL(b)});
+const d2b=async d=>(await fetch(d)).blob();
+function bkBind(){
+ $('#bkFile').onclick=async()=>{const o={app:'leonida-pro-guide',v:2,ts:new Date().toISOString(),ls:{}};
+  for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('leo_'))o.ls[k]=localStorage.getItem(k)}
+  try{const st=JSON.parse(o.ls.leo_set||'{}');st.aiKey='';o.ls.leo_set=JSON.stringify(st)}catch(e){}
+  if($('#bkPh').checked){toast('⏳ '+T(L('Fotos werden verpackt …','Packing photos …')));o.photos=[];for(const g of GAL){try{o.photos.push({...g,full:await b2d(g.full),thumb:await b2d(g.thumb)})}catch(e){}}}
+  const name=`leonida-backup-${new Date().toISOString().slice(0,10)}.json`;const blob=new Blob([JSON.stringify(o)],{type:'application/json'});
+  try{const f=new File([blob],name,{type:'application/json'});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:name});return}}catch(e){if(e&&e.name==='AbortError')return}
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},2000);toast('💾 '+name)};
+ $('#bkLoad').onclick=()=>{const i=document.createElement('input');i.type='file';i.accept='application/json,.json';i.onchange=async()=>{try{const o=JSON.parse(await i.files[0].text());if(o.app!=='leonida-pro-guide'||!o.ls)throw 0;
+   const keep=(()=>{try{return JSON.parse(localStorage.getItem('leo_set')||'{}').aiKey||''}catch(e){return ''}})();
+   Object.entries(o.ls).forEach(([k,v])=>{if(k.startsWith('leo_'))localStorage.setItem(k,v)});
+   try{const st=JSON.parse(localStorage.getItem('leo_set')||'{}');if(keep)st.aiKey=keep;localStorage.setItem('leo_set',JSON.stringify(st))}catch(e){}
+   let n=0;if(Array.isArray(o.photos))for(const g of o.photos){try{await GDB.put({...g,full:await d2b(g.full),thumb:await d2b(g.thumb)});n++}catch(e){}}
+   toast('✅ '+T(L('Sicherung geladen','Backup restored'))+(n?` · ${n} 📸`:''));setTimeout(()=>location.reload(),900)}catch(e){toast('⚠️ '+T(L('Keine gültige Sicherung','Not a valid backup')))}};i.click()};
+}
+/* own photos for items without official image */
+function ownMap(){const m={};(GAL||[]).forEach(o=>{if(o.ref&&!m[o.ref])m[o.ref]=o});return m}
+function ownPick(ref,cat,el){const i=document.createElement('input');i.type='file';i.accept='image/*';i.onchange=async()=>{const f=i.files[0];if(!f)return;try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+ try{const full=await gShrink(f,2000,.86),th=await gShrink(f,520,.8);const o={id:'g'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),ts:Date.now(),cat,ref,hero:false,w:full.w,h:full.h,full:full.b,thumb:th.b};
+  await GDB.put(o);GAL.unshift(o);el.querySelectorAll('.ownCam,.tThumb.own').forEach(x=>x.remove());decorateOwn();toast('📸 '+T(L('Foto gespeichert – auch in deiner Galerie','Photo saved – also in your gallery')))}catch(e){toast(T(L('⚠️ Konnte nicht speichern','⚠️ Could not save')))}};i.click()}
+function decorateOwn(){const M=ownMap();
+ const each=(sel,pre,cat,keyFn)=>document.querySelectorAll(sel).forEach(t=>{if(t.querySelector('.tThumb')&&!t.querySelector('.tThumb.own'))return;if(t.querySelector('.ownCam,.tThumb.own'))return;const k=keyFn(t);if(!k)return;const ref=pre+k;const o=M[ref];
+  if(o){t.insertAdjacentHTML('afterbegin',`<div class="tThumb own" style="background-image:url('${gUrl(o,'thumb')}')"><span>📸 ${T(L('Dein Foto','Your photo'))}</span></div>`)}
+  else{if(getComputedStyle(t).position==='static')t.style.position='relative';const b=document.createElement('button');b.className='ownCam';b.textContent='📷';b.title=T(L('Eigenen Screenshot hinzufügen','Add your own screenshot'));b.onclick=e=>{e.stopPropagation();e.preventDefault();ownPick(ref,cat,t)};t.appendChild(b)}});
+ each('#cars .tile','car:','cars',t=>(t.querySelector('.ttl')||{}).textContent);
+ each('#guns .tile','gun:','misc',t=>(t.querySelector('.ttl')||{}).textContent);
+ each('#v-acts .card','act:','misc',t=>{const h=t.querySelector('.ttl,h4,b');return h&&h.textContent.trim()});
+}
+function decorateImages(){setTimeout(()=>{try{decorateOwn()}catch(e){}},0);
  try{document.querySelectorAll('#v-acts .card,#v-missions .card').forEach(c=>{if(c.querySelector('.tThumb'))return;const h=c.querySelector('.ttl,h4,b');if(!h)return;const k=h.textContent.trim();const f=(ACTIMG[k]&&rsEd(ACTIMG[k]))||(ACTIMG2[k]&&rsFind(ACTIMG2[k]));if(f)c.insertAdjacentHTML('afterbegin',`<div class="tThumb" style="background-image:url('${rsu(f,640)}')"><span>© Rockstar Games</span></div>`)})}catch(e){}
  document.querySelectorAll('#cars .tile,#guns .tile').forEach(t=>{if(t.querySelector('.tThumb'))return;const n=(t.querySelector('.ttl')||{}).textContent;const f=(CARIMG[n]&&rsEd(CARIMG[n]))||(CARIMG2[n]&&rsFind(CARIMG2[n]));if(f)t.insertAdjacentHTML('afterbegin',`<div class="tThumb" style="background-image:url('${rsu(f,640)}')"><span>© Rockstar Games${CARSCENE.has(n)?' · '+T(L('Szene','Scene')):''}</span></div>`)});
  [['v-missions','Jason_and_Lucia_Robbery_landscape','art'],['v-radio','Vice_City_13','shot'],['v-tips','Vice_City_09','shot']].forEach(([sec,key,kind])=>{const s=document.getElementById(sec);if(!s||s.querySelector('.secBanner'))return;const f=kind==='art'?rsArt(key):rsFind(key);if(!f)return;const lead=s.querySelector('.lead');if(lead)lead.insertAdjacentHTML('afterend',`<div class="secBanner" style="background-image:url('${rsu(f,1280)}')"><span>© Rockstar Games</span></div>`)})}
