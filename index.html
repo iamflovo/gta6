@@ -1270,6 +1270,36 @@ details.chap[open]>summary::after{transform:rotate(180deg)}
 .trRv{margin-top:6px;padding:4px 10px;border-radius:9px;border:1px dashed rgba(255,255,255,.3);background:transparent;color:inherit;font-size:12px;cursor:pointer}
 .trChk input{width:22px;height:22px;accent-color:var(--acc);margin-top:8px}
 .mrow .mde{font-weight:500;font-size:12px;opacity:.6;margin-left:6px}
+
+/* ===== Map next level ===== */
+.mapbox{box-shadow:0 0 0 1px color-mix(in srgb,var(--acc) 35%,transparent),0 30px 80px -30px color-mix(in srgb,var(--acc) 60%,transparent),inset 0 0 90px rgba(0,0,0,.55)!important}
+.mapbox::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:6;border-radius:inherit;background:radial-gradient(ellipse at 50% 45%,transparent 55%,rgba(3,1,12,.55) 100%),repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px)}
+.regCard{position:absolute;right:68px;bottom:56px;z-index:12;pointer-events:none;text-align:right;opacity:0;transform:translateX(30px);transition:opacity .45s,transform .6s cubic-bezier(.2,.8,.2,1)}
+.regCard.in{opacity:1;transform:none}.regCard.out{opacity:0;transform:translateY(8px)}
+.regCard small{display:block;font:700 11px 'Barlow Condensed';letter-spacing:4px;text-transform:uppercase;color:var(--c);text-shadow:0 0 10px var(--c)}
+.regCard b{display:block;font:400 clamp(34px,8vw,58px) Anton;line-height:.95;letter-spacing:1px;color:#fff;text-shadow:3px 3px 0 #000,0 0 30px rgba(0,0,0,.7);-webkit-text-stroke:1px rgba(0,0,0,.6);transform:skewX(-6deg)}
+.regCard span{display:block;font:600 13px Inter,sans-serif;opacity:.9;text-shadow:0 1px 4px #000;margin-top:4px}
+.regCard i{display:block;height:3px;margin:8px 0 0 auto;width:0;background:linear-gradient(90deg,transparent,var(--c));box-shadow:0 0 12px var(--c);transition:width .9s .2s cubic-bezier(.2,.8,.2,1)}.regCard.in i{width:70%}
+.mapbox .mlbl.on{animation:lblPulse 1.8s ease-in-out infinite}
+@keyframes lblPulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--c) 70%,transparent)}50%{box-shadow:0 0 0 10px transparent}}
+.maptools #mfsBtn{font-size:16px;font-weight:700}
+.fsBar{display:none}
+body.mapFS{overflow:hidden}
+body.mapFS .mapwrap{position:fixed;inset:0;z-index:300;display:block;background:radial-gradient(ellipse at 50% 40%,#0d2347,#04060f 75%);padding:calc(64px + env(safe-area-inset-top)) 0 env(safe-area-inset-bottom);animation:fsIn .35s ease both}
+@keyframes fsIn{from{opacity:0;transform:scale(1.02)}to{opacity:1;transform:none}}
+body.mapFS .mapbox{position:absolute!important;inset:calc(76px + env(safe-area-inset-top)) 0 0 0!important;height:auto!important;max-height:none!important;aspect-ratio:auto!important;border-radius:0;border:0;min-height:0}
+body.mapFS .mapbox .stage{max-width:min(100%,calc((100vh - 90px) * .95));margin:0 auto}
+body.mapFS .fsBar{display:flex;position:absolute;top:0;left:0;right:0;z-index:20;gap:12px;align-items:center;padding:calc(10px + env(safe-area-inset-top)) 14px 10px;background:linear-gradient(180deg,rgba(4,2,12,.95),rgba(4,2,12,.75));border-bottom:2px solid;border-image:linear-gradient(90deg,transparent,var(--acc),var(--acc2),transparent) 1}
+.fsT{display:flex;flex-direction:column;line-height:1}.fsL{font:400 26px Anton;letter-spacing:2px;background:linear-gradient(90deg,#ff9a3c,#ff2bd6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}.fsS{font:600 11px 'Barlow Condensed';letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-top:3px}
+.fsRegs{flex:1;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.fsRegs::-webkit-scrollbar{display:none}
+.fsRegs button{flex:0 0 auto;padding:7px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#fff;font:600 13px 'Barlow Condensed';letter-spacing:.8px;text-transform:uppercase;cursor:pointer;border-left:3px solid var(--c)}
+.fsRegs button.on{background:color-mix(in srgb,var(--c) 30%,transparent);box-shadow:0 0 16px -4px var(--c)}
+.fsX{width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#fff;font-size:18px;cursor:pointer;flex:0 0 auto}
+body.mapFS .rpanel{position:absolute;z-index:15;right:14px;bottom:14px;width:min(360px,calc(100% - 28px));max-height:42vh;overflow:auto;background:rgba(10,4,24,.88)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:color-mix(in srgb,var(--acc) 35%,transparent)!important}
+@media(min-width:900px){body.mapFS .rpanel{left:14px;right:auto;top:calc(84px + env(safe-area-inset-top));bottom:auto;max-height:calc(100vh - 110px)}body.mapFS .mapbox .compass,body.mapFS .mapbox .needleBox{left:390px}}
+body.mapFS #mfsBtn{display:none}body.mapFS .mapbox .stage{padding:2% 2% 0!important}
+@media(max-width:899px){body.mapFS .rpanel{left:10px;right:10px;width:auto;bottom:10px;max-height:34vh}body.mapFS .regCard{bottom:calc(34vh + 30px)}}
+body.mapFS #bottom,body.mapFS header,body.mapFS #sideNav{visibility:hidden}
 </style>
 </head>
 <body><div id="aura" aria-hidden="true"></div>
@@ -1719,6 +1749,7 @@ details.chap[open]>summary::after{transform:rotate(180deg)}
     <div class="pinbar"><button class="ib" id="pinMode"></button><span class="dim" id="pinHint"></span></div>
     <div class="blipBar" id="blipBar"></div>
     <div class="mapwrap">
+      <div class="fsBar" id="fsBar"></div>
       <div class="mapbox" id="mapbox"></div>
       <div class="card rpanel" id="rpanel"></div>
     </div>
@@ -1861,7 +1892,7 @@ details.chap[open]>summary::after{transform:rotate(180deg)}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 23.11. 19:27</div>
+    <div class="dim" style="margin-top:8px">App-Version 23.11. 19:30</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -3303,7 +3334,7 @@ function renderMap(){
   +BLIPS.map((b,i)=>blipF[b[0]]?bb(b[3],b[4],`<button class="mblip bl-${b[0]}" data-bi="${i}" style="--bc:${BLIPC[b[0]][1]}" title="${esc(b[1])}">${icn(BLIPC[b[0]][0])}</button>`,'mlb mlb-'+b[0]):'').join('')
   +store.get('pins',[]).map((p,i)=>{const c=PINCATS.find(x=>x[0]===p.c)||PINCATS[6];return bb(p.x,p.y,`<button class="mpin ${p.done?'done':''}" data-pi="${i}" title="${esc(p.t||'')}"><span style="rotate:45deg">${c[1]}</span></button>`,'mlp')}).join('');
  box.innerHTML=`<div class="stage"><div class="plane"><div class="mshadow"></div><canvas class="mraster" width="8" height="10"></canvas>${stormOn()?`<div class="mstorm"><svg viewBox="-110 -110 220 220"><g stroke="#f4f8ff" stroke-linecap="round"><line x1="6.0" y1="0.0" x2="9.7" y2="3.1" stroke-width="26.0" opacity="0.55"/><line x1="9.7" y1="3.1" x2="11.8" y2="8.3" stroke-width="25.0" opacity="0.53"/><line x1="11.8" y1="8.3" x2="11.2" y2="14.8" stroke-width="24.0" opacity="0.51"/><line x1="11.2" y1="14.8" x2="7.6" y2="21.5" stroke-width="23.0" opacity="0.50"/><line x1="7.6" y1="21.5" x2="0.9" y2="27.0" stroke-width="22.0" opacity="0.48"/><line x1="0.9" y1="27.0" x2="-8.5" y2="30.0" stroke-width="21.0" opacity="0.46"/><line x1="-8.5" y1="30.0" x2="-19.5" y2="29.6" stroke-width="20.0" opacity="0.44"/><line x1="-19.5" y1="29.6" x2="-30.8" y2="24.9" stroke-width="19.0" opacity="0.42"/><line x1="-30.8" y1="24.9" x2="-40.8" y2="15.9" stroke-width="18.0" opacity="0.41"/><line x1="-40.8" y1="15.9" x2="-47.9" y2="3.1" stroke-width="17.0" opacity="0.39"/><line x1="-47.9" y1="3.1" x2="-50.7" y2="-12.6" stroke-width="16.0" opacity="0.37"/><line x1="-50.7" y1="-12.6" x2="-48.1" y2="-29.5" stroke-width="15.0" opacity="0.35"/><line x1="-48.1" y1="-29.5" x2="-39.6" y2="-45.9" stroke-width="14.0" opacity="0.33"/><line x1="-39.6" y1="-45.9" x2="-25.5" y2="-59.6" stroke-width="13.0" opacity="0.32"/><line x1="-25.5" y1="-59.6" x2="-6.7" y2="-68.7" stroke-width="12.0" opacity="0.30"/><line x1="-6.7" y1="-68.7" x2="15.3" y2="-71.6" stroke-width="11.0" opacity="0.28"/><line x1="15.3" y1="-71.6" x2="38.3" y2="-67.2" stroke-width="10.0" opacity="0.26"/><line x1="38.3" y1="-67.2" x2="60.0" y2="-55.3" stroke-width="9.0" opacity="0.24"/><line x1="60.0" y1="-55.3" x2="77.7" y2="-36.3" stroke-width="8.0" opacity="0.23"/><line x1="77.7" y1="-36.3" x2="89.2" y2="-11.6" stroke-width="7.0" opacity="0.21"/><line x1="89.2" y1="-11.6" x2="92.7" y2="16.7" stroke-width="6.0" opacity="0.19"/><line x1="92.7" y1="16.7" x2="87.0" y2="46.0" stroke-width="5.0" opacity="0.17"/><line x1="87.0" y1="46.0" x2="71.9" y2="73.2" stroke-width="4.0" opacity="0.15"/><line x1="-3.0" y1="5.2" x2="-7.5" y2="6.9" stroke-width="26.0" opacity="0.55"/><line x1="-7.5" y1="6.9" x2="-13.1" y2="6.0" stroke-width="25.0" opacity="0.53"/><line x1="-13.1" y1="6.0" x2="-18.5" y2="2.3" stroke-width="24.0" opacity="0.51"/><line x1="-18.5" y1="2.3" x2="-22.4" y2="-4.2" stroke-width="23.0" opacity="0.50"/><line x1="-22.4" y1="-4.2" x2="-23.8" y2="-12.7" stroke-width="22.0" opacity="0.48"/><line x1="-23.8" y1="-12.7" x2="-21.8" y2="-22.4" stroke-width="21.0" opacity="0.46"/><line x1="-21.8" y1="-22.4" x2="-15.9" y2="-31.6" stroke-width="20.0" opacity="0.44"/><line x1="-15.9" y1="-31.6" x2="-6.2" y2="-39.1" stroke-width="19.0" opacity="0.42"/><line x1="-6.2" y1="-39.1" x2="6.6" y2="-43.3" stroke-width="18.0" opacity="0.41"/><line x1="6.6" y1="-43.3" x2="21.2" y2="-43.0" stroke-width="17.0" opacity="0.39"/><line x1="21.2" y1="-43.0" x2="36.2" y2="-37.6" stroke-width="16.0" opacity="0.37"/><line x1="36.2" y1="-37.6" x2="49.6" y2="-26.9" stroke-width="15.0" opacity="0.35"/><line x1="49.6" y1="-26.9" x2="59.5" y2="-11.4" stroke-width="14.0" opacity="0.33"/><line x1="59.5" y1="-11.4" x2="64.3" y2="7.7" stroke-width="13.0" opacity="0.32"/><line x1="64.3" y1="7.7" x2="62.8" y2="28.5" stroke-width="12.0" opacity="0.30"/><line x1="62.8" y1="28.5" x2="54.4" y2="49.0" stroke-width="11.0" opacity="0.28"/><line x1="54.4" y1="49.0" x2="39.1" y2="66.8" stroke-width="10.0" opacity="0.26"/><line x1="39.1" y1="66.8" x2="17.9" y2="79.6" stroke-width="9.0" opacity="0.24"/><line x1="17.9" y1="79.6" x2="-7.4" y2="85.5" stroke-width="8.0" opacity="0.23"/><line x1="-7.4" y1="85.5" x2="-34.5" y2="83.1" stroke-width="7.0" opacity="0.21"/><line x1="-34.5" y1="83.1" x2="-60.8" y2="72.0" stroke-width="6.0" opacity="0.19"/><line x1="-60.8" y1="72.0" x2="-83.3" y2="52.4" stroke-width="5.0" opacity="0.17"/><line x1="-83.3" y1="52.4" x2="-99.3" y2="25.8" stroke-width="4.0" opacity="0.15"/><line x1="-3.0" y1="-5.2" x2="-2.2" y2="-10.0" stroke-width="26.0" opacity="0.55"/><line x1="-2.2" y1="-10.0" x2="1.3" y2="-14.3" stroke-width="25.0" opacity="0.53"/><line x1="1.3" y1="-14.3" x2="7.2" y2="-17.1" stroke-width="24.0" opacity="0.51"/><line x1="7.2" y1="-17.1" x2="14.8" y2="-17.3" stroke-width="23.0" opacity="0.50"/><line x1="14.8" y1="-17.3" x2="22.9" y2="-14.3" stroke-width="22.0" opacity="0.48"/><line x1="22.9" y1="-14.3" x2="30.2" y2="-7.7" stroke-width="21.0" opacity="0.46"/><line x1="30.2" y1="-7.7" x2="35.3" y2="2.1" stroke-width="20.0" opacity="0.44"/><line x1="35.3" y1="2.1" x2="37.0" y2="14.2" stroke-width="19.0" opacity="0.42"/><line x1="37.0" y1="14.2" x2="34.2" y2="27.3" stroke-width="18.0" opacity="0.41"/><line x1="34.2" y1="27.3" x2="26.7" y2="39.9" stroke-width="17.0" opacity="0.39"/><line x1="26.7" y1="39.9" x2="14.5" y2="50.1" stroke-width="16.0" opacity="0.37"/><line x1="14.5" y1="50.1" x2="-1.5" y2="56.4" stroke-width="15.0" opacity="0.35"/><line x1="-1.5" y1="56.4" x2="-19.9" y2="57.3" stroke-width="14.0" opacity="0.33"/><line x1="-19.9" y1="57.3" x2="-38.8" y2="51.9" stroke-width="13.0" opacity="0.32"/><line x1="-38.8" y1="51.9" x2="-56.1" y2="40.2" stroke-width="12.0" opacity="0.30"/><line x1="-56.1" y1="40.2" x2="-69.6" y2="22.6" stroke-width="11.0" opacity="0.28"/><line x1="-69.6" y1="22.6" x2="-77.4" y2="0.5" stroke-width="10.0" opacity="0.26"/><line x1="-77.4" y1="0.5" x2="-77.9" y2="-24.2" stroke-width="9.0" opacity="0.24"/><line x1="-77.9" y1="-24.2" x2="-70.4" y2="-49.1" stroke-width="8.0" opacity="0.23"/><line x1="-70.4" y1="-49.1" x2="-54.7" y2="-71.4" stroke-width="7.0" opacity="0.21"/><line x1="-54.7" y1="-71.4" x2="-31.9" y2="-88.6" stroke-width="6.0" opacity="0.19"/><line x1="-31.9" y1="-88.6" x2="-3.8" y2="-98.3" stroke-width="5.0" opacity="0.17"/><line x1="-3.8" y1="-98.3" x2="27.3" y2="-98.9" stroke-width="4.0" opacity="0.15"/></g><circle r="7" fill="#0a2443" opacity=".7"/></svg></div>`:''}<div class="mload"><span></span>${T(L('Satellitenbild wird berechnet …','Rendering satellite view …'))}</div><canvas class="mclouds" width="8" height="10"></canvas><svg class="mhit" viewBox="0 0 420 520" xmlns="http://www.w3.org/2000/svg">${hit}${counties}</svg>${towers}</div></div><div class="mlabels">${labels}</div>
- <div class="maptools"><button id="m3d" class="${VIEW.t>5?'on':''}">${VIEW.t>5?'3D':'2D'}</button><button id="mnBtn"></button><button id="mstBtn" class="${mapStyle==='game'?'on':''}" title="${T(L('Kartenstil: Ingame / Druck','Map style: in-game / print'))}">${icn('gamepad-2')}</button><button id="mrlBtn" class="${mapRelief?'on':''}" title="${T(L('3D-Gelände','3D terrain'))}">${icn('mountain')}</button><a class="mdl" href="${OFFMAP.dl}" target="_blank" rel="noopener" title="${T(L('Offizielle Karte bei Rockstar (Druckversion)','Official map at Rockstar (print version)'))}">${icn('download')}</a></div>
+ <div class="maptools"><button id="mfsBtn" title="${T(L('Vollbild','Fullscreen'))}">${document.body.classList.contains('mapFS')?'✕':'⛶'}</button><button id="m3d" class="${VIEW.t>5?'on':''}">${VIEW.t>5?'3D':'2D'}</button><button id="mnBtn"></button><button id="mstBtn" class="${mapStyle==='game'?'on':''}" title="${T(L('Kartenstil: Ingame / Druck','Map style: in-game / print'))}">${icn('gamepad-2')}</button><button id="mrlBtn" class="${mapRelief?'on':''}" title="${T(L('3D-Gelände','3D terrain'))}">${icn('mountain')}</button><a class="mdl" href="${OFFMAP.dl}" target="_blank" rel="noopener" title="${T(L('Offizielle Karte bei Rockstar (Druckversion)','Official map at Rockstar (print version)'))}">${icn('download')}</a></div>
  <button class="compass" id="cmp" title="Nord"><svg viewBox="0 0 40 40" width="40" height="40"><circle cx="20" cy="20" r="18" fill="rgba(11,4,24,.72)" stroke="rgba(255,255,255,.35)"/><g id="needle"><path d="M20 5 L25 20 L20 18 L15 20Z" fill="#ff4f6d"/><path d="M20 35 L25 20 L20 22 L15 20Z" fill="#dfe6ee"/><text x="20" y="13.5" text-anchor="middle" font-size="7" font-weight="800" fill="#fff" font-family="Inter">N</text></g></svg></button>
  <div class="mzoom"><button data-mz="1.5" aria-label="Zoom +">+</button><button data-mz="0.67" aria-label="Zoom −">−</button><button data-mr="-45" title="⟲">⟲</button><button data-mr="45" title="⟳">⟳</button></div>
  <div class="mcred">Karte © Rockstar Games</div><div class="mhint">${T(L('Ziehen · 2 Finger: zoomen & drehen · 2 Finger hoch/runter: neigen · Doppeltipp: Zoom','Drag · 2 fingers: zoom & rotate · 2 fingers up/down: tilt · double-tap: zoom'))}</div>`;
@@ -3317,7 +3348,7 @@ function renderMap(){
  if(window._relCrash){window._relCrash=0;setTimeout(()=>toast(T(L('3D-Gelände wurde abgeschaltet – dein Gerät hatte zu wenig Grafikspeicher.','3D terrain was turned off – your device ran low on graphics memory.'))),800)}
 $('#mstBtn').onclick=()=>{mapStyle=mapStyle==='game'?'print':'game';store.set('mapstyle',mapStyle);MAPRASTER=null;MAPRASTERING=null;toast(T(mapStyle==='game'?L('Ingame-Look','In-game look'):L('Druck-Look','Print look')));renderMap()};
  $('#mrlBtn').onclick=()=>{mapRelief=!mapRelief;store.set('relief2',mapRelief);if(mapRelief&&VIEW.t<5){map3d=true;store.set('map3d',true);animView({t:52})}renderMap()};
- $('#m3d').onclick=()=>{map3d=!(VIEW.t>5);store.set('map3d',map3d);animView({t:map3d?46:0})};
+ {const fb=box.querySelector('#mfsBtn');if(fb)fb.onclick=e=>{e.stopPropagation();mapFS(!document.body.classList.contains('mapFS'))}}$('#m3d').onclick=()=>{map3d=!(VIEW.t>5);store.set('map3d',map3d);animView({t:map3d?46:0})};
  $('#cmp').onclick=()=>animView({r:0,t:map3d?46:0});
  box.querySelectorAll('[data-mz]').forEach(b=>b.onclick=()=>zoomAt(VIEW.z*+b.dataset.mz,null,true));
  box.querySelectorAll('[data-mr]').forEach(b=>b.onclick=()=>animView({r:VIEW.r+ +b.dataset.mr}));
@@ -3390,7 +3421,33 @@ function bindGestures(){
 function placeLabels(){}
 function trackLabels(){}
 
-function renderRegion(){
+
+/* ===== Map next level: fly-to, region title card, fullscreen pause-menu ===== */
+const RINTRO={vice:['Vice-Dale County',L('Neonlichter, Strände, Kartellgeld','Neon lights, beaches, cartel money')],keys:['Mariana County',L('Inseln, Bars und Wracks','Islands, bars and shipwrecks')],grass:['Mariana County',L('Sumpf, Airboats, Alligatoren','Swamp, airboats, alligators')],gell:['Kelly County',L('Motels, Raceway, Hafen','Motels, raceway, harbor')],ambro:['Ambrosia County',L('Farmen, Fabriken, Biker','Farms, factories, bikers')],kalaga:['Lummox County',L('Wälder, Wasserfälle, Jagd','Forests, waterfalls, hunting')]};
+const RFLYZ={vice:2.3,keys:2.1,grass:2,gell:2.1,ambro:2.2,kalaga:2.1};
+function flyRegion(k){const box=$('#mapbox');if(!box||!box.offsetWidth)return;const lb=box.querySelector(`.mlbl[data-r="${k}"]`);if(!lb||!lb.offsetParent)return;
+ const br=box.getBoundingClientRect(),lr=lb.getBoundingClientRect();const fs=document.body.classList.contains('mapFS');const side=fs&&innerWidth>=900?380:0;const P={x:side+(box.clientWidth-side)/2,y:fs&&innerWidth<900?box.clientHeight*.32:box.clientHeight*.55};
+ const lx=lr.left+lr.width/2-br.left,ly=lr.top+lr.height/2-br.top;const x1=VIEW.x+(P.x-lx),y1=VIEW.y+(P.y-ly);
+ const nz=Math.min(6,Math.max(VIEW.z,RFLYZ[k]||2.2)),kk=nz/VIEW.z;let c;try{c=planeCenter()}catch(e){return}
+ animView({z:nz,x:P.x-c.x-kk*(P.x-c.x-x1),y:P.y-c.y-kk*(P.y-c.y-y1)},1100)}
+function regionCard(k){const box=$('#mapbox');const r=REGIONS[k];if(!box||!r)return;box.querySelectorAll('.regCard').forEach(e=>e.remove());const ri=RINTRO[k]||['',L('','')];
+ const d=document.createElement('div');d.className='regCard';d.style.setProperty('--c',r.c);d.innerHTML=`<small>${esc(ri[0])}</small><b>${esc(r.n)}</b><span>${T(ri[1])}</span><i></i>`;box.appendChild(d);
+ requestAnimationFrame(()=>d.classList.add('in'));setTimeout(()=>{d.classList.remove('in');d.classList.add('out')},2600);setTimeout(()=>d.remove(),3300)}
+let _lastReg=null;
+function regionFocus(){if(!curRegion||curRegion===_lastReg){_lastReg=curRegion;return}_lastReg=curRegion;const k=curRegion;
+ if((location.hash||'').slice(1)!=='map')return;setTimeout(()=>{try{flyRegion(k)}catch(e){}if(!SET.noanim)regionCard(k)},90)}
+function fsBarRender(){const b=$('#fsBar');if(!b)return;const on=document.body.classList.contains('mapFS');if(!on){b.innerHTML='';return}
+ b.innerHTML=`<div class="fsT"><span class="fsL">LEONIDA</span><span class="fsS">${T(L('Karte','Map'))} · ${new Date().toLocaleTimeString(LANG==='de'?'de-DE':'en-GB',{hour:'2-digit',minute:'2-digit'})}</span></div>
+ <div class="fsRegs">${Object.entries(REGIONS).map(([k,v])=>`<button data-fr="${k}" class="${curRegion===k?'on':''}" style="--c:${v.c}">${v.n}</button>`).join('')}</div>
+ <button class="fsX" id="fsX" aria-label="close">✕</button>`;
+ b.querySelectorAll('[data-fr]').forEach(x=>x.onclick=()=>{curRegion=x.dataset.fr;updateRegionSel();renderRegion();fsBarRender()});$('#fsX').onclick=()=>mapFS(false)}
+function mapFS(on){document.body.classList.toggle('mapFS',on);fsBarRender();const bt=$('#mfsBtn');if(bt)bt.textContent=on?'✕':'⛶';
+ setTimeout(()=>{MG=null;try{applyView()}catch(e){}},60);setTimeout(()=>{MG=null;try{applyView()}catch(e){}},420);
+ if(on){try{history.pushState({mfs:1},'',location.hash)}catch(e){}}}
+addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('mapFS'))mapFS(false)});
+addEventListener('popstate',()=>{if(document.body.classList.contains('mapFS'))mapFS(false)});
+addEventListener('hashchange',()=>{if(document.body.classList.contains('mapFS')&&(location.hash||'').slice(1)!=='map')mapFS(false)});
+function renderRegion(){setTimeout(regionFocus,0);try{fsBarRender()}catch(e){}
  const r=REGIONS[curRegion];
  if(!r){$('#rpanel').innerHTML=`<div class="muted">👆 ${T(UI.tapRegion)}</div><ul class="list" style="margin-top:10px">${Object.entries(REGIONS).map(([k,v])=>`<li style="cursor:pointer" data-go="${k}"><span style="color:${v.c}">●</span><b>${v.n}</b><span class="sp"></span><span class="dim">${v.county}</span></li>`).join('')}</ul>`;
   $('#rpanel').querySelectorAll('[data-go]').forEach(li=>li.onclick=()=>{curRegion=li.dataset.go;renderMap();renderRegion()});return}
