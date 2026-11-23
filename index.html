@@ -1367,6 +1367,14 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset
 @media (pointer:coarse){body::after{mix-blend-mode:normal;opacity:.035}}
 
 .bInfo{flex-basis:100%;font-size:12.5px;margin-top:6px;padding:8px 12px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+
+.onCard{margin:0 0 16px;border-color:color-mix(in srgb,#9b5cff 45%,transparent)!important;box-shadow:0 20px 50px -30px #9b5cff}
+.onHead{display:flex;justify-content:space-between;align-items:center;gap:10px}.onHead small{display:block;font:700 10.5px 'Barlow Condensed';letter-spacing:3px;color:#c7a6ff}.onHead b{font:400 30px Anton;letter-spacing:.5px;background:linear-gradient(90deg,#fff,#c7a6ff 60%,#22e7ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.onStat{display:flex;gap:7px;align-items:center;font:600 12px 'JetBrains Mono';padding:6px 10px;border-radius:10px;background:rgba(255,77,109,.12);border:1px solid rgba(255,77,109,.35)}
+.onDot{width:8px;height:8px;border-radius:50%;background:#ff4d6d;box-shadow:0 0 10px #ff4d6d;animation:onP 1.6s ease-in-out infinite}@keyframes onP{50%{opacity:.35}}
+.onTl{display:flex;margin:14px 0 10px;position:relative}.onTl::before{content:"";position:absolute;left:8px;right:8px;top:7px;height:2px;background:linear-gradient(90deg,#3ef2b0,rgba(255,255,255,.15) 40%)}
+.on1{flex:1;position:relative;font-size:11.5px;opacity:.8}.on1 i{display:block;width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.35);background:#120820;position:relative;margin-bottom:6px}.on1.done i{background:#3ef2b0;border-color:#3ef2b0;box-shadow:0 0 10px #3ef2b0}.on1:last-child{text-align:right}.on1:last-child i{margin-left:auto}.on1:nth-child(2){text-align:center}.on1:nth-child(2) i{margin:0 auto 6px}
+.onRows{display:flex;flex-direction:column;gap:6px}.onRow{display:block;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);color:inherit;text-decoration:none}
 </style>
 </head>
 <body><div id="aura" aria-hidden="true"></div>
@@ -1801,6 +1809,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset
     <div class="nwHead"><span class="nwLive"><i></i>Newsroom</span><span class="upd" id="nwUpd"></span><span class="sp"></span><button class="ib" id="nwAllRead"></button></div>
     <div class="nwTop" id="nwTop"></div>
     <div id="nwRev"></div>
+    <div class="card onCard" id="onCard"></div>
     <div class="nwBar"><div class="card" id="nwRev" style="margin:0 0 16px"></div><div class="chips" id="nwCats"></div><input id="nwQ" type="search"></div>
     <div class="nwList" id="nwList"></div>
     <h3 data-i="h_road"></h3>
@@ -1961,7 +1970,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 23.11. 20:13</div>
+    <div class="dim" style="margin-top:8px">App-Version 23.11. 20:18</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -2137,9 +2146,10 @@ const NWSRC={
  rsi:['RockstarINTEL','#b388ff','com'],discord:['Discord r/GTA6','#8c9eff','com'],
  nbc:['Notebookcheck','#9fe7c4','int'],df:['DiscussingFilm','#ffcf6e','int'],alt:['AltChar','#ffb3e6','int'],vice:['VICE','#ff8fb1','int'],press:['Presse','#e8e2d0','de'],cb:['ComputerBase','#9fd3ff','de'],psi:['PlayStationInfo','#7fb6ff','de'],kotaku:['Kotaku','#ffd0a8','int'],tr:['TechRadar','#a8c8ff','int'],cnn:['CNN','#ff9a9a','int'],forbes:['Forbes','#cfe3ff','int'],yahoo:['Yahoo','#c8a6ff','int'],sensor:['Sensor Tower','#ffd36e','int'],pcg2:['PC Gamer','#ff6b6b','int'],ddc:['Discord GTA 6 Germany','#8c9eff','com'],ig:['Insider Gaming','#ffe36e','int'],vgc2:['VGC','#9ef0ff','int'],gtabase:['GTABase','#b0ffb8','com'],gta6db:['GTA6DB','#c9b0ff','com'],nbcn:['NBC News','#ffd36e','int'],dexerto:['Dexerto','#ff9a6e','int'],engadget:['Engadget','#8fe3ff','int'],nme:['NME','#ff6d8a','int'],vgt:['VGTimes','#c6f68d','int'],pcgamer:['PC Gamer','#ff6b6b','int'],
 };
-const NWUPD='2026-11-23T19:30:00+01:00';
+const NWUPD='2026-11-23T20:20:00+01:00';
 // id, date, source, badge, title, text, url
 const NEWSC=[
+ ['online-trk','2026-11-23','press','rum',L('GTA 6 Online: Was es bisher gibt','GTA 6 Online: what we know so far'),L('Rockstar hat noch keinen Online-Modus angekündigt. Dataminer haben aber Multiplayer-Einträge im PlayStation-System gefunden, und Berichte sprechen von einem Start 2027. Neu in der App: der Online-Tracker oben in den News – bestätigt, Leaks und Gerüchte sauber getrennt.','Rockstar hasn’t announced an online mode yet. Dataminers did find multiplayer entries in the PlayStation backend, and reports point to a 2027 launch. New in the app: the Online tracker at the top of News – confirmed, leaks and rumors clearly separated.'),'https://www.pcgamesn.com/grand-theft-auto-vi/online-leak-ps5'],
  ['rs-patch2','2026-11-23','rockstar','off',L('Erstes Update mit Patch-Notes: 1.002.002','First update with patch notes: 1.002.002'),L('Rockstar hat das erste Update nach dem Launch veröffentlicht – diesmal mit offiziellen Notes. Behoben: mehrere Abstürze, Wetter, das sich ewig nicht ändert, fehlende Autosaves, Anrufe, die nicht kamen (und so Story oder Missionen blockierten), Fahndungslevel, die sich nicht abschütteln ließen, die Kreuzheben-Stange im Gym und Partner, die keine Beute-Taschen zum Hehler gaben. Größe: ca. 604 MB auf PS5, ca. 1,6 GB auf Xbox; die Verteilung läuft über den Tag.','Rockstar released the first post-launch update – this time with official notes. Fixed: several crashes, weather stuck for long stretches, failed autosaves, phone calls not triggering (blocking story or missions), Wanted Levels you couldn’t lose, the gym deadlift bar and partners not handing over bags for fences. Size: about 604 MB on PS5, about 1.6 GB on Xbox; rolling out through the day.'),'https://www.destructoid.com/gta-6-patch-notes-nov-23-launch/'],
  ['ts-100','2026-11-23','press','rep',L('100 %: Das zählt wirklich – und Darts gibt’s nicht','100%: what actually counts – and there are no darts'),L('Die 100-%-Liste umfasst 11 Nebenaktivitäten, z. B. 40 Straßenrennen (30 nötig), 397 Stunts (300 nötig), 100 Basketballkörbe (90 nötig), 42 Drohnen-Zeitrennen und 18 Meditationen. Darts und Bowling sind nicht spielbar – laut Rob Nelson hat es Darts schlicht nicht mehr ins Spiel geschafft. Alles ist jetzt in der App zum Abhaken (Karte → Sammelobjekte).','The 100% list covers 11 side activities, e.g. 40 street races (30 needed), 397 stunts (300 needed), 100 hoops (90 needed), 42 drone trials and 18 meditations. Darts and bowling aren’t playable – per Rob Nelson, darts simply didn’t make it. It’s all trackable in the app now (Map → collectibles).'),'https://timesaver.gg/blog/gta-6-side-activities'],
  ['app-story','2026-11-23','press','rep',L('Neu in der App: kompletter Story-Guide','New in the app: full story guide'),L('Unter Missionen findest du jetzt alle 5 Kapitel plus Prolog mit allen Haupt- und optionalen Missionen zum Abhaken, Warnungen für verpassbare Missionen, Freischaltungen (Waffenläden, Pay ’n’ Spray, Garagen …) und alle Strangers-&-Freaks-Questreihen. Der Spoiler-Schutz gilt pro Kapitel.','Missions now has all 5 chapters plus prologue with every main and optional mission to tick off, missable warnings, unlocks (gun shops, Pay ’n’ Spray, garages …) and every Strangers & Freaks questline. Spoiler guard works per chapter.'),''],
@@ -3068,7 +3078,21 @@ const nwMini=n=>`<a class="nwMini" ${n[6]?`href="${n[6]}" target="_blank" rel="n
 let NWF='all';
 function nwMarkRead(id){const r=store.get('nwread',{});r[id]=1;store.set('nwread',r);nwDot()}
 function nwDot(){const n=nwUnread();document.querySelectorAll('#bottom [data-v=news],#sideNav [data-v=news],#moreGrid [data-v=news]').forEach(b=>b.classList.toggle('ndot',n>0))}
-function renderNews(){
+
+/* GTA 6 Online tracker card */
+const ONLINE={upd:'2026-11-23',rows:[
+ ['off',L('Kein Online-Modus zum Start','No online mode at launch'),L('PS Store und Xbox Store nennen GTA VI ein Einzelspieler-Erlebnis. Kein Termin, keine Spielerzahl, kein Crossplay, keine Übernahme aus GTA Online angekündigt.','PS Store and Xbox Store call GTA VI a single-player experience. No date, player count, crossplay or GTA Online transfer announced.'),'https://zap-hosting.com/en/blog/gta-6-online-multiplayer-servers'],
+ ['leak',L('Multiplayer-Einträge im PS-Backend','Multiplayer entries in the PS backend'),L('„PlayStation Game Size“ fand am 9.11. „joinSession“, „launchActivity“ und „launchMultiplayerActivity“. Dataminer TexFunz2: Story und Online könnten getrennt installierbar sein.','On Nov 9, “PlayStation Game Size” found “joinSession”, “launchActivity” and “launchMultiplayerActivity”. Dataminer TexFunz2: story and online may install separately.'),'https://www.pcgamesn.com/grand-theft-auto-vi/online-leak-ps5'],
+ ['leak',L('Xbox Store: 4 Installationspakete','Xbox Store: 4 install packages'),L('Laut Dataminern ist das Spiel in den Store-Daten in 4 Pakete geteilt – angeblich mit eigenem Online-Teil.','Per dataminers, store metadata splits the game into 4 packages – allegedly with an online part.'),'https://shattered.io/gta-6-online-leak-xbox-store-4-packages-2026/'],
+ ['rum',L('Start wohl 2027','Launch likely 2027'),L('Twitch-Chef Dan Clancy deutete 2027 an, Bloomberg spricht von Ende 2027, andere von März–Juni 2027. Nichts davon ist bestätigt.','Twitch CEO Dan Clancy hinted at 2027, Bloomberg points to late 2027, others to March–June 2027. None of it is confirmed.'),'https://www.vice.com/en/article/gta-6-pc-online-release-date/'],
+ ['off',L('GTA Online (GTA V) läuft weiter','GTA Online (GTA V) continues'),L('Take-Two am 9.11.: Rockstar versorgt GTA Online weiter mit neuen Inhalten und Events.','Take-Two on Nov 9: Rockstar keeps supporting GTA Online with new content and events.'),'https://wikily.gg/gta-6/online'],
+ ['rum',L('Vorsicht vor Fake-Builds','Beware of fake builds'),L('„Cyberleek“ will einen ~209-GB-Build verbreiten, gekoppelt an eine eigene Kryptowährung. Nicht herunterladen – illegal und ein typischer Weg für Schadsoftware.','“Cyberleek” claims to spread a ~209 GB build tied to its own crypto token. Don’t download – illegal and a classic malware route.'),'https://shattered.io/gta-6-leaker-holds-one-file-back-15-million-token-nov-23/']]};
+function renderOnline(){const b=$('#onCard');if(!b)return;
+ b.innerHTML=`<div class="onHead"><div><small>TRACKER</small><b>GTA 6 Online</b></div><div class="onStat"><span class="onDot"></span>${T(L('Nicht angekündigt','Not announced'))}</div></div>
+ <div class="onTl"><div class="on1 done"><i></i><span>${T(L('19.11.26 · Story-Start','Nov 19 ’26 · story launch'))}</span></div><div class="on1"><i></i><span>${T(L('Ankündigung?','Announcement?'))}</span></div><div class="on1"><i></i><span>${T(L('2027? · Online-Start','2027? · online launch'))}</span></div></div>
+ <div class="onRows">${ONLINE.rows.map(r=>`<a class="onRow" href="${r[3]}" target="_blank" rel="noopener"><div class="row" style="gap:6px;flex-wrap:wrap"><b>${T(r[1])}</b>${badge(r[0])}</div><div class="dim" style="font-size:13px;margin-top:3px">${T(r[2])}</div></a>`).join('')}</div>
+ <div class="dim" style="font-size:11.5px;margin-top:8px">${T(L('Stand','As of'))}: ${nwDate(ONLINE.upd)} · ${T(L('Wird aktualisiert, sobald Rockstar etwas ankündigt.','Updated as soon as Rockstar announces anything.'))}</div>`}
+function renderNews(){try{renderOnline()}catch(e){console.warn(e)}
  $('#nwUpd').textContent=T(L('Stand: ','Updated: '))+new Date(NWUPD).toLocaleString(LANG==='de'?'de-DE':'en-GB',{timeZone:'Europe/Berlin',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})+(LANG==='de'?' Uhr':'');
  $('#nwAllRead').textContent='✓ '+T(UI.allRead);
  const off=NEWSC.filter(n=>NWSRC[n[2]][2]==='off');const feat=NEWSC.find(n=>n[0]===NWTOP)||off[0];const side=NEWSC.filter(n=>n!==feat).slice(0,3);
