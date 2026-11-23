@@ -1258,6 +1258,18 @@ details.chap[open]>summary::after{transform:rotate(180deg)}
 #aura{position:fixed;inset:-20vmax;z-index:-1;pointer-events:none;background:radial-gradient(40vmax 40vmax at 15% 20%,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%),radial-gradient(45vmax 45vmax at 85% 80%,color-mix(in srgb,var(--acc2) 18%,transparent),transparent 70%);animation:auraDrift 22s ease-in-out infinite alternate;transition:background 1s}
 @keyframes auraDrift{to{transform:translate(4vmax,-3vmax) rotate(6deg)}}
 @media(prefers-reduced-motion:reduce){.secBanner,#aura,.view h2.sec::after{animation:none}}
+
+/* trophies */
+.trHead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.trCnt{display:flex;gap:12px}.trCnt div{display:flex;align-items:center;gap:3px;font:400 20px Anton}.trCnt span{font:600 12px 'Barlow Condensed';opacity:.6}
+.trSeg button.on{background:linear-gradient(90deg,var(--acc),var(--acc2));color:#120820}
+.trList{display:flex;flex-direction:column;gap:6px}.trRow{display:flex;gap:12px;align-items:flex-start;padding:11px 12px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)}
+.trRow.got{background:linear-gradient(90deg,color-mix(in srgb,var(--acc) 14%,transparent),rgba(255,255,255,.03));border-color:color-mix(in srgb,var(--acc) 35%,transparent)}
+.trI{flex:0 0 40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(0,0,0,.3)}.trRow:not(.got) .trI svg{opacity:.45;filter:grayscale(.6)!important}
+.trB{flex:1;min-width:0}.trN{font-weight:700;font-size:14.5px}.trD{font-size:13px;opacity:.8;margin-top:2px}.trT{font-size:12.5px;margin-top:5px;opacity:.85}.trDt{font:600 11px 'JetBrains Mono';opacity:.6;margin-top:4px}
+.trGo{display:inline-block;margin-top:6px;font:600 12px 'Barlow Condensed';letter-spacing:.6px;color:var(--acc);text-decoration:none}
+.trRv{margin-top:6px;padding:4px 10px;border-radius:9px;border:1px dashed rgba(255,255,255,.3);background:transparent;color:inherit;font-size:12px;cursor:pointer}
+.trChk input{width:22px;height:22px;accent-color:var(--acc);margin-top:8px}
+.mrow .mde{font-weight:500;font-size:12px;opacity:.6;margin-left:6px}
 </style>
 </head>
 <body><div id="aura" aria-hidden="true"></div>
@@ -1773,6 +1785,7 @@ details.chap[open]>summary::after{transform:rotate(180deg)}
   <!-- MY LEONIDA -->
   <section class="view" id="v-me">
     <div id="meTop"></div>
+    <div class="card meSec" id="trophBox"></div>
     <div class="card meSec" id="meShare"></div>
     <div class="card meSec" id="meCards"></div>
     <div class="card meSec" id="meDiary"><h3 class="dyH"></h3><div id="diaryBox"></div></div>
@@ -1848,7 +1861,7 @@ details.chap[open]>summary::after{transform:rotate(180deg)}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 23.11. 19:17</div>
+    <div class="dim" style="margin-top:8px">App-Version 23.11. 19:27</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -3020,6 +3033,7 @@ function pgCats(){const p=getPlan();const C=store.get('coll',{});const cg=store.
  try{out.push({ic:'🎮',l:L('Cheats freigeschaltet','Cheats unlocked'),n:CHEATS.filter(c=>cg[c[0]]).length,t:CHEATS.length,go:'tips'})}catch(e){}
  try{out.push({ic:'🎉',l:L('Aktivitäten erledigt','Activities done'),n:ACTV.filter(a=>p[a[0]]==='done').length,t:ACTV.length,go:'acts'})}catch(e){}
  try{const st=storyStats();out.push({ic:'🎬',l:L('Story-Missionen','Story missions'),n:st.d,t:st.t,go:'missions'});const sd=store.get('sdone',{});out.push({ic:'🎭',l:L('Nebenquest-Reihen','Side questlines'),n:SIDEQ.filter(q=>sd[q.id]).length,t:SIDEQ.length,go:'missions'})}catch(e){}
+ try{const E=store.get('troph',{});out.push({ic:'🏆',l:L('Trophäen','Trophies'),n:TROPH.filter(t=>E[t.id]).length,t:55,go:'me'})}catch(e){}
  out.push({ic:'🏎️',l:L('Fahrzeuge abgehakt','Vehicles ticked'),n:CARS.filter(c=>done['car:'+c[0]]).length,t:CARS.length,go:'garage'});
  return out}
 function renderProg(){const box=$('#progBox');if(!box)return;const cs=pgCats();
@@ -3057,15 +3071,15 @@ function renderPlay(){const box=$('#playBox');if(!box)return;const P=plGet();con
  const today=(P.days[plDay()]||0)+(P.run&&new Date(P.run).toISOString().slice(0,10)===plDay()?Date.now()-P.run:0);
  const nDays=Object.keys(P.days).filter(k=>P.days[k]>0).length;
  box.innerHTML=`<div class="plTop"><div><div class="plT ${P.run?'run':''}" id="plT">${plFmt(tot)}</div><div class="dim" style="font-size:12px">${T(L('Stunden gesamt','hours total'))} · ${T(L('heute','today'))} <span id="plD">${plFmt(today)}</span>${nDays?` · ${nDays} ${T(L('Spieltage','play days'))}`:''}</div></div>
- <div class="plBtns"><button class="go" id="plGo">${P.run?'⏸ '+T(L('Stopp','Stop')):'▶ '+T(L('Session starten','Start session'))}</button><button data-pl="-15">−15</button><button data-pl="15">+15</button><button data-pl="60">+1 h</button><button id="plSet">✎</button></div></div>
+ <div class="plBtns"><button class="go" id="plGo">${P.run?'⏸ '+T(L('Stopp','Stop')):'▶ '+T(L('Session starten','Start session'))}</button><button data-pl="-15">−15</button><button data-pl="15">+15</button><button data-pl="60">+1 h</button><button id="plSet">🎮 PS5</button></div></div>
  <div class="plScale"><i style="width:${Math.min(100,h/max*100)}%"></i>${PLREF.map(r=>`<div class="plMk ${r[3]?'up':''}" style="left:${r[0]/max*100}%"><span>${T(r[1])}</span></div>`).join('')}</div>
  <div class="dim" style="font-size:12.5px">${h>=80?T(L('Du bist über der Story-Länge von Rockstar – Zeit für die 100 %? Dafür rechnen Spieler mit 200 Stunden und mehr.','You’re past Rockstar’s story length – time for 100%? Players expect 200+ hours for that.')):T(L(`Noch ca. ${Math.max(0,Math.round(80-h))} h bis zu den ~80 Stunden, die Rob Nelson (Rockstar North) für Story plus einige Nebenziele gebraucht hat. Reine Story: laut Berichten eher 50–60 h. 100 %: 200 h+.`,`About ${Math.max(0,Math.round(80-h))}h to go to the ~80 hours Rob Nelson (Rockstar North) needed for story plus some side goals. Story only: reportedly 50–60h. 100%: 200h+.`))} ${badge('rs')}</div>
  ${P.run&&Date.now()-P.run>8*36e5?`<div class="card" style="margin-top:8px;border-color:#ffb347">⚠️ ${T(L('Der Timer läuft seit über 8 Stunden – vergessen zu stoppen?','The timer has been running for over 8 hours – forgot to stop?'))}</div>`:''}
- <div id="plSetBox" style="display:none;margin-top:8px" class="row"><input class="fld" id="plIn" type="number" min="0" step="0.5" placeholder="${T(L('Stunden laut Spiel, z. B. 23,5','Hours from the game, e.g. 23.5'))}" style="flex:1"><button class="cta" id="plOk">OK</button></div>`;
+ <div id="plSetBox" style="display:none;margin-top:8px" class="row"><input class="fld" id="plIn" type="number" min="0" step="0.5" placeholder="${T(L('Stunden laut Spiel, z. B. 23,5','Hours from the game, e.g. 23.5'))}" style="flex:1"><button class="cta" id="plOk">OK</button></div><div id="plHint" class="dim" style="display:none;font-size:12px;margin-top:6px">${T(L('Trag hier die Stunden ein, die dir PS5 oder PS App anzeigen – der Tracker zählt ab dann weiter.','Enter the hours shown by your PS5 or the PS App – the tracker keeps counting from there.'))}</div>`;
  const save=P2=>{store.set('play',P2);renderPlay();try{renderHud()}catch(e){}};
  $('#plGo').onclick=()=>{const P2=plGet();if(P2.run)plStop(P2);else P2.run=Date.now();save(P2);try{navigator.vibrate&&navigator.vibrate(20)}catch(e){}};
  box.querySelectorAll('[data-pl]').forEach(b=>b.onclick=()=>{const P2=plGet();const d=+b.dataset.pl*6e4;P2.t=Math.max(0,P2.t+d);const k=plDay();P2.days[k]=Math.max(0,(P2.days[k]||0)+d);save(P2)});
- $('#plSet').onclick=()=>{const b=$('#plSetBox');b.style.display=b.style.display==='none'?'flex':'none'};
+ $('#plSet').onclick=()=>{const b=$('#plSetBox');const on=b.style.display==='none';b.style.display=on?'flex':'none';$('#plHint').style.display=on?'block':'none';if(on)$('#plIn').focus()};
  $('#plOk').onclick=()=>{const v=parseFloat(String($('#plIn').value).replace(',','.'));if(isNaN(v))return;const P2=plStop(plGet());P2.t=Math.round(v*36e5);save(P2);toast('✅ '+T(L('Spielzeit gesetzt','Playtime set')))};
  clearInterval(plTick);if(P.run)plTick=setInterval(()=>{const e=$('#plT');if(!e){clearInterval(plTick);return}const P3=plGet();e.textContent=plFmt(plTot(P3))},15000);
 }
@@ -3612,6 +3626,7 @@ const SIDEQ=[
 {id:"pete",g:"Pilot Pete",c:4,who:L("Nur Jason","Jason only"),night:0,miss:0,cnt:"y",rew:L("Zählt für die Trophäe","Counts toward the trophy"),m:L("The Last Mile: Passing the Torch · Backseat Pilot · Pete’s Deliveries","The Last Mile: Passing the Torch · Backseat Pilot · Pete’s Deliveries"),st:L("Anruf an Jason, Flugfeld in Leonard County bei Sonnenuntergang","Call to Jason, airfield in Leonard County at sundown"),img:"Ambrosia_02",note:null},
 {id:"eddie",g:"Eddie Acosta",c:4,who:L("Beide","Either"),night:0,miss:0,cnt:"n",rew:L("Party-Einladung","Party invite"),m:L("Attend Eddie Acosta’s Party","Attend Eddie Acosta’s Party"),st:L("Einladung nach „Pool Day“","Invite after “Pool Day”"),img:"Vice_City_04",note:null}];
 
+const MDE={'Gone Fishing':'Angeltour','Breakfast Run':'Frühstück to go','The Cartel Heist':'Der Kartellüberfall','Child’s Play':'Kinderspiel','VCIA Takedown':'VCIA-Showdown'};
 const mDone=()=>store.get('mdone',{}),chLocked=n=>SET.chapter>0&&n>SET.chapter;
 function storyStats(){const D=mDone();let t=0,d=0;STORY.forEach(c=>c.m.forEach((m,i)=>{if(m[2].includes('o'))return;t++;if(D['c'+c.n+'-'+i])d++}));return{t,d}}
 function renderMissions(){const box=$('#missions');if(!box)return;box.className='story';const D=mDone();
@@ -3624,7 +3639,7 @@ function renderMissions(){const box=$('#missions');if(!box)return;box.className=
  box.innerHTML=top+STORY.map(c=>{const lk=chLocked(c.n);const main=c.m.map((m,i)=>[m,i]).filter(x=>!x[0][2].includes('o'));const dn=main.filter(x=>D['c'+c.n+'-'+x[1]]).length;const f=rsFind(c.img);
   const head=`<summary style="${f?`background-image:url('${rsu(f,1280)}')`:''}"><span class="cpy">© Rockstar Games · ${T(L('Szene','Scene'))}</span><div class="cn">${c.n?T(L('KAPITEL','CHAPTER'))+' '+c.n:T(L('PROLOG','PROLOGUE'))}</div><div class="ct">${lk?'🔒 '+T(L('Gesperrt','Locked')):esc(c.t)}</div><div class="cb"><div class="prog"><i style="width:${main.length?dn/main.length*100:0}%"></i></div><span>${dn}/${main.length}</span></div></summary>`;
   const body=lk?`<div class="chLock">${T(L('Spoiler-Schutz: Kapitel '+c.n+' ist ausgeblendet.','Spoiler guard: chapter '+c.n+' is hidden.'))} <button class="ib" data-unl="${c.n}">${T(L('Bis Kapitel '+c.n+' freigeben','Unlock up to chapter '+c.n))}</button></div>`:
-   c.m.map((m,i)=>{const id='c'+c.n+'-'+i;const fl=m[2];return `<label class="mrow ${D[id]?'done':''} ${fl.includes('o')?'opt':''}"><input type="checkbox" data-mid="${id}" ${D[id]?'checked':''}><div class="mi"><div class="mt">${esc(m[0])}${fl.includes('o')?`<span class="tg o">${T(L('Optional','Optional'))}</span>`:''}${fl.includes('m')?`<span class="tg m">${T(L('Verpassbar','Missable'))}</span>`:''}</div>${hide?'':`<div class="md ${blur?'spoil':''}">${T(m[1])}</div>`}${m[3]?`<div class="tg u">🔓 ${T(m[3])}</div>`:''}</div></label>`}).join('');
+   c.m.map((m,i)=>{const id='c'+c.n+'-'+i;const fl=m[2];return `<label class="mrow ${D[id]?'done':''} ${fl.includes('o')?'opt':''}"><input type="checkbox" data-mid="${id}" ${D[id]?'checked':''}><div class="mi"><div class="mt">${esc(m[0])}${LANG==='de'&&MDE[m[0]]?`<span class="mde">„${MDE[m[0]]}“</span>`:''}${fl.includes('o')?`<span class="tg o">${T(L('Optional','Optional'))}</span>`:''}${fl.includes('m')?`<span class="tg m">${T(L('Verpassbar','Missable'))}</span>`:''}</div>${hide?'':`<div class="md ${blur?'spoil':''}">${T(m[1])}</div>`}${m[3]?`<div class="tg u">🔓 ${T(m[3])}</div>`:''}</div></label>`}).join('');
   return `<details class="chap" ${c.n===openN?'open':''}>${head}<div class="chBody">${body}</div></details>`}).join('');
  box.querySelectorAll('.spoil').forEach(s=>s.onclick=e=>{e.preventDefault();s.classList.add('show')});
  box.querySelectorAll('[data-mid]').forEach(i=>i.onchange=()=>{const D2=mDone();if(i.checked)D2[i.dataset.mid]=1;else delete D2[i.dataset.mid];store.set('mdone',D2);i.closest('.mrow').classList.toggle('done',i.checked);const c=i.closest('.chap');renderMissionsSoft(c)});
@@ -4109,6 +4124,95 @@ async function makeShare(k){const box=$('#shOut');const data=shareData(k);const 
  box.innerHTML=`<div class="shRes">${q||`<div class="dim">${T(L('Zu viele Daten für einen QR-Code – nutz den Link.','Too much data for a QR code – use the link.'))}</div>`}<div class="shBtns"><button class="cta" id="shNat">${icn('share-2')} ${T(L('Senden','Send'))}</button><button class="ib" id="shCopy">${icn('copy')} ${T(L('Link kopieren','Copy link'))}</button></div><div class="dim" style="font-size:12px">${T(L('Dein Kollege öffnet den Link (oder scannt den QR-Code) und kann die Daten mit einem Tipp übernehmen.','Your friend opens the link (or scans the QR code) and imports with one tap.'))}</div></div>`;
  $('#shNat').onclick=async()=>{try{if(navigator.share){await navigator.share({title:'Leonida Pro Guide',text:T(L('Meine Daten aus dem Leonida Pro Guide','My Leonida Pro Guide data')),url});return}}catch(e){if(e&&e.name==='AbortError')return}try{await navigator.clipboard.writeText(url);toast(T(L('Link kopiert','Link copied')))}catch(e){prompt('Link',url)}};
  $('#shCopy').onclick=async()=>{try{await navigator.clipboard.writeText(url);toast(T(L('Link kopiert','Link copied')))}catch(e){prompt('Link',url)}}}
+const TROPH=[
+{id:"plat",g:"p",n:L("Vice Got a Price!","Vice Got a Price!"),d:L("Alle anderen Trophäen freischalten – du bist eine Leonida-Legende.","Unlock every other trophy – you’re a Leonida Legend."),h:0,tip:L("Rund 200 Stunden einplanen. Cheats sperren Trophäen für die Session!","Plan for about 200 hours. Cheats disable trophies for the session!"),go:"",ch:0},
+{id:"jlp",g:"b",n:L("Just Like Paradise","Just Like Paradise"),d:L("Schließe „Angeltour“ ab.","Complete Gone Fishing."),h:1,tip:null,go:"missions",ch:1},
+{id:"plost",g:"b",n:L("Paradise Lost","Paradise Lost"),d:L("Schließe Kapitel 1 ab.","Complete Chapter 1."),h:1,tip:null,go:"missions",ch:1},
+{id:"tadm",g:"b",n:L("T****n, Ärsche & Drogengeld","Tits Ass Drug Money"),d:L("Schließe Kapitel 2 ab.","Complete Chapter 2."),h:1,tip:null,go:"missions",ch:2},
+{id:"vcb",g:"b",n:L("Vice City, Baby!","Vice City, Baby!"),d:L("Schließe Kapitel 3 ab.","Complete Chapter 3."),h:1,tip:null,go:"missions",ch:3},
+{id:"totw",g:"b",n:L("Die Welt gehört uns, Ma","Top Of The World, Ma"),d:L("Schließe Kapitel 4 ab.","Complete Chapter 4."),h:1,tip:null,go:"missions",ch:4},
+{id:"final",g:"g",n:L("Du musst wissen, wann du abspringen musst","You Gotta Know When to Get Off"),d:L("Schließe die letzte Mission ab.","Complete the final mission."),h:1,tip:null,go:"missions",ch:5},
+{id:"trust",g:"b",n:L("Volles Vertrauen","Trust"),d:L("Schließe „Frühstück to go“ ab.","Complete Breakfast Run."),h:1,tip:null,go:"missions",ch:2},
+{id:"bank",g:"b",n:L("Sprenge die Bank","Break the Bank"),d:L("Schließe „Der Kartellüberfall“ ab.","Complete The Cartel Heist."),h:1,tip:null,go:"missions",ch:3},
+{id:"family",g:"b",n:L("Familienangelegenheiten","Family Matters"),d:L("Schließe „Kinderspiel“ ab.","Complete Child’s Play."),h:1,tip:null,go:"missions",ch:4},
+{id:"dwn",g:"b",n:L("DWNFALL","DWNFALL"),d:L("Schließe „Headliners“ ab.","Complete Headliners."),h:1,tip:null,go:"missions",ch:4},
+{id:"hijack",g:"b",n:L("Hi-Jacked","Hi-Jacked"),d:L("Schließe „VCIA-Showdown“ ab.","Complete VCIA Takedown."),h:1,tip:null,go:"missions",ch:4},
+{id:"snow",g:"b",n:L("Der Schneesturm","Snow Storm"),d:L("Schließe „Operation: Savage Glory“ ab.","Complete Operation Savage Glory."),h:1,tip:null,go:"missions",ch:5},
+{id:"long",g:"g",n:L("A Long Road","A Long Road"),d:L("Schließe das Spiel zu 100 % ab.","Attain 100% completion."),h:0,tip:L("Nichts auf der 100-%-Liste ist verpassbar. Nutze den 100 %-Tracker.","Nothing on the 100% checklist is missable. Use the 100% tracker."),go:"home",ch:0},
+{id:"stunts",g:"s",n:L("Cunning Stunts","Cunning Stunts"),d:L("Absolviere 250 Stunts.","Complete 250 stunts."),h:0,tip:L("130 Sprünge, 202 Brückenflüge, 40 Messerflüge, 25 Base-Jumps.","130 jumps, 202 bridges, 40 knife flights, 25 base jumps."),go:"map",ch:0},
+{id:"master",g:"b",n:L("Von allem etwas","Master of None"),d:L("Probiere jede Aktivität einmal aus.","Try each type of activity once."),h:0,tip:L("Alle 9 Aktivitätsarten aus dem Fortschrittsmenü einmal spielen.","Play each of the 9 activity types once."),go:"acts",ch:0},
+{id:"shoot",g:"s",n:L("Der Scharfschütze","The Shootist"),d:L("Gold in allen Schießstand-Herausforderungen.","Gold in every shooting range challenge."),h:0,tip:L("42 Challenges · Griffin Range & Rodgers Ranch · 5-$-Pass beim Verkäufer.","42 challenges · Griffin Range & Rodgers Ranch · $5 pass from the clerk."),go:"map",ch:0},
+{id:"topfun",g:"b",n:L("Top Fun","Top Fun"),d:L("Gewinne an jedem Standort ein Top-Fun-Drohnenrennen.","Win a Top Fun drone race at every location."),h:0,tip:L("14 Standorte.","14 locations."),go:"map",ch:0},
+{id:"cash",g:"b",n:L("Cash, nicht Kudos","Earn Cash, Not Kudos"),d:L("Gewinne 20 verschiedene Rennen.","Win 20 different races."),h:0,tip:L("Wiederholte Siege zählen nicht.","Repeat wins don’t count."),go:"map",ch:0},
+{id:"fish",g:"b",n:L("Aalflüsterer","Baited My Tackle"),d:L("Besiege Cal in einer Angel-Herausforderung.","Beat Cal in a fishing challenge."),h:0,tip:null,go:"acts",ch:0},
+{id:"stick",g:"b",n:L("Joystickakrobat","Stick Fiddler"),d:L("Spiele ein Videospiel durch.","Finish a video game."),h:0,tip:L("Z. B. Automat „Bang For Your Buck“.","E.g. the “Bang For Your Buck” arcade cabinet."),go:"acts",ch:0},
+{id:"andy",g:"b",n:L("Der Weg zur Besserung","Road to Rehabilitation"),d:L("Schließe die letzte Mission für Andy ab.","Complete Andy’s final mission."),h:1,tip:L("Nur Lucia, 5 Missionen.","Lucia only, 5 missions."),go:"missions",ch:3},
+{id:"kenton",g:"b",n:L("Das war kein Bootsunfall","This Was No Boat Accident"),d:L("Schließe die letzte Mission für Kenton ab.","Complete Kenton’s final mission."),h:1,tip:L("Alle 7 Wracks. Kenton verschwindet nach Kapitel 1 und kommt später wieder.","All 7 wrecks. Kenton leaves after Chapter 1 and returns later."),go:"missions",ch:1},
+{id:"billy",g:"b",n:L("Der letzte Biker","The Lone Rider"),d:L("Schließe die letzte Mission für Billy ab.","Complete Billy’s final mission."),h:1,tip:L("5 Jobs, Start am Mud Club nach „Coffee Break“.","5 jobs, starting at the Mud Club after “Coffee Break”."),go:"missions",ch:2},
+{id:"sf",g:"s",n:L("Fremde & Freaks","Strangers & Freaks"),d:L("Schließe acht Missionsstränge für Fremde ab.","Complete 8 stranger mission strands."),h:0,tip:L("Moses, Tyrone, Yasmani, Andy, Billy und Eddie zählen laut Guides nicht.","Per guides, Moses, Tyrone, Yasmani, Andy, Billy and Eddie don’t count."),go:"missions",ch:0},
+{id:"randy",g:"b",n:L("Angebot & Nachfrage","Supply & Demand"),d:L("Schließe die letzte Mission für Randy ab.","Complete Randy’s final mission."),h:1,tip:L("Alle Autos der Wunschliste liefern.","Deliver every car on the wish list."),go:"missions",ch:3},
+{id:"tyrone",g:"b",n:L("Spin On This!","Spin On This!"),d:L("Schließe die letzte Mission für Tyrone ab.","Complete Tyrone’s final mission."),h:1,tip:L("Nur Jason: alle Kitty-Litter-Labore zerstören.","Jason only: destroy all Kitty Litter labs."),go:"missions",ch:3},
+{id:"medit",g:"b",n:L("Positive Einstellung","Positive Mental Attitude"),d:L("Meditiere an allen Meditationsorten.","Meditate at every meditation spot."),h:0,tip:L("⚠️ Einzige verpassbare Trophäe: Balkon-Meditation in Kapitel 1 nicht verpassen!","⚠️ The only missable trophy: don’t miss the Chapter 1 balcony meditation!"),go:"map",ch:0},
+{id:"bret",g:"b",n:L("Freiwild","Fair Game"),d:L("Jage ein einzigartiges Tier für Bret.","Hunt a unique animal for Bret."),h:1,tip:L("Nur Jason, startet mit „Veteran Hunted“.","Jason only, starts with “Veteran Hunted”."),go:"missions",ch:2},
+{id:"deck",g:"s",n:L("Finger weg von meinem Deck","Don’t Touch My Deck"),d:L("Vervollständige drei Sammelkartensets.","Complete three card sets."),h:0,tip:null,go:"map",ch:0},
+{id:"waink",g:"s",n:L("Du WAiNKer!","You WAiNKer!"),d:L("WAiNKe an 100 Orten.","WAiNK it at 100 locations."),h:0,tip:null,go:"map",ch:0},
+{id:"onelast",g:"b",n:L("Noch eine Sache","One Last Thing"),d:L("Schließe 50 Herausforderungen ab.","Complete 50 challenges."),h:0,tip:L("50 von 80 Herausforderungen.","50 of 80 challenges."),go:"",ch:0},
+{id:"hot",g:"b",n:L("Hot Together","Hot Together"),d:L("Mit dem Partner 4 Fahndungssterne loswerden.","Lose a 4-star wanted level with your partner."),h:0,tip:L("Klappt oft nebenbei beim Banktresor.","Often comes naturally with a bank vault."),go:"",ch:0},
+{id:"retail",g:"b",n:L("Frustshoppen","Retail Therapy"),d:L("Mit dem Partner drei Läden in Folge ausrauben, ohne die Fahndung zu verlieren.","Rob three stores in a row with your partner while wanted."),h:0,tip:L("Tipp: Juweliere im Norden von Vice City.","Tip: jewelry stores in north Vice City."),go:"",ch:0},
+{id:"whip",g:"b",n:L("Von 0 auf 100","Whip It Good"),d:L("Entdecke 100 Fahrzeuge.","Discover 100 vehicles."),h:0,tip:L("Fahrzeuge mit WAiNK scannen.","Scan vehicles with WAiNK."),go:"garage",ch:0},
+{id:"gun",g:"b",n:L("Revolverheld","Gunslinger"),d:L("5 Gegner in einem Kampffokus ausschalten.","Take down 5 enemies in one Combat Focus."),h:0,tip:L("Fokus: L3 + R3.","Focus: L3 + R3."),go:"tips",ch:0},
+{id:"catch",g:"b",n:L("Catch Me If You Can","Catch Me If You Can"),d:L("Eine außerplanmäßige Abreise am VCIA.","An unscheduled departure at VCIA."),h:1,tip:L("Passagierjet am Flughafen klauen und ca. 1 km fliegen – Gates E3/E4.","Steal a passenger jet at the airport and fly ~1 km – gates E3/E4."),go:"",ch:4},
+{id:"tank",g:"b",n:L("Panzer-Challenge","Challenging Tank"),d:L("Irgendwie heiß in diesen Rhinos.","Kinda hot in these Rhinos."),h:1,tip:L("Panzer von der Mile Zero Air Station klauen und Gegner ausschalten.","Steal a tank from Mile Zero Air Station and take out enemies."),go:"",ch:0},
+{id:"sneak",g:"b",n:L("Diebische Elster","Sneakthief"),d:L("Einen Juwelier unentdeckt ausrauben.","Rob a jewelry store undetected."),h:0,tip:L("Richardson Jewelry eignet sich gut.","Richardson Jewelry works well."),go:"",ch:0},
+{id:"maxw",g:"s",n:L("Maximale Abhebung","Maximum Withdrawal"),d:L("Fünf Banktresore ausrauben und entkommen.","Rob 5 bank vaults and escape."),h:0,tip:L("Tresore öffnen sich in Kapitel 4.","Vaults open in Chapter 4."),go:"",ch:0},
+{id:"blitz",g:"b",n:L("Eine klassische Blitzaktion","A Classic Blitz Play"),d:L("Einen Geldtransporter ausrauben und entkommen.","Rob an armored truck and escape."),h:0,tip:L("Ein Banktresor zählt laut Guides auch.","Per guides, a bank vault also counts."),go:"",ch:0},
+{id:"goodtime",g:"b",n:L("Der Goodtime State","The Goodtime State"),d:L("Ganz Leonida erkunden.","Explore all of Leonida."),h:0,tip:L("Den ganzen Kartennebel aufdecken.","Clear the whole map fog."),go:"map",ch:0},
+{id:"pest",g:"b",n:L("Schädlingsbekämpfung","Pest Control"),d:L("Eine illegale Operation jeder Gang ausrauben.","Rob an illegal operation from every gang."),h:0,tip:L("Alle 9 Gangs.","All 9 gangs."),go:"map",ch:0},
+{id:"begin",g:"b",n:L("Am Anfang …","In The Beginning…"),d:L("Einen Cocktail mit Ausblick in Ocean Beach genießen.","Enjoy a cocktail with a view in Ocean Beach."),h:1,tip:null,go:"",ch:4},
+{id:"capital",g:"b",n:L("Capital Offense","Capital Offense"),d:L("Auf klassische Art aus einem Autohaus ausbrechen.","Break out of a car showroom the classic way."),h:1,tip:L("Vermutlich: mit einem Auto durchs Schaufenster.","Probably: drive a car through the showroom window."),go:"",ch:0},
+{id:"bowl",g:"b",n:L("Lass uns bowlen gehen","Let’s Go Bowling"),d:L("Die Sache auf der Bowlingbahn von Kolt & Associates durchziehen.","Pull off the job at the Kolt & Associates bowling alley."),h:1,tip:L("Alle 3 Wertsachen aus Kingpin Bowling holen und Polizei abschütteln.","Take all 3 valuables from Kingpin Bowling and lose the cops."),go:"missions",ch:2},
+{id:"pb",g:"b",n:L("Persönliche Bestleistung","Personal Best"),d:L("Eine Partnerschaft, die die Massen anspricht.","A partnership that moves the masses."),h:1,tip:L("Laut Guides: maximale Stärke für Jason und Lucia.","Per guides: max Strength for both Jason and Lucia."),go:"",ch:0},
+{id:"actions",g:"b",n:L("Taten sagen mehr als Worte","Actions Speak Louder"),d:L("Möglich, aber nicht nötig.","Possible, but not necessary."),h:1,tip:L("Laut Guides: 500 Entscheidungen, die dein Kriminellen-Profil beeinflussen.","Per guides: 500 choices that shape your criminal profile."),go:"",ch:0},
+{id:"badluck",g:"b",n:L("Weil’s dumm gelaufen ist","Bad Luck, I Guess"),d:L("Beim zweiten Versuch klappt es.","Second time’s the charm."),h:1,tip:L("Noch unklar.","Still unclear."),go:"",ch:0},
+{id:"truth",g:"b",n:L("Die Wahrheit ist da draußen","The Truth Is Out There"),d:L("Was ist da gerade passiert?","What just happened?"),h:1,tip:L("Vermutlich das UFO-Ereignis.","Probably the UFO event."),go:"secrets",ch:0},
+{id:"strike",g:"b",n:L("Strike","Ten Pin"),d:L("Jemanden mit einem Nahkampf-Drive-by umbowlen.","Bowl someone over with a melee drive-by."),h:1,tip:null,go:"",ch:0},
+{id:"dime",g:"b",n:L("Kleinvieh macht auch Mist","Dime on the Dollar"),d:L("250.000 $ markierte Scheine über Hehler waschen.","Launder $250,000 in marked bills through fences."),h:0,tip:L("Yasmani zahlt am meisten.","Yasmani pays the most."),go:"",ch:0},
+{id:"treat",g:"b",n:L("Gönn dir","Treat Yo Self"),d:L("100.000 $ in Geschäften ausgeben.","Spend $100,000 in shops."),h:0,tip:null,go:"",ch:0},
+{id:"boxes",g:"b",n:L("Little Boxes","Little Boxes"),d:L("Alle Garagen kaufen.","Buy every garage."),h:0,tip:L("8 Garagen, zusammen ca. 160.000 $.","8 garages, about $160,000 in total."),go:"garage",ch:0},
+{id:"spot",g:"b",n:L("Kommt sofort, Bro","On the Spot"),d:L("Zehn Fahrzeuge in der Scooter-Bros-App registrieren.","Register 10 vehicles in the Scooter Bros app."),h:0,tip:L("App kommt über Moses (Kapitel 2).","The app comes via Moses (Chapter 2)."),go:"",ch:0}];
+
+const TRG={p:['#9fd8ff',L('Platin','Platinum')],g:['#ffd23f',L('Gold','Gold')],s:['#d9dde6',L('Silber','Silver')],b:['#d98a4e',L('Bronze','Bronze')]};
+let trF='all';const trRev=new Set();
+function trCup(g){const c=TRG[g][0];return `<svg viewBox="0 0 24 24" width="22" height="22" style="filter:drop-shadow(0 0 6px ${c}88)"><path fill="${c}" d="M7 3h10v2h3v3a4 4 0 0 1-4 4h-.3A5 5 0 0 1 13 14.9V17h3v3H8v-3h3v-2.1A5 5 0 0 1 8.3 12H8a4 4 0 0 1-4-4V5h3V3Zm-1 4v1a2 2 0 0 0 2 2V7H6Zm12 0h-2v3a2 2 0 0 0 2-2V7Z"/></svg>`}
+function renderTroph(){const box=$('#trophBox');if(!box)return;const E=store.get('troph',{});const got=TROPH.filter(t=>E[t.id]);
+ const cnt=g=>[TROPH.filter(t=>t.g===g&&E[t.id]).length,TROPH.filter(t=>t.g===g).length];
+ const list=TROPH.filter(t=>trF==='all'||(trF==='got'?E[t.id]:!E[t.id]));
+ box.innerHTML=`<div class="trHead"><div><b class="lkT">🏆 ${T(L('Trophäen','Trophies'))}</b><div class="dim" style="font-size:12px">${got.length}/55 · ${Math.round(got.length/55*100)} %</div><button class="trRv" id="trCode" style="margin-top:6px">🔗 ${T(L('Stand-Code einlösen','Redeem progress code'))}</button></div><div class="trCnt">${['p','g','s','b'].map(g=>`<div>${trCup(g)}<b>${cnt(g)[0]}</b><span>/${cnt(g)[1]}</span></div>`).join('')}</div></div>
+ <div class="prog" style="margin:10px 0"><i style="width:${got.length/55*100}%"></i></div>
+ <div class="seg trSeg">${[['all',L('Alle','All')],['open',L('Offen','Open')],['got',L('Erhalten','Earned')]].map(([k,l])=>`<button data-trf="${k}" class="${trF===k?'on':''}">${T(l)}</button>`).join('')}</div>
+ <div class="dim" style="font-size:12px;margin:8px 0">${T(L('Hak ab, was du auf der PS5 schon hast. Verborgene Trophäen verraten Story – antippen zum Aufdecken.','Tick what you already have on PS5. Hidden trophies spoil the story – tap to reveal.'))} ${badge('rep')}</div>
+ <div class="trList">${list.map(t=>{const e=E[t.id];const lk=t.ch&&chLocked(t.ch);const hid=t.h&&!e&&!trRev.has(t.id);return `<div class="trRow ${e?'got':''}"><div class="trI">${trCup(t.g)}</div><div class="trB">${hid?`<div class="trN">${T(L('Verborgen','Hidden'))}${t.ch?` <span class="dim">· ${T(L('Kap.','Ch.'))} ${t.ch}</span>`:''}</div><button class="trRv" data-rv="${t.id}">${lk?'🔒 ':''}${T(L('Aufdecken','Reveal'))}</button>`:`<div class="trN">${T(t.n)}</div><div class="trD">${T(t.d)}</div>${t.tip?`<div class="trT">💡 ${T(t.tip)}</div>`:''}${t.go?`<a class="trGo" href="#${t.go}">→ ${T((TABS.find(x=>x[0]===t.go)||['','',L('','')])[2])}</a>`:''}`}${e&&e!==1?`<div class="trDt">${new Date(e).toLocaleDateString(LANG==='de'?'de-DE':'en-GB')}</div>`:''}</div><label class="trChk"><input type="checkbox" data-tr="${t.id}" ${e?'checked':''} aria-label="${T(L('erhalten','earned'))}"></label></div>`}).join('')}</div>`;
+ box.querySelectorAll('[data-trf]').forEach(b=>b.onclick=()=>{trF=b.dataset.trf;renderTroph()});
+ $('#trCode').onclick=()=>{const c=prompt(T(L('Code oder Link einfügen','Paste code or link')));if(c&&c.trim()){location.hash='#sync='+c.trim().replace(/^.*#sync=/,'')}};
+ box.querySelectorAll('[data-rv]').forEach(b=>b.onclick=()=>{trRev.add(b.dataset.rv);renderTroph()});
+ box.querySelectorAll('[data-tr]').forEach(i=>i.onchange=()=>{const E2=store.get('troph',{});if(i.checked)E2[i.dataset.tr]=new Date().toISOString().slice(0,10);else delete E2[i.dataset.tr];
+  const others=TROPH.filter(t=>t.id!=='plat').every(t=>E2[t.id]);if(others&&!E2.plat){E2.plat=new Date().toISOString().slice(0,10);toast('💎 Vice Got a Price!')}
+  store.set('troph',E2);if(i.checked){try{navigator.vibrate&&navigator.vibrate([20,40,20])}catch(e){}toast('🏆 '+T(TROPH.find(t=>t.id===i.dataset.tr).n))}renderTroph();try{renderProg();renderHud()}catch(e){}});
+}
+/* one-tap sync link: #sync=<base64url json> */
+function b64uDec(x){x=x.replace(/-/g,'+').replace(/_/g,'/');while(x.length%4)x+='=';return decodeURIComponent(escape(atob(x)))}
+function syncCheck(){const h=location.hash;if(!h.startsWith('#sync='))return;let d;try{d=JSON.parse(b64uDec(h.slice(6)))}catch(e){toast('⚠️ Link ungültig');history.replaceState(null,'','#home');return}
+ history.replaceState(null,'','#me');try{route()}catch(e){}
+ const parts=[];if(d.h!=null)parts.push(`⏱ ${T(L('Spielzeit','Playtime'))}: ${d.h} h`);if(Array.isArray(d.tr))parts.push(`🏆 ${d.tr.length} ${T(L('Trophäen','trophies'))}: ${d.tr.map(id=>{const t=TROPH.find(x=>x.id===id);return t?T(t.n):id}).join(', ')}`);
+ let mids=[];if(d.upto){const [cn,ix]=d.upto;STORY.forEach(c=>{if(c.n>cn)return;c.m.forEach((m,i)=>{if(m[2].includes('o'))return;if(c.n<cn||i<=ix)mids.push('c'+c.n+'-'+i)})});const last=STORY.find(c=>c.n===cn).m[ix];parts.push(`🎬 ${T(L('Story bis','Story up to'))} „${last[0]}“ (${T(L('Kap.','Ch.'))} ${cn}) · ${mids.length} ${T(L('Missionen','missions'))}`)}
+ const m=document.createElement('div');m.className='impM';m.innerHTML=`<div class="card"><b class="lkT">🎮 ${T(L('Deinen Stand übernehmen?','Apply your progress?'))}</b><ul style="margin:10px 0 12px 18px;font-size:13.5px;line-height:1.5">${parts.map(x=>`<li>${x}</li>`).join('')}</ul><div class="dim" style="font-size:12px;margin-bottom:12px">${T(L('Optionale Missionen bleiben offen. Bereits Abgehaktes bleibt erhalten.','Optional missions stay open. Anything already ticked is kept.'))}</div><div class="row" style="gap:8px"><button class="ib" id="syNo">${T(L('Abbrechen','Cancel'))}</button><span class="sp"></span><button class="cta" id="syOk">${T(L('Übernehmen','Apply'))}</button></div></div>`;
+ document.body.appendChild(m);m.querySelector('#syNo').onclick=()=>m.remove();
+ m.querySelector('#syOk').onclick=()=>{if(d.h!=null){const P=plGet();P.run=null;P.t=Math.round(d.h*36e5);store.set('play',P)}
+  if(Array.isArray(d.tr)){const E=store.get('troph',{});const dt=d.trd||{};d.tr.forEach(id=>{if(!E[id])E[id]=dt[id]||1});store.set('troph',E)}
+  if(mids.length){const D=mDone();mids.forEach(id=>D[id]=1);store.set('mdone',D)}
+  m.remove();toast('✅ '+T(L('Stand übernommen','Progress applied')));try{renderAll()}catch(e){location.reload()}};
+}
+addEventListener('hashchange',syncCheck);setTimeout(syncCheck,600);
 async function importCheck(){const h=location.hash;if(!h.startsWith('#imp='))return;let data;try{data=await unpackData(h.slice(5))}catch(e){toast(T(L('⚠️ Link ungültig','⚠️ Invalid link')));history.replaceState(null,'','#home');return}
  history.replaceState(null,'','#me');route();const d=data.d||{};const parts=[];if(d.garage)parts.push(`${d.garage.length} ${T(L('Autos','cars'))}`);if(d.pins)parts.push(`${d.pins.length} Pins`);if(d.plan)parts.push(`${Object.keys(d.plan).length} ${T(L('Pläne','plans'))}`);
  const m=document.createElement('div');m.className='impM';m.innerHTML=`<div class="card"><b class="lkT">${icn('download')} ${T(L('Daten übernehmen?','Import data?'))}</b><p>${T(L('Jemand hat dir geschickt:','Someone sent you:'))} <b>${parts.join(' · ')}</b></p><p class="dim">${T(L('Garage wird ersetzt, Pins und Pläne werden ergänzt. Deine eigenen Pins bleiben.','Garage gets replaced, pins and plans get merged. Your own pins stay.'))}</p><div class="shBtns"><button class="cta" id="impOk">${T(L('Übernehmen','Import'))}</button><button class="ib" id="impNo">${T(L('Abbrechen','Cancel'))}</button></div></div>`;document.body.appendChild(m);
@@ -4171,7 +4275,7 @@ function renderMoney(){setTimeout(()=>{try{renderHud()}catch(e){}},0);const b=$(
  b.querySelectorAll('[data-gd]').forEach(x=>x.onclick=()=>{const M2=store.get('money',{log:[],goals:[]});M2.goals=M2.goals.filter(g=>g.id!==x.dataset.gd);store.set('money',M2);renderMoney()});
  b.querySelectorAll('[data-ld]').forEach(x=>x.onclick=()=>{const M2=store.get('money',{log:[],goals:[]});M2.log=M2.log.filter(e=>String(e.ts)!==x.dataset.ld);store.set('money',M2);renderMoney()})}
 /* --- "Mein Leonida" page --- */
-function renderMe(){const top=$('#meTop');if(!top)return;
+function renderMe(){setTimeout(()=>{try{renderTroph()}catch(e){console.warn(e)}},0);const top=$('#meTop');if(!top)return;
  top.innerHTML=`<h2 class="sec">${T(L('Mein Leonida','My Leonida'))}</h2><p class="lead">${T(L('Dein persönlicher Bereich: Daten mit Kollegen teilen, Story-Bilder bauen, Spieltagebuch und Geld-Planer. Alles bleibt auf deinem Gerät.','Your personal space: share data with friends, build story images, play diary and money planner. Everything stays on your device.'))}</p>
  <div class="chips meNav">${[['meShare','share-2',L('Teilen','Share')],['meCards','image-down',L('Story-Bilder','Story images')],['meDiary','notebook-pen',L('Tagebuch','Diary')],['meMoney','wallet',L('Geld','Money')]].map(([id,ic,l])=>`<span class="chip" data-go="${id}">${icn(ic)} ${T(l)}</span>`).join('')}</div>`;
  top.querySelectorAll('[data-go]').forEach(c=>c.onclick=()=>document.getElementById(c.dataset.go).scrollIntoView({behavior:'smooth',block:'start'}));
