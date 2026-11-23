@@ -1304,6 +1304,67 @@ body.mapFS #bottom,body.mapFS header,body.mapFS #sideNav{visibility:hidden}
 ul.src{display:block!important;white-space:normal!important;font-weight:500!important;font-size:13.5px!important;letter-spacing:0!important;color:inherit!important;padding:0 0 0 18px!important;border-radius:0!important;background:none!important}ul.src li{overflow-wrap:anywhere}ul.src a{color:inherit}
 
 @media (pointer:coarse){#aura{animation:none!important;inset:0!important}.secBanner{animation:none!important}.hud a::after{animation-duration:9s}}
+
+/* ===== WOW: weapon wheel ===== */
+#wheel{position:fixed;inset:0;z-index:400;display:none;place-items:center}#wheel.on{display:grid}
+.whBg{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(20,6,40,.55),rgba(3,1,10,.9));backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);animation:whFade .25s ease both}
+@keyframes whFade{from{opacity:0}}
+.whBox{position:relative;width:min(88vw,440px);aspect-ratio:1;touch-action:none;animation:whPop .38s cubic-bezier(.2,1.3,.4,1) both}
+@keyframes whPop{from{transform:scale(.6) rotate(-25deg);opacity:0}}
+.whSvg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 20px 40px rgba(0,0,0,.6))}
+.whSeg{fill:rgba(14,6,30,.82);stroke:rgba(255,255,255,.08);stroke-width:1.2;transition:fill .15s,transform .18s cubic-bezier(.2,.8,.2,1);transform-origin:200px 200px;cursor:pointer}
+.whSeg.cur{fill:rgba(255,255,255,.08)}
+.whSeg.on{fill:var(--a);transform:scale(1.045);filter:drop-shadow(0 0 14px var(--a))}
+.whIc{position:absolute;transform:translate(-50%,-50%);color:#fff;pointer-events:none;transition:transform .18s,color .15s;opacity:.85}.whIc svg{width:26px;height:26px}
+.whIc.on{transform:translate(-50%,-50%) scale(1.3);color:#120820;opacity:1}
+.whMid{position:absolute;left:50%;top:50%;width:40%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle,rgba(20,8,40,.95),rgba(8,3,18,.98));border:2px solid var(--a,#ff2bd6);box-shadow:0 0 30px -4px var(--a,#ff2bd6),inset 0 0 24px rgba(0,0,0,.6);pointer-events:none;transition:border-color .2s,box-shadow .2s}
+.whName{font:400 clamp(18px,5vw,26px) Anton;letter-spacing:1px;line-height:1;padding:0 8px;text-transform:uppercase}
+.whStat{font:600 12px 'JetBrains Mono';color:var(--a,#ff2bd6);margin-top:6px;padding:0 6px}
+.whHint{font:600 9.5px 'Barlow Condensed';letter-spacing:1.6px;text-transform:uppercase;opacity:.45;margin-top:6px}
+.whList{position:absolute;bottom:calc(28px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);padding:10px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;font:600 14px 'Barlow Condensed';letter-spacing:1px;display:flex;gap:8px;align-items:center;cursor:pointer}.whList svg{width:16px;height:16px}
+body.whOpen #bottom{opacity:.0;pointer-events:none}
+/* ===== WOW: status board ===== */
+.sboard{margin:4px 0 18px}
+.sbHead{display:flex;align-items:center;gap:10px;margin-bottom:10px;font:700 12px 'Barlow Condensed';letter-spacing:5px;opacity:.85}.sbHead i{flex:1;height:1px;background:linear-gradient(90deg,var(--acc),transparent)}
+.sbGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:900px){.sbGrid{grid-template-columns:2fr 1fr 1fr 1fr}.sbT.big{grid-row:span 2}}
+.sbT{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:3px;min-height:118px;padding:14px;border-radius:20px;text-decoration:none;color:#fff;overflow:hidden;background:linear-gradient(160deg,rgba(40,18,78,.95),rgba(16,6,34,.95));background-size:cover;background-position:center;border:1px solid color-mix(in srgb,var(--a) 35%,rgba(255,255,255,.08));box-shadow:0 18px 40px -24px var(--a);transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.sbT::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--a);box-shadow:0 0 16px var(--a)}
+.sbT:active{transform:scale(.97)}
+.sbT.big{grid-column:1/-1;min-height:178px}@media(min-width:900px){.sbT.big{grid-column:auto}}
+.sbT small{font:700 10.5px 'Barlow Condensed';letter-spacing:2.4px;color:var(--a);text-shadow:0 0 10px color-mix(in srgb,var(--a) 60%,transparent)}
+.sbT b{font:400 26px Anton;line-height:1.05;letter-spacing:.3px;text-shadow:0 2px 0 rgba(0,0,0,.6)}.sbT.big b{font-size:clamp(28px,7vw,40px)}
+.sbT b.sm{font:700 15px Inter,sans-serif;line-height:1.25;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.sbT b.num{font-size:38px}.sbT b em{font-size:16px;opacity:.55;font-style:normal}
+.sbT em{font-style:normal;font-size:12.5px;opacity:.8}
+.sbT span{font-size:12px;opacity:.75}
+.sbBar{height:6px;border-radius:4px;background:rgba(255,255,255,.14);overflow:hidden;margin:6px 0 2px}.sbBar i{display:block;height:100%;background:linear-gradient(90deg,var(--a),#ffb347);box-shadow:0 0 10px var(--a)}
+/* ===== WOW: game moments ===== */
+#fxLayer{position:fixed;inset:0;z-index:500;pointer-events:none}
+.fx.mp{position:absolute;left:0;right:0;top:38%;display:flex;flex-direction:column;align-items:center;opacity:0;transition:opacity .35s}
+.fx.mp.in{opacity:1}.fx.mp.out{opacity:0;transition:opacity .6s}
+.mpBand{position:absolute;left:0;right:0;top:-24px;bottom:-24px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.72) 25%,rgba(0,0,0,.72) 75%,transparent);transform:scaleY(0);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.fx.mp.in .mpBand{transform:scaleY(1)}
+.mpT{position:relative;font:400 clamp(36px,10vw,72px) Anton;letter-spacing:1px;line-height:1.15;padding-top:.08em;background:linear-gradient(180deg,#ffe27a,#ffb11f 55%,#e07b00);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(3px 3px 0 #000) drop-shadow(0 0 22px rgba(255,177,31,.45));transform:scale(1.6);opacity:0;transition:transform .5s cubic-bezier(.2,1.4,.3,1),opacity .3s}
+.fx.mp.in .mpT{transform:scale(1);opacity:1}
+.mpS{position:relative;margin-top:8px;font:600 15px Inter,sans-serif;text-shadow:0 2px 4px #000;opacity:0;transition:opacity .4s .25s}.fx.mp.in .mpS{opacity:1}
+.fx.trPop{position:absolute;left:14px;top:calc(14px + env(safe-area-inset-top));display:flex;gap:12px;align-items:center;padding:10px 16px 10px 10px;border-radius:16px;background:rgba(28,28,34,.96);border:1px solid rgba(255,255,255,.12);box-shadow:0 18px 40px rgba(0,0,0,.6);transform:translateY(-140%);transition:transform .5s cubic-bezier(.2,1.2,.3,1)}
+.fx.trPop.in{transform:none}.fx.trPop.out{transform:translateY(-160%);transition:transform .45s ease-in}
+.tpI{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.06)}.tpI svg{width:28px;height:28px}
+.tpS{font-size:11.5px;opacity:.7}.tpN{font-weight:700;font-size:14.5px}
+@media(prefers-reduced-motion:reduce){.whBox,.whBg{animation:none}}
+
+/* ===== General next-level polish ===== */
+body::after{content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#scrollProg{position:fixed;left:0;top:0;height:3px;z-index:9997;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));box-shadow:0 0 12px var(--acc);pointer-events:none;transition:width .08s linear}
+.card{border-radius:20px}
+.card:not(.sq):not(.trRow){backdrop-filter:saturate(1.15)}
+::selection{background:color-mix(in srgb,var(--acc) 55%,transparent);color:#fff}
+button:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.view>h2.sec{letter-spacing:.5px}
+.lead{max-width:62ch}
+
+@media (pointer:coarse){body::after{mix-blend-mode:normal;opacity:.035}}
 </style>
 </head>
 <body><div id="aura" aria-hidden="true"></div>
@@ -1701,6 +1762,7 @@ ul.src{display:block!important;white-space:normal!important;font-weight:500!impo
   </div>
 </header>
 <nav id="bottom"></nav>
+<div id="scrollProg" aria-hidden="true"></div><div id="wheel" aria-hidden="true"></div><div id="fxLayer" aria-hidden="true"></div>
 <div class="lb" id="lb" hidden></div>
 <div id="more"><div class="mh"><b data-i="moreTitle"></b><button class="ib" id="moreClose" aria-label="Schließen"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button></div><div class="mg" id="moreGrid"></div></div>
 
@@ -1722,6 +1784,7 @@ ul.src{display:block!important;white-space:normal!important;font-weight:500!impo
       </div>
     </div>
     <div class="hud" id="hud"></div>
+    <div class="sboard" id="sboard"></div>
     <div class="facts" id="facts"></div>
     <div class="ticker"><div class="tr" id="ticker"></div></div>
 
@@ -1896,7 +1959,7 @@ ul.src{display:block!important;white-space:normal!important;font-weight:500!impo
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 23.11. 19:55</div>
+    <div class="dim" style="margin-top:8px">App-Version 23.11. 20:07</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -2944,7 +3007,7 @@ function renderTabs(){
  $('#bottom').innerHTML=B.map(id=>{const t=TABS.find(x=>x[0]===id);return `<button data-v="${id}"><span class="e">${icn(ICN[id])}</span>${T(t[2])}</button>`}).join('')+`<button data-more="1"><span class="e">${icn('layout-grid')}</span>${T(L('Mehr','More'))}</button>`;
  $('#moreGrid').innerHTML=NAVG.map(([g,ids])=>`<div class="navG">${T(g)}</div>`+ids.map(nb).join('')).join('');
  document.querySelectorAll('#sideNav [data-v],#bottom [data-v],#moreGrid [data-v]').forEach(b=>b.onclick=()=>{$('#more').classList.remove('on');location.hash=b.dataset.v});
- $('#bottom [data-more]').onclick=()=>$('#more').classList.toggle('on');
+ $('#bottom [data-more]').onclick=()=>openWheel();
  $('#btnLang2').innerHTML=LANG==='de'?'<b>DE</b>/EN':'DE/<b>EN</b>';
 }
 function route(){
@@ -3061,7 +3124,7 @@ function renderHome(){
  if(window.Sortable){if(window._ds)window._ds.destroy();window._ds=Sortable.create($('#dash'),{handle:'.grip',animation:220,easing:'cubic-bezier(.2,.8,.2,1)',ghostClass:'sortable-ghost',chosenClass:'sortable-chosen',dragClass:'sortable-drag',onEnd:()=>{const cur=[...$('#dash').children].map(e=>e.dataset.w);if(!cur.includes('fav'))cur.unshift('fav');store.set('dash2',cur);toast(T(UI.saved))}})}
   $('#dash').querySelectorAll('[data-go]').forEach(c=>c.onclick=()=>{location.hash=c.dataset.go});
  $('#dash').querySelectorAll('[data-nid]').forEach(a=>a.addEventListener('click',()=>{nwMarkRead(a.dataset.nid);setTimeout(renderHome,300)}));
- renderProg();try{renderPlay()}catch(e){console.warn(e)}try{renderHud()}catch(e){console.warn(e)}
+ renderProg();try{renderPlay()}catch(e){console.warn(e)}try{renderHud()}catch(e){console.warn(e)}try{renderSboard()}catch(e){console.warn(e)}
 }
 function pgCats(){const p=getPlan();const C=store.get('coll',{});const cg=store.get('cheats',{});
  const out=COLL.filter(c=>typeof c[3]==='number').map(c=>({ic:c[1],l:c[2],n:Math.min(C[c[0]]||0,c[3]),t:c[3],go:'map',h:c[4]}));
@@ -3688,6 +3751,67 @@ const SIDEQ=[
 {id:"eddie",g:"Eddie Acosta",c:4,who:L("Beide","Either"),night:0,miss:0,cnt:"n",rew:L("Party-Einladung","Party invite"),m:L("Attend Eddie Acosta’s Party","Attend Eddie Acosta’s Party"),st:L("Einladung nach „Pool Day“","Invite after “Pool Day”"),img:"Vice_City_04",note:null}];
 
 const MDE={'Gone Fishing':'Angeltour','Breakfast Run':'Frühstück to go','The Cartel Heist':'Der Kartellüberfall','Child’s Play':'Kinderspiel','VCIA Takedown':'VCIA-Showdown'};
+
+/* ===== WOW layer: weapon wheel, status board, game moments ===== */
+const ACCJ={home:['#ff2bd6','#ff9a3c'],news:['#22e7ff','#9b5cff'],map:['#3ef2b0','#22e7ff'],acts:['#ff9a3c','#ffd23f'],missions:['#ff4d6d','#ff9a3c'],crew:['#c77dff','#ff2bd6'],garage:['#ff2bd6','#22e7ff'],arsenal:['#ff4d4d','#ffb347'],gallery:['#ffd23f','#ff2bd6'],radio:['#9b5cff','#22e7ff'],tips:['#ffd23f','#3ef2b0'],secrets:['#7b61ff','#3ef2b0'],editions:['#ffd23f','#ff9a3c'],me:['#3ef2b0','#ff2bd6']};
+function secStat(id){try{switch(id){
+ case 'home':{const cs=pgCats();return (Math.round(cs.reduce((a,c)=>a+c.n/c.t,0)/cs.length*1000)/10).toString().replace('.',LANG==='de'?',':'.')+' % '+T(L('komplett','complete'))}
+ case 'news':{const n=nwUnread();return n?n+' '+T(L('neu','new')):T(L('alles gelesen','all read'))}
+ case 'map':return store.get('pins',[]).length+' Pins';
+ case 'acts':{const p=getPlan();return ACTV.filter(a=>p[a[0]]==='done').length+'/'+ACTV.length}
+ case 'missions':{const st=storyStats();return st.d+'/'+st.t+' Story'}
+ case 'crew':return CREW.length+' '+T(L('Figuren','characters'));
+ case 'garage':return CARS.filter(c=>done['car:'+c[0]]).length+'/'+CARS.length;
+ case 'arsenal':return GUNS.length+' '+T(L('Waffen','weapons'));
+ case 'gallery':return (RSI.length+GAL.length)+' '+T(L('Bilder','images'));
+ case 'radio':return RADIO.length+' '+T(L('Sender','stations'));
+ case 'tips':{const g=store.get('cheats',{});return CHEATS.filter(c=>g[c[0]]).length+'/'+CHEATS.length+' Cheats'}
+ case 'me':{const E=store.get('troph',{});return TROPH.filter(t=>E[t.id]).length+'/55 🏆'}
+ default:return ''}}catch(e){return ''}}
+
+(()=>{let t=0;addEventListener('scroll',()=>{if(t)return;t=requestAnimationFrame(()=>{t=0;const h=document.documentElement;const m=h.scrollHeight-innerHeight;const e=document.getElementById('scrollProg');if(e)e.style.width=(m>40?scrollY/m*100:0)+'%'})},{passive:true})})();
+let WH={sel:-1,ids:[]};
+function openWheel(){const w=$('#wheel');const ids=TABS.map(t=>t[0]);WH.ids=ids;const n=ids.length;const cur=(location.hash||'#home').slice(1);
+ const R=200,ri=86,seg=360/n,gap=1.2;const pt=(a,r)=>[200+r*Math.sin(a*Math.PI/180),200-r*Math.cos(a*Math.PI/180)];
+ const path=i=>{const a0=i*seg+gap/2,a1=(i+1)*seg-gap/2;const [x0,y0]=pt(a0,R-6),[x1,y1]=pt(a1,R-6),[x2,y2]=pt(a1,ri),[x3,y3]=pt(a0,ri);return `M${x0} ${y0}A${R-6} ${R-6} 0 0 1 ${x1} ${y1}L${x2} ${y2}A${ri} ${ri} 0 0 0 ${x3} ${y3}Z`};
+ w.innerHTML=`<div class="whBg"></div><div class="whBox"><svg viewBox="0 0 400 400" class="whSvg"><defs><radialGradient id="whG" cx="50%" cy="50%" r="50%"><stop offset="40%" stop-color="rgba(20,8,40,.55)"/><stop offset="100%" stop-color="rgba(8,3,18,.92)"/></radialGradient></defs>
+ ${ids.map((id,i)=>`<path class="whSeg ${id===cur?'cur':''}" data-i="${i}" d="${path(i)}" style="--a:${ACCJ[id][0]};--b:${ACCJ[id][1]}"/>`).join('')}</svg>
+ ${ids.map((id,i)=>{const a=(i+.5)*seg;const [x,y]=pt(a,(R+ri)/2-3);return `<div class="whIc" data-i="${i}" style="left:${x/4}%;top:${y/4}%;--a:${ACCJ[id][0]}">${icn(ICN[id]||'sparkles')}</div>`}).join('')}
+ <div class="whMid"><div class="whName"></div><div class="whStat"></div><div class="whHint">${T(L('Ziehen & loslassen','Drag & release'))}</div></div></div>
+ <button class="whList">${icn('layout-grid')} ${T(L('Als Liste','As list'))}</button>`;
+ const box=w.querySelector('.whBox');const set=i=>{WH.sel=i;w.querySelectorAll('.whSeg,.whIc').forEach(e=>e.classList.toggle('on',+e.dataset.i===i));const mid=w.querySelector('.whMid');
+  if(i<0){mid.querySelector('.whName').textContent='LEONIDA';mid.querySelector('.whStat').textContent=T(L('Wähle einen Bereich','Pick a section'));mid.style.setProperty('--a','#ff2bd6');return}
+  const id=ids[i];const t=TABS.find(x=>x[0]===id);mid.querySelector('.whName').textContent=T(t[2]);mid.querySelector('.whStat').textContent=secStat(id);mid.style.setProperty('--a',ACCJ[id][0]);try{navigator.vibrate&&navigator.vibrate(6)}catch(e){}};
+ const hit=e=>{const r=box.getBoundingClientRect();const cx=r.left+r.width/2,cy=r.top+r.height/2;const dx=e.clientX-cx,dy=e.clientY-cy;const d=Math.hypot(dx,dy)/(r.width/2)*200;if(d<ri*0.92)return -1;if(d>R+30)return -2;let a=Math.atan2(dx,-dy)*180/Math.PI;if(a<0)a+=360;return Math.floor(a/seg)};
+ let down=false;
+ box.onpointerdown=e=>{down=true;try{box.setPointerCapture(e.pointerId)}catch(x){}const i=hit(e);if(i>=0&&i!==WH.sel)set(i)};
+ box.onpointermove=e=>{if(!down&&e.pointerType!=='mouse')return;const i=hit(e);if(i>=0&&i!==WH.sel)set(i);else if(i===-1&&WH.sel!==-1&&e.pointerType==='mouse')set(-1)};
+ box.onpointerup=e=>{down=false;const i=hit(e);if(i>=0)go(ids[i]);else if(i===-1&&WH.sel>=0&&e.pointerType!=='mouse')go(ids[WH.sel]);else if(i===-1)closeWheel()};
+ const go=id=>{closeWheel();location.hash=id};
+ w.querySelector('.whBg').onclick=closeWheel;w.querySelector('.whList').onclick=()=>{closeWheel();$('#more').classList.add('on')};
+ set(ids.indexOf(cur));w.classList.add('on');w.setAttribute('aria-hidden','false');document.body.classList.add('whOpen')}
+function closeWheel(){const w=$('#wheel');w.classList.remove('on');w.setAttribute('aria-hidden','true');document.body.classList.remove('whOpen')}
+addEventListener('keydown',e=>{if(e.key==='Escape')closeWheel()});
+/* status board */
+function nextMission(){const D=mDone();for(const c of STORY){if(chLocked(c.n))return null;for(let i=0;i<c.m.length;i++){const m=c.m[i];if(m[2].includes('o'))continue;if(!D['c'+c.n+'-'+i])return {c,m}}}return null}
+function renderSboard(){const b=$('#sboard');if(!b)return;const st=storyStats();const nm=nextMission();const E=store.get('troph',{});const tn=TROPH.filter(t=>E[t.id]).length;const un=nwUnread();const top=NEWSC.find(n=>n[0]===NWTOP)||NEWSC[0];
+ const p=getPlan();const ad=ACTV.filter(a=>p[a[0]]==='done').length;const cs=pgCats();const nx=cs.filter(c=>c.n<c.t&&c.go!=='missions'&&c.go!=='me').sort((a,b)=>(b.n/b.t)-(a.n/a.t)||(a.t-a.n)-(b.t-b.n))[0];const last=TROPH.filter(t=>E[t.id]&&E[t.id]!==1).sort((a,b)=>String(E[b.id]).localeCompare(String(E[a.id])))[0];const cg=CARS.filter(c=>done['car:'+c[0]]).length;
+ const img=k=>{const f=rsFind(k);return f?`background-image:linear-gradient(180deg,rgba(10,4,24,.15),rgba(10,4,24,.92)),url('${rsu(f,640)}')`:''};
+ const tile=(go,cls,style,inner)=>`<a class="sbT ${cls}" href="#${go}" style="${style}">${inner}</a>`;
+ b.innerHTML=`<div class="sbHead"><span>${T(L('STATUS','STATUS'))}</span><i></i></div><div class="sbGrid">
+ ${tile('missions','big','--a:#ff4d6d;'+img(nm?(STORY.find(c=>c===nm.c)||{}).img:'Jason_and_Lucia_01'),`<small>${T(L('ALS NÄCHSTES','UP NEXT'))}${nm?` · ${nm.c.n?T(L('KAP.','CH.'))+' '+nm.c.n:T(L('PROLOG','PROLOGUE'))}`:''}</small><b>${nm?esc(nm.m[0]):T(L('Story geschafft!','Story done!'))}</b>${nm&&LANG==='de'&&MDE[nm.m[0]]?`<em>„${MDE[nm.m[0]]}“</em>`:''}<div class="sbBar"><i style="width:${st.t?st.d/st.t*100:0}%"></i></div><span>${st.d}/${st.t} ${T(L('Story-Missionen','story missions'))}</span>`)}
+ ${tile('me','','--a:#ffd23f',`<small>${T(L('TROPHÄEN','TROPHIES'))}</small><b class="num">${tn}<em>/55</em></b><span>${last?T(L('Zuletzt: ','Latest: '))+T(last.n):T(L('Hak deine ersten ab','Tick your first ones'))}</span>`)}
+ ${tile('news','','--a:#22e7ff',`<small>NEWS${un?` · ${un} ${T(L('NEU','NEW'))}`:''}</small><b class="sm">${esc(T(top[4]))}</b><span>${nwDate(top[1])}</span>`)}
+ ${tile(nx?nx.go:'home','','--a:#3ef2b0',`<small>${T(L('FAST GESCHAFFT','ALMOST THERE'))}</small><b class="sm">${nx?T(nx.l):'—'}</b><span>${nx?`${T(L('noch','left'))} ${nx.t-nx.n}`:''}</span>`)}
+ ${tile('acts','','--a:#ff9a3c;'+img('Leonida_Keys_04'),`<small>${T(L('AKTIVITÄTEN','ACTIVITIES'))}</small><b class="num">${ad}<em>/${ACTV.length}</em></b><span>${T(L('erledigt','done'))}</span>`)}
+ ${tile('map','','--a:#3ef2b0;'+img('Vice_City_10'),`<small>${T(L('KARTE','MAP'))}</small><b class="sm">${curRegion&&REGIONS[curRegion]?REGIONS[curRegion].n:'Leonida'}</b><span>${store.get('pins',[]).length} ${T(L('eigene Pins','own pins'))}</span>`)}
+ ${tile('garage','','--a:#ff2bd6;'+img('Vice_City_16'),`<small>GARAGE</small><b class="num">${cg}<em>/${CARS.length}</em></b><span>${T(L('Fahrzeuge abgehakt','vehicles ticked'))}</span>`)}
+ </div>`;}
+/* game moments */
+function fx(html,cls,ms){const L0=$('#fxLayer');if(!L0||SET.noanim&&cls!=='trPop')return;const d=document.createElement('div');d.className='fx '+cls;d.innerHTML=html;L0.appendChild(d);requestAnimationFrame(()=>d.classList.add('in'));setTimeout(()=>{d.classList.add('out')},ms);setTimeout(()=>d.remove(),ms+700)}
+function missionPassed(name,chapDone){try{navigator.vibrate&&navigator.vibrate([30,60,30])}catch(e){}
+ fx(`<div class="mpBand"></div><div class="mpT">${chapDone?T(L('KAPITEL ABGESCHLOSSEN','CHAPTER COMPLETE')):T(L('MISSION ERFÜLLT','MISSION PASSED'))}</div><div class="mpS">${esc(name)}</div>`,'mp',1900)}
+function trophyPop(t){fx(`<div class="tpI">${trCup(t.g)}</div><div><div class="tpS">${T(L('Du hast eine Trophäe erhalten!','You earned a trophy!'))}</div><div class="tpN">${T(t.n)}</div></div>`,'trPop',3200)}
 const mDone=()=>store.get('mdone',{}),chLocked=n=>SET.chapter>0&&n>SET.chapter;
 function storyStats(){const D=mDone();let t=0,d=0;STORY.forEach(c=>c.m.forEach((m,i)=>{if(m[2].includes('o'))return;t++;if(D['c'+c.n+'-'+i])d++}));return{t,d}}
 function renderMissions(){const box=$('#missions');if(!box)return;box.className='story';const D=mDone();
@@ -3703,7 +3827,7 @@ function renderMissions(){const box=$('#missions');if(!box)return;box.className=
    c.m.map((m,i)=>{const id='c'+c.n+'-'+i;const fl=m[2];return `<label class="mrow ${D[id]?'done':''} ${fl.includes('o')?'opt':''}"><input type="checkbox" data-mid="${id}" ${D[id]?'checked':''}><div class="mi"><div class="mt">${esc(m[0])}${LANG==='de'&&MDE[m[0]]?`<span class="mde">„${MDE[m[0]]}“</span>`:''}${fl.includes('o')?`<span class="tg o">${T(L('Optional','Optional'))}</span>`:''}${fl.includes('m')?`<span class="tg m">${T(L('Verpassbar','Missable'))}</span>`:''}</div>${hide?'':`<div class="md ${blur?'spoil':''}">${T(m[1])}</div>`}${m[3]?`<div class="tg u">🔓 ${T(m[3])}</div>`:''}</div></label>`}).join('');
   return `<details class="chap" ${c.n===openN?'open':''}>${head}<div class="chBody">${body}</div></details>`}).join('');
  box.querySelectorAll('.spoil').forEach(s=>s.onclick=e=>{e.preventDefault();s.classList.add('show')});
- box.querySelectorAll('[data-mid]').forEach(i=>i.onchange=()=>{const D2=mDone();if(i.checked)D2[i.dataset.mid]=1;else delete D2[i.dataset.mid];store.set('mdone',D2);i.closest('.mrow').classList.toggle('done',i.checked);const c=i.closest('.chap');renderMissionsSoft(c)});
+ box.querySelectorAll('[data-mid]').forEach(i=>i.onchange=()=>{const D2=mDone();if(i.checked)D2[i.dataset.mid]=1;else delete D2[i.dataset.mid];store.set('mdone',D2);if(i.checked){const [cn,ix]=i.dataset.mid.slice(1).split('-').map(Number);const ch=STORY.find(c=>c.n===cn);const nm=ch.m[ix][0];const cd=ch.m.every((m,j)=>m[2].includes('o')||D2['c'+cn+'-'+j]);missionPassed(LANG==='de'&&MDE[nm]?MDE[nm]:nm,cd)}i.closest('.mrow').classList.toggle('done',i.checked);const c=i.closest('.chap');renderMissionsSoft(c)});
  box.querySelectorAll('[data-unl]').forEach(b=>b.onclick=e=>{e.preventDefault();SET.chapter=+b.dataset.unl;saveSet();renderMissions();toast('🔓 '+T(L('Kapitel '+SET.chapter+' freigegeben','Chapter '+SET.chapter+' unlocked')))});
  try{renderSideQ()}catch(e){console.warn(e)}
  renderKanban();renderHeist();try{renderProg()}catch(e){}
@@ -4257,8 +4381,8 @@ function renderTroph(){const box=$('#trophBox');if(!box)return;const E=store.get
  $('#trCode').onclick=()=>{const c=prompt(T(L('Code oder Link einfügen','Paste code or link')));if(c&&c.trim()){location.hash='#sync='+c.trim().replace(/^.*#sync=/,'')}};
  box.querySelectorAll('[data-rv]').forEach(b=>b.onclick=()=>{trRev.add(b.dataset.rv);renderTroph()});
  box.querySelectorAll('[data-tr]').forEach(i=>i.onchange=()=>{const E2=store.get('troph',{});if(i.checked)E2[i.dataset.tr]=new Date().toISOString().slice(0,10);else delete E2[i.dataset.tr];
-  const others=TROPH.filter(t=>t.id!=='plat').every(t=>E2[t.id]);if(others&&!E2.plat){E2.plat=new Date().toISOString().slice(0,10);toast('💎 Vice Got a Price!')}
-  store.set('troph',E2);if(i.checked){try{navigator.vibrate&&navigator.vibrate([20,40,20])}catch(e){}toast('🏆 '+T(TROPH.find(t=>t.id===i.dataset.tr).n))}renderTroph();try{renderProg();renderHud()}catch(e){}});
+  const others=TROPH.filter(t=>t.id!=='plat').every(t=>E2[t.id]);if(others&&!E2.plat){E2.plat=new Date().toISOString().slice(0,10);setTimeout(()=>trophyPop(TROPH[0]),1200)}
+  store.set('troph',E2);if(i.checked){try{navigator.vibrate&&navigator.vibrate([20,40,20])}catch(e){}trophyPop(TROPH.find(t=>t.id===i.dataset.tr))}renderTroph();try{renderProg();renderHud()}catch(e){}});
 }
 /* one-tap sync link: #sync=<base64url json> */
 function b64uDec(x){x=x.replace(/-/g,'+').replace(/_/g,'/');while(x.length%4)x+='=';return decodeURIComponent(escape(atob(x)))}
