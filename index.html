@@ -1972,7 +1972,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 23.11. 20:19</div>
+    <div class="dim" style="margin-top:8px">App-Version 23.11. 20:27</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -4567,7 +4567,7 @@ function ownPick(ref,cat,el){const i=document.createElement('input');i.type='fil
  try{const full=await gShrink(f,2000,.86),th=await gShrink(f,520,.8);const o={id:'g'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),ts:Date.now(),cat,ref,hero:false,w:full.w,h:full.h,full:full.b,thumb:th.b};
   await GDB.put(o);GAL.unshift(o);el.querySelectorAll('.ownCam,.tThumb.own').forEach(x=>x.remove());decorateOwn();toast('📸 '+T(L('Foto gespeichert – auch in deiner Galerie','Photo saved – also in your gallery')))}catch(e){toast(T(L('⚠️ Konnte nicht speichern','⚠️ Could not save')))}};i.click()}
 function ownMenu(t,ref,cat,k){const old=t.querySelector('.ownPop');if(old){old.remove();return}document.querySelectorAll('.ownPop').forEach(x=>x.remove());
- const q=encodeURIComponent('GTA 6 '+k.trim());const d=document.createElement('div');d.className='ownPop';d.innerHTML=`<button data-o="cam">📷 ${T(L('Eigenes Foto hinzufügen','Add your own photo'))}</button><a href="https://duckduckgo.com/?q=${q}&iax=images&ia=images" target="_blank" rel="noopener">🔎 ${T(L('Bilder im Web ansehen','View images on the web'))} ↗</a>`;
+ const q=encodeURIComponent('GTA 6 '+k.trim());const d=document.createElement('div');d.className='ownPop';d.innerHTML=`<button data-o="cam">📷 ${T(L('Eigenes Foto hinzufügen','Add your own photo'))}</button><a href="https://duckduckgo.com/?q=${q}&iax=images&ia=images" target="_blank" rel="noopener">🔎 ${T(L('Bilder im Web ansehen','View images on the web'))} ↗</a>${ref.startsWith('car:')?`<a href="https://op.gg/${LANG==='de'?'de/':''}gta6/vehicles" target="_blank" rel="noopener">🚗 ${T(L('Fahrzeug-Datenbank (op.gg)','Vehicle database (op.gg)'))} ↗</a>`:''}`;
  d.onclick=e=>e.stopPropagation();d.querySelector('[data-o=cam]').onclick=e=>{e.preventDefault();d.remove();ownPick(ref,cat,t)};t.appendChild(d);setTimeout(()=>document.addEventListener('click',()=>d.remove(),{once:true}),0)}
 function decorateOwn(){const M=ownMap();
  const each=(sel,pre,cat,keyFn)=>document.querySelectorAll(sel).forEach(t=>{if(t.querySelector('.tThumb')&&!t.querySelector('.tThumb.own'))return;if(t.querySelector('.ownCam,.tThumb.own'))return;const k=keyFn(t);if(!k)return;const ref=pre+k;const o=M[ref];
