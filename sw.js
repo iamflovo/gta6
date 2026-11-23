@@ -1,5 +1,5 @@
-// Leonida Pro Guide – Version 23.11. 19:30
-const CACHE='leonida-20261123193044';
+// Leonida Pro Guide – Version 23.11. 19:55
+const CACHE='leonida-20261123195515';
 const ASSETS=['./','index.html','manifest.json','icon-192-v3.png','icon-512-v3.png','apple-touch-icon-v3.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS.map(u=>new Request(u,{cache:'reload'})))).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
