@@ -1215,9 +1215,52 @@ header::after{background:linear-gradient(90deg,transparent,var(--acc),var(--acc2
 .hud a::after{content:"";position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.12),transparent);animation:shine 5.5s ease-in-out infinite;animation-delay:inherit}
 @media(prefers-reduced-motion:reduce){.hud a,.hud a::after{animation:none}.tilt{transform:none}}
 body.noanim .hud a,body.noanim .hud a::after{animation:none}
+
+/* ===== Story guide & side quests ===== */
+#missions.story{display:block}
+.stTop{margin-bottom:12px}.stBig{font:400 40px Anton;line-height:1}.stBig span{font-size:20px;opacity:.55}
+.stWarn{margin-top:12px;padding:10px 12px;border-radius:12px;background:rgba(255,77,109,.12);border:1px solid rgba(255,77,109,.35);font-size:13px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}.stWarn span{padding:2px 8px;border-radius:8px;background:rgba(255,255,255,.08)}
+.stLeg{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:12px}
+.tg{display:inline-block;font:700 10.5px 'Barlow Condensed';letter-spacing:.8px;text-transform:uppercase;padding:2px 7px;border-radius:7px;margin-left:6px;vertical-align:middle}.tg.o{background:rgba(34,231,255,.15);color:#7ff0ff}.tg.m{background:rgba(255,77,109,.2);color:#ff9fb1}.tg.u{background:rgba(62,242,176,.14);color:#8ff5cf;margin:6px 0 0;text-transform:none;letter-spacing:0;font:600 12px Inter,sans-serif}.stLeg .tg{margin-left:0}
+details.chap{border-radius:22px;overflow:hidden;margin:14px 0;border:1px solid rgba(255,255,255,.09);background:rgba(18,8,38,.85);box-shadow:0 24px 50px -28px color-mix(in srgb,var(--acc) 70%,transparent)}
+details.chap>summary{list-style:none;cursor:pointer;position:relative;min-height:168px;padding:16px 18px;display:flex;flex-direction:column;justify-content:flex-end;background:#1a0b33 center 35%/cover;isolation:isolate}
+details.chap>summary::-webkit-details-marker{display:none}
+details.chap>summary::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,4,24,.05) 0%,rgba(10,4,24,.55) 55%,rgba(10,4,24,.96) 100%),linear-gradient(90deg,color-mix(in srgb,var(--acc) 30%,transparent),transparent 60%)}
+details.chap>summary::after{content:"⌄";position:absolute;right:16px;top:12px;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:rgba(10,4,24,.6);border:1px solid rgba(255,255,255,.2);transition:transform .3s}
+details.chap[open]>summary::after{transform:rotate(180deg)}
+.chap .cpy{position:absolute;left:12px;top:10px;font-size:10px;opacity:.65;background:rgba(0,0,0,.4);padding:2px 6px;border-radius:6px}
+.chap .cn{font:700 12px 'Barlow Condensed';letter-spacing:5px;color:var(--acc);text-shadow:0 0 12px var(--acc)}
+.chap .ct{font:400 clamp(28px,7vw,44px) Anton;line-height:1.02;letter-spacing:.5px;text-shadow:0 3px 0 rgba(0,0,0,.6),0 0 30px rgba(0,0,0,.6)}
+.chap .cb{display:flex;align-items:center;gap:10px;margin-top:10px;font:600 13px 'JetBrains Mono'}.chap .cb .prog{flex:1;margin:0}
+.chBody{padding:4px 0 6px}
+.mrow{display:flex;gap:12px;align-items:flex-start;padding:11px 16px;border-top:1px solid rgba(255,255,255,.06);cursor:pointer;transition:background .2s}
+.mrow:hover{background:rgba(255,255,255,.03)}.mrow input{margin-top:3px;width:19px;height:19px;flex:0 0 auto;accent-color:var(--acc)}
+.mrow .mt{font-weight:700;font-size:14.5px}.mrow .md{font-size:13px;opacity:.75;margin-top:2px}.mrow.opt .mt{opacity:.9;font-weight:600}
+.mrow.done .mt{text-decoration:line-through;text-decoration-color:var(--acc);opacity:.55}.mrow.done .md{opacity:.4}
+.chLock{padding:16px;font-size:13.5px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.sqGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.card.sq{padding:0;overflow:hidden;display:flex;flex-direction:column}.card.sq>*:not(.sqImg){margin-left:14px;margin-right:14px}
+.sqImg{position:relative;height:130px;background:#1a0b33 center/cover;margin-bottom:10px}.sqImg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(10,4,24,.92))}
+.sqImg span{position:absolute;right:8px;top:8px;z-index:1;font-size:10px;opacity:.7;background:rgba(0,0,0,.45);padding:2px 6px;border-radius:6px}
+.sqG{position:absolute;left:14px;bottom:8px;z-index:1;font:400 26px Anton;letter-spacing:.5px;text-shadow:0 2px 0 #000}
+.sqTags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}.sqTags span{font:600 11.5px 'Barlow Condensed';letter-spacing:.6px;padding:2px 8px;border-radius:8px;background:rgba(255,255,255,.08)}.sqTags .m{background:rgba(255,77,109,.22)}.sqTags .y{background:rgba(255,210,63,.2);color:#ffe28a}
+.sqRow{display:flex;gap:8px;font-size:13px;margin:4px 0}.sqRow b{flex:0 0 18px}.sqNote{font-size:12.5px;margin:8px 0 0;padding:8px 10px;border-radius:10px;background:rgba(255,210,63,.1)}
+.sqDone{display:flex;gap:8px;align-items:center;margin-top:auto!important;padding:12px 0 14px;font-size:13px;cursor:pointer}.sqDone input{width:18px;height:18px;accent-color:var(--acc)}
+.card.sq.done{opacity:.62}
+/* ===== Design: cinematic section banners ===== */
+.secBanner{background-size:118% auto!important;animation:kb 26s ease-in-out infinite alternate;box-shadow:0 26px 60px -30px color-mix(in srgb,var(--acc) 80%,transparent);border-color:color-mix(in srgb,var(--acc) 30%,rgba(255,255,255,.1))!important}
+.secBanner::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(10,4,24,.7)),linear-gradient(90deg,color-mix(in srgb,var(--acc) 22%,transparent),transparent 50%);pointer-events:none}
+@keyframes kb{0%{background-position:0% 40%}100%{background-position:100% 55%}}
+@media(max-width:700px){.secBanner{background-size:cover!important}@keyframes kb{0%{transform:none}100%{transform:none}}}
+.view h2.sec{background:linear-gradient(90deg,#fff 0%,#fff 40%,var(--acc) 70%,var(--acc2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;position:relative}
+.view h2.sec::after{content:"";display:block;height:3px;width:64px;margin-top:6px;border-radius:2px;background:linear-gradient(90deg,var(--acc),var(--acc2));box-shadow:0 0 14px var(--acc);animation:uline 3.5s ease-in-out infinite alternate}
+@keyframes uline{to{width:120px}}
+#aura{position:fixed;inset:-20vmax;z-index:-1;pointer-events:none;background:radial-gradient(40vmax 40vmax at 15% 20%,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%),radial-gradient(45vmax 45vmax at 85% 80%,color-mix(in srgb,var(--acc2) 18%,transparent),transparent 70%);animation:auraDrift 22s ease-in-out infinite alternate;transition:background 1s}
+@keyframes auraDrift{to{transform:translate(4vmax,-3vmax) rotate(6deg)}}
+@media(prefers-reduced-motion:reduce){.secBanner,#aura,.view h2.sec::after{animation:none}}
 </style>
 </head>
-<body>
+<body><div id="aura" aria-hidden="true"></div>
 <div id="panoSky"></div><canvas id="rain"></canvas><div id="pano"><div class="pFarWrap"><svg id="pFar" class="player" viewBox="0 0 4200 700" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
 <radialGradient id="psun" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#ffe9a8"/><stop offset=".45" stop-color="#ff9a3c"/><stop offset="1" stop-color="#ff2bd6"/></radialGradient>
 <filter id="pglow2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -1723,6 +1766,8 @@ body.noanim .hud a,body.noanim .hud a::after{animation:none}
     <h3 data-i="h_story"></h3>
     <div class="row" style="margin-bottom:10px"><span class="dim" data-i="spoilHint"></span><span class="sp"></span><button class="ib" id="spoilAll" data-i="showAll"></button></div>
     <div class="grid" id="missions"></div>
+    <h3>🎭 Strangers &amp; Freaks</h3>
+    <div id="sideq"></div>
   </section>
 
   <!-- MY LEONIDA -->
@@ -1803,7 +1848,7 @@ body.noanim .hud a,body.noanim .hud a::after{animation:none}
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 22.11. 14:04</div>
+    <div class="dim" style="margin-top:8px">App-Version 23.11. 19:17</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -1979,15 +2024,20 @@ const NWSRC={
  rsi:['RockstarINTEL','#b388ff','com'],discord:['Discord r/GTA6','#8c9eff','com'],
  nbc:['Notebookcheck','#9fe7c4','int'],df:['DiscussingFilm','#ffcf6e','int'],alt:['AltChar','#ffb3e6','int'],vice:['VICE','#ff8fb1','int'],press:['Presse','#e8e2d0','de'],cb:['ComputerBase','#9fd3ff','de'],psi:['PlayStationInfo','#7fb6ff','de'],kotaku:['Kotaku','#ffd0a8','int'],tr:['TechRadar','#a8c8ff','int'],cnn:['CNN','#ff9a9a','int'],forbes:['Forbes','#cfe3ff','int'],yahoo:['Yahoo','#c8a6ff','int'],sensor:['Sensor Tower','#ffd36e','int'],pcg2:['PC Gamer','#ff6b6b','int'],ddc:['Discord GTA 6 Germany','#8c9eff','com'],ig:['Insider Gaming','#ffe36e','int'],vgc2:['VGC','#9ef0ff','int'],gtabase:['GTABase','#b0ffb8','com'],gta6db:['GTA6DB','#c9b0ff','com'],nbcn:['NBC News','#ffd36e','int'],dexerto:['Dexerto','#ff9a6e','int'],engadget:['Engadget','#8fe3ff','int'],nme:['NME','#ff6d8a','int'],vgt:['VGTimes','#c6f68d','int'],pcgamer:['PC Gamer','#ff6b6b','int'],
 };
-const NWUPD='2026-11-22T14:30:00+01:00';
+const NWUPD='2026-11-23T19:30:00+01:00';
 // id, date, source, badge, title, text, url
 const NEWSC=[
+ ['rs-patch2','2026-11-23','rockstar','off',L('Erstes Update mit Patch-Notes: 1.002.002','First update with patch notes: 1.002.002'),L('Rockstar hat das erste Update nach dem Launch veröffentlicht – diesmal mit offiziellen Notes. Behoben: mehrere Abstürze, Wetter, das sich ewig nicht ändert, fehlende Autosaves, Anrufe, die nicht kamen (und so Story oder Missionen blockierten), Fahndungslevel, die sich nicht abschütteln ließen, die Kreuzheben-Stange im Gym und Partner, die keine Beute-Taschen zum Hehler gaben. Größe: ca. 604 MB auf PS5, ca. 1,6 GB auf Xbox; die Verteilung läuft über den Tag.','Rockstar released the first post-launch update – this time with official notes. Fixed: several crashes, weather stuck for long stretches, failed autosaves, phone calls not triggering (blocking story or missions), Wanted Levels you couldn’t lose, the gym deadlift bar and partners not handing over bags for fences. Size: about 604 MB on PS5, about 1.6 GB on Xbox; rolling out through the day.'),'https://www.destructoid.com/gta-6-patch-notes-nov-23-launch/'],
+ ['ts-100','2026-11-23','press','rep',L('100 %: Das zählt wirklich – und Darts gibt’s nicht','100%: what actually counts – and there are no darts'),L('Die 100-%-Liste umfasst 11 Nebenaktivitäten, z. B. 40 Straßenrennen (30 nötig), 397 Stunts (300 nötig), 100 Basketballkörbe (90 nötig), 42 Drohnen-Zeitrennen und 18 Meditationen. Darts und Bowling sind nicht spielbar – laut Rob Nelson hat es Darts schlicht nicht mehr ins Spiel geschafft. Alles ist jetzt in der App zum Abhaken (Karte → Sammelobjekte).','The 100% list covers 11 side activities, e.g. 40 street races (30 needed), 397 stunts (300 needed), 100 hoops (90 needed), 42 drone trials and 18 meditations. Darts and bowling aren’t playable – per Rob Nelson, darts simply didn’t make it. It’s all trackable in the app now (Map → collectibles).'),'https://timesaver.gg/blog/gta-6-side-activities'],
+ ['app-story','2026-11-23','press','rep',L('Neu in der App: kompletter Story-Guide','New in the app: full story guide'),L('Unter Missionen findest du jetzt alle 5 Kapitel plus Prolog mit allen Haupt- und optionalen Missionen zum Abhaken, Warnungen für verpassbare Missionen, Freischaltungen (Waffenläden, Pay ’n’ Spray, Garagen …) und alle Strangers-&-Freaks-Questreihen. Der Spoiler-Schutz gilt pro Kapitel.','Missions now has all 5 chapters plus prologue with every main and optional mission to tick off, missable warnings, unlocks (gun shops, Pay ’n’ Spray, garages …) and every Strangers & Freaks questline. Spoiler guard works per chapter.'),''],
+ ['vgt-album','2026-11-23','vgt','rep',L('Album: fast 30 Mio. Spotify-Streams am ersten Tag','Album: nearly 30M Spotify streams on day one'),L('„Grand Theft Auto VI: The Album“ kam laut VGTimes in den ersten 24 Stunden auf 29,85 Millionen Streams bei Spotify.','Per VGTimes, “Grand Theft Auto VI: The Album” hit 29.85 million Spotify streams in its first 24 hours.'),'https://vgtimes.com/games/gta-6/news/'],
+ ['cast-credits','2026-11-23','press','rep',L('Abspann verrät die Sprecher von Jason und Lucia','Credits reveal Jason and Lucia’s actors'),L('Laut Abspann spielt Dylan Rourke Jason Duval und Manni L. Perez Lucia Caminos. Im Cast stehen außerdem Bad Bunny, Kodak Black und Sexyy Red.','Per the credits, Dylan Rourke plays Jason Duval and Manni L. Perez plays Lucia Caminos. The cast also includes Bad Bunny, Kodak Black and Sexyy Red.'),'https://gta6times.com/gta-6/updates'],
  ['tt-sales','2026-11-20','cnn','off',L('Offiziell: 3,79 Mrd. Dollar am ersten Tag','Official: $3.79B on day one'),L('Take-Two und Rockstar melden 3,79 Milliarden Dollar Umsatz bis Ende des Launch-Tags (19.11., weltweit, Firmenschätzung) und 32,5 Millionen verkaufte Kopien schon vor Release. Laut Take-Two der größte Unterhaltungs-Launch aller Zeiten, über alle Medien. Zum Vergleich: GTA V machte 2013 rund 800 Mio. am ersten Tag.','Take-Two and Rockstar report $3.79 billion in sales through the end of launch day (Nov 19, worldwide, company estimate) and 32.5 million copies sold before release. Take-Two calls it the biggest entertainment launch ever, in any medium. For comparison: GTA V made about $800M on its first day in 2013.'),'https://www.cnn.com/2026/11/20/media/gta-vi-launch-sales-numbers'],
  ['fb-circana','2026-11-20','forbes','est',L('Über die Hälfte aller PS5/Xbox-Spieler war am Launch-Tag dabei','Over half of all PS5/Xbox players joined on launch day'),L('Laut Circana hat mehr als die Hälfte der aktiven PS5- und Xbox-Spieler weltweit am Release-Tag GTA VI gespielt – im Schnitt 513 Minuten auf PS5 und 494 Minuten auf Xbox.','Per Circana, more than half of active PS5 and Xbox players worldwide played GTA VI on release day – averaging 513 minutes on PS5 and 494 on Xbox.'),'https://www.forbes.com/sites/antoniopequenoiv/2026/11/20/gta-6-raked-in-38-billion-sales-on-first-day-the-largest-entertainment-launch-ever/'],
  ['fest-recap','2026-11-21','press','seen',L('Festival in Miami: Travis Scott & Don Toliver live','Miami festival: Travis Scott & Don Toliver live'),L('Beim „GTA VI: The Festival“ in Mana Wynwood haben Travis Scott und Don Toliver „CAN’T SAY“ gespielt, der Cactus-Jack-Block schloss die Nacht ab. Alle Ticket-Erlöse gehen laut Rockstar an Wohltätigkeitsorganisationen in Miami. Einen offiziellen Livestream gab es nicht.','At “GTA VI: The Festival” in Mana Wynwood, Travis Scott and Don Toliver performed “CAN’T SAY”, with the Cactus Jack block closing the night. Per Rockstar, all ticket proceeds go to Miami charities. There was no official livestream.'),'https://happygamer.com/travis-scott-don-toliver-cant-say-gta-vi-festival-miami-178692/'],
  ['xb-bans','2026-11-22','press','rep',L('Xbox: Berichte über Sperren wegen GTA-VI-Clips','Xbox: reports of bans over GTA VI clips'),L('Einige Xbox-Spieler berichten von Sperren, nachdem sie GTA-VI-Clips aufgenommen bzw. hochgeladen haben. Weder Microsoft noch Rockstar haben das bisher bestätigt. Vorsicht vor allem bei Story-Spoilern in Clips.','Some Xbox players report bans after capturing or uploading GTA VI clips. Neither Microsoft nor Rockstar has confirmed this so far. Be careful especially with story spoilers in clips.'),'https://gta6.ai/news'],
  ['ps-crash','2026-11-21','press','rep',L('PS5: Absturz mit Fehler CE-108255-1','PS5: crash with error CE-108255-1'),L('Einige PS5-Spieler melden Abstürze mit dem Fehlercode CE-108255-1. Einen offiziellen Fix gibt es noch nicht – die üblichen Tipps: Konsole und Spiel aktuell halten, Ruhemodus mit laufendem Spiel vermeiden.','Some PS5 players report crashes with error code CE-108255-1. No official fix yet – usual tips: keep console and game updated, avoid rest mode with the game running.'),'https://gta6.ai/news'],
- ['patch-none','2026-11-22','gta6db','rep',L('Immer noch keine Patch-Notes','Still no patch notes'),L('Zwei Updates sind draußen (1.002.000 und 1.002.001), aber Rockstar hat zu keinem Patch-Notes veröffentlicht. Einen 60-fps-Modus gibt es nicht; auf der Standard-PS5 fällt die Bildrate in heftigen Szenen auf rund 24 fps, auf der Series S oft in die 20er.','Two updates are out (1.002.000 and 1.002.001), but Rockstar hasn’t published notes for either. There’s no 60fps mode; base PS5 dips to around 24fps in heavy scenes, Series S often runs in the 20s.'),'https://gta6pocket.com/en/patch-notes/'],
+ ['patch-none','2026-11-22','gta6db','rep',L('Bis 22.11.: keine Patch-Notes','Until Nov 22: no patch notes'),L('Zwei Updates sind draußen (1.002.000 und 1.002.001), aber Rockstar hat zu keinem Patch-Notes veröffentlicht. Einen 60-fps-Modus gibt es nicht; auf der Standard-PS5 fällt die Bildrate in heftigen Szenen auf rund 24 fps, auf der Series S oft in die 20er.','Two updates are out (1.002.000 and 1.002.001), but Rockstar hasn’t published notes for either. There’s no 60fps mode; base PS5 dips to around 24fps in heavy scenes, Series S often runs in the 20s.'),'https://gta6pocket.com/en/patch-notes/'],
  ['yh-cooldog','2026-11-21','yahoo','seen',L('„Cool Dog“: Jetski-Hund mit Schwimmbrille','“Cool Dog”: jet-ski dog in goggles'),L('Wer weit aufs Meer hinausschwimmt, trifft einen Hund mit Schwimmbrille auf einem Jetski. Die Spieler nennen ihn „Cool Dog“ – Einheimische aus Florida haben darin einen echten Hund erkannt.','Swim far out to sea and you’ll meet a dog in goggles on a jet ski. Players call it “Cool Dog” – Florida locals recognized a real dog behind it.'),'https://tech.yahoo.com/gaming/breaking-news/live/gta-6-live-updates-record-38-billion-launch-viral-clips-and-the-secrets-players-are-finding-in-leonida-163038757.html'],
  ['r-launch','2026-11-19','rockstar','off',L('Es ist so weit: GTA VI ist da','It’s here: GTA VI is out'),L('Nach 13 Jahren Warten läuft GTA VI seit Mitternacht auch in Deutschland auf PS5 und Xbox Series X|S. Mit 99 auf Metacritic ist es das bestbewertete Spiel aller Zeiten. Viel Spaß in Leonida – Spoiler gibt’s in der App weiterhin nur, wenn du den Spoiler-Schutz lockerst.','After 13 years GTA VI has been live in Germany since midnight on PS5 and Xbox Series X|S. With a 99 on Metacritic it is the best-reviewed game ever. Enjoy Leonida – the app still hides spoilers unless you loosen the spoiler shield.'),'https://www.rockstargames.com/VI'],
  ['r-album','2026-11-20','rockstar','off',L('„GTA VI: The Album“ ist überall erschienen','“GTA VI: The Album” is out everywhere'),L('Das offizielle Album mit 34 neuen Songs – u. a. von Playboi Carti, Lana Del Rey, Dua Lipa, JENNIE, Don Toliver und Burna Boy – läuft jetzt auf allen Streamingdiensten, dazu gibt es limitiertes Vinyl und CD. Morgen (Sa., 21.11.) steigt in Miami „GTA VI: The Festival“ mit Travis Scott, Cardi B, Metro Boomin, Justice und mehr. Der Original Score von Justice folgt am 11. Dezember.','The official album with 34 new songs – incl. Playboi Carti, Lana Del Rey, Dua Lipa, JENNIE, Don Toliver and Burna Boy – is now on every streaming service, plus limited vinyl and CD. Tomorrow (Sat 21 Nov) “GTA VI: The Festival” hits Miami with Travis Scott, Cardi B, Metro Boomin, Justice and more. Justice’s Original Score follows on 11 December.'),'https://www.rockstargames.com/newswire/article/k4a8955a93o747/grand-theft-auto-vi-the-album-now-available'],
@@ -2089,7 +2139,7 @@ const NWHUB=[
 NEWSC.sort((a,b)=>b[1].localeCompare(a[1]));
 const nwImgU=k=>{const v=NWIMG[k];return /^https?:/.test(v)?v:NWIMGB+v};
 const NWIMG={"r-album":"k4a8955a93o747/e47c077621ea90ee966fcab7221f8db961e5d60c.jpg","r-avail":"39akk424a9oo53/e470e29da13848abd31dfd8ea0e95a0eeffd0511.jpg","r-map":"https://www.rockstargames.com/VI/_next/static/media/mapPromoCardMobile.10u5jrd23dmdq.jpg?akim=1&imwidth=1280","r-fest": "o39o87a435a25a/f14b9244ed05b99e611d0376ad7e0ec3b4f84aab.jpg", "r-festtimes": "o39o87a435a25a/f14b9244ed05b99e611d0376ad7e0ec3b4f84aab.jpg", "r-preload": "89834o94713o21/94f09130d07de4a50e3ab971e2b7d8c253b7c706.jpg", "r-trailer": "89834o94713o21/94f09130d07de4a50e3ab971e2b7d8c253b7c706.jpg", "r-preann": "k4ak9okk485712/81e58e08369adca0d68a17dac9b12c3a63848fc3.jpg", "gspot-gal": "39ak81277255o9/72074994d6364ad0de8872aa971fc47653f644ab.jpg", "r-score": "39ak8a12395591/cfc61a2d2e7b8c700e46582dc865e180b6c431d9.jpg", "r-launch": "517572321a549a/0637b4bb19438399bc5b3e7bbdfe6936f79cdbf3.jpg", "r-goodtime": "9k2a49ook82o57/cbdf4fc342bfca94c789a887244c3b70283047ae.jpg", "r-week": "39ak81277255o9/72074994d6364ad0de8872aa971fc47653f644ab.jpg", "pcg-poster": "k4ak9okk485712/81e58e08369adca0d68a17dac9b12c3a63848fc3.jpg", "r-tove": "89834o94713o21/94f09130d07de4a50e3ab971e2b7d8c253b7c706.jpg"};const NWIMGB='https://media-rockstargames-com.akamaized.net/tina-uploads/posts/';
-const NWTOP='tt-sales';
+const NWTOP='rs-patch2';
 
 const NEWS=[
  ['29.09.2026','seen',L('Game Informer: Nord-Leonida','Game Informer: northern Leonida'),L('Zwischen den Nordstädten: ATV-Trails, eine Schlamm-Party, Demolition-Derby auf Flutlicht-Ovalen, Mountainbike-Strecken, Farmen, ein privater Golfplatz, Sanddünen für MX-Bikes und Barsch-Angeln im Zypressensee.','Between the northern towns: ATV trails, a mud-park party, demolition derbies on floodlit ovals, MTB trails, farms, a private golf course, dunes for MX bikes and bass fishing in a cypress lake.')],
@@ -2132,7 +2182,7 @@ const FIRST=[
  L('🔒 Im Leonida Pro Guide dein Kapitel einstellen (Spoiler-Schutz)','🔒 Set your chapter in Leonida Pro Guide (spoiler shield)'),
 ];
 const PINCATS=[['hide','🗝️',L('Versteck','Hideout')],['gang','🏚️',L('Gang-Compound','Gang compound')],['animal','🦌',L('Tier','Animal')],['car','🚗',L('Classic Car','Classic car')],['coll','📰',L('Sammelobjekt','Collectible')],['shop','🛒',L('Laden/Hehler','Shop/fence')],['note','📌',L('Notiz','Note')]];
-const COLL=[['cards','🃏',L('Sammelkarten-Sets','Card sets'),3,L('3 komplette Sets = Trophäe','3 complete sets = trophy')],['wainK','📱',L('WAiNK-Spots','WAiNK spots'),100,L('100 Orte = Trophäe','100 spots = trophy')],['stunts','🏍️',L('Stunts','Stunts'),250,L('250 = Silber-Trophäe','250 = silver trophy')],['drone','🛸',L('Drohnenrennen','Drone races'),14,L('An allen 14 Orten gewinnen','Win at all 14 locations')],['range','🎯',L('Schießstand-Gold','Shooting range golds'),42,L('42 Herausforderungen','42 challenges')],['vehdisc','🚗',L('Entdeckte Fahrzeuge','Discovered vehicles'),100,L('100 = Trophäe','100 = trophy')],['strangers','🎭',L('Fremde & Freaks','Strangers & Freaks'),8,L('8 Missionsstränge','8 mission strands')],['legend','🦌',L('Legendäre Tiere','Legendary animals'),null,L('Selten · entdeckbar · legendär','Rare · discoverable · legendary')],['species','🐊',L('Arten im Kompendium','Compendium species'),null,L('Jede gesichtete Art zählt','Every spotted species counts')],['classic','🚙',L('Classic Cars für Wyman','Classic cars for Wyman'),null,L('4 davon nur in der Ultimate','4 are Ultimate-only')],['paper','📰',L('Sammel-Zeitungen','Collectible newspapers'),null,L('Beim Ladenraub entdeckt','Spotted during a store robbery')],['gang','🏚️',L('Gang-Operationen','Gang operations'),39,L('39 auf der Ingame-Karte','39 on the in-game map')],['banks','🏦',L('Bank-Jobs','Bank jobs'),22,L('14 Filialen, 8 Tresore','14 branches, 8 vaults')],['smash','💥',L('Smash ’n’ Grabs','Smash ’n’ grabs'),35,L('Schnelle Raubzüge','Quick robberies')],['loans','💰',L('Kredithaie','Payday loans'),7,L('Auf der Karte markiert','Marked on the map')],['fish','🎣',L('Angel-Sammelobjekte','Fishing collectibles'),null,L('Fische bringen Geld & Sammelobjekte','Fish give cash & collectibles')]];
+const COLL=[['cards','🃏',L('Sammelkarten-Sets','Card sets'),3,L('3 komplette Sets = Trophäe','3 complete sets = trophy')],['wainK','📱',L('WAiNK-Spots','WAiNK spots'),100,L('100 Orte = Trophäe','100 spots = trophy')],['stunts','🏍️',L("Stunts","Stunts"),397,L("300 für 100 % · 250 = Trophäe „Cunning Stunts“","300 for 100% · 250 = “Cunning Stunts” trophy")],['drone','🛸',L("Top-Fun-Drohnenrennen","Top Fun drone trials"),42,L("14 Orte à 3 Läufe · 3. Lauf nach Par auf den ersten zwei","14 spots × 3 trials · 3rd unlocks after par on the first two")],['range','🎯',L("Schießstand-Gold","Shooting range golds"),42,L("Griffin Range & Rodgers Ranch · 5-$-Pass beim Verkäufer","Griffin Range & Rodgers Ranch · $5 pass from the clerk")],['vehdisc','🚗',L('Entdeckte Fahrzeuge','Discovered vehicles'),100,L('100 = Trophäe','100 = trophy')],['strangers','🎭',L('Fremde & Freaks','Strangers & Freaks'),8,L('8 Missionsstränge','8 mission strands')],['legend','🦌',L('Legendäre Tiere','Legendary animals'),null,L('Selten · entdeckbar · legendär','Rare · discoverable · legendary')],['species','🐊',L('Arten im Kompendium','Compendium species'),null,L('Jede gesichtete Art zählt','Every spotted species counts')],['classic','🚙',L('Classic Cars für Wyman','Classic cars for Wyman'),null,L('4 davon nur in der Ultimate','4 are Ultimate-only')],['paper','📰',L('Sammel-Zeitungen','Collectible newspapers'),null,L('Beim Ladenraub entdeckt','Spotted during a store robbery')],['gang','🏚️',L('Gang-Operationen','Gang operations'),39,L('39 auf der Ingame-Karte','39 on the in-game map')],['banks','🏦',L('Bank-Jobs','Bank jobs'),22,L('14 Filialen, 8 Tresore','14 branches, 8 vaults')],['smash','💥',L('Smash ’n’ Grabs','Smash ’n’ grabs'),35,L('Schnelle Raubzüge','Quick robberies')],['loans','💰',L('Kredithaie','Payday loans'),7,L('Auf der Karte markiert','Marked on the map')],['fish','🎣',L('Angel-Sammelobjekte','Fishing collectibles'),null,L('Fische bringen Geld & Sammelobjekte','Fish give cash & collectibles')],['races','🏁',L("Straßenrennen","Street races"),40,L("30 von 40 für 100 %","30 of 40 for 100%")],['racech','🏆',L("Renn-Challenges (Gold)","Race challenges (gold)"),13,L("10 von 13 für 100 %","10 of 13 for 100%")],['hoops','🏀',L("Basketballkörbe","Basketball hoops"),100,L("90 von 100 für 100 %","90 of 100 for 100%")],['pool','🎱',L("Billard-Gegner","Pool opponents"),7,L("5 von 7 für 100 %","5 of 7 for 100%")],['mgolf','⛳',L("Minigolfplätze","Mini golf courses"),3,L("2 von 3 · u. a. King Gator & Frontier Adventure Golf","2 of 3 · incl. King Gator & Frontier Adventure Golf")],['vgames','🕹️',L("Videospiele","Video games"),4,L("Tenebrae Lux, Street Trash III, Time Jackers Rewind, Bang For Your Buck","Tenebrae Lux, Street Trash III, Time Jackers Rewind, Bang For Your Buck")],['decks','🦌',L("Brets Target Decks","Bret’s Target Decks"),15,L("Ab Kapitel 2 über Bret (nur Jason)","From Chapter 2 via Bret (Jason only)")],['medit','🧘',L("Meditationen","Meditation sessions"),18,L("15 von 18 · Jasons Balkon-Session nur in Kapitel 1!","15 of 18 · Jason’s balcony session is Chapter 1 only!")],['randy','🔑',L("Randys Wunschliste","Randy’s wish list"),16,L("16 Autos = Trophäe","16 cars = trophy")]];
 const HEISTT=[['store','🏪',L('Laden','Store')],['jewel','💎',L('Juwelier','Jeweler')],['bank','🏦',L('Bank','Bank')]];
 const HEISTSTEPS={
  base:[L('Fluchtwagen ohne GPS-Tracker besorgen (vorher mit WAINK scannen)','Get a getaway car without a GPS tracker (scan with WAINK first)'),L('Tank voll? Rockstar will, dass du an Sprit denkst','Full tank? Rockstar wants you thinking about fuel'),L('Ersatzoutfit in den Kofferraum','Spare outfit in the trunk'),L('Maske VOR der Tat aufsetzen','Mask on BEFORE the crime'),L('Hinterausgang & Kameras checken','Check the back exit & cameras'),L('Niemanden töten → Criminal Profile steigt','Kill no one → Criminal Profile goes up')],
@@ -2969,6 +3019,7 @@ function pgCats(){const p=getPlan();const C=store.get('coll',{});const cg=store.
  const out=COLL.filter(c=>typeof c[3]==='number').map(c=>({ic:c[1],l:c[2],n:Math.min(C[c[0]]||0,c[3]),t:c[3],go:'map',h:c[4]}));
  try{out.push({ic:'🎮',l:L('Cheats freigeschaltet','Cheats unlocked'),n:CHEATS.filter(c=>cg[c[0]]).length,t:CHEATS.length,go:'tips'})}catch(e){}
  try{out.push({ic:'🎉',l:L('Aktivitäten erledigt','Activities done'),n:ACTV.filter(a=>p[a[0]]==='done').length,t:ACTV.length,go:'acts'})}catch(e){}
+ try{const st=storyStats();out.push({ic:'🎬',l:L('Story-Missionen','Story missions'),n:st.d,t:st.t,go:'missions'});const sd=store.get('sdone',{});out.push({ic:'🎭',l:L('Nebenquest-Reihen','Side questlines'),n:SIDEQ.filter(q=>sd[q.id]).length,t:SIDEQ.length,go:'missions'})}catch(e){}
  out.push({ic:'🏎️',l:L('Fahrzeuge abgehakt','Vehicles ticked'),n:CARS.filter(c=>done['car:'+c[0]]).length,t:CARS.length,go:'garage'});
  return out}
 function renderProg(){const box=$('#progBox');if(!box)return;const cs=pgCats();
@@ -3410,10 +3461,186 @@ function renderGuns(){
 }
 
 /* missions */
-function renderMissions(){
- $('#missions').innerHTML=MISSIONS.map(m=>{const ch=m[4]||0;const locked=SET.spoil===0||(SET.chapter>0&&ch>SET.chapter);const body=locked?`<div class="lock">${ch&&SET.chapter>0&&ch>SET.chapter?T(L('🔒 Ab Kapitel ','🔒 From chapter '))+ch:T(UI.spoilLock)}</div>`:`<div class="tx ${SET.spoil===1?'spoil':''}">${T(m[2])}</div>`;return `<div class="card item"><div class="top"><div class="ico">${m[0]}</div><div class="ttl">${T(m[1])}</div><span class="sp"></span>${badge(m[3])}</div>${body}</div>`}).join('');
- $('#missions').querySelectorAll('.spoil').forEach(s=>s.onclick=()=>s.classList.add('show'));
- renderKanban();renderHeist();
+const STORY=[
+{n:0,t:"Prologue",img:"Lucia_Caminos_01",m:[["Prologue",L("Eine Gefängnisberaterin geht mit Lucia ihre Festnahme und ihre Chancen auf Bewährung durch.","A prison counselor goes over Lucia’s arrest and her parole chances."),"",null]]},
+{n:1,t:"Just Like Paradise",img:"Leonida_Keys_01",m:[["Gone Fishing",L("Cals und Donnies Schmuggeltour geht schief – Jason landet mitten im Kingfisher-Gebiet in Pelican Valley.","Cal and Donnie’s contraband run falls apart, dropping Jason into Kingfisher turf."),"",null],
+ ["Gear Up",L("Jason holt sich bei Ammu-Nation eine neue Langwaffe.","Jason buys a new long gun at Ammu-Nation."),"",L("Waffenläden & Loadout","Gun shops & loadout")],
+ ["Unwanted Attention",L("Jason und Cal wollen Schulden auf einem Abschlepphof in Hamlet eintreiben.","Jason and Cal try to collect a debt at an impound lot in Hamlet."),"",L("Pay ’n’ Spray & Polizeifunk","Pay ’n’ Spray & cop scanner")],
+ ["Lab Fees",L("Mieteintreiben in einem Souvenirladen, der mehr verbirgt als Postkarten.","Rent pickup at a souvenir shop that hides something else."),"",L("Brians Lager als Abgabestelle","Brian’s lockup drop-off")],
+ ["Pipework",L("Ein Besuch bei Mieterin Mandy wird zum Klempner-Job.","A visit to tenant Mandy turns into a plumbing job."),"",null],
+ ["Just a Scratch",L("Joey flickt Jasons ramponierten Ganado.","Joey patches up Jason’s battered Ganado."),"",null],
+ ["Get Shirley’s Rum",L("Nachbarin Shirley will Rum aus dem Laden.","Neighbor Shirley wants rum from the store."),"om",null],
+ ["Steal the Scooter",L("Shirley heckt einen Plan mit dem Elektromobil eines Nachbarn aus.","Shirley schemes over a neighbor’s mobility scooter."),"om",null],
+ ["Hey Arnold!",L("Brians Makler Arnold ist abgetaucht und muss gefunden werden.","Brian’s broker Arnold has gone dark and needs finding."),"",null],
+ ["Island Dreams",L("Jason taucht mit einem Junggesellenabschied zu einem Wrack und sucht einen Schatz.","Jason dives a wreck with a bachelor party, hunting treasure."),"",null],
+ ["Feng Shui",L("Jason und Cal räumen das Haus um, bevor Lucia kommt.","Jason and Cal rearrange the house before Lucia arrives."),"",null],
+ ["Pick Up Groceries",L("Einkäufe holen und heimbringen, bevor Lucia da ist.","Get groceries home before Lucia arrives."),"o",null],
+ ["Buy Flowers",L("Blumen für Lucia liefern lassen.","Have flowers delivered for Lucia."),"o",null],
+ ["Buy Lucia a Necklace",L("Eine Kette als Geschenk bei The Siren’s Chest kaufen.","Buy a gift necklace at The Siren’s Chest."),"o",null],
+ ["Get The Chop",L("Haare oder Bart bei Barnacle Beauties.","Haircut or beard trim at Barnacle Beauties."),"o",null],
+ ["Get Lucia’s Clothes",L("Lucias Kleidung bei Andy in Manatee’s Rest abholen.","Pick up Lucia’s clothes from Andy at Manatee’s Rest."),"o",null],
+ ["Catch a Bigger Fish",L("Cal wettet, dass Jason keinen dicken Papageifisch fängt.","Cal bets Jason can’t land a big parrotfish."),"o",null],
+ ["Coming Home",L("Lucia kommt raus – Jason holt sie ab.","Lucia gets out and Jason picks her up."),"",null],
+ ["Clean Up After Donnie",L("Dem Signal eines Pakets folgen, das Donnie verloren hat.","Track the signal of a package Donnie lost."),"",null],
+ ["Buck Me",L("Bei Fleeca ein Konto für Lucias Arbeitslohn eröffnen.","Open an account at Fleeca for Lucia’s work wages."),"",null],
+ ["Down to Earth",L("Brian hat einen Job an der Marina – Lucia will mit.","Brian has a marina job and Lucia wants in."),"",null],
+ ["Meditate with Lucia",L("Ein ruhiger Moment mit Lucia im Haus.","A calm moment with Lucia at the house."),"om",null],
+ ["Find the Lost Drugs",L("Signalen zu vier Stellen im Sumpf folgen.","Follow signals to four swamp spots."),"o",null],
+ ["Deposit Cash Into BuckMe",L("Bargeld am Automaten aufs BuckMe-Konto einzahlen.","Deposit cash into BuckMe at any ATM."),"",null],
+ ["Save for the Future",L("Familien-Ersparnisse aufbauen und BuckMe-Belohnungen freischalten.","Grow Family Savings to unlock BuckMe rewards."),"",null],
+ ["Day Release",L("Kat und Mattia nehmen die beiden mit auf eine Party-Tour ab dem Rusty Anchor.","Kat and Mattia take the pair on a party day from the Rusty Anchor."),"",null],
+ ["Clock Out",L("Lucia vor 16 Uhr früher heimfahren.","Drive Lucia home early, before 4pm."),"o",null],
+ ["Clear Skies",L("Ein Southwind-Job von Brian mit Donnie.","A Southwind job from Brian with Donnie."),"",null],
+ ["Building a Life",L("Am neuen Zuhause arbeiten – Jason bringt Lucia das Schießen bei.","Work on the new home; Jason teaches Lucia to shoot."),"",null],
+ ["Ring the Bell!",L("Cals Kneipenabend im Rusty Anchor – Jason bringt ihn heim.","Cal’s bar night at the Rusty Anchor; Jason gets him home."),"om",null],
+ ["Swamped",L("Mit Brian an der Marina vor einer Kingfisher-Tour.","Meet Brian at the marina before a Kingfisher run."),"",null],
+ ["Don Gone",L("Donnies Wohnwagen in Key Lento ausräumen.","Clear out Donnie’s Key Lento trailer."),"",null],
+ ["Donnie’s Lost Drugs",L("Drogen aus Donnies Bootswrack bei Corsair Key bergen.","Salvage drugs from Donnie’s wrecked boat near Corsair Key."),"o",null],
+ ["Recalibration",L("Cal aufmuntern.","Cheer Cal up."),"",null],
+ ["Tourist Trap",L("Mattia bietet einen „leichten“ Job mit Aussicht auf mehr.","Mattia pitches an “easy” gig with bigger paydays ahead."),"",null],
+ ["Home Sweet Home",L("Lucia holt Jasons Sachen aus dem Haus.","Lucia grabs Jason’s things from the house."),"",null],
+ ["Discharge Time",L("Lucias Besuch im Vice City Hospital läuft aus dem Ruder.","Lucia’s trip to Vice City Hospital goes badly."),"",null]]},
+{n:2,t:"Paradise Lost",img:"Port_Gellhorn_01",m:[["What’s in the Bag?",L("Ein Motelmorgen in Port Gellhorn – was ist in der Tasche?","A Port Gellhorn motel morning: what’s in the bag?"),"",null],
+ ["Ambulance Chaser",L("Lucia muss den Flucht-Krankenwagen loswerden.","Lucia has to dump the getaway ambulance."),"",null],
+ ["Play Nurse",L("Lucia kümmert sich im Motel um Jason.","Lucia looks after Jason at the motel."),"",null],
+ ["Overnight Charges",L("An der Rezeption klären, was das Zimmer kostet.","Find out at reception what the room costs."),"",null],
+ ["Just Moved In",L("Im Alpha-Markt am Motel einkaufen.","Stock up at the Alpha store by the motel."),"",null],
+ ["Girls’ Trip",L("Lucia sucht im Motel Schmerzmittel für Jason.","Lucia hunts the motel for Jason’s painkillers."),"",null],
+ ["Pick Up a Gun",L("Eine Waffe bei Gellhorn Outfitters oder aus dem Spind holen.","Get a gun from Gellhorn Outfitters or your locker."),"o",null],
+ ["Moses",L("Mechaniker Moses besorgt Lucia einen fahrbaren Untersatz.","Mechanic Moses sets Lucia up with wheels."),"",L("Fahrzeuge bei Moses verkaufen & anmelden","Sell & register vehicles at Moses")],
+ ["New Look",L("Neuer Style im Pearl House Hair Salon.","A fresh style at Pearl House Hair Salon."),"",null],
+ ["How Do I Look?",L("Lucia einkleiden – teuer oder günstig bei Bargain World.","Outfit Lucia, full price or cheap at Bargain World."),"",null],
+ ["Got Pills?",L("Auf Dunks Anruf wegen der Schmerzmittel warten.","Wait for Dunk’s call about painkillers."),"",null],
+ ["Daily Driver",L("Moses schickt Lucia, einen ’82 Canis Crawler zurückzuholen.","Moses sends Lucia to repo an ’82 Canis Crawler."),"",L("Garagen (gratis Garage Port Gellhorn Station)","Garages (free Port Gellhorn Station garage)")],
+ ["Behind on Payments",L("Linda behält die Kette, bis 900 $ Motelschulden bezahlt sind.","Linda keeps the necklace until the $900 motel tab is paid."),"",null],
+ ["Slam Dunk",L("Dunk hat einen Plan für stärkere Schmerzmittel.","Dunk has a plan for stronger painkillers."),"",null],
+ ["Breakfast Run",L("Zurück ins Motel und nach Jason sehen.","Back to the motel to check on Jason."),"",null],
+ ["Coffee Break",L("Nach ein paar Überfällen beim Kaffee den nächsten Schritt planen.","After a few robberies, plan the next step over coffee."),"",null],
+ ["Thrillbillies",L("Der Thrillbilly Mud Club zahlt für dreckige Rennen.","The Thrillbilly Mud Club pays for muddy racing."),"o",null],
+ ["Twist Wrist, Smash, Grab",L("Billy braucht noch jemanden für den nächsten Job seiner Crew.","Billy needs one more for his crew’s next job."),"o",null],
+ ["Hit Avery Pawn",L("Lucia schlägt vor, das Pfandhaus Avery Pawn auszurauben.","Lucia pitches robbing Avery Pawn."),"o",null],
+ ["Hit Kingpin Bowling",L("Die Bowlingbahn gehört jetzt Kolt & Associates – ein lohnendes Ziel.","Kolt & Associates now run the bowling alley – a prime target."),"o",null],
+ ["Impounded Vehicle",L("Lucias Auto vom Abschlepphof holen.","Get Lucia’s car back from the impound lot."),"o",null],
+ ["Prepare for Vice City",L("Mindestens 15.000 $ zusammenbringen, während Dre’Quan eine Wohnung sucht.","Raise at least $15k while Dre’Quan finds a place."),"",null],
+ ["Afternoon Delight",L("Vickis Plan: ihren Chef im Delights ausrauben und teilen.","Vicki’s plan: rob her boss at Delights and split it."),"",null],
+ ["Checking Out",L("Auschecken und los zu Dre’Quan.","Check out and head to Dre’Quan."),"",null]]},
+{n:3,t:"Tits Ass Drug Money",img:"Vice_City_01",m:[["Welcome to Vice City",L("Ankunft in Vice City – Wiedersehen mit Dre’Quan.","Arrival in Vice City and a reunion with Dre’Quan."),"",null],
+ ["Dealer’s Choice",L("Jasons Wohnungsschulden bei Boobie heißen: Drogenfahrt mit Dre’Quan.","Jason’s rent debt to Boobie means a drug run with Dre’Quan."),"",null],
+ ["Meet the Heders",L("Doppel-Date mit Brian und Lori Heder.","A night out with Brian and Lori Heder."),"",null],
+ ["Dubious Provenance",L("Ein Antiquitätenhändler in Capri schätzt eine Statue fragwürdiger Herkunft.","A Capri antique dealer appraises a statue of dubious origin."),"",null],
+ ["Mami Knows Best",L("Lucia besucht Mia, die gerade als Maklerin anfängt.","Lucia visits Mia, new to real estate."),"",null],
+ ["Get Your Wheels",L("In Vice City ein Fahrzeug abholen.","Pick up a vehicle in Vice City."),"o",null],
+ ["Here, Kitty Kitty",L("Ein Besuch bei Tyrone wird zur Suche nach einem „Charles“.","A visit to Tyrone turns into a search for “Charles”."),"",null],
+ ["Send Money to Lorena",L("Geld an Lorena überweisen.","Wire money to Lorena."),"",null],
+ ["Car Service",L("Lucia klaut ein Auto für Raul.","Lucia steals a car for Raul."),"",null],
+ ["Send More Money to Lorena",L("Die nächste Überweisung an Lorena ist fällig.","Another transfer to Lorena is due."),"",null],
+ ["Top Billing",L("Zu dritt zur Show der Real Dimez.","The trio catches a Real Dimez show."),"",null],
+ ["Boobie Time",L("Jason chauffiert Boobie durch die Stadt.","Jason chauffeurs Boobie around town."),"",null],
+ ["Yasmani’s Jewelry Jobs",L("Mehrere Juwelierüberfälle – Yasmani kauft die Beute.","Several jewelry heists, with Yasmani buying the haul."),"o",null],
+ ["First Impressions",L("Das erste Treffen mit Raul.","The first meeting with Raul."),"",null],
+ ["Caught Slipping",L("Einen laufenden Einbruch vereiteln.","Foil a break-in in progress."),"",null],
+ ["Crosstown Traffic",L("Lucia beschattet ein Gangmitglied, Jason trifft Karim.","Lucia tails a gang member while Jason meets Karim."),"",null],
+ ["Credit Check",L("Raul stellt in seinem Versteck die Crew vor.","Raul introduces his crew at his base."),"",null],
+ ["Steal the Zorrusso for Randy",L("Einen Luxus-Zorrusso für Randy stehlen.","Steal a luxury Zorrusso for Randy."),"",null],
+ ["Race Against Yago",L("Ein Duell gegen Yago – nur für kurze Zeit verfügbar.","A head-to-head with Yago – only available briefly."),"om",null],
+ ["Sinfrontera National Bank",L("Die Sinfrontera-Bank auskundschaften – der Coup beginnt.","Case the Sinfrontera bank as heist prep begins."),"",null],
+ ["Security Expert",L("Einen Sicherheitsexperten für den Coup befragen.","Consult a security expert for the heist."),"",null],
+ ["Heist Planning",L("Raul stellt sein Team auf, die Vorbereitungen stapeln sich.","Raul builds his team as prep tasks pile up."),"",null],
+ ["Ride or Die",L("Dre’Quan den Rücken freihalten.","Back up Dre’Quan."),"",null],
+ ["Company Property",L("Mit Brian eine Waffenlieferung erledigen.","Handle an arms delivery with Brian."),"",null],
+ ["The Missing Link",L("Andreas Spur endet bei einem Hahnenkampf.","Andrea’s lead ends at a cockfight."),"",null],
+ ["Safe Word",L("Einen Übungstresor klauen und einen neuen Trick lernen.","Steal a practice safe and learn a new trick."),"",null],
+ ["Cooties",L("Lucia arbeitet bei einem Musikvideo-Dreh.","Lucia works a music video shoot."),"",null],
+ ["South Leonida Real Estate",L("Wiedersehen mit Mia – und Ärger mit der M7-Gang.","Lucia reconnects with Mia as M7 trouble returns."),"",null],
+ ["Pick Up Shayna",L("Eine Mitfahrerin rechtzeitig abholen.","Pick up a passenger before the deadline."),"om",null],
+ ["Bricked Up",L("Kleine Jobs für Boobie.","Odd jobs for Boobie."),"",null],
+ ["Hidden Charges",L("Sprengsätze für den Coup vorbereiten.","Rig explosives for the job."),"",null],
+ ["The Cartel Heist",L("Der Banküberfall.","The bank robbery."),"",null]]},
+{n:4,t:"Vice City, Baby",img:"Raul_Bautista_01",m:[["Ocean Beach",L("Eine Basis in Ocean Beach einrichten.","Set up a base in Ocean Beach."),"",null],
+ ["Another Life",L("Lucia denkt an früher.","Lucia looks back on earlier years."),"",null],
+ ["Pool Day",L("Ein entspannter Nachmittag am Pool.","A lazy afternoon by the pool."),"",null],
+ ["Attend Eddie Acosta’s Party",L("Einladung zu Eddie Acostas Party.","An invite to Eddie Acosta’s bash."),"o",null],
+ ["Company Cars",L("Neue Wagen für die Crew holen.","Collect new rides for the crew."),"",null],
+ ["Lawyer Up",L("Termin bei Anwalt Abe Gonzalez.","Sit down with lawyer Abe Gonzalez."),"",null],
+ ["Party Hard",L("Bodyguard für einen berühmten Kunden.","Bodyguard a famous client."),"",null],
+ ["Heavy Lifting",L("Eine schwere Ladung wartet.","A heavy cargo drop awaits."),"",null],
+ ["It’s a Date!",L("Ein Abend als Paar.","A night out as a couple."),"o",null],
+ ["Photo/Shoot",L("Promo-Fotoshooting zu dritt.","A promo photo shoot with the trio."),"",null],
+ ["Bad Driver!",L("Einen Mann namens Felipe finden.","Find a man named Felipe."),"o",null],
+ ["Making Gainz",L("Rauls Plan schickt Lucia ins Gym, um einen Kontakt zu knüpfen.","Raul’s plan sends Lucia to the gym to make a contact."),"",null],
+ ["Too Much Baggage",L("Den Flughafen auskundschaften und Gepäck erledigen.","Scout the airport and handle luggage."),"",null],
+ ["Watch It",L("Treffen mit einem Clubbesitzer.","Meet a nightclub owner."),"",null],
+ ["Cash Injections",L("Lucia verbringt Zeit mit Nate.","Lucia spends time with Nate."),"",null],
+ ["Amateur Hour",L("Cisco gegen einen Regisseur unterstützen.","Back up Cisco against a director."),"",null],
+ ["Dirty Work",L("Raina erledigen und neue Türen öffnen.","Handle Raina and open new doors."),"",null],
+ ["Adventures in Babysitting",L("Security-Schicht im Club für Andrés.","A club security shift for Andrés."),"",null],
+ ["Fresh Evidence",L("Belastendes Material als Druckmittel suchen.","Hunt compromising material for leverage."),"",null],
+ ["Power Play",L("Kordells Crew helfen und Infos sammeln.","Help Kordell’s crew and gather intel."),"",null],
+ ["Child’s Play",L("Ärger um Rafa – die beiden helfen einem Kontakt.","Trouble around Rafa pulls the pair in."),"",null],
+ ["Headliners",L("Die Dimez bei der VYB-Launch-Party unterstützen.","Back the Dimez at the VYB launch party."),"",null],
+ ["Close Surveillance",L("Per Drohne eine Gruppe Bodybuilder beobachten.","Drone-watch a group of bodybuilders."),"",null],
+ ["Delivery Method",L("Undercover für Andrea.","Undercover work for Andrea."),"",null],
+ ["Team Building",L("Lucia verdient sich ihren Platz bei Kordell.","Lucia earns her place with Kordell."),"",null],
+ ["Fully Catered",L("Einen Catering-Wagen kapern.","Hijack a catering van."),"",null],
+ ["VCIA Takedown",L("Der Flughafen-Coup beginnt.","The airport heist kicks off."),"",null],
+ ["Tie Up Loose Ends",L("Nach dem Coup auf Nachricht zur Festplatte warten.","Wait for word on the hard drive after the heist."),"",null],
+ ["That’s Where the Money Is…",L("Yasmanis Tipp zu einem Geldtransporter führt zu einem Tresor.","Yasmani’s armored-van lead hints at a vault."),"o",null],
+ ["Sunset",L("Auf der Suche nach Antworten.","Searching for answers."),"",null],
+ ["Starting From Zero",L("Die letzte Mission von Kapitel 4.","The closing mission of Chapter 4."),"",null]]},
+{n:5,t:"Top of the World, Ma",img:"Jason_and_Lucia_01",m:[["Bird in the Hand",L("Ein frisches Fahrzeug stehlen.","Steal a fresh vehicle."),"",null],
+ ["Taking Liberties",L("Ein neuer Plan nimmt Form an.","A new scheme takes shape."),"",null],
+ ["Doggie Bag",L("Vinny startet eine Jagd nach Schmuggelware.","Vinny kicks off a contraband hunt."),"",null],
+ ["VC Baby",L("Mattia braucht Hilfe.","Mattia needs help."),"",null],
+ ["Operation Savage Glory",L("Eine wertvolle Lieferung sichern.","Secure a high-value shipment."),"",null],
+ ["Honest Abe",L("Mit Abe verhandeln.","Bargain with Abe."),"",null],
+ ["Unfinished Business",L("Entscheidung: den Verkauf der Festplatte durchziehen oder Abes Angebot annehmen.","Decide: finish the drive sale or take Abe’s offer."),"",null],
+ ["Protective Custody",L("Jason und Lucia gemeinsam.","Jason and Lucia team up."),"",null],
+ ["The End of the Road",L("Die letzte Story-Mission.","The final story mission."),"",null]]}];
+const SIDEQ=[
+{id:"kirk",g:"Kirk",c:1,who:L("Beide","Either"),night:1,miss:0,cnt:"y",rew:L("Bargeld","Cash"),m:L("Search for the Skunk Ape · Search for Tree Effigies · Help Kirk Find Mr. Mangrove","Search for the Skunk Ape · Search for Tree Effigies · Help Kirk Find Mr. Mangrove"),st:L("Skunk-Ape-Flyer in Key Lento (z. B. Skeeter’s Bar in Hamlet), Kirk anrufen, Treffen in Pelican Valley","Skunk Ape flyers in Key Lento (e.g. Skeeter’s bar in Hamlet), call Kirk, meet in Pelican Valley"),img:"Grassrivers_01",note:L("Erste und letzte Mission nur nachts; die Kette endet erst ab Kapitel 2.","First and last missions are night only; the chain can’t finish before Chapter 2.")},
+{id:"kenton",g:"Kenton Rees",c:1,who:L("Beide","Either"),night:0,miss:0,cnt:"?",rew:L("Geld pro Set · Trophäe nach 7 Sets","Cash per set · trophy after 7 sets"),m:L("Search the Dive Sites","Search the Dive Sites"),st:L("Tauchshop in Key Lento, nach „Island Dreams“","Dive shop in Key Lento, after “Island Dreams”"),img:"Leonida_Keys_02",note:null},
+{id:"shirley",g:"Shirley",c:1,who:L("Beide","Either"),night:0,miss:1,cnt:"n",rew:L("Verstecktes Geld (ca. 1.300 $)","Hidden stash (about $1,300)"),m:L("Get Shirley’s Rum · Steal the Scooter","Get Shirley’s Rum · Steal the Scooter"),st:L("Jasons Nachbarin in den Keys","Jason’s neighbor in the Keys"),img:"Leonida_Keys_03",note:L("Nur in Kapitel 1 – laut einem Guide weg nach „Tourist Trap“.","Chapter 1 only – one guide says they close after “Tourist Trap”.")},
+{id:"kyle",g:"Kyle McKittrick",c:2,who:L("Beide","Either"),night:0,miss:0,cnt:"y",rew:L("Schichtlohn aufs BuckMe-Konto","A shift’s pay into BuckMe"),m:L("Check Out McKittrick Farm · Collect Chemicals for Kyle · Buddy?","Check Out McKittrick Farm · Collect Chemicals for Kyle · Buddy?"),st:L("Pilotenjob-Flyer, dann McKittrick Farm in Kelly County","Pilot job flyer, then McKittrick Farm in Kelly County"),img:"Ambrosia_01",note:L("Taucht im Story-Menü zuerst als „Investigate the Pilot“ auf. Letzte Mission erst in Kapitel 3.","First shows up as “Investigate the Pilot”. Last mission in Chapter 3.")},
+{id:"billy",g:"Billy",c:2,who:L("Beide","Either"),night:0,miss:0,cnt:"n",rew:L("Preisgeld · Trophäe „The Lone Rider“","Prize money · “The Lone Rider” trophy"),m:L("Thrillbillies · Twist Wrist, Smash, Grab · Mall Rats · The Impaler · Hometown Heroes","Thrillbillies · Twist Wrist, Smash, Grab · Mall Rats · The Impaler · Hometown Heroes"),st:L("Thrillbilly Mud Club, Kelly County","Thrillbilly Mud Club, Kelly County"),img:"Port_Gellhorn_02",note:null},
+{id:"moses",g:"Moses",c:2,who:L("Beide","Either"),night:0,miss:0,cnt:"n",rew:L("Hehlergeld · App „Scooter Bros“","Fence cash · Scooter Bros app"),m:L("Steal Vehicles for Moses","Steal Vehicles for Moses"),st:L("Moses’ Werkstatt in Port Gellhorn","Moses’ garage in Port Gellhorn"),img:"Port_Gellhorn_03",note:null},
+{id:"bret",g:"Bret Vogel",c:2,who:L("Nur Jason","Jason only"),night:0,miss:0,cnt:"?",rew:L("Jagdgewehr · 15 Target Decks · Trophäe „Fair Game“","Hunting rifle · 15 Target Decks · “Fair Game” trophy"),m:L("Veteran Hunted · Bret’s Hunting Decks","Veteran Hunted · Bret’s Hunting Decks"),st:L("SMS nach „Coffee Break“, Lummox County","Text after “Coffee Break”, Lummox County"),img:"Mount_Kalaga_National_Park_01",note:null},
+{id:"yasmani",g:"Yasmani",c:3,who:L("Beide","Either"),night:0,miss:0,cnt:"n",rew:L("Raubwerkzeug & Hehler","Robbery tools & a fence"),m:L("Yasmani’s Jewelry Jobs","Yasmani’s Jewelry Jobs"),st:L("Per Telefon nach dem Umzug nach Vice City","By phone after the move to Vice City"),img:"Vice_City_02",note:null},
+{id:"tyrone",g:"Tyrone",c:3,who:L("Nur Jason","Jason only"),night:0,miss:0,cnt:"n",rew:L("Trophäe „Spin On This!“","“Spin On This!” trophy"),m:L("Take Out Kitty Litter · Spin On This","Take Out Kitty Litter · Spin On This"),st:L("Nach „Here, Kitty Kitty“, Labore in ganz Vice City","After “Here, Kitty Kitty”, labs across Vice City"),img:"Vice_City_05",note:null},
+{id:"randy",g:"Randy",c:3,who:L("Beide","Either"),night:0,miss:0,cnt:"?",rew:L("Key Cloner · oft zehntausende $ pro Auto · Trophäe nach 16 Autos","Key Cloner · often tens of thousands per car · trophy after 16 cars"),m:L("Randy’s Wish List","Randy’s Wish List"),st:L("Randys Garage im Westen von Vice City","Randy’s garage in west Vice City"),img:"Vice_City_03",note:null},
+{id:"yago",g:"Yago",c:3,who:L("Nur Jason (1. Rennen: beide)","Jason only (first race: either)"),night:0,miss:1,cnt:"y",rew:L("Preisgeld","Race cash"),m:L("Race Against Yago · Join a Street Race · Bumper to Bumper","Race Against Yago · Join a Street Race · Bumper to Bumper"),st:L("Hit ’n’ Run VC in Salton","Hit ’n’ Run VC in Salton"),img:"Vice_City_06",note:L("„Race Against Yago“ ist zeitlich begrenzt – sofort machen!","“Race Against Yago” is timed – do it right away!")},
+{id:"andy",g:"Andy",c:3,who:L("Nur Lucia","Lucia only"),night:0,miss:0,cnt:"n",rew:L("Trophäe „Road to Rehabilitation“","“Road to Rehabilitation” trophy"),m:L("Climbing the Cellerichain (+ weitere Jobs)","Climbing the Cellerichain (+ more jobs)"),st:L("Anruf & SMS an Lucia in Belville","Call and text to Lucia in Belville"),img:"Lucia_Caminos_02",note:null},
+{id:"pete",g:"Pilot Pete",c:4,who:L("Nur Jason","Jason only"),night:0,miss:0,cnt:"y",rew:L("Zählt für die Trophäe","Counts toward the trophy"),m:L("The Last Mile: Passing the Torch · Backseat Pilot · Pete’s Deliveries","The Last Mile: Passing the Torch · Backseat Pilot · Pete’s Deliveries"),st:L("Anruf an Jason, Flugfeld in Leonard County bei Sonnenuntergang","Call to Jason, airfield in Leonard County at sundown"),img:"Ambrosia_02",note:null},
+{id:"eddie",g:"Eddie Acosta",c:4,who:L("Beide","Either"),night:0,miss:0,cnt:"n",rew:L("Party-Einladung","Party invite"),m:L("Attend Eddie Acosta’s Party","Attend Eddie Acosta’s Party"),st:L("Einladung nach „Pool Day“","Invite after “Pool Day”"),img:"Vice_City_04",note:null}];
+
+const mDone=()=>store.get('mdone',{}),chLocked=n=>SET.chapter>0&&n>SET.chapter;
+function storyStats(){const D=mDone();let t=0,d=0;STORY.forEach(c=>c.m.forEach((m,i)=>{if(m[2].includes('o'))return;t++;if(D['c'+c.n+'-'+i])d++}));return{t,d}}
+function renderMissions(){const box=$('#missions');if(!box)return;box.className='story';const D=mDone();
+ const hide=SET.spoil===0,blur=SET.spoil===1;const st=storyStats();
+ const miss=[];STORY.forEach(c=>c.m.forEach((m,i)=>{if(m[2].includes('m')&&!chLocked(c.n)&&!D['c'+c.n+'-'+i])miss.push([c.n,m[0]])}));
+ let openN=-1;for(const c of STORY){if(chLocked(c.n))break;if(c.m.some((m,i)=>!m[2].includes('o')&&!D['c'+c.n+'-'+i])){openN=c.n;break}}
+ const top=`<div class="card stTop"><div class="row" style="gap:12px;flex-wrap:wrap"><div><div class="stBig">${st.d}<span>/${st.t}</span></div><div class="dim" style="font-size:12px">${T(L('Story-Missionen erledigt','story missions done'))}</div></div><div style="flex:1;min-width:160px"><div class="prog"><i style="width:${st.t?st.d/st.t*100:0}%"></i></div><div class="dim" style="font-size:12px;margin-top:6px">${T(L('5 Kapitel plus Prolog · rund 107 Haupt- und 27 optionale Einträge · laut Community-Guides','5 chapters plus prologue · about 107 main and 27 optional entries · per community guides'))} ${badge('rep')}</div></div></div>
+ ${miss.length?`<div class="stWarn"><b>⚠️ ${T(L('Verpassbar – vorher erledigen:','Missable – do these first:'))}</b> ${miss.map(x=>`<span>${T(L('Kap.','Ch.'))} ${x[0]} · ${esc(x[1])}</span>`).join('')}</div>`:''}
+ <div class="stLeg"><span class="tg o">${T(L('Optional','Optional'))}</span><span class="tg m">${T(L('Verpassbar','Missable'))}</span><span class="tg u">🔓 ${T(L('Schaltet frei','Unlocks'))}</span>${hide?`<span class="dim">· ${T(L('Spoiler-Schutz an: Beschreibungen versteckt','Spoiler guard on: descriptions hidden'))}</span>`:''}</div></div>`;
+ box.innerHTML=top+STORY.map(c=>{const lk=chLocked(c.n);const main=c.m.map((m,i)=>[m,i]).filter(x=>!x[0][2].includes('o'));const dn=main.filter(x=>D['c'+c.n+'-'+x[1]]).length;const f=rsFind(c.img);
+  const head=`<summary style="${f?`background-image:url('${rsu(f,1280)}')`:''}"><span class="cpy">© Rockstar Games · ${T(L('Szene','Scene'))}</span><div class="cn">${c.n?T(L('KAPITEL','CHAPTER'))+' '+c.n:T(L('PROLOG','PROLOGUE'))}</div><div class="ct">${lk?'🔒 '+T(L('Gesperrt','Locked')):esc(c.t)}</div><div class="cb"><div class="prog"><i style="width:${main.length?dn/main.length*100:0}%"></i></div><span>${dn}/${main.length}</span></div></summary>`;
+  const body=lk?`<div class="chLock">${T(L('Spoiler-Schutz: Kapitel '+c.n+' ist ausgeblendet.','Spoiler guard: chapter '+c.n+' is hidden.'))} <button class="ib" data-unl="${c.n}">${T(L('Bis Kapitel '+c.n+' freigeben','Unlock up to chapter '+c.n))}</button></div>`:
+   c.m.map((m,i)=>{const id='c'+c.n+'-'+i;const fl=m[2];return `<label class="mrow ${D[id]?'done':''} ${fl.includes('o')?'opt':''}"><input type="checkbox" data-mid="${id}" ${D[id]?'checked':''}><div class="mi"><div class="mt">${esc(m[0])}${fl.includes('o')?`<span class="tg o">${T(L('Optional','Optional'))}</span>`:''}${fl.includes('m')?`<span class="tg m">${T(L('Verpassbar','Missable'))}</span>`:''}</div>${hide?'':`<div class="md ${blur?'spoil':''}">${T(m[1])}</div>`}${m[3]?`<div class="tg u">🔓 ${T(m[3])}</div>`:''}</div></label>`}).join('');
+  return `<details class="chap" ${c.n===openN?'open':''}>${head}<div class="chBody">${body}</div></details>`}).join('');
+ box.querySelectorAll('.spoil').forEach(s=>s.onclick=e=>{e.preventDefault();s.classList.add('show')});
+ box.querySelectorAll('[data-mid]').forEach(i=>i.onchange=()=>{const D2=mDone();if(i.checked)D2[i.dataset.mid]=1;else delete D2[i.dataset.mid];store.set('mdone',D2);i.closest('.mrow').classList.toggle('done',i.checked);const c=i.closest('.chap');renderMissionsSoft(c)});
+ box.querySelectorAll('[data-unl]').forEach(b=>b.onclick=e=>{e.preventDefault();SET.chapter=+b.dataset.unl;saveSet();renderMissions();toast('🔓 '+T(L('Kapitel '+SET.chapter+' freigegeben','Chapter '+SET.chapter+' unlocked')))});
+ try{renderSideQ()}catch(e){console.warn(e)}
+ renderKanban();renderHeist();try{renderProg()}catch(e){}
+}
+function renderMissionsSoft(chEl){const open=[...document.querySelectorAll('#missions details.chap')].map(d=>d.open);const y=scrollY;renderMissions();document.querySelectorAll('#missions details.chap').forEach((d,i)=>d.open=open[i]);scrollTo(0,y)}
+function renderSideQ(){const box=$('#sideq');if(!box)return;const D=store.get('sdone',{});const n=SIDEQ.filter(q=>D[q.id]).length;
+ box.innerHTML=`<div class="card stTop"><div class="row" style="gap:12px;flex-wrap:wrap"><div><div class="stBig">${n}<span>/${SIDEQ.length}</span></div><div class="dim" style="font-size:12px">${T(L('Questreihen abgeschlossen','questlines done'))}</div></div><div class="dim" style="flex:1;min-width:180px;font-size:13px">${T(L('Für die Trophäe „Strangers & Freaks“ brauchst du 8 Questreihen. Sicher dazu zählen Kirk, Kyle, Yago und Pilot Pete (🏆). Weitere versteckte Stränge findest du nur beim Erkunden.','The Strangers & Freaks trophy needs 8 questlines. Kirk, Kyle, Yago and Pilot Pete are confirmed to count (🏆). More hidden strands turn up while exploring.'))} ${badge('rep')}</div></div></div>
+ <div class="sqGrid">${SIDEQ.map(q=>{const lk=chLocked(q.c);const f=rsFind(q.img);return `<div class="card sq ${D[q.id]?'done':''}"><div class="sqImg" style="${f?`background-image:url('${rsu(f,640)}')`:''}"><span>© Rockstar Games · ${T(L('Szene','Scene'))}</span><div class="sqG">${esc(q.g)}</div></div>
+  <div class="sqTags"><span>${T(L('Kap.','Ch.'))} ${q.c}</span><span>${T(q.who)}</span>${q.night?`<span>🌙 ${T(L('nachts','night'))}</span>`:''}${q.miss?`<span class="m">⚠️ ${T(L('verpassbar','missable'))}</span>`:''}${q.cnt==='y'?'<span class="y">🏆 S&F</span>':''}</div>
+  ${lk?`<div class="dim" style="font-size:13px">🔒 ${T(L('Ab Kapitel '+q.c+' – Spoiler-Schutz','From chapter '+q.c+' – spoiler guard'))}</div>`:`<div class="sqRow"><b>📍</b><span>${T(q.st)}</span></div><div class="sqRow"><b>📜</b><span class="${SET.spoil===1?'spoil':''}">${T(q.m)}</span></div><div class="sqRow"><b>💰</b><span>${T(q.rew)}</span></div>${q.note?`<div class="sqNote">💡 ${T(q.note)}</div>`:''}`}
+  <label class="sqDone"><input type="checkbox" data-sq="${q.id}" ${D[q.id]?'checked':''}> ${T(L('Questreihe abgeschlossen','Questline done'))}</label></div>`}).join('')}</div>`;
+ box.querySelectorAll('.spoil').forEach(s=>s.onclick=()=>s.classList.add('show'));
+ box.querySelectorAll('[data-sq]').forEach(i=>i.onchange=()=>{const D2=store.get('sdone',{});if(i.checked)D2[i.dataset.sq]=1;else delete D2[i.dataset.sq];store.set('sdone',D2);renderSideQ();try{renderProg()}catch(e){}});
 }
 
 function renderKanban(){
@@ -3627,7 +3854,7 @@ function renderSettings(){
  <div class="sgrp"><h4>${T(L('Sprache','Language'))}</h4><div class="seg"><button data-lang="de" class="${LANG==='de'?'on':''}">🇩🇪 Deutsch</button><button data-lang="en" class="${LANG==='en'?'on':''}">🇬🇧 English</button></div></div>
  <div class="sgrp"><h4>${T(L('Spoiler-Schutz','Spoiler shield'))}</h4><div class="dim">${T(L('Wie viel von Story und Leaks willst du sehen?','How much story and leak info do you want to see?'))}</div>${seg('spoil',[[0,L('🔒 Streng','🔒 Strict')],[1,L('👀 Normal','👀 Normal')],[2,L('🔓 Alles','🔓 Everything')]])}
   <div class="dim" style="margin-top:8px">${T([L('Story-Missionen, Figuren-Hintergründe und Leaks bleiben komplett verborgen.','Story missions, character backstories and leaks stay fully hidden.'),L('Story & Leaks sind unscharf und lassen sich antippen.','Story & leaks are blurred and can be tapped open.'),L('Alles offen.','Everything open.')][SET.spoil])}</div>
-  <div style="margin-top:12px"><b>${T(L('Mein Kapitel','My chapter'))}: <span id="chv">${SET.chapter||T(L('aus','off'))}</span></b><input type="range" min="0" max="12" value="${SET.chapter}" id="chR"><div class="dim">${T(L('Inhalte aus späteren Kapiteln werden ausgeblendet. Die Kapitel-Zuordnung trage ich nach Release nach – bisher ist nur der Prolog zugeordnet.','Content from later chapters is hidden. I’ll add chapter tags after launch – only the prologue is tagged so far.'))}</div></div></div>
+  <div style="margin-top:12px"><b>${T(L('Mein Kapitel','My chapter'))}: <span id="chv">${SET.chapter||T(L('aus','off'))}</span></b><input type="range" min="0" max="5" value="${SET.chapter}" id="chR"><div class="dim">${T(L('Inhalte aus späteren Kapiteln werden ausgeblendet. Die Kapitel-Zuordnung trage ich nach Release nach – bisher ist nur der Prolog zugeordnet.','Content from later chapters is hidden. I’ll add chapter tags after launch – only the prologue is tagged so far.'))}</div></div></div>
  <div class="sgrp"><h4>${T(L('Stimmung','Atmosphere'))}</h4><div class="dim">${T(L('Tageszeit des Stadt-Panoramas','Time of day of the city panorama'))}</div>${seg('tod',[[0,L('🕐 Auto','🕐 Auto')],[1,L('☀️ Tag','☀️ Day')],[2,L('🌅 Abend','🌅 Dusk')],[3,L('🌙 Nacht','🌙 Night')]])}
   <div class="dim" style="margin-top:10px">${T(L('Hurrikan-Wetter (Auto = wenn ein Sturm in den News ist)','Hurricane weather (Auto = when a storm is in the news)'))}</div>${seg('wx',[[0,L('Auto','Auto')],[1,L('🌧️ An','🌧️ On')],[2,L('Aus','Off')]])}
 </div>
@@ -4032,7 +4259,7 @@ function decorateOwn(){const M=ownMap();
 function decorateImages(){setTimeout(()=>{try{decorateOwn()}catch(e){}},0);
  try{document.querySelectorAll('#v-acts .card,#v-missions .card').forEach(c=>{if(c.querySelector('.tThumb'))return;const h=c.querySelector('.ttl,h4,b');if(!h)return;const k=h.textContent.trim();const f=(ACTIMG[k]&&rsEd(ACTIMG[k]))||(ACTIMG2[k]&&rsFind(ACTIMG2[k]));if(f)c.insertAdjacentHTML('afterbegin',`<div class="tThumb" style="background-image:url('${rsu(f,640)}')"><span>© Rockstar Games</span></div>`)})}catch(e){}
  document.querySelectorAll('#cars .tile,#guns .tile').forEach(t=>{if(t.querySelector('.tThumb'))return;const n=(t.querySelector('.ttl')||{}).textContent;const f=(CARIMG[n]&&rsEd(CARIMG[n]))||(CARIMG2[n]&&rsFind(CARIMG2[n]));if(f)t.insertAdjacentHTML('afterbegin',`<div class="tThumb" style="background-image:url('${rsu(f,640)}')"><span>© Rockstar Games${CARSCENE.has(n)?' · '+T(L('Szene','Scene')):''}</span></div>`)});
- [['v-missions','Jason_and_Lucia_Robbery_landscape','art'],['v-radio','Vice_City_13','shot'],['v-tips','Vice_City_09','shot']].forEach(([sec,key,kind])=>{const s=document.getElementById(sec);if(!s||s.querySelector('.secBanner'))return;const f=kind==='art'?rsArt(key):rsFind(key);if(!f)return;const lead=s.querySelector('.lead');if(lead)lead.insertAdjacentHTML('afterend',`<div class="secBanner" style="background-image:url('${rsu(f,1280)}')"><span>© Rockstar Games</span></div>`)})}
+ [['v-missions','Jason_and_Lucia_Robbery_landscape','art'],['v-radio','Vice_City_13','shot'],['v-tips','Vice_City_09','shot'],['v-news','Vice_City_14','shot'],['v-acts','Leonida_Keys_04','shot'],['v-arsenal','Jason_Duval_05','shot'],['v-secrets','Grassrivers_03','shot'],['v-editions','Jason_and_Lucia_03','shot'],['v-crew','Jason_and_Lucia_05','shot'],['v-garage','Vice_City_16','shot']].forEach(([sec,key,kind])=>{const s=document.getElementById(sec);if(!s||s.querySelector('.secBanner'))return;const f=kind==='art'?rsArt(key):rsFind(key);if(!f)return;const lead=s.querySelector('.lead');if(lead)lead.insertAdjacentHTML('afterend',`<div class="secBanner" style="background-image:url('${rsu(f,1280)}')"><span>© Rockstar Games</span></div>`)})}
 
 
 /* GTA series: budgets & team sizes. [year,title,cost,costBadge,[lo,hi] $M,team,teamBadge,teamN,devTime,note,url] */
