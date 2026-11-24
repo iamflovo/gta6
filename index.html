@@ -1429,6 +1429,113 @@ body.noanim .view.on .card,body.noanim .view.on .tile{animation:none!important}
 @keyframes h2Sweep{0%,60%{background-position:100% 0}100%{background-position:-50% 0}}
 @media (prefers-reduced-motion:reduce){.nwFeat::after,.nwFeat .k::before,.view.on h2.sec{animation:none!important}}
 body.noanim .nwFeat::after,body.noanim .nwFeat .k::before,body.noanim .view.on h2.sec{animation:none!important}
+
+/* ===== fix58: Startseite Next Level + News-Portal ===== */
+.liveStrip{display:inline-flex;align-items:center;gap:9px;margin:16px auto 4px;padding:8px 16px;border-radius:999px;background:rgba(11,4,24,.62);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font:600 12.5px/1 "Barlow Condensed",sans-serif;letter-spacing:1.4px;text-transform:uppercase;color:#fff}
+.liveStrip b{color:#ff3b5c;letter-spacing:2px}
+.liveStrip .dot{width:9px;height:9px;border-radius:50%;background:#ff3b5c;animation:livePulse 1.6s ease-out infinite}
+.liveStrip .sep{width:1px;height:12px;background:rgba(255,255,255,.3)}
+.heroDuo{margin:14px 0 6px;font:400 clamp(30px,9vw,64px)/1 Anton,Impact,sans-serif;letter-spacing:3px;background:linear-gradient(90deg,#22e7ff,#fff 45%,#ff2bd6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 22px rgba(255,43,214,.45))}
+.heroDuo i{font-style:normal;font-family:"Pacifico","Brush Script MT",cursive;-webkit-text-fill-color:#ffd23f;font-size:.7em;margin:0 .15em}
+@media(max-width:700px){.liveStrip .sep,.liveStrip span:last-child{display:none}}
+/* stories */
+.stories{margin:14px -16px 4px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.stories::-webkit-scrollbar{display:none}
+.stRow{display:flex;gap:14px;padding:4px 16px 8px;width:max-content}
+.sty{display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;color:#fff;width:72px}
+.sty .ring{position:relative;width:70px;height:70px;border-radius:50%;padding:3px;background:linear-gradient(135deg,rgba(255,255,255,.25),rgba(255,255,255,.08))}
+.sty.new .ring{background:conic-gradient(from var(--ang),#ff2bd6,#ffd23f,#22e7ff,#9b5cff,#ff2bd6);animation:angSpin 3.5s linear infinite}
+.sty .ph{display:block;width:100%;height:100%;border-radius:50%;border:3px solid #0b0418;background:linear-gradient(135deg,#3a0d5c,#ff2bd6) center/cover}
+.sty .ring i{position:absolute;right:-4px;top:-2px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:#ff3b5c;color:#fff;font:700 10.5px/20px Inter,sans-serif;font-style:normal;text-align:center;box-shadow:0 0 0 2px #0b0418}
+.sty .stl{font:600 11.5px/1.1 "Barlow Condensed",sans-serif;letter-spacing:.6px;text-transform:uppercase;color:var(--dim);text-align:center;white-space:nowrap}
+.sty:active .ring{transform:scale(.93)}
+.sty .ring{transition:transform .2s}
+@media(hover:hover){.sty:hover .ring{transform:scale(1.07)}.sty:hover .stl{color:#fff}}
+@media(min-width:1000px){.stories{margin:22px 0 6px}.stRow{padding:4px 0 8px}.sty{width:84px}.sty .ring{width:80px;height:80px}}
+/* section head */
+.homeHd{display:flex;align-items:center;gap:12px;margin:22px 0 10px;font:400 clamp(26px,6.5vw,38px)/1 Anton,Impact,sans-serif;letter-spacing:1px;text-transform:uppercase}
+.homeHd span{background:linear-gradient(90deg,#fff,var(--acc,#ff2bd6));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.homeHd::after{content:"";flex:1;height:2px;background:linear-gradient(90deg,var(--acc,#ff2bd6),transparent);border-radius:2px}
+/* bento */
+.bento{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px}
+.bn{position:relative;display:flex;align-items:flex-end;gap:10px;min-height:138px;padding:14px;border-radius:20px;overflow:hidden;text-decoration:none;color:#fff;isolation:isolate;border:1px solid rgba(255,255,255,.12);
+ background:linear-gradient(180deg,rgba(11,4,24,0) 30%,rgba(11,4,24,.92)),var(--bi) center/cover,linear-gradient(135deg,#3a0d5c,#170638);box-shadow:0 18px 40px -22px rgba(0,0,0,.9)}
+.bn::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(135deg,color-mix(in srgb,var(--acc,#ff2bd6) 30%,transparent),transparent 55%);opacity:.7;transition:opacity .3s}
+.bn.big{grid-column:1/-1;min-height:210px}
+.bnI{display:grid;place-items:center;width:38px;height:38px;flex:none;border-radius:12px;background:rgba(11,4,24,.55);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.bnI .ic{width:20px;height:20px;stroke:#fff}
+.bnT{display:flex;flex-direction:column;gap:2px;min-width:0}
+.bnT b{font:400 22px/1 Anton,Impact,sans-serif;letter-spacing:.6px;text-transform:uppercase;text-shadow:0 2px 12px rgba(0,0,0,.7)}
+.bn.big .bnT b{font-size:clamp(28px,7vw,40px)}
+.bnT small{font:600 12px/1.2 "Barlow Condensed",sans-serif;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.78)}
+.bnGo{margin-left:auto;align-self:flex-end;width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--pink),var(--acc2,#9b5cff));font-weight:800;box-shadow:0 0 18px -2px var(--pink);transition:transform .25s}
+@media(max-width:420px){.bn:not(.big) .bnGo{display:none}.bn:not(.big) .bnT b{font-size:19px}.bn:not(.big){flex-direction:column;align-items:flex-start}}
+@media(hover:hover){.bn{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;background-size:auto,108% auto,auto}.bn:hover{transform:translateY(-4px);box-shadow:0 26px 50px -20px color-mix(in srgb,var(--acc,#ff2bd6) 60%,transparent)}.bn:hover .bnGo{transform:translateX(4px) rotate(-8deg)}.bn:hover::before{opacity:1}}
+@media(min-width:1000px){.bento{grid-template-columns:repeat(4,1fr);grid-auto-rows:150px}.bn{min-height:0}.bn.big{grid-column:span 2;grid-row:span 2;min-height:0}}
+/* first hours */
+.firstHrs{margin:14px 0 4px;border-radius:18px;background:linear-gradient(165deg,rgba(25,245,193,.12),rgba(24,10,48,.94));border:1px solid rgba(25,245,193,.35);padding:4px 14px}
+.firstHrs summary{list-style:none;display:flex;align-items:center;gap:12px;padding:10px 0;cursor:pointer}
+.firstHrs summary::-webkit-details-marker{display:none}
+.firstHrs .ic{font-size:26px}
+.firstHrs summary b{display:block;font:400 22px/1 Anton,Impact,sans-serif;letter-spacing:.6px;color:var(--teal);text-transform:uppercase}
+.firstHrs summary small{color:var(--dim);font-size:12.5px}
+.firstHrs .chev{margin-left:auto;transition:transform .3s;color:var(--teal)}
+.firstHrs[open] .chev{transform:rotate(180deg)}
+.firstHrs ol{margin:0 0 12px;padding-left:20px;line-height:1.55}
+/* ---------- NEWS PORTAL ---------- */
+.nwPost .nwH,.nwRow b,.nwLead b{text-transform:none!important}
+.nwPost.lead .nwH{text-transform:uppercase!important}
+.nwFeat.hasImg .go{position:static!important;margin-top:10px;align-self:flex-start;display:inline-flex}
+.nwTop>.nwBreak{grid-column:1/-1}
+.stories+.hud{margin-top:8px!important}
+#v-news .secBanner{display:none}
+#v-news .nwAllH{margin-top:26px}
+.nwBreak{display:flex;align-items:stretch;margin:0 0 12px;border-radius:12px;overflow:hidden;background:#12061f;border:1px solid rgba(255,59,92,.45);box-shadow:0 0 24px -10px #ff3b5c}
+.nwBreak .lbl{flex:none;display:flex;align-items:center;gap:7px;padding:0 12px;background:linear-gradient(90deg,#ff1f4b,#ff3b8a);font:700 12.5px/1 "Barlow Condensed",sans-serif;letter-spacing:1.6px;text-transform:uppercase;color:#fff}
+.nwBreak .lbl::before{content:"";width:8px;height:8px;border-radius:50%;background:#fff;animation:blinkB 1s steps(2) infinite}
+@keyframes blinkB{50%{opacity:.2}}
+.nwBreak .mq{flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.nwBreak .mqi{display:inline-flex;white-space:nowrap;gap:34px;padding:10px 0;animation:tick 60s linear infinite}
+.nwBreak .mqi span{font-size:13.5px;font-weight:600}
+.nwBreak .mqi b{color:var(--sun);margin-right:8px;font:700 11.5px/1 "Barlow Condensed",sans-serif;letter-spacing:1px;text-transform:uppercase}
+.brk{display:inline-block;margin-right:8px;padding:3px 8px;border-radius:5px;background:#ff1f4b;color:#fff;font:700 11px/1.2 "Barlow Condensed",sans-serif;letter-spacing:1.4px;text-transform:uppercase;box-shadow:0 0 14px -2px #ff1f4b}
+.nwFeat.hasImg{min-height:clamp(300px,52vw,440px)!important;display:flex!important;flex-direction:column;justify-content:flex-end}
+.nwFeat.hasImg h4{font-size:clamp(28px,6.6vw,48px)!important;line-height:1.02!important;text-shadow:0 3px 18px rgba(0,0,0,.8)}
+.nwFeat.hasImg p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;max-width:760px}
+.nwFeat .k::before{display:none!important}
+.nwSideH{font:400 20px/1 Anton,Impact,sans-serif;letter-spacing:.8px;text-transform:uppercase;margin:4px 0 8px;color:#fff}
+.nwRow{display:grid!important;grid-template-columns:104px 1fr;gap:12px;align-items:center;padding:8px!important}
+.nwTh{position:relative;aspect-ratio:16/10;border-radius:10px;background:linear-gradient(135deg,#3a0d5c,#ff2bd6 140%) center/cover;overflow:hidden}
+.nwTh em{position:absolute;left:5px;bottom:4px;font:600 8.5px/1 Inter,sans-serif;font-style:normal;letter-spacing:.3px;color:rgba(255,255,255,.75);background:rgba(0,0,0,.45);padding:2px 4px;border-radius:3px}
+.nwRb{min-width:0;display:flex;flex-direction:column;gap:5px}
+.nwRow b{font:700 15px/1.25 Inter,sans-serif;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.nwList{display:grid!important;grid-template-columns:1fr!important;gap:0!important;border-radius:18px;overflow:hidden;background:linear-gradient(165deg,rgba(42,22,82,.55),rgba(24,10,48,.75));border:1px solid rgba(255,255,255,.08)}
+.nwDayH{position:relative;padding:10px 14px;background:rgba(16,6,34,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);font:700 12.5px/1 "Barlow Condensed",sans-serif;letter-spacing:1.6px;text-transform:uppercase;color:var(--acc,#ff2bd6)}
+.nwPost{display:grid!important;grid-template-columns:124px 1fr;gap:14px;padding:14px!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;border:0!important;border-bottom:1px solid rgba(255,255,255,.07)!important;cursor:pointer}
+.nwPost .nwTh{align-self:start}
+.nwPost .nwPb{min-width:0;display:flex;flex-direction:column;gap:6px}
+.nwPost .nwH{margin:0;font:700 17px/1.25 Inter,sans-serif;letter-spacing:-.1px;color:#fff}
+.nwPost .tx{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--dim);font-size:14px;line-height:1.5}
+.nwPost.open .tx{-webkit-line-clamp:unset;display:block;color:#e9e3ff}
+.nwPost .ft{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.nwMore{background:none;border:0;color:var(--cyan);font:700 12px/1 "Barlow Condensed",sans-serif;letter-spacing:1px;text-transform:uppercase;cursor:pointer;padding:4px 0}
+.nwPost.open .nwMore{display:none}
+.nwPost.read .nwH{color:rgba(255,255,255,.72)}
+.nwPost.lead{grid-template-columns:1fr}
+.nwPost.lead .nwTh{aspect-ratio:16/8;border-radius:14px}
+.nwPost.lead .nwH{font:400 clamp(24px,6vw,34px)/1.05 Anton,Impact,sans-serif;letter-spacing:.4px}
+@media(hover:hover){.nwPost{transition:background .25s}.nwPost:hover{background:rgba(255,255,255,.04)!important}.nwPost:hover .nwH{color:var(--cyan)}.nwRow:hover b{color:var(--cyan)}}
+@media(max-width:420px){.nwPost{grid-template-columns:96px 1fr;gap:11px;padding:12px!important}.nwPost .nwH{font-size:15.5px}.nwPost .tx{font-size:13.5px}.nwRow{grid-template-columns:92px 1fr}}
+@media(min-width:1000px){.nwPost{grid-template-columns:220px 1fr;gap:20px;padding:18px!important}.nwPost .nwH{font-size:20px}.nwPost.lead{grid-template-columns:1.2fr 1fr}.nwPost.lead .nwTh{aspect-ratio:16/10}}
+/* home news widget */
+.nwLead{position:relative;display:block;border-radius:16px;overflow:hidden;text-decoration:none;color:#fff;margin-bottom:8px}
+.nwLead .nwTh{aspect-ratio:16/8;border-radius:16px}
+.nwLead .nwTh::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 25%,rgba(11,4,24,.95))}
+.nwLead .nwLb{position:absolute;left:14px;right:14px;bottom:12px;z-index:2;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.nwLead b{font:400 clamp(22px,5.6vw,30px)/1.05 Anton,Impact,sans-serif;letter-spacing:.4px;text-shadow:0 2px 14px rgba(0,0,0,.8)}
+.nwHome .nwRow{background:rgba(255,255,255,.03)!important;border-radius:12px;margin-bottom:6px}
+@media (prefers-reduced-motion:reduce){.nwBreak .mqi,.sty.new .ring,.liveStrip .dot{animation:none!important}}
+body.noanim .nwBreak .mqi,body.noanim .sty.new .ring,body.noanim .liveStrip .dot{animation:none!important}
 </style>
 </head>
 <body><div id="aura" aria-hidden="true"></div>
@@ -1847,10 +1954,14 @@ body.noanim .nwFeat::after,body.noanim .nwFeat .k::before,body.noanim .view.on h
         <div class="heroSig">✦ a Flovo production ✦</div>
       </div>
     </div>
+    <div class="stories" id="stories"></div>
     <div class="hud" id="hud"></div>
+    <div class="homeHd" data-hh="explore"></div>
+    <div class="bento" id="bento"></div>
     <div class="sboard" id="sboard"></div>
     <div class="facts" id="facts"></div>
     <div class="ticker"><div class="tr" id="ticker"></div></div>
+    <div id="firstHrs"></div>
 
     <div class="dashbar"><div><b data-i="dashTitle"></b><div class="dim" data-i="dashHint"></div></div><span class="sp"></span><button class="ib" id="dashReset" data-i="dashReset"></button></div>
     <div id="dash"></div>
@@ -1862,10 +1973,11 @@ body.noanim .nwFeat::after,body.noanim .nwFeat .k::before,body.noanim .view.on h
     <p class="lead" data-i="l_news"></p>
     <div class="nwHead"><span class="nwLive"><i></i>Newsroom</span><span class="upd" id="nwUpd"></span><span class="sp"></span><button class="ib" id="nwAllRead"></button></div>
     <div class="nwTop" id="nwTop"></div>
-    <div id="nwRev"></div>
-    <div class="card onCard" id="onCard"></div>
-    <div class="nwBar"><div class="card" id="nwRev" style="margin:0 0 16px"></div><div class="chips" id="nwCats"></div><input id="nwQ" type="search"></div>
+    <div class="homeHd nwAllH"><span data-nwh="1"></span></div>
+    <div class="nwBar"><div class="chips" id="nwCats"></div><input id="nwQ" type="search"></div>
     <div class="nwList" id="nwList"></div>
+    <div id="nwRev" style="margin-top:18px"></div>
+    <div class="card onCard" id="onCard"></div>
     <h3 data-i="h_road"></h3>
     <div class="tipsTop"><div class="card" id="nwTl"></div><div class="card" id="nwPrep"></div></div>
     <h3 data-i="h_hub"></h3>
@@ -2024,7 +2136,7 @@ body.noanim .nwFeat::after,body.noanim .nwFeat .k::before,body.noanim .view.on h
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 24.11. 20:36</div>
+    <div class="dim" style="margin-top:8px">App-Version 24.11. 20:48</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -3119,7 +3231,9 @@ function route(){
 let lastCD={};
 function renderCD(){
  if(isLaunch()){ if($('#cdBox').dataset.mode!=='launch'+LANG){$('#cdBox').dataset.mode='launch'+LANG;const p=getPlan();const d1=ACTS.filter(a=>p[a[1].de]==='d1');
-  $('#cdBox').innerHTML=`<div class="launch"><h4>🌴 ${T(L('Willkommen in Leonida','Welcome to Leonida'))}</h4><div class="dim" style="margin-bottom:6px">${T(L('Deine ersten Stunden:','Your first hours:'))}</div><ol style="margin:0;padding-left:18px">${FIRST.map(f=>`<li>${T(f)}</li>`).join('')}</ol>${d1.length?`<div class="dim" style="margin:10px 0 4px">${T(L('Aus deinem Launch-Plan:','From your launch plan:'))}</div><div class="minichips">${d1.map(a=>`<span>${a[0]} ${T(a[1])}</span>`).join('')}</div>`:''}</div>`;
+  const dayN=Math.max(1,Math.floor((Date.now()-RELEASE)/864e5)+1);
+  $('#cdBox').innerHTML=`<div class="liveStrip"><span class="dot"></span><b>LIVE</b><span>${T(L('Tag','Day'))} ${dayN} ${T(L('in Leonida','in Leonida'))}</span><span class="sep"></span><span>PS5 · Xbox Series X|S</span></div><div class="heroDuo">JASON <i>&amp;</i> LUCIA</div>`;
+  const fh=$('#firstHrs');if(fh)fh.innerHTML=`<details class="firstHrs"><summary><span class="ic">🌴</span><span><b>${T(L('Deine ersten Stunden','Your first hours'))}</b><small>${T(L('6 Profi-Tipps für den Start','6 pro tips for the start'))}</small></span><span class="chev">▾</span></summary><ol>${FIRST.map(f=>`<li>${T(f)}</li>`).join('')}</ol>${d1.length?`<div class="dim" style="margin:10px 0 4px">${T(L('Aus deinem Launch-Plan:','From your launch plan:'))}</div><div class="minichips">${d1.map(a=>`<span>${a[0]} ${T(a[1])}</span>`).join('')}</div>`:''}</details>`;
   document.querySelectorAll('[data-i=cdnote]').forEach(e=>e.style.display='none');}
   $('#sideCd').innerHTML=`<div class="k">GTA VI</div><div class="v">LIVE 🌴</div>`;return}
  if($('#cdBox').dataset.mode&&$('#cdBox').dataset.mode.startsWith('launch')){$('#cdBox').dataset.mode='';$('#cdBox').innerHTML='';document.querySelectorAll('[data-i=cdnote]').forEach(e=>e.style.display='')}
@@ -3133,7 +3247,7 @@ function renderCD(){
 }
 const W={
  bento:()=>[UI.h_bento,`<div class="bento">${BENTO.map(b=>`<div class="b ${b[0]}" style="background:${b[1]}"><span class="em">${b[2]}</span><div class="big">${T(b[3])}</div><div class="sm">${T(b[4])}</div></div>`).join('')}</div>`],
- news:()=>{const n=nwUnread();return [L(T(UI.w_news)+(n?`<span class="nwCount">${n} ${T(L('neu','new'))}</span>`:''),T(UI.w_news)+(n?`<span class="nwCount">${n} ${T(L('neu','new'))}</span>`:'')),`<div class="nwHome">${NEWSC.slice(0,4).map(nwMini).join('')}</div><a class="lnk" href="#news">${T(UI.toNews)}</a>`]},
+ news:()=>{const n=nwUnread();return [L(T(UI.w_news)+(n?`<span class="nwCount">${n} ${T(L('neu','new'))}</span>`:''),T(UI.w_news)+(n?`<span class="nwCount">${n} ${T(L('neu','new'))}</span>`:'')),`<div class="nwHome">${(n0=>`<a class="nwLead" ${n0[6]?`href="${n0[6]}" target="_blank" rel="noopener"`:'href="#news"'} data-nid="${n0[0]}">${nwTh(n0,1280)}<div class="nwLb"><span class="brk">${T(L('Neu','Latest'))}</span><div class="nwMeta">${nwSrc(n0[2])}<span class="d">${nwRel(n0[1])}</span></div><b>${T(n0[4])}</b></div></a>`)(NEWSC[0])}${NEWSC.slice(1,4).map(nwMini).join('')}</div><a class="lnk" href="#news">${T(UI.toNews)}</a>`]},
  media:()=>[UI.h_media,`<div class="media rowscroll">${MEDIA.map(m=>`<a class="vid" href="${m[3]}" target="_blank" rel="noopener"><div class="th${MEDIATH[m[0]]?' hasTh':''}" style="background:${MEDIATH[m[0]]?`linear-gradient(180deg,rgba(11,4,24,0) 40%,rgba(11,4,24,.85)),url('${RSB+MEDIATH[m[0]]}?imwidth=640') center/cover,`:''}${m[4]}"><span class="lb">${m[0]}</span><span class="pl"></span>${m[2]?`<span class="du">${m[2]}</span>`:''}</div><div class="mt"><b>${T(m[5])}</b><span class="dim">${m[1]}</span></div></a>`).join('')}</div><p class="dim" style="margin:10px 0 0">${T(UI.mediaNote)} <a href="https://www.rockstargames.com/VI" target="_blank" rel="noopener">${T(UI.toRockstar)}</a></p>`],
  dream:()=>{const d=store.get('dream',[]);return [UI.w_dream,(d.length?`<div class="minichips">${d.map(n=>{const c=CARS.find(x=>x[0]===n);return `<span>${c?CATI[c[2]]:'🚗'} ${esc(n)}</span>`}).join('')}</div>`:`<div class="dim">${T(UI.emptyDream)}</div>`)+`<a class="lnk" href="#garage">${T(UI.toGarage)}</a>`]},
  plan:()=>{const p=getPlan();const c=k=>ACTS.filter(a=>p[a[1].de]===k);return [UI.w_plan,`<div class="minichips" style="margin-bottom:8px">${PLANCOLS.map(([k,l,col])=>`<span style="border-color:${col};background:transparent">${T(l)} · ${c(k).length}</span>`).join('')}</div><div class="dim">${T(L('Am Launch-Tag:','Launch day:'))} ${c('d1').map(a=>a[0]+' '+T(a[1])).join(' · ')||'—'}</div><a class="lnk" href="#missions">${T(UI.toPlan)}</a>`]},
@@ -3152,7 +3266,12 @@ const nwIsNew=n=>Date.parse(n[1]+'T23:59:59+01:00')>Math.max(nwSeenTs(),Date.par
 const nwBadge=n=>n[3]==='off'&&NWSRC[n[2]][2]!=='off'?`<span class="badge b-off">${T(L('Bestätigt','Confirmed'))}</span>`:badge(n[3]);
 const nwUnread=()=>NEWSC.filter(nwIsNew).length;
 const nwSrc=k=>{const s=NWSRC[k];return `<span class="src" style="background:${s[1]}">${s[0]}</span>`};
-const nwMini=n=>`<a class="nwMini" ${n[6]?`href="${n[6]}" target="_blank" rel="noopener"`:'href="#news"'} data-nid="${n[0]}"><div class="nwMeta">${nwSrc(n[2])}<span class="d">${nwDate(n[1])}</span>${nwIsNew(n)?`<span class="nwNew">${LANG==='de'?'NEU':'NEW'}</span>`:''}</div><b>${T(n[4])}</b></a>`;
+const NWFB=['Vice_City_01','Vice_City_05','Vice_City_13','Vice_City_16','Vice_City_19','Leonida_Keys_01','Leonida_Keys_04','Port_Gellhorn_01','Grassrivers_02','Ambrosia_01','Mount_Kalaga_National_Park_02','Vice_City_20'];
+const nwThumb=(n,w)=>{if(NWIMG[n[0]])return {u:nwImgU(n[0]),sym:0};let h=0;for(const c of n[0])h=(h*31+c.charCodeAt(0))>>>0;let f=null;for(let i=0;i<NWFB.length&&!f;i++)f=rsFind(NWFB[(h+i)%NWFB.length]);return f?{u:rsu(f,w||640),sym:1}:{u:'',sym:1}};
+const nwRel=d=>{const t=new Date();t.setHours(12,0,0,0);const x=new Date(d+'T12:00:00');const k=Math.round((t-x)/864e5);if(k<=0)return T(L('Heute','Today'));if(k===1)return T(L('Gestern','Yesterday'));if(k<7)return LANG==='de'?`vor ${k} Tagen`:`${k} days ago`;return nwDate(d)};
+const nwDay=d=>{const k=nwRel(d);const x=new Date(d+'T12:00:00');const wd=x.toLocaleDateString(LANG==='de'?'de-DE':'en-GB',{weekday:'long',day:'numeric',month:'long'});return /\d/.test(k)||k===nwDate(d)?wd:`${k} · ${wd}`};
+const nwTh=(n,w)=>{const t=nwThumb(n,w);return `<div class="nwTh" ${t.u?`style="background-image:url('${t.u}')"`:''}>${t.sym?`<em>${T(L('Symbolbild','Stock image'))}</em>`:''}</div>`};
+const nwMini=n=>`<a class="nwMini nwRow" ${n[6]?`href="${n[6]}" target="_blank" rel="noopener"`:'href="#news"'} data-nid="${n[0]}">${nwTh(n,400)}<div class="nwRb"><div class="nwMeta">${nwSrc(n[2])}<span class="d">${nwRel(n[1])}</span>${nwIsNew(n)?`<span class="nwNew">${LANG==='de'?'NEU':'NEW'}</span>`:''}</div><b>${T(n[4])}</b></div></a>`;
 let NWF='all';
 function nwMarkRead(id){const r=store.get('nwread',{});r[id]=1;store.set('nwread',r);nwDot()}
 function nwDot(){const n=nwUnread();document.querySelectorAll('#bottom [data-v=news],#sideNav [data-v=news],#moreGrid [data-v=news]').forEach(b=>b.classList.toggle('ndot',n>0))}
@@ -3174,8 +3293,8 @@ function renderNews(){try{renderOnline()}catch(e){console.warn(e)}
  $('#nwUpd').textContent=T(L('Stand: ','Updated: '))+new Date(NWUPD).toLocaleString(LANG==='de'?'de-DE':'en-GB',{timeZone:'Europe/Berlin',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})+(LANG==='de'?' Uhr':'');
  $('#nwAllRead').textContent='✓ '+T(UI.allRead);
  const off=NEWSC.filter(n=>NWSRC[n[2]][2]==='off');const feat=NEWSC.find(n=>n[0]===NWTOP)||off[0];const side=NEWSC.filter(n=>n!==feat).slice(0,3);
- $('#nwTop').innerHTML=`<a class="nwFeat${NWIMG[feat[0]]?' hasImg':''}" ${NWIMG[feat[0]]?`style="--fimg:url('${nwImgU(feat[0])}')"`:''} ${feat[6]?`href="${feat[6]}" target="_blank" rel="noopener"`:''} data-nid="${feat[0]}"><div class="k">★ ${T(L('Top-Meldung','Top story'))} · ${NWSRC[feat[2]][0]} · ${nwDate(feat[1])}</div><h4>${T(feat[4])}</h4><p>${T(feat[5])}</p><span class="go">${T(UI.readArt)}</span></a><div class="nwSide">${side.map(nwMini).join('')}</div>`;
- $('#nwRev').innerHTML=`<b style="font-family:Anton;font-size:24px;letter-spacing:1px">${T(L('Alle Testwertungen','All review scores'))}</b>`+revHTML(false);
+ $('#nwTop').innerHTML=`<div class="nwBreak"><span class="lbl">${T(L('Eilmeldung','Breaking'))}</span><div class="mq"><div class="mqi">${[0,1].map(()=>NEWSC.slice(0,6).map(n=>`<span><b>${NWSRC[n[2]][0]}</b>${T(n[4])}</span>`).join('')).join('')}</div></div></div><a class="nwFeat hasImg" style="--fimg:url('${nwThumb(feat,1600).u}')" ${feat[6]?`href="${feat[6]}" target="_blank" rel="noopener"`:''} data-nid="${feat[0]}"><div class="k"><span class="brk">${feat[1]===NEWSC[0][1]?T(L('Eilmeldung','Breaking')):T(L('Top-Story','Top story'))}</span>${NWSRC[feat[2]][0]} · ${nwRel(feat[1])}</div><h4>${T(feat[4])}</h4><p>${T(feat[5])}</p><span class="go">${T(UI.readArt)}</span></a><div class="nwSide"><div class="nwSideH">${T(L('Weitere Schlagzeilen','More headlines'))}</div>${side.map(nwMini).join('')}</div>`;
+ {const h=document.querySelector('[data-nwh]');if(h)h.textContent=T(L('Alle Meldungen','All stories'))}$('#nwRev').innerHTML=`<b style="font-family:Anton;font-size:24px;letter-spacing:1px">${T(L('Alle Testwertungen','All review scores'))}</b>`+revHTML(false);
  $('#nwCats').innerHTML=NWCAT.map(([k,l])=>{const c=k==='all'?NEWSC.length:NEWSC.filter(n=>NWSRC[n[2]][2]===k).length;return `<button class="chip ${NWF===k?'on':''}" data-c="${k}">${T(l)} · ${c}</button>`}).join('');
  $('#nwCats').querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{NWF=b.dataset.c;renderNews();reveal()});
  $('#nwQ').placeholder=T(UI.nwQ);$('#nwQ').oninput=renderNewsList;
@@ -3192,7 +3311,9 @@ function renderNews(){try{renderOnline()}catch(e){console.warn(e)}
 function renderNewsList(){
  const q=($('#nwQ').value||'').trim().toLowerCase();const rd=store.get('nwread',{});
  const list=NEWSC.filter(n=>(NWF==='all'||NWSRC[n[2]][2]===NWF)&&(!q||(T(n[4])+' '+T(n[5])+' '+NWSRC[n[2]][0]).toLowerCase().includes(q)));
- $('#nwList').innerHTML=list.length?list.map(n=>`<article class="nwCard ${rd[n[0]]?'read':''}">${NWIMG[n[0]]?`<div class="nwImg" style="background-image:url('${nwImgU(n[0])}')"><span>© Rockstar Games</span></div>`:''}<div class="nwMeta">${nwSrc(n[2])}<span class="d">${nwDate(n[1])}</span>${nwIsNew(n)?`<span class="nwNew">${LANG==='de'?'NEU':'NEW'}</span>`:''}<span class="sp" style="flex:1"></span>${nwBadge(n)}</div><b>${T(n[4])}</b><div class="tx">${T(n[5])}</div><div class="ft">${n[6]?`<a href="${n[6]}" target="_blank" rel="noopener" data-nid="${n[0]}">${T(UI.readArt)}</a>${trTag(n[6])}`:''}${rd[n[0]]?'':`<button class="rd" data-r="${n[0]}">✓ ${T(UI.markRead)}</button>`}</div></article>`).join(''):`<div class="muted">${T(UI.noRes)}</div>`;
+ let lastD='';$('#nwList').innerHTML=list.length?list.map((n,i)=>{const hd=n[1]!==lastD?`<div class="nwDayH"><span>${nwDay(n[1])}</span></div>`:'';lastD=n[1];
+  return hd+`<article class="nwCard nwPost ${rd[n[0]]?'read':''} ${i===0&&NWF==='all'&&!q?'lead':''}" data-open="${n[0]}">${nwTh(n,i===0?1280:640)}<div class="nwPb"><div class="nwMeta">${nwSrc(n[2])}<span class="d">${nwRel(n[1])}</span>${nwIsNew(n)?`<span class="nwNew">${LANG==='de'?'NEU':'NEW'}</span>`:''}<span class="sp" style="flex:1"></span>${nwBadge(n)}</div><h3 class="nwH">${T(n[4])}</h3><div class="tx">${T(n[5])}</div><div class="ft">${n[6]?`<a href="${n[6]}" target="_blank" rel="noopener" data-nid="${n[0]}">${T(UI.readArt)}</a>${trTag(n[6])}`:''}${rd[n[0]]?'':`<button class="rd" data-r="${n[0]}">✓ ${T(UI.markRead)}</button>`}<span class="sp" style="flex:1"></span><button class="nwMore" aria-label="mehr">${T(L('Mehr','More'))} ▾</button></div></div></article>`}).join(''):`<div class="muted">${T(UI.noRes)}</div>`;
+ $('#nwList').querySelectorAll('.nwPost').forEach(c=>c.addEventListener('click',e=>{if(e.target.closest('a,button.rd'))return;c.classList.toggle('open')}));
  $('#nwList').querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{nwMarkRead(b.dataset.r);renderNewsList();renderHome()});
  $('#nwList').querySelectorAll('a[data-nid]').forEach(a=>a.addEventListener('click',()=>{nwMarkRead(a.dataset.nid);setTimeout(renderNewsList,300)}));
 }
@@ -3217,6 +3338,31 @@ function renderReal(){
  g.innerHTML=REAL.map(r=>`<figure><div class="ph"><img loading="lazy" alt="${esc(r[1])}" src="${CFP(r[2])}" referrerpolicy="no-referrer"><span class="gn">${r[0]}</span></div><figcaption><b>${T(L('Vorbild: ','Inspired by: '))}${r[1]}</b><span class="cr">📷 ${esc(r[3])} · <a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(r[2])}" target="_blank" rel="noopener">${r[4]} · Wikimedia Commons</a></span></figcaption></figure>`).join('');
  let bad=0;g.querySelectorAll('img').forEach(i=>i.addEventListener('error',()=>{i.style.display='none';if(++bad>=REAL.length)$('#realWrap').style.display='none'}));
 }
+
+/* fix58: stories + bento */
+const STY=()=>{const un=nwUnread();const top=NEWSC.find(n=>n[0]===NWTOP)||NEWSC[0];
+ return [
+  {l:L('Top-News','Top news'),u:nwThumb(top,300).u,go:'news',ring:un?'new':'',b:un?String(un):''},
+  {l:L('Portal 2002','Portal 2002'),n:'Vice_City_14',go:'secrets',ring:'new',b:'NEU'},
+  {l:L('Karte','Map'),n:'Leonida_Keys_01',go:'map'},
+  {l:L('Story','Story'),n:'Jason_and_Lucia_14',go:'missions'},
+  {l:L('Garage','Garage'),n:'Vice_City_17',go:'garage'},
+  {l:L('Aktivitäten','Activities'),n:'Vice_City_05',go:'acts'},
+  {l:L('Radio','Radio'),n:'Vice_City_19',go:'radio'},
+  {l:L('Galerie','Gallery'),n:'Ambrosia_01',go:'gallery'},
+  {l:L('Trophäen','Trophies'),n:'Lucia_Caminos_01',go:'me'}]};
+function renderStories(){const b=$('#stories');if(!b)return;
+ b.innerHTML=`<div class="stRow">${STY().map(s=>{const u=s.u||(s.n&&rsFind(s.n)?rsu(rsFind(s.n),300):'');return `<a class="sty ${s.ring||''}" href="#${s.go}"><span class="ring"><span class="ph" ${u?`style="background-image:url('${u}')"`:''}></span>${s.b?`<i>${s.b==='NEU'&&LANG!=='de'?'NEW':s.b}</i>`:''}</span><span class="stl">${T(s.l)}</span></a>`}).join('')}</div>`}
+function renderBento(){const b=$('#bento');if(!b)return;
+ let st={d:0,t:0};try{st=storyStats()}catch(e){}
+ const C=[
+  ['map','Leonida_Keys_04','map',L('Karte von Leonida','Map of Leonida'),L(`${BLIPS.length} Orte · 7 Regionen`,`${BLIPS.length} places · 7 regions`)],
+  ['missions','Jason_and_Lucia_14','target',L('Story-Guide','Story guide'),L(`${st.d}/${st.t} Missionen`,`${st.d}/${st.t} missions`)],
+  ['garage','Vice_City_17','car',L('Garage','Garage'),L(`${CARS.length} Fahrzeuge`,`${CARS.length} vehicles`)],
+  ['secrets','Vice_City_14','eye',L('Geheimnisse','Secrets'),L(`${EGGS.length} Easter Eggs`,`${EGGS.length} Easter eggs`)],
+  ['acts','Vice_City_05','party-popper',L('Aktivitäten','Activities'),L(`${ACTV.length} bestätigt`,`${ACTV.length} confirmed`)]];
+ b.innerHTML=C.map(([go,img,ic,t,sub],i)=>{const f=rsFind(img);return `<a class="bn ${i===0?'big':''}" href="#${go}" style="--bi:url('${f?rsu(f,i===0?1280:640):''}')"><span class="bnI">${icn(ic)}</span><span class="bnT"><b>${T(t)}</b><small>${T(sub)}</small></span><span class="bnGo">→</span></a>`}).join('');
+ const h=document.querySelector('[data-hh=explore]');if(h)h.innerHTML=`<span>${T(L('Leonida entdecken','Explore Leonida'))}</span>`}
 function renderHome(){
  $('#pills').innerHTML=PILLS.map(p=>`<span class="pill">${T(p)}</span>`).join('');
  const tk=NEWSC.slice(0,8).map(n=>`<a href="#news"><span><b>${NWSRC[n[2]][0]} · ${nwDate(n[1])}</b>${T(n[4])}</span></a>`).join('');$('#ticker').innerHTML=tk+tk;
@@ -3228,7 +3374,7 @@ function renderHome(){
  if(window.Sortable){if(window._ds)window._ds.destroy();window._ds=Sortable.create($('#dash'),{handle:'.grip',animation:220,easing:'cubic-bezier(.2,.8,.2,1)',ghostClass:'sortable-ghost',chosenClass:'sortable-chosen',dragClass:'sortable-drag',onEnd:()=>{const cur=[...$('#dash').children].map(e=>e.dataset.w);if(!cur.includes('fav'))cur.unshift('fav');store.set('dash2',cur);toast(T(UI.saved))}})}
   $('#dash').querySelectorAll('[data-go]').forEach(c=>c.onclick=()=>{location.hash=c.dataset.go});
  $('#dash').querySelectorAll('[data-nid]').forEach(a=>a.addEventListener('click',()=>{nwMarkRead(a.dataset.nid);setTimeout(renderHome,300)}));
- renderProg();try{renderPlay()}catch(e){console.warn(e)}try{renderHud()}catch(e){console.warn(e)}try{renderSboard()}catch(e){console.warn(e)}
+ try{renderStories();renderBento()}catch(e){console.warn(e)}renderProg();try{renderPlay()}catch(e){console.warn(e)}try{renderHud()}catch(e){console.warn(e)}try{renderSboard()}catch(e){console.warn(e)}
 }
 function pgCats(){const p=getPlan();const C=store.get('coll',{});const cg=store.get('cheats',{});
  const out=COLL.filter(c=>typeof c[3]==='number').map(c=>({ic:c[1],l:c[2],n:Math.min(C[c[0]]||0,c[3]),t:c[3],go:'map',h:c[4]}));
