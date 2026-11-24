@@ -1377,6 +1377,58 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset
 .onRows{display:flex;flex-direction:column;gap:6px}.onRow{display:block;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);color:inherit;text-decoration:none}
 
 .ownPop{position:absolute;top:50px;left:8px;right:8px;z-index:5;display:flex;flex-direction:column;padding:4px;border-radius:14px;background:rgba(14,6,30,.97);border:1px solid rgba(255,255,255,.14);box-shadow:0 16px 40px rgba(0,0,0,.6)}.ownPop button,.ownPop a{all:unset;cursor:pointer;padding:9px 10px;border-radius:10px;font:600 12.5px Inter,sans-serif;line-height:1.3;color:#fff}.ownPop button:hover,.ownPop a:hover{background:rgba(255,255,255,.08)}
+
+/* ===== fix57: Next Level – Magic Nav, Ripple, Spotlight, Scroll-Reveal ===== */
+#bottom{isolation:isolate}
+#navPill{position:absolute;top:6px;bottom:6px;left:0;width:0;border-radius:16px;z-index:-1;pointer-events:none;
+ background:linear-gradient(180deg,color-mix(in srgb,var(--acc,#ff2bd6) 42%,transparent),color-mix(in srgb,var(--acc2,#9b5cff) 18%,transparent));
+ box-shadow:0 0 24px -4px var(--acc,#ff2bd6),inset 0 1px 0 rgba(255,255,255,.25);
+ transition:transform .55s cubic-bezier(.34,1.56,.64,1),width .55s cubic-bezier(.34,1.56,.64,1),opacity .3s;opacity:0}
+#navPill.ok{opacity:1}
+#navPill::after{content:"";position:absolute;left:22%;right:22%;top:-1px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--pink),var(--cyan));box-shadow:0 0 12px var(--pink)}
+body.navpl #bottom button.on{background:transparent!important;box-shadow:none!important}
+body.navpl #bottom button.on::before{display:none}
+.rip{position:absolute;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%) scale(0);
+ background:radial-gradient(circle,rgba(255,255,255,.45),color-mix(in srgb,var(--acc,#ff2bd6) 35%,transparent) 45%,transparent 70%);
+ animation:rip .6s cubic-bezier(.2,.8,.2,1) forwards;z-index:5}
+@keyframes rip{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.ripHost{position:relative;overflow:hidden}
+@media (pointer:fine){
+ .card.item,.tile{--mx:50%;--my:50%}
+ .card.item::before,.tile::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;
+  background:radial-gradient(420px circle at var(--mx) var(--my),color-mix(in srgb,var(--acc,#ff2bd6) 16%,transparent),transparent 55%);z-index:-1}
+ .card.item:hover::before,.tile:hover::before{opacity:1}
+ .card.item,.tile{position:relative;isolation:isolate}
+ @supports (animation-timeline:view()){
+  .view.on .card,.view.on .tile{animation:rvl linear both;animation-timeline:view();animation-range:entry 0% entry 38%}
+  .secBanner{animation:none!important;background-size:120% auto!important}
+  .view.on .secBanner{animation:plx linear both!important;animation-timeline:view()!important}
+ }
+}
+@keyframes rvl{from{opacity:0;transform:translateY(26px) scale(.97);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+@keyframes plx{from{background-position:center 0%}to{background-position:center 100%}}
+@media (prefers-reduced-motion:reduce){#navPill{transition:none}.rip{display:none}.view.on .card,.view.on .tile,.view.on .secBanner{animation:none!important}}
+body.noanim .rip{display:none}
+body.noanim .view.on .card,body.noanim .view.on .tile{animation:none!important}
+
+/* ===== fix57b: dynamisch – Neon-Rahmen, 3D-Tilt, Live-Puls ===== */
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+.nwFeat{position:relative;isolation:isolate}
+.nwFeat::after{content:"";position:absolute;inset:0;width:auto;height:auto;border-radius:inherit;padding:2px;pointer-events:none;z-index:2;
+ background:conic-gradient(from var(--ang),var(--pink),var(--cyan),var(--sun),var(--pink));
+ -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+ animation:angSpin 6s linear infinite;filter:drop-shadow(0 0 8px color-mix(in srgb,var(--pink) 70%,transparent))}
+@keyframes angSpin{to{--ang:360deg}}
+.nwFeat .k::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#ff3b5c;margin-right:7px;vertical-align:1px;box-shadow:0 0 0 0 rgba(255,59,92,.7);animation:livePulse 1.6s ease-out infinite}
+@keyframes livePulse{70%{box-shadow:0 0 0 9px rgba(255,59,92,0)}100%{box-shadow:0 0 0 0 rgba(255,59,92,0)}}
+@media (pointer:fine){
+ .tile{transform:perspective(700px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s cubic-bezier(.2,.8,.2,1)!important;will-change:transform}
+ .tile:hover{--lift:1}
+ .view.on h2.sec{background:linear-gradient(100deg,#fff 0%,#fff 38%,var(--acc,#ff2bd6) 50%,var(--acc2,#9b5cff) 56%,#fff 68%,#fff 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:h2Sweep 7s ease-in-out infinite}
+}
+@keyframes h2Sweep{0%,60%{background-position:100% 0}100%{background-position:-50% 0}}
+@media (prefers-reduced-motion:reduce){.nwFeat::after,.nwFeat .k::before,.view.on h2.sec{animation:none!important}}
+body.noanim .nwFeat::after,body.noanim .nwFeat .k::before,body.noanim .view.on h2.sec{animation:none!important}
 </style>
 </head>
 <body><div id="aura" aria-hidden="true"></div>
@@ -1972,7 +2024,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 23.11. 21:03</div>
+    <div class="dim" style="margin-top:8px">App-Version 24.11. 20:36</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -2148,9 +2200,11 @@ const NWSRC={
  rsi:['RockstarINTEL','#b388ff','com'],discord:['Discord r/GTA6','#8c9eff','com'],
  nbc:['Notebookcheck','#9fe7c4','int'],df:['DiscussingFilm','#ffcf6e','int'],alt:['AltChar','#ffb3e6','int'],vice:['VICE','#ff8fb1','int'],press:['Presse','#e8e2d0','de'],cb:['ComputerBase','#9fd3ff','de'],psi:['PlayStationInfo','#7fb6ff','de'],kotaku:['Kotaku','#ffd0a8','int'],tr:['TechRadar','#a8c8ff','int'],cnn:['CNN','#ff9a9a','int'],forbes:['Forbes','#cfe3ff','int'],yahoo:['Yahoo','#c8a6ff','int'],sensor:['Sensor Tower','#ffd36e','int'],pcg2:['PC Gamer','#ff6b6b','int'],ddc:['Discord GTA 6 Germany','#8c9eff','com'],ig:['Insider Gaming','#ffe36e','int'],vgc2:['VGC','#9ef0ff','int'],gtabase:['GTABase','#b0ffb8','com'],gta6db:['GTA6DB','#c9b0ff','com'],nbcn:['NBC News','#ffd36e','int'],dexerto:['Dexerto','#ff9a6e','int'],engadget:['Engadget','#8fe3ff','int'],nme:['NME','#ff6d8a','int'],vgt:['VGTimes','#c6f68d','int'],pcgamer:['PC Gamer','#ff6b6b','int'],
 };
-const NWUPD='2026-11-23T21:15:00+01:00';
+const NWUPD='2026-11-24T20:40:00+01:00';
 // id, date, source, badge, title, text, url
 const NEWSC=[
+ ['rsi-panini','2026-11-24','rsi','off',L('Offiziell: Panini bringt echte GTA-6-Sammelkarten','Official: Panini makes real GTA 6 trading cards'),L('Panini America und Rockstar haben heute die „GTAVI: Sports Trading Card Collection“ angekündigt – echte Karten nach dem Vorbild der Sammelkarten, die Jason und Lucia in Leonida finden. Erscheinen soll sie im Dezember 2026. Pro Box gibt es 4 Packs à 4 Karten, im Schnitt 2 Rookies, 1 Retro, 1 Illustrated und 4 Special Silvers; dazu nummerierte Seltenheiten bis hin zum 1-of-1. Preis und Checkliste stehen noch aus.','Panini America and Rockstar today announced the “GTAVI: Sports Trading Card Collection” – real cards modelled on the collectible cards Jason and Lucia find around Leonida. It is due in December 2026. Each box holds 4 packs of 4 cards, on average 2 Rookies, 1 Retro, 1 Illustrated and 4 Special Silvers, plus numbered rarities down to a 1-of-1. Price and checklist are still to come.'),'https://rockstarintel.com/gta-vi-official-trading-cards-announced-by-panini/'],
+ ['vice-portal','2026-11-24','vice','seen',L('Geheimes Portal ins Vice City von 2002','Secret portal to 2002’s Vice City'),L('YouTuber Memeio hat ein riesiges Easter Egg geknackt: Am Badger-Funkturm auf Key Lento legst du einen Schalter um und drückst einen Knopf – auf dem Fernseher blinkt das Malibu-Club-Logo. Danach geht es zu 12 LPL-Umspannwerken; die Buchstaben dort ergeben „LIFE IS PASSING ME BY“, den alten Zeit-Cheat aus Vice City. Am Ende landest du im Malibu Club im PS2-Look und bekommst Tommy Vercettis Hawaiihemd und sein Motorrad. Du brauchst Kapitel 3 (ganze Karte) und solltest keine Schnellreise nutzen. Anleitung im Tab „Geheimnisse“.','YouTuber Memeio cracked a huge Easter egg: at the Badger radio tower on Key Lento you flip a switch and press a button – the Malibu Club logo flashes on the TV. Then you visit 12 LPL substations; their letters spell “LIFE IS PASSING ME BY”, the old Vice City time cheat. At the end you land in a PS2-style Malibu Club and get Tommy Vercetti’s Hawaiian shirt and his motorbike. You need Chapter 3 (full map) and should avoid fast travel. Guide in the “Secrets” tab.'),'https://www.vice.com/en/article/gta-6-tommy-vercetti-shirt-vice-city-easter-egg/'],
  ['dc-voices','2026-11-23','discord','rep',L('Discord-Stimmen: Bugs, Hehler & Enden','Discord voices: bugs, fences & endings'),L('Was Spieler heute im Rockstar- und im „GTA 6 Germany“-Discord berichten: Ein Anruf von Raul kommt vor dem VCIA-Coup tagelang nicht, und Stash-Lieferungen an Doug werden teils nicht gezählt – erst das heutige Update 1.002.002 installieren, es behebt fehlende Anrufe. Der erste Hehler zahlt wenig; für die Beute lohnt sich später Yasmani. Spieler bestätigen, dass dein Kriminellen-Profil das Ende mitbestimmt. Und: In Kapitel 1 alles mitnehmen – manche Dinge sind danach weg (siehe Story-Guide).','What players report today on the Rockstar and “GTA 6 Germany” Discords: a call from Raul doesn’t come for days before the VCIA heist, and stash deliveries to Doug sometimes don’t count – install today’s update 1.002.002 first, it fixes missing calls. The first fence pays little; Yasmani is worth it later. Players confirm your criminal profile helps decide the ending. And: do everything in Chapter 1 – some things are gone afterwards (see the story guide).'),''],
  ['r-album-dlx','2026-11-23','rockstar','off',L('„The Album“ jetzt als Deluxe Edition','“The Album” now in a Deluxe Edition'),L('Rockstar hat die Deluxe Edition von „GTA VI: The Album“ veröffentlicht – mit 23 Bonus-Tracks aus dem Spiel, u. a. von The Dare, Slayyyter, Denzel Curry, HEALTH, Power Trip sowie Real Dimez x Sexyy Red. Jetzt auf allen großen Streamingdiensten.','Rockstar released the Deluxe Edition of “GTA VI: The Album” – with 23 bonus tracks from the game, including The Dare, Slayyyter, Denzel Curry, HEALTH, Power Trip and Real Dimez x Sexyy Red. Out now on all major streaming services.'),'https://gtavi-thealbum.lnk.to/deluxeedition'],
  ['ddc-randy','2026-11-23','ddc','rep',L('Discord-Tipps: Randys Wunschliste & Autos behalten','Discord tips: Randy’s wish list & keeping cars'),L('Aus dem Server „GTA 6 Germany“: Jedes kratzerfreie Auto für Randy bringt 10.000 $ Bonus. Nach 6–8 gelieferten Autos gibt es ein Upgrade für den Key Cloner. Die Wunsch-Autos stehen nach ein paar Ingame-Tagen wieder am selben Ort. Dauerhaft behalten kannst du Autos erst ab Kapitel 2 – mit Garage und einem Auto ohne Peilsender. Den Key Cloner bekommst du in Kapitel 3 rund um Randys Zorrusso-Auftrag.','From the “GTA 6 Germany” server: every scratch-free car for Randy pays a $10,000 bonus. After 6–8 cars you get a Key Cloner upgrade. Wish-list cars reappear at the same spot after a few in-game days. You can only keep cars for good from Chapter 2 – with a garage and a car without a tracker. The Key Cloner comes in Chapter 3 around Randy’s Zorrusso job.'),''],
@@ -2267,8 +2321,8 @@ const NWHUB=[
 ];
 NEWSC.sort((a,b)=>b[1].localeCompare(a[1]));
 const nwImgU=k=>{const v=NWIMG[k];return /^https?:/.test(v)?v:NWIMGB+v};
-const NWIMG={"r-album":"k4a8955a93o747/e47c077621ea90ee966fcab7221f8db961e5d60c.jpg","r-avail":"39akk424a9oo53/e470e29da13848abd31dfd8ea0e95a0eeffd0511.jpg","r-map":"https://www.rockstargames.com/VI/_next/static/media/mapPromoCardMobile.10u5jrd23dmdq.jpg?akim=1&imwidth=1280","r-fest": "o39o87a435a25a/f14b9244ed05b99e611d0376ad7e0ec3b4f84aab.jpg", "r-festtimes": "o39o87a435a25a/f14b9244ed05b99e611d0376ad7e0ec3b4f84aab.jpg", "r-preload": "89834o94713o21/94f09130d07de4a50e3ab971e2b7d8c253b7c706.jpg", "r-trailer": "89834o94713o21/94f09130d07de4a50e3ab971e2b7d8c253b7c706.jpg", "r-preann": "k4ak9okk485712/81e58e08369adca0d68a17dac9b12c3a63848fc3.jpg", "gspot-gal": "39ak81277255o9/72074994d6364ad0de8872aa971fc47653f644ab.jpg", "r-score": "39ak8a12395591/cfc61a2d2e7b8c700e46582dc865e180b6c431d9.jpg", "r-launch": "517572321a549a/0637b4bb19438399bc5b3e7bbdfe6936f79cdbf3.jpg", "r-goodtime": "9k2a49ook82o57/cbdf4fc342bfca94c789a887244c3b70283047ae.jpg", "r-week": "39ak81277255o9/72074994d6364ad0de8872aa971fc47653f644ab.jpg", "pcg-poster": "k4ak9okk485712/81e58e08369adca0d68a17dac9b12c3a63848fc3.jpg", "r-tove": "89834o94713o21/94f09130d07de4a50e3ab971e2b7d8c253b7c706.jpg"};const NWIMGB='https://media-rockstargames-com.akamaized.net/tina-uploads/posts/';
-const NWTOP='rs-patch2';
+const NWIMG={"vice-portal":"https://www.rockstargames.com/VI/_next/static/media/Vice_City_14.0fu8u9jh5hkg7.jpg?akim=1&imdensity=1&imwidth=1280","rsi-panini":"https://www.rockstargames.com/VI/_next/static/media/Vice_City_17.0er79m2u3nygs.jpg?akim=1&imdensity=1&imwidth=1280","r-album":"k4a8955a93o747/e47c077621ea90ee966fcab7221f8db961e5d60c.jpg","r-avail":"39akk424a9oo53/e470e29da13848abd31dfd8ea0e95a0eeffd0511.jpg","r-map":"https://www.rockstargames.com/VI/_next/static/media/mapPromoCardMobile.10u5jrd23dmdq.jpg?akim=1&imwidth=1280","r-fest": "o39o87a435a25a/f14b9244ed05b99e611d0376ad7e0ec3b4f84aab.jpg", "r-festtimes": "o39o87a435a25a/f14b9244ed05b99e611d0376ad7e0ec3b4f84aab.jpg", "r-preload": "89834o94713o21/94f09130d07de4a50e3ab971e2b7d8c253b7c706.jpg", "r-trailer": "89834o94713o21/94f09130d07de4a50e3ab971e2b7d8c253b7c706.jpg", "r-preann": "k4ak9okk485712/81e58e08369adca0d68a17dac9b12c3a63848fc3.jpg", "gspot-gal": "39ak81277255o9/72074994d6364ad0de8872aa971fc47653f644ab.jpg", "r-score": "39ak8a12395591/cfc61a2d2e7b8c700e46582dc865e180b6c431d9.jpg", "r-launch": "517572321a549a/0637b4bb19438399bc5b3e7bbdfe6936f79cdbf3.jpg", "r-goodtime": "9k2a49ook82o57/cbdf4fc342bfca94c789a887244c3b70283047ae.jpg", "r-week": "39ak81277255o9/72074994d6364ad0de8872aa971fc47653f644ab.jpg", "pcg-poster": "k4ak9okk485712/81e58e08369adca0d68a17dac9b12c3a63848fc3.jpg", "r-tove": "89834o94713o21/94f09130d07de4a50e3ab971e2b7d8c253b7c706.jpg"};const NWIMGB='https://media-rockstargames-com.akamaized.net/tina-uploads/posts/';
+const NWTOP='vice-portal';
 
 const NEWS=[
  ['29.09.2026','seen',L('Game Informer: Nord-Leonida','Game Informer: northern Leonida'),L('Zwischen den Nordstädten: ATV-Trails, eine Schlamm-Party, Demolition-Derby auf Flutlicht-Ovalen, Mountainbike-Strecken, Farmen, ein privater Golfplatz, Sanddünen für MX-Bikes und Barsch-Angeln im Zypressensee.','Between the northern towns: ATV trails, a mud-park party, demolition derbies on floodlit ovals, MTB trails, farms, a private golf course, dunes for MX bikes and bass fishing in a cypress lake.')],
@@ -2904,6 +2958,8 @@ const TIPS=[
  ]},
 ];
 const EGGS=[
+ ['🌴',L('Portal ins Vice City von 2002','Portal to 2002’s Vice City'),L('1) Kapitel 3 erreichen (ganze Karte), keine Schnellreise nutzen. 2) Badger-Funkturm auf Key Lento: Hebel umlegen, Knopf drücken – der Fernseher zeigt das Malibu-Club-Logo, an der Wand hängt ein LPL-Plakat. 3) Die 12 Umspannwerke von Leonida Power & Light abklappern und die Schalter in der richtigen Reihenfolge betätigen – die Buchstaben ergeben „LIFE IS PASSING ME BY“. 4) Das Portal bringt dich in den Malibu Club im PS2-Look. Belohnung: Tommy Vercettis Hawaiihemd und sein Motorrad. Gefunden von Memeio.','1) Reach Chapter 3 (full map) and avoid fast travel. 2) Badger radio tower on Key Lento: pull the lever, press the button – the TV shows the Malibu Club logo, an LPL poster hangs on the wall. 3) Visit the 12 Leonida Power & Light substations and hit the switches in the right order – the letters spell “LIFE IS PASSING ME BY”. 4) The portal takes you to a PS2-style Malibu Club. Reward: Tommy Vercetti’s Hawaiian shirt and motorbike. Found by Memeio.'),'seen'],
+ ['🐶',L('Cool Dog & die Hundeinsel','Cool Dog & Dog Island'),L('Weit draußen ins Meer schwimmen (gut: Gambit Bay bei Key Lento) und rund 5 Minuten warten. Bei Gebell naht ein Hund mit Brille auf dem Jetski. Aufsteigen und nicht absteigen – er bringt dich zur Hundeinsel. Dort mit den Hunden spielen; Spieler fanden so rund 1.200 $.','Swim far out to sea (Gambit Bay near Key Lento works well) and wait about 5 minutes. When you hear barking, a dog in goggles arrives on a jet ski. Climb on and stay on – he takes you to Dog Island. Play with the dogs there; players found about $1,200.'),'seen'],
  ['⛵',L('Michaels Boot?','Michael’s boat?'),L('Spieler wollen ein Boot entdeckt haben, das auf Michael De Santa aus GTA V anspielt.','Players think they found a boat nodding to GTA V’s Michael De Santa.'),'rum'],
  ['🥚',L('Ein echtes Osterei','A literal Easter egg'),L('Ganz oben auf dem höchsten Funkturm (rund 6 Minuten Klettern) liegt ein Nest mit bunten Eiern. Wirfst du eins hinunter, startet eine kleine Zwischensequenz.','At the top of the tallest radio tower (about a 6-minute climb) sits a nest of colourful eggs. Throw one down and a short cutscene plays.'),'seen'],
  ['🛸',L('UFO in Kelly County','UFO in Kelly County'),L('Nach Kapitel 1: nachts, am zuverlässigsten nach 2 Uhr Spielzeit, auf einem einsamen Feldweg östlich von Port Gellhorn nahe dem Starlet Motel.','After Chapter 1: at night, most reliably after 2 AM in-game, on a lonely dirt road east of Port Gellhorn near the Starlet Motel.'),'seen'],
@@ -3025,9 +3081,25 @@ function renderTabs(){
  $('#bottom').innerHTML=B.map(id=>{const t=TABS.find(x=>x[0]===id);return `<button data-v="${id}"><span class="e">${icn(ICN[id])}</span>${T(t[2])}</button>`}).join('')+`<button data-more="1"><span class="e">${icn('layout-grid')}</span>${T(L('Mehr','More'))}</button>`;
  $('#moreGrid').innerHTML=NAVG.map(([g,ids])=>`<div class="navG">${T(g)}</div>`+ids.map(nb).join('')).join('');
  document.querySelectorAll('#sideNav [data-v],#bottom [data-v],#moreGrid [data-v]').forEach(b=>b.onclick=()=>{$('#more').classList.remove('on');location.hash=b.dataset.v});
- $('#bottom [data-more]').onclick=()=>openWheel();
+ $('#bottom [data-more]').onclick=()=>openWheel();setTimeout(navPill,0);
  $('#btnLang2').innerHTML=LANG==='de'?'<b>DE</b>/EN':'DE/<b>EN</b>';
 }
+
+/* fix57 magic nav pill, ripple, spotlight */
+function navPill(){try{const b=$('#bottom');if(!b)return;let p=$('#navPill');if(!p){p=document.createElement('span');p.id='navPill';b.prepend(p)}
+ const a=b.querySelector('button.on');if(!a){p.classList.remove('ok');document.body.classList.remove('navpl');return}
+ p.style.width=a.offsetWidth+'px';p.style.transform='translateX('+a.offsetLeft+'px)';p.classList.add('ok');document.body.classList.add('navpl')}catch(e){}}
+addEventListener('resize',()=>requestAnimationFrame(navPill));
+addEventListener('hashchange',()=>setTimeout(navPill,30));
+document.addEventListener('pointerdown',e=>{if(SET.noanim||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+ const t=e.target.closest('.tile,.cta,.chip,#bottom button,.plBtns button,.pgCat,.wBtn,button.btn');if(!t)return;
+ const r=t.getBoundingClientRect(),d=Math.max(r.width,r.height)*2.2,x=document.createElement('span');x.className='rip';
+ x.style.cssText='width:'+d+'px;height:'+d+'px;left:'+(e.clientX-r.left)+'px;top:'+(e.clientY-r.top)+'px';
+ const cs=getComputedStyle(t);if(cs.position==='static')t.style.position='relative';if(cs.overflow==='visible')t.classList.add('ripHost');
+ t.appendChild(x);setTimeout(()=>x.remove(),650)},{passive:true});
+if(matchMedia('(pointer:fine)').matches){let raf=0;document.addEventListener('pointermove',e=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;
+ const t=e.target.closest&&e.target.closest('.card.item,.tile');if(!t)return;const r=t.getBoundingClientRect();
+ t.style.setProperty('--mx',(e.clientX-r.left)+'px');t.style.setProperty('--my',(e.clientY-r.top)+'px');if(t.classList.contains('tile')&&!SET.noanim){const px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;t.style.setProperty('--ry',(px*9).toFixed(2)+'deg');t.style.setProperty('--rx',(-py*9).toFixed(2)+'deg');if(!t._tl){t._tl=1;t.addEventListener('pointerleave',()=>{t.style.setProperty('--rx','0deg');t.style.setProperty('--ry','0deg')})}}})},{passive:true})}
 function route(){
  if(!window._vtIn&&window._routed&&document.startViewTransition&&!SET.noanim&&!matchMedia('(prefers-reduced-motion:reduce)').matches&&!matchMedia('(pointer:coarse)').matches){window._vtIn=1;const vt=document.startViewTransition(()=>{route()});vt.finished.finally(()=>window._vtIn=0);return}
  window._routed=1;
@@ -3036,7 +3108,7 @@ function route(){
  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
  const B=['home','news','map','acts'];
  document.querySelectorAll('#sideNav [data-v],#moreGrid [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
- document.querySelectorAll('#bottom [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+ document.querySelectorAll('#bottom [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));requestAnimationFrame(navPill);
  const mb=$('#bottom [data-more]');if(mb)mb.classList.toggle('on',!B.includes(v));
  setTimeout(reveal,30);if(v==='map'){trackLabels(900);if(window._mapRasPending){const f=window._mapRasPending;window._mapRasPending=null;f()}}panTo(v);
  $('#tabs').querySelectorAll('button').forEach(b=>{b.classList.toggle('on',b.dataset.v===v);if(b.dataset.v===v)b.scrollIntoView({block:'nearest',inline:'center'})});
