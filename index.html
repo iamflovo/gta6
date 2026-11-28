@@ -2136,7 +2136,7 @@ body.noanim .nwBreak .mqi,body.noanim .sty.new .ring,body.noanim .liveStrip .dot
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 28.11. 19:22</div>
+    <div class="dim" style="margin-top:8px">App-Version 28.11. 20:50</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -3284,7 +3284,8 @@ function nwMarkRead(id){const r=store.get('nwread',{});r[id]=1;store.set('nwread
 function nwDot(){const n=nwUnread();document.querySelectorAll('#bottom [data-v=news],#sideNav [data-v=news],#moreGrid [data-v=news]').forEach(b=>b.classList.toggle('ndot',n>0))}
 
 /* GTA 6 Online tracker card */
-const ONLINE={upd:'2026-11-27',rows:[
+const ONLINE={upd:'2026-11-28',rows:[
+ ['rum',L('Gerücht: Start „innerhalb eines Monats“ (z. B. 30.11.)','Rumour: launch “within a month” (e.g. Nov 30)'),L('Ein Leak aus dem Frühjahr sprach von einem Online-Start bis spätestens einen Monat nach Release, also Ende November bis Mitte Dezember. In der Community kursiert dazu der 30.11. – das war 2018 der Tag, an dem Red Dead Online für alle öffnete. Eine Quelle für dieses Datum gibt es nicht, und Rockstar hat bis 28.11. nichts angekündigt. Bei GTA V und RDR2 kam die Ankündigung jeweils Wochen vorher.','A spring leak claimed online would launch within a month of release, i.e. late November to mid-December. The community is passing around Nov 30 – the day Red Dead Online opened to everyone in 2018. There’s no source for that date, and Rockstar had announced nothing as of Nov 28. For GTA V and RDR2 the announcement came weeks in advance.'),'https://www.gtaboom.com/gta-6-online-could-launch-right-on-time-for-christmas-f811'],
  ['rum',L('Bloomberg: etwa ein Jahr nach Release','Bloomberg: about a year after launch'),L('Ein Video von Bloomberg Originals nennt rund ein Jahr nach GTA 6 als möglichen Zeitraum – also etwa Ende 2027. Zur Erinnerung: GTA Online kam 2013 zwei Wochen nach GTA V.','A Bloomberg Originals video suggests roughly a year after GTA 6 – so around late 2027. For reference: GTA Online arrived two weeks after GTA V in 2013.'),'https://space4games.com/en/games-en/gta-6-online-release-what-we-know/'],
  ['off',L('Take-Two: Zahlen nennen nur die Story','Take-Two: figures only cover the story'),L('Die Quartalszahlen vom November führen nur den Release am 19.11. auf. Die Prognose für das Geschäftsjahr bis März 2027 (8,0–8,2 Mrd. $) blieb unverändert. Einen Online-Termin hat Take-Two dabei nicht genannt.','November’s quarterly figures list only the Nov 19 release. The forecast for the fiscal year to March 2027 ($8.0–8.2B) was unchanged. Take-Two named no online date.'),'https://www.escapistmagazine.com/take-two-estimates-gta-vi-hit-3-79-billion-in-day-one-retail-sales/'],
  ['off',L('Kein Online-Modus zum Start','No online mode at launch'),L('PS Store und Xbox Store nennen GTA VI ein Einzelspieler-Erlebnis. Kein Termin, keine Spielerzahl, kein Crossplay, keine Übernahme aus GTA Online angekündigt.','PS Store and Xbox Store call GTA VI a single-player experience. No date, player count, crossplay or GTA Online transfer announced.'),'https://zap-hosting.com/en/blog/gta-6-online-multiplayer-servers'],
