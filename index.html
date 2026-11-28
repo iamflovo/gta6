@@ -1536,10 +1536,58 @@ body.noanim .nwFeat::after,body.noanim .nwFeat .k::before,body.noanim .view.on h
 .nwHome .nwRow{background:rgba(255,255,255,.03)!important;border-radius:12px;margin-bottom:6px}
 @media (prefers-reduced-motion:reduce){.nwBreak .mqi,.sty.new .ring,.liveStrip .dot{animation:none!important}}
 body.noanim .nwBreak .mqi,body.noanim .sty.new .ring,body.noanim .liveStrip .dot{animation:none!important}
+
+/* ===== fix64: Ambient-Hintergründe – Foto-Ambiente pro Tab, Outrun-Grid, Neon-Orbs, Lichtstrahl ===== */
+#bgArt{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+#bgArt .ba{position:absolute;inset:-6%;background-size:cover;background-position:center;opacity:0;transform:scale(1.08);transition:opacity 1.4s ease,transform 9s ease-out;filter:saturate(1.35) brightness(.62)}
+#bgArt .ba.on{opacity:.42;transform:scale(1.02)}
+#bgArt::after{content:"";position:absolute;inset:0;background:
+ radial-gradient(120% 80% at 50% 0%,transparent 0%,rgba(7,2,15,.55) 70%),
+ linear-gradient(180deg,rgba(7,2,15,.55) 0%,rgba(7,2,15,.25) 35%,rgba(7,2,15,.6) 75%,rgba(7,2,15,.92) 100%),
+ linear-gradient(135deg,color-mix(in srgb,var(--acc,#ff2bd6) 22%,transparent),transparent 45%,color-mix(in srgb,var(--acc2,#9b5cff) 18%,transparent))}
+@media (pointer:fine){#bgArt .ba{filter:blur(22px) saturate(1.4) brightness(.7)}#bgArt .ba.on{opacity:.5}}
+body.tod-day #bgArt .ba.on{opacity:.55}
+body.tod-day #bgArt::after{background:linear-gradient(180deg,rgba(15,31,72,.35),rgba(15,31,72,.2) 40%,rgba(11,4,24,.85)),linear-gradient(135deg,color-mix(in srgb,var(--acc,#ff2bd6) 16%,transparent),transparent 50%)}
+body[data-v=home]:not(.pastHero) #bgArt{opacity:0}
+#bgArt{transition:opacity .8s}
+/* Outrun floor */
+#bgGrid{position:fixed;left:0;right:0;bottom:0;height:24vh;z-index:-1;pointer-events:none;perspective:320px;perspective-origin:50% 0%;overflow:hidden;
+ -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 55%);mask-image:linear-gradient(180deg,transparent 0%,#000 55%);opacity:.42}
+#bgGrid i{position:absolute;left:-50%;right:-50%;top:0;height:200%;transform-origin:50% 0;transform:rotateX(68deg);
+ background-image:linear-gradient(color-mix(in srgb,var(--acc,#ff2bd6) 70%,transparent) 1.5px,transparent 1.5px),linear-gradient(90deg,color-mix(in srgb,var(--acc,#ff2bd6) 60%,transparent) 1.5px,transparent 1.5px);
+ background-size:64px 64px;animation:gridRun 2.6s linear infinite;filter:drop-shadow(0 0 4px var(--acc,#ff2bd6))}
+@keyframes gridRun{to{background-position:0 64px,0 0}}
+#bgGrid::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--acc,#ff2bd6),var(--acc2,#9b5cff),transparent);box-shadow:0 0 22px 6px color-mix(in srgb,var(--acc,#ff2bd6) 55%,transparent);z-index:2}
+body[data-v=home]:not(.pastHero) #bgGrid{opacity:0}
+#bgGrid{transition:opacity .8s}
+/* Neon orbs */
+#bgOrbs{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+#bgOrbs b{position:absolute;width:calc(90px + var(--i)*22px);aspect-ratio:1;border-radius:50%;left:calc(var(--i)*11.5%);top:calc(100% + 40px);
+ background:radial-gradient(circle,color-mix(in srgb,var(--acc,#ff2bd6) 55%,transparent),transparent 68%);opacity:.0;
+ animation:orbUp calc(24s + var(--i)*3.3s) linear infinite;animation-delay:calc(var(--i)*-4.1s)}
+#bgOrbs b:nth-child(even){background:radial-gradient(circle,color-mix(in srgb,var(--acc2,#22e7ff) 55%,transparent),transparent 68%)}
+@keyframes orbUp{0%{transform:translate3d(0,0,0);opacity:0}12%{opacity:.55}80%{opacity:.35}100%{transform:translate3d(calc(var(--i)*9px - 40px),-125vh,0);opacity:0}}
+/* Light beam */
+#bgBeam{position:absolute;inset:-30% -10%;pointer-events:none;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.055) 48%,color-mix(in srgb,var(--acc2,#22e7ff) 10%,transparent) 50%,transparent 56%);transform:translateX(-60%);animation:beam 14s ease-in-out infinite}
+@keyframes beam{0%,55%{transform:translateX(-60%)}100%{transform:translateX(60%)}}
+/* Glass cards on desktop */
+@media (pointer:fine) and (min-width:1000px){
+ .card,.widget{background:linear-gradient(165deg,rgba(42,22,82,.72),rgba(24,10,48,.8))!important;backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3)}
+}
+/* Mobile: leicht halten */
+@media (pointer:coarse){
+ #bgGrid i{animation:none}
+ #bgGrid{height:18vh;opacity:.32}
+ #bgOrbs b:nth-child(n+6){display:none}
+ #bgBeam{display:none}
+}
+@media (prefers-reduced-motion:reduce){#bgGrid i,#bgOrbs b,#bgBeam{animation:none!important}#bgOrbs,#bgBeam{display:none}}
+body.noanim #bgGrid i,body.noanim #bgOrbs b,body.noanim #bgBeam{animation:none!important}
+body.noanim #bgOrbs,body.noanim #bgBeam{display:none}
 </style>
 </head>
 <body><div id="aura" aria-hidden="true"></div>
-<div id="panoSky"></div><canvas id="rain"></canvas><div id="pano"><div class="pFarWrap"><svg id="pFar" class="player" viewBox="0 0 4200 700" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<div id="panoSky"></div><div id="bgArt" aria-hidden="true"><div class="ba"></div><div class="ba"></div></div><div id="bgOrbs" aria-hidden="true"><b style="--i:0"></b><b style="--i:1"></b><b style="--i:2"></b><b style="--i:3"></b><b style="--i:4"></b><b style="--i:5"></b><b style="--i:6"></b><b style="--i:7"></b><b style="--i:8"></b><div id="bgBeam"></div></div><canvas id="rain"></canvas><div id="pano"><div class="pFarWrap"><svg id="pFar" class="player" viewBox="0 0 4200 700" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
 <radialGradient id="psun" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#ffe9a8"/><stop offset=".45" stop-color="#ff9a3c"/><stop offset="1" stop-color="#ff2bd6"/></radialGradient>
 <filter id="pglow2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 <linearGradient id="pwaterg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="pwg1"/><stop offset="1" class="pwg2"/></linearGradient>
@@ -1933,7 +1981,7 @@ body.noanim .nwBreak .mqi,body.noanim .sty.new .ring,body.noanim .liveStrip .dot
   </div>
 </header>
 <nav id="bottom"></nav>
-<div id="scrollProg" aria-hidden="true"></div><div id="wheel" aria-hidden="true"></div><div id="fxLayer" aria-hidden="true"></div>
+<div id="bgGrid" aria-hidden="true"><i></i></div><div id="scrollProg" aria-hidden="true"></div><div id="wheel" aria-hidden="true"></div><div id="fxLayer" aria-hidden="true"></div>
 <div class="lb" id="lb" hidden></div>
 <div id="more"><div class="mh"><b data-i="moreTitle"></b><button class="ib" id="moreClose" aria-label="Schließen"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button></div><div class="mg" id="moreGrid"></div></div>
 
@@ -2136,7 +2184,7 @@ body.noanim .nwBreak .mqi,body.noanim .sty.new .ring,body.noanim .liveStrip .dot
 
   <footer>
     <div data-i="footer"></div>
-    <div class="dim" style="margin-top:8px">App-Version 28.11. 20:50</div>
+    <div class="dim" style="margin-top:8px">App-Version 28.11. 21:18</div>
     <div class="sig"><span>🌴</span><span data-i="madeBy"></span><b>Flovo</b></div>
   </footer>
 </main>
@@ -3219,6 +3267,13 @@ document.addEventListener('pointerdown',e=>{if(SET.noanim||matchMedia('(prefers-
 if(matchMedia('(pointer:fine)').matches){let raf=0;document.addEventListener('pointermove',e=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;
  const t=e.target.closest&&e.target.closest('.card.item,.tile');if(!t)return;const r=t.getBoundingClientRect();
  t.style.setProperty('--mx',(e.clientX-r.left)+'px');t.style.setProperty('--my',(e.clientY-r.top)+'px');if(t.classList.contains('tile')&&!SET.noanim){const px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;t.style.setProperty('--ry',(px*9).toFixed(2)+'deg');t.style.setProperty('--rx',(-py*9).toFixed(2)+'deg');if(!t._tl){t._tl=1;t.addEventListener('pointerleave',()=>{t.style.setProperty('--rx','0deg');t.style.setProperty('--ry','0deg')})}}})},{passive:true})}
+
+/* fix64: Foto-Ambiente pro Tab */
+const BGV={home:'Vice_City_27',news:'Vice_City_14',map:'Leonida_Keys_04',acts:'Vice_City_05',missions:'Jason_and_Lucia_14',crew:'Lucia_Caminos_01',garage:'Vice_City_17',arsenal:'Jason_Duval_05',gallery:'Ambrosia_01',radio:'Vice_City_13',tips:'Vice_City_09',secrets:'Grassrivers_02',editions:'Vice_City_20',me:'Lucia_Caminos_09'};
+let _bgCur='',_bgK=0;
+function setBgArt(v){try{const box=$('#bgArt');if(!box)return;const n=rsFind(BGV[v]||BGV.home)||rsFind('Vice_City_01');if(!n)return;
+ const fine=matchMedia('(pointer:fine)').matches;const u=rsu(n,fine?640:120);if(u===_bgCur)return;_bgCur=u;
+ const im=new Image();im.onload=()=>{if(_bgCur!==u)return;const L2=box.querySelectorAll('.ba');_bgK^=1;const nx=L2[_bgK],od=L2[_bgK^1];nx.style.backgroundImage=`url('${u}')`;requestAnimationFrame(()=>{nx.classList.add('on');od.classList.remove('on')})};im.src=u}catch(e){}}
 function route(){
  if(!window._vtIn&&window._routed&&document.startViewTransition&&!SET.noanim&&!matchMedia('(prefers-reduced-motion:reduce)').matches&&!matchMedia('(pointer:coarse)').matches){window._vtIn=1;const vt=document.startViewTransition(()=>{route()});vt.finished.finally(()=>window._vtIn=0);return}
  window._routed=1;
@@ -3227,7 +3282,7 @@ function route(){
  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
  const B=['home','news','map','acts'];
  document.querySelectorAll('#sideNav [data-v],#moreGrid [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
- document.querySelectorAll('#bottom [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));requestAnimationFrame(navPill);
+ document.querySelectorAll('#bottom [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));requestAnimationFrame(navPill);setBgArt(v);
  const mb=$('#bottom [data-more]');if(mb)mb.classList.toggle('on',!B.includes(v));
  setTimeout(reveal,30);if(v==='map'){trackLabels(900);if(window._mapRasPending){const f=window._mapRasPending;window._mapRasPending=null;f()}}panTo(v);
  $('#tabs').querySelectorAll('button').forEach(b=>{b.classList.toggle('on',b.dataset.v===v);if(b.dataset.v===v)b.scrollIntoView({block:'nearest',inline:'center'})});
